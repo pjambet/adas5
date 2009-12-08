@@ -1,4 +1,4 @@
-with Mot;use Mot;
+with Text_Stat;use Text_Stat;
 package Analyse_Syntaxique is
    --Surement le package principal qui permettra d'analyser le texte et
    --d'effectuer les requetes dessus

@@ -1,4 +1,4 @@
-with Liste_Couple;use Liste_Couple
+with Mot;use Mot;
 package Text_Stat is
    --Ce paquetage permet d'effectuer des opérations "statistiques" sur le texte analysé
    --nombre total de mots, nombre de mots de longueur supérieur ou égale a un entier positif donné,
