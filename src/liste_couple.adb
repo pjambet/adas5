@@ -1,4 +1,4 @@
-package body Listecouple is
+package body Liste_couple is
 
    function "<"(Couple1: T_Couple;Couple2: T_Couple) return Boolean is
       --redefinition de la fonction "<" pour le type couple
@@ -14,4 +14,4 @@ package body Listecouple is
       return Get_Mot(Couple1) > Get_Mot(Couple2);
    end;
 
-end ListeCouple;
+end Liste_Couple;
