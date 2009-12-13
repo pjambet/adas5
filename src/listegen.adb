@@ -308,6 +308,23 @@ package body ListeGen is
          AjoutDebut(linvers,Premier(ltemp));
       end loop;
       return linvers;
-   end CopieInverse;
+   end Copieinverse;
+   
+   procedure Fusion(L: in out T_Liste; m1,m2: T_Mot) is
+      I : Integer;
+      Egal : Boolean;
+   begin
+      I := 0;
+      Egal := False;
+      while I < String'Min(m1,m2) and Egal loop
+         if m1(I) /= m2(I) then
+            Egal := False;
+         end if;
+         I := I+1;
+      end loop;
+      if Egal then
+         Supprimer(l, m2);
+      end if;
+   end;
 
 end ListeGen;
