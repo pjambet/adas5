@@ -6,12 +6,26 @@ package body ListeGen is
    --crée une procedure de liberation d'espace pour les objets
    --désignés par une liste
 
-   function Get_Suiv(L: T_Liste) return T_Liste is
+   function Valeur(L: T_Liste) return T_Elem is
+   --Renvoie l'element contenu dans L
+   --Declenche une ListeVideException si L est null
+   begin
+      return L.all.Val;
+   end Valeur;
+
+   function Precedent(L: T_Liste) return T_Liste is
+   --Renvoie le precedent de L si il existe
+   --Declenche une ListeVideException si L est null ou si son precedent est null
+   begin
+      return L.all.Prec;
+   end Precedent;
+
+   function Suivant(L: T_Liste) return T_Liste is
    --Renvoie le suivant de L si il existe
    --Declenche une ListeVideException si L est null ou si son suivant est null
    begin
       return L.all.Suiv;
-   end Get_Suiv;
+   end Suivant;
 
    function CreerListe return T_Liste is
    begin
@@ -309,22 +323,23 @@ package body ListeGen is
       end loop;
       return linvers;
    end Copieinverse;
-   
-   procedure Fusion(L: in out T_Liste; m1,m2: T_Mot) is
-      I : Integer;
-      Egal : Boolean;
-   begin
-      I := 0;
-      Egal := False;
-      while I < String'Min(m1,m2) and Egal loop
-         if m1(I) /= m2(I) then
-            Egal := False;
-         end if;
-         I := I+1;
-      end loop;
-      if Egal then
-         Supprimer(l, m2);
-      end if;
-   end;
+
+   --A refaire de maniere generique
+   --  procedure Fusion(L: in out T_Liste; m1,m2: T_Mot) is
+--        I : Integer;
+--        Egal : Boolean;
+--     begin
+--        I := 0;
+--        Egal := False;
+--        while I < String'Min(m1,m2) and Egal loop
+--           if m1(I) /= m2(I) then
+--              Egal := False;
+--           end if;
+--           I := I+1;
+--        end loop;
+--        if Egal then
+--           Supprimer(l, m2);
+--        end if;
+--     end;
 
 end ListeGen;

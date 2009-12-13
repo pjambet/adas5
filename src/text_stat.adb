@@ -5,39 +5,43 @@ package body Text_Stat is
       Ltemp: TListe_Couple;
    begin
       Ltemp := L;
-      while Ltemp /= null loop
+      while not EstVide(ltemp) loop
+         -- interdit : Ltemp est du type TlisteCouple, autre nompour le type privé Tlist de couples
+         -- or vous l'utilisez comme un type acces !!
+         -- il faut ecrire
+         -- while not estvide(ltemp) loop
          N:=N+1;
-         Ltemp := Ltemp.Suiv;
+          Ltemp := Suivant(Ltemp); -- meme remarque : il va fallier ajouter une fonction suivant...
       end loop;
       return N;
    end;
 
    function Num_Occ_Moy(L: TListe_Couple) return Float is
-      n,total: Float;
+      n,total: Integer;
       Ltemp: TListe_Couple;
    begin
-      N:=0.0;Total:=0.0;
+      N:=0;Total:=0;
       Ltemp := L;
-      while Ltemp /= null loop
-         N:=N+Ltemp.Occ;
-         Total:=Total+1.0;
-         Ltemp := Ltemp.Suiv;
+      while not EstVide(Ltemp) loop
+         N:=N+Get_Nbocc(Valeur(Ltemp));
+         Total:=Total+1;
+         Ltemp := Suivant(Ltemp);
       end loop;
-      return n/total;
+      return Float(N)/Float(Total);
    end;
 
    function Long_Moy(L: TListe_Couple) return Float is
-      n,total: Float;
+      n,total: Integer;
       Ltemp: TListe_Couple;
    begin
-      N:=0.0;Total:=0.0;
+      N:=0;Total:=0;
       Ltemp := L;
-      while Ltemp /= null loop
-         N:=N+Get_Mot(Ltemp.all.Val)'Length;
-         Total:=Total+1.0;
-         Ltemp := Ltemp.Suiv;
+      while not EstVide(Ltemp) loop
+         N:=N+Get_Mot(Valeur(Ltemp))'Length;
+         Total:=Total+1;
+         Ltemp := Suivant(Ltemp);
       end loop;
-      return N/Total;
+      return Float(N)/Float(Total);
    end;
 
    function Num_Mot_Sup(L: TListe_Couple;N: Integer) return Integer is
@@ -46,10 +50,10 @@ package body Text_Stat is
    begin
       x :=0;
       Ltemp:= L;
-      while Ltemp /= null loop
-         if Get_Mot(Ltemp.all.Val)'Length > N then x:=x+1;
+      while not EstVide(Ltemp) loop
+         if Get_Mot(Valeur(Ltemp))'Length > N then x:=x+1;
          end if;
-         Ltemp := Ltemp.Suiv;
+         Ltemp := Suivant(Ltemp);
       end loop;
       return X;
    end;

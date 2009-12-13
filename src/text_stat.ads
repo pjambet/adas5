@@ -1,6 +1,5 @@
-with Listegen;
-with Mot;use Mot;
-with ListeCouple;use ListeCouple;
+with Couple;use Couple;
+with Liste_Couple;use Liste_Couple;
 with Ada.Text_Io;use Ada.Text_Io;
 
 package Text_Stat is
@@ -22,6 +21,5 @@ package Text_Stat is
    --Calcule le nombre de mot dont la longueur est supérieur ou égale a un entier positif donné
 
    -- ... A completer eventuellement par la suite
-
 
 end Text_Stat;

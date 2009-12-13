@@ -1,4 +1,4 @@
-package body mot is
+package body couple is
 
    ----------------------------------------------------------------
    --Declaration des fonctions utiles a l'instanciation de la liste
@@ -133,4 +133,4 @@ package body mot is
       return False;
    end;
 
-end mot;
+end couple;
