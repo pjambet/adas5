@@ -2,19 +2,19 @@ package body mot is
 
    ----------------------------------------------------------------
    --Declaration des fonctions utiles a l'instanciation de la liste
-   procedure Imprime_Couple(C: in Couple) is
+   procedure Imprime_Couple(C: in T_Couple) is
    begin
       Put(Get_Mot(C));Put("/t");Put(Get_NbOcc(C));
    end Imprime_Couple;
 
 
-   function Get_Mot(C: Couple) return String is
+   function Get_Mot(C: T_Couple) return String is
       --Renvoie le mot du couple C
    begin
       return C.Mot;
    end Get_Mot;
 
-   function Get_NbOcc(C: Couple) return Integer is
+   function Get_NbOcc(C: T_Couple) return Integer is
       --Renvoie le nombre d'occurence du mot du Couple C
    begin
       return C.Nbocc;

@@ -2,19 +2,19 @@ with ListeGen;
 with Ada.Text_Io;use Ada.Text_Io;
 with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 
-package Mot is
+package Couple is
    --Definition du type t qui permet ainsi d'analyser les textes en ne
    --selectionnant que les "String" qui doivent etre definies ici
-   type Couple is private;
+   type T_Couple is private;
 
-   procedure Imprime_Couple(C: in Couple);
+   procedure Imprime_Couple(C: in T_Couple);
    --Definition de la fonction d'affichage d'un couple
    --Necessaire pour l'instanciation de la liste generique
 
-   function Get_Mot(C: Couple) return String;
+   function Get_Mot(C: T_Couple) return String;
    --Renvoie le mot du couple C
 
-   function Get_NbOcc(C: Couple) return Integer;
+   function Get_NbOcc(C: T_Couple) return Integer;
    --Renvoie le nombre d'occurence du mot du Couple C
 
    function EstMot(S: String)return boolean;
@@ -61,11 +61,11 @@ private
    --l'idée est de créer le type mot qui est un string réduit qui correspond forcement
    --a un mot alors qu'une chaine de charactere qui peut etre plusieurs mots ou avec
    --des chiffres
-   type Couple is record
+   type T_Couple is record
       Mot: String(1..30);
       NbOcc: Integer;
    end record;
 
 
 
-end Mot;
+end Couple;

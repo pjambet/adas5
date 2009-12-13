@@ -18,6 +18,12 @@ package ListeGen is
    ListeVideException: exception;
    Elt_Inexistant: Exception;
 
+   function Get_Suiv(L: T_Liste) return T_Liste;
+   --Renvoie le suivant de L si il existe
+   --Declenche une ListeVideException si L est null ou si son suivant est null
+
+   function Get_List
+
    function CreerListe return T_Liste;
    --Crée une liste vide
 
