@@ -34,7 +34,7 @@ package body mot is
       --est de longueur supérieur a 3 ou si il est de longeur de 3 et qu'il est
       --est un "petit mot important" (cf petits-mots.txt)
    begin
-      return EstLongMot(T) or Estpetitmotimp(T) ;
+      return EstLongMot(T) or else Estpetitmotimp(T) ;
    end;
 
    function Estlongmot(T: String) return Boolean is
