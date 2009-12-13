@@ -15,13 +15,14 @@ package body analyse_syntaxique is
          if End_Of_Line(Orig) then
             Skip_Line(Orig);
          else
-            while C /= " " loop
+            while C /= " " or C =/ "," loop -- On crée le mot
                Get(Orig, C);
                Mot := Mot + C;
             end loop;
             if EstMotSignificatif(Mot) then
                AjoutFin(L, Mot); -- Ajoute dans la liste le premier mot significatif
             end if;
+            Mot := "";
          end if;
       end loop
       Close(Orig);
