@@ -1,6 +1,6 @@
 with Text_Stat; use Text_Stat;
 
-package Analyse_Syntaxique is
+package Analyse_lexicale is
 	--Package permettant d'analyser le texte et d'effectuer les requetes dessus
 
 	function query_liste_couple return liste;
@@ -34,5 +34,5 @@ package Analyse_Syntaxique is
       --et donc le fichier existera forcement et pourra etre ouvert dans le corps de la fonction
       --declenche une exception si le fichier n'existe pas
    
-end Analyse_Syntaxique;
+end Analyse_lexicale;
 
