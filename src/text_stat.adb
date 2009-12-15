@@ -5,6 +5,7 @@ package body Text_Stat is
       Ltemp: TListe_Couple;
    begin
       Ltemp := L;
+      N := 0;
       while not EstVide(ltemp) loop
          -- interdit : Ltemp est du type TlisteCouple, autre nompour le type privé Tlist de couples
          -- or vous l'utilisez comme un type acces !!
