@@ -7,6 +7,8 @@ package Text_Stat is
    --nombre total de mots, nombre de mots de longueur supérieur ou égale a un entier positif donné,
    --longueur moyenne d'un mot, et surement d'autres plus tard
 
+   use Liste_Couple.L;
+
    function Num_Mot_Tot(L: TListe_Couple) return Integer;
    --Calcule le nombre total de mot du texte
 
