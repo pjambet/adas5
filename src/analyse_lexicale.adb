@@ -31,7 +31,7 @@ package body analyse_lexicale is
       Close(Orig);
    end;
 
-   function query_NbOcc(l: TListe_Couple; m: T_Mot) return Integer is
+   function query_NbOcc(l: TListe_Couple; m: String) return Integer is
    --Requete renvoyant le nombre d'occurence du mot m dans le texte
    begin
       if EstVide(l) then
@@ -43,7 +43,7 @@ package body analyse_lexicale is
       end if;
    end;
 
-   procedure query_NbPref(l: in TListe_Couple; s: in T_Mot; nbMot: out Integer; nbOcc: out Integer) is
+   procedure query_NbPref(l: in TListe_Couple; s: in String; nbMot: out Integer; nbOcc: out Integer) is
    --Requete renvoyant le nombre de mot ayant s pour préfixe et le nombre d'occurence de s (Appel de query_NbOcc(s))
    temp : TListe_Couple;
    res : Integer;
@@ -59,7 +59,7 @@ package body analyse_lexicale is
       nbOcc := query_nbOcc(L,s);
    end;
 
-   procedure query_NbSuff(l: in TListe_Couple; s: in T_Mot; nbMot: out Integer; nbOcc: out Integer) is
+   procedure query_NbSuff(l: in TListe_Couple; s: in String; nbMot: out Integer; nbOcc: out Integer) is
    --Requete renvoyant le nombre de mot ayant s pour suffixe et le nombre d'occurence de s (Appel de query_NbOcc(s))
    temp : TListe_Couple;
    res : Integer;
@@ -75,7 +75,7 @@ package body analyse_lexicale is
       nbOcc := query_nbOcc(L,s);
    end;
 
-   procedure query_NbFact(l: in TListe_Couple; s: in T_Mot; nbMot: out Integer; nbOcc: out Integer) is
+   procedure query_NbFact(l: in TListe_Couple; s: in String; nbMot: out Integer; nbOcc: out Integer) is
    --Requete renvoyant le nombre de mot ayant s pour facteur et le nombre d'occurence de s (Appel de query_NbOcc(s))
    temp : TListe_Couple;
    res : Integer;
