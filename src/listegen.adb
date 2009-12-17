@@ -1,7 +1,6 @@
 package body ListeGen is
 
 
-
    procedure Liberer is new Ada.Unchecked_Deallocation(Cellule,T_Liste);
    --crÃ©e une procedure de liberation d'espace pour les objets
    --dÃ©signÃ©s par une liste
@@ -10,7 +9,11 @@ package body ListeGen is
    --Renvoie l'element contenu dans L
    --Declenche une ListeVideException si L est null
    begin
-      return L.all.Val;
+      if EstVide(L) then
+         raise ListeVideException;
+      else
+         return L.all.Val;
+      end if;
    end Valeur;
 
    function Precedent(L: T_Liste) return T_Liste is
@@ -233,79 +236,69 @@ package body ListeGen is
       end if;
    end EtendListe;
 
+   procedure InsererTriee(L: in out T_Liste;X : in T_Elem) is
+      ltemp: T_Liste;
+      Linser : T_Liste;
+   begin
+      ltemp := l;
+      if Estvide(L) then
+         l := new Cellule'(x,null,null);
+      elsif estvide(l.all.Suiv) then
+         --si la liste a un seul element
+
+         if L.all.Val < x then
+            --soit on ajoute x a la fin
+            AjoutFin(l,x);
+         else
+            --soit on ajoute y au debut
+            AjoutDebut(l,x);
+         end if;
+      elsif Ltemp.All.Val > X then
+         --On insere au debut
+         AjoutDebut(l,x);
+      else --ltemp /= null ET ltemp.suiv /= null
+           -- invariant : pour p de l à ltemp non compris p.val <X
+           --si la liste a plus d'un element
+         while ltemp.all.suiv /= null and then ltemp.all.Val < x loop
+            ltemp := ltemp.Suiv;
+         end loop;--Soit ltemp.suiv = null, soit ltemp.val >= x (ou les 2)
+
+         if ltemp.all.suiv = null then
+            --Si on est sur le dernier element
+            if Ltemp.all.Val < X then
+               Ajoutfin(Ltemp,X);
+            else
+               -- Linser := new Cellule'(X,Ltemp,Ltemp.Prec); inversion des champs prec et suiv ??
+               -- ???????????????????????????
+               Linser := new Cellule'(X,Ltemp.Prec,Ltemp);
+
+               Ltemp.Prec.Suiv := Linser;
+               Ltemp.Prec := Linser;
+            end if;
+         else
+            --On est au milieu de la liste et ltemp.val >= x
+
+            -- InsererAvant(ltemp,x,ltemp.all.Val);
+            --  non vous insérez avant ltemp, mais l'insertion avant le premier élément d'un liste
+            --  revient à un ajout-deb => vous perdez le lien avec le prédécesseur de ltemp
+            Linser := new Cellule'(X,Ltemp.Prec,Ltemp);
+            Ltemp.Prec.Suiv := Linser;
+            Ltemp.Prec := Linser;
+
+         end if;
+      end if;
+   end inserertriee;
+
    function CopieTriee(L : T_Liste) return T_Liste is
       lresult : T_Liste;
       ltemp : T_Liste;
-      procedure InsererTriee(L: in out T_Liste;X : in T_Elem) is
-         ltemp: T_Liste;
-         Linser : T_Liste;
-      begin
-         Put("On rentre dans insererTriee");New_Line;
-         ltemp := l;
-         if Estvide(L) then
-            Put("La liste est vide on la crÃ©e");New_Line;
-            l := new Cellule'(x,null,null);
-         elsif estvide(l.all.Suiv) then
-            Put("La liste a 1 element");New_LIne;
-            --si la liste a un seul element
-            Put("On compare l.val et X");New_Line;
-
-            if L.all.Val < x then
-               --soit on ajoute x a la fin
-               --MC Put("La liste n'a qu'un seul element, on place X a la fin");New_Line;
-               AjoutFin(l,x);
-            else
-               --soit on ajoute y au debut
-               --MC Put("La liste n'a qu'un seul element, on place X au debut");New_Line;
-               AjoutDebut(l,x);
-            end if;
-         elsif Ltemp.All.Val > X then
-            --On insere au debut
-            AjoutDebut(l,x);
-         else --ltemp /= null ET ltemp.suiv /= null
-            -- invariant : pour p de l à ltemp non compris p.val <X
-            --si la liste a plus d'un element
-            while ltemp.all.suiv /= null and then ltemp.all.Val < x loop
-               ltemp := ltemp.Suiv;
-            end loop;--Soit ltemp.suiv = null, soit ltemp.val >= x (ou les 2)
-
-            if ltemp.all.suiv = null then
-               --Si on est sur le dernier element
-               if Ltemp.all.Val < X then
-                  --MC Put("On place la valeur en fin de liste");New_Line;
-                  Ajoutfin(Ltemp,X);
-               else
-                  Put("On place X en avant derniere position");New_Line;
-                  -- Linser := new Cellule'(X,Ltemp,Ltemp.Prec); inversion des champs prec et suiv ??
-                  -- ???????????????????????????
-                  Linser := new Cellule'(X,Ltemp.Prec,Ltemp);
-
-                  Ltemp.Prec.Suiv := Linser;
-                  Ltemp.Prec := Linser;
-               end if;
-            else
-               --On est au milieu de la liste et ltemp.val >= x
-
-               -- InsererAvant(ltemp,x,ltemp.all.Val);
-               --  non vous insérez avant ltemp, mais l'insertion avant le premier élément d'un liste
-               --  revient à un ajout-deb => vous perdez le lien avec le prédécesseur de ltemp
-               Put("Insertion en milieu de liste");
-               Linser := new Cellule'(X,Ltemp.Prec,Ltemp);
-               Ltemp.Prec.Suiv := Linser;
-               Ltemp.Prec := Linser;
-
-            end if;
-         end if;
-      end inserertriee;
    begin
       ltemp := L;
       lresult := CreerListe;
       New_LIne;
       while ltemp /= null loop
-         Put("On insere dans linser la valeur de ltemp"); Imprime(Ltemp.Val); New_Line;
+         Imprime(Ltemp.Val); New_Line;
          InsererTriee(lresult,ltemp.val);
-         -- OH....................
-         -- oubli de passer au suivant
          Ltemp := Ltemp.Suiv;
       end loop;
       return lresult;
@@ -324,22 +317,13 @@ package body ListeGen is
       return linvers;
    end Copieinverse;
 
-   --A refaire de maniere generique
-   --  procedure Fusion(L: in out T_Liste; m1,m2: T_Mot) is
---        I : Integer;
---        Egal : Boolean;
---     begin
---        I := 0;
---        Egal := False;
---        while I < String'Min(m1,m2) and Egal loop
---           if m1(I) /= m2(I) then
---              Egal := False;
---           end if;
---           I := I+1;
---        end loop;
---        if Egal then
---           Supprimer(l, m2);
---        end if;
---     end;
+   procedure Fusion(L: in out T_Liste; L1,L2: in out T_Liste) is
+      --precondition : L1,L2 /= null
+      --L'element pointé par L2 est fusionné dans L2
+      --Fusionne L2 dans L1 en supprimant L2 et en appliquant a L1 la procedure modif_Fusion
+   begin
+      Modif_Fusion(L1,L2);
+      Supprimer(L,L1.Val);
+   end;
 
 end ListeGen;
