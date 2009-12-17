@@ -7,19 +7,22 @@ package body analyse_lexicale is
       Last : Natural;
       C : Character;
       Mot : String(0..30);
-   begin
+      Index : Integer := 0;
+      Couple : T_Couple;
+   BEGIN
       Open(Orig, In_File, NomFic);
       While not End_Of_File(Orig) loop
          if End_Of_Line(Orig) then
             Skip_Line(Orig);
          else
-            while C /= ' ' or else C /= ',' loop -- On crée le mot
+            while C /= Character'Val(32) or C /= Character'Val(44) loop -- On crée le mot
                Get(Orig, C);
-               Mot := Mot + C;
+               Mot(Index) := C;
+               Index := Index + 1;
             end loop;
             if EstMotSignificatif(Mot) then
                --faut pas ajouter le mot mais un couple
-               AjoutFin(L, Mot); -- Ajoute dans la liste le premier mot significatif
+               AjoutFin(L, (Mot, 1)); -- Ajoute dans la liste le premier mot significatif
             end if;
             Mot := "";
          end if;

@@ -1,21 +1,19 @@
-with analyse_syntaxique; use analyse_syntaxique;
+WITH Analyse_Lexicale; USE Analyse_Lexicale;
+with Liste_couple; use Liste_couple;
 with Ada.Text_IO; use Ada.Text_Io;
 
 procedure main is
-
+   
    Menu : Boolean;
-   Choix : Natural(1 .. 2);
-   L: Liste;
+   Subtype Choix is Natural range 1 .. 2;
+   L: liste_couple;
    Buffer : String(1 .. 30);
    Last : Natural;
 
    type Couple is record
       Mot : T_Mot;
       Occ : Natural;
-   end;
-
-   procedure listecouple is new listegen(Couple); -- Instancation de la liste de couple(mot, nbocc)
-   use listecouple;
+   end record;
 
 begin
 
