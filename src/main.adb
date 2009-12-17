@@ -17,6 +17,7 @@ begin
    While Menu loop
       Put_Line("Entrez 1 pour analyser un texte");
       Put_Line("Entrez 2 pour XXX");
+      New_Line;
       Get(Choix);
 
       case Choix is
@@ -35,11 +36,12 @@ begin
          when others =>
 
             Put_Line("Valeur non valide !");
+            New_Line;
 
       end case;
 
    end loop;
-
+   Get(Choix);
 end;
 
 

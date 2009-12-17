@@ -27,7 +27,7 @@ package body Liste_couple is
    C: T_Couple;
    begin
       C:=Valeur(L1);
-      Set_NbOcc( Get_NbOcc(Valeur(L1))+Get_NbOcc(Valeur(L2)),C );
+      Set_NbOcc(C, Get_NbOcc(Valeur(L1))+Get_NbOcc(Valeur(L2)));
    end;
 
 end Liste_Couple;
