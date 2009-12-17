@@ -1,19 +1,15 @@
 WITH Analyse_Lexicale; USE Analyse_Lexicale;
 with Liste_couple; use Liste_couple;
-with Ada.Text_IO; use Ada.Text_Io;
+WITH Ada.Text_IO; USE Ada.Text_Io;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
 
 procedure main is
    
    Menu : Boolean;
-   Subtype Choix is Natural range 1 .. 2;
-   L: liste_couple;
+   Choix : Integer;
+   L: TListe_Couple;
    Buffer : String(1 .. 30);
    Last : Natural;
-
-   type Couple is record
-      Mot : T_Mot;
-      Occ : Natural;
-   end record;
 
 begin
 
@@ -31,8 +27,6 @@ begin
             Put_Line("Veuillez entrer le nom du fichier");
             Get_Line(Buffer, Last);
             query_liste_couple(L, Buffer(1 .. Last)); -- Remplissage de la liste avec les mots significatifs du texte
-            Tri_Gen(L); -- Tri de la liste par ordre alphabétique
-            Fusion(L);
 
          when 2 =>
 
