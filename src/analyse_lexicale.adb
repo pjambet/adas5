@@ -20,9 +20,10 @@ package body analyse_lexicale is
                Mot(Index) := C;
                Index := Index + 1;
             end loop;
-            if EstMotSignificatif(Mot) then
-               --faut pas ajouter le mot mais un couple
-               AjoutFin(L, (Mot, 1)); -- Ajoute dans la liste le premier mot significatif
+            IF EstMotSignificatif(Mot) THEN
+               Set_Mot(Couple, Mot);
+               Set_NbOcc(Couple, 1);
+               InsererTriee(L, Couple); -- Ajoute dans la liste le premier mot significatif      
             end if;
             Mot := "";
          end if;

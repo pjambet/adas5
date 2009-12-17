@@ -11,15 +11,19 @@ package Couple is
    --Definition de la fonction d'affichage d'un couple
    --Necessaire pour l'instanciation de la liste generique
 
+   PROCEDURE Set_Mot(C: in out T_Couple; M: in String);
+   --Modifie le mot de C en M
+   --Get_Mot(Set_Mot(C,M))=M   
+   
+   PROCEDURE Set_NbOcc(C: in out T_Couple; E: in Integer);
+   --Modifie la nbocc de C en E
+   --Get_Nbocc(Set_NbOcc(C,E))=E
+     
    function Get_Mot(C: T_Couple) return String;
    --Renvoie le mot du couple C
 
    function Get_NbOcc(C: T_Couple) return Integer;
    --Renvoie le nombre d'occurence du mot du Couple C
-
-   procedure Set_NbOcc(A: in Integer;C: in out T_Couple);
-   --Modifie la nbocc de C en A
-   --Get_Nbocc(Set_NbOcc(A,C))=A
 
    function EstMot(S: String)return boolean;
    --Renvoie vrai si la chaine S est un mot,

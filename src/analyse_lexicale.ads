@@ -19,16 +19,16 @@ package Analyse_lexicale is
    --et qu'a chaque mot trouvé on l'insere de maniere triéee dans la liste qu'on renvoit
    --si on le trouve dans la liste alors on fait juste augmenter le nbOcc
 
-   function query_NbOcc(l: TListe_Couple; m: T_Mot) return Integer;
+   function query_NbOcc(l: TListe_Couple; m: String) return Integer;
    --Requete renvoyant le nombre d'occurence du mot m dans le texte
 
-   procedure query_NbPref(l: in TListe_Couple; s: in T_Mot; nbMot: out Integer; nbOcc: out Integer);
+   procedure query_NbPref(l: in TListe_Couple; s: in String; nbMot: out Integer; nbOcc: out Integer);
    --Requete renvoyant le nombre de mot ayant s pour préfixe et le nombre d'occurence de s (Appel de query_NbOcc(s))
 
-   procedure query_NbSuff(l: in TListe_Couple; s: in T_Mot; nbMot: out Integer; nbOcc: out Integer);
+   procedure query_NbSuff(l: in TListe_Couple; s: in String; nbMot: out Integer; nbOcc: out Integer);
    --Requete renvoyant le nombre de mot ayant s pour suffixe et le nombre d'occurence de s      (Appel de query_NbOcc(s))
 
-   procedure query_NbFact(l: in TListe_Couple; s: in T_Mot; nbMot: out Integer; nbOcc: out Integer);
+   procedure query_NbFact(l: in TListe_Couple; s: in String; nbMot: out Integer; nbOcc: out Integer);
    --Requete renvoyant le nombre de mot ayant s pour facteur et le nombre d'occurence de s (Appel de query_NbOcc(s))
 
    procedure Creer_Fichier_Listemot(L: in TListe_Couple);

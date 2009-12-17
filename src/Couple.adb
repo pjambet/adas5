@@ -7,6 +7,17 @@ package body couple is
       Put(Get_Mot(C));Put("/t");Put(Get_NbOcc(C));
    end Imprime_Couple;
 
+   PROCEDURE Set_Mot(C: in out T_Couple; M: in String) is
+   -- Affecte C.Mot = M
+   BEGIN
+      C.Mot := M;
+   END;
+   
+   PROCEDURE Set_NbOcc(C: in out T_Couple; E: in Integer) is
+   -- Affecte C.NbOcc = E
+   BEGIN
+      C.NbOcc := E;
+   END;
 
    function Get_Mot(C: T_Couple) return String is
       --Renvoie le mot du couple C
@@ -19,13 +30,6 @@ package body couple is
    begin
       return C.Nbocc;
    end Get_NbOcc;
-
-   procedure Set_NbOcc(A: in Integer;C: in out T_Couple) is
-      --Modifie la nbocc de C en A
-      --Get_Nbocc(Set_NbOcc(A,C))=A
-   begin
-      C.Nbocc := A;
-   end;
 
    function Estmot(S: String)return Boolean is
       --j'suis pas sur qu'il faille mettre ca ...
