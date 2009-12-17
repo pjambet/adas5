@@ -23,7 +23,6 @@ begin
          when 1 =>
 
             Menu := False;
-            L:= CreerListe; -- Création d'une liste vide
             Put_Line("Veuillez entrer le nom du fichier");
             Get_Line(Buffer, Last);
             query_liste_couple(L, Buffer(1 .. Last)); -- Remplissage de la liste avec les mots significatifs du texte
