@@ -20,6 +20,13 @@ package body couple is
       return C.Nbocc;
    end Get_NbOcc;
 
+   procedure Set_NbOcc(A: in Integer;C: in out T_Couple) is
+      --Modifie la nbocc de C en A
+      --Get_Nbocc(Set_NbOcc(A,C))=A
+   begin
+      C.Nbocc := A;
+   end;
+
    function Estmot(S: String)return Boolean is
       --j'suis pas sur qu'il faille mettre ca ...
       --Renvoie vrai si la chaine S est un mot,

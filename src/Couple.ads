@@ -17,6 +17,10 @@ package Couple is
    function Get_NbOcc(C: T_Couple) return Integer;
    --Renvoie le nombre d'occurence du mot du Couple C
 
+   procedure Set_NbOcc(A: in Integer;C: in out T_Couple);
+   --Modifie la nbocc de C en A
+   --Get_Nbocc(Set_NbOcc(A,C))=A
+
    function EstMot(S: String)return boolean;
    --Renvoie vrai si la chaine S est un mot,
    --par exemple "Bonjour" est un mot mais "hello world" n'en est pas un

@@ -17,17 +17,17 @@ package Liste_Couple is
 
    -----------------------------------------------------------------
    --instanciation du paquetage Listegen
---   package Liste_Couple is new ListeGen(T_Elem => T_Couple,Imprime => Imprime_Couple );
    package L is new ListeGen(T_Elem => T_Couple,Imprime => Imprime_Couple,">" => SuperieurCouple, "<" => InferieurCouple,"=" => EgaleCouple );
    --utilisation de la liste instancié
---     use Liste_Couple;
    use L;
    --declaration su sous type
---   subtype TListe_Couple is Liste_Couple.T_Liste;
    subtype TListe_Couple is L.T_Liste;
 
-   --on declarera la fonction de tri apres ici
-   --function ...
+   procedure Modif_FusionCouple(L1,L2: in out TListe_Couple);
+   --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprimé
+   --mais cela sera fait dans la fonction Fusion definie dans listegen
+
+   procedure Fusion_Couple is new L.Fusion(Modif_FusionCouple);
 
    -----------------------------------------------------------------
    -----------------------------------------------------------------
