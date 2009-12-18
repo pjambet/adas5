@@ -83,6 +83,8 @@ package ListeGen is
    --Concatene les listes L et P
    --En sortie on obtient L = [L,P]
 
+   generic
+      with procedure InsererTriee(L: in out T_Liste;X: in T_Elem);
    function CopieTriee(L: T_Liste) return T_Liste;
    --Fonction qui renvoit une deuxieme liste L2 qui contient
    --les memes elements que L mais trié par ordre croissant

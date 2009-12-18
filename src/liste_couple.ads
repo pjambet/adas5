@@ -29,6 +29,7 @@ package Liste_Couple is
 
    procedure Fusion_Couple is new L.Fusion(Modif_FusionCouple);
    procedure InsererTriee_Couple is new L.InsererTriee(SuperieurCouple,EgaleCouple,InferieurCouple);
+   function CopieTriee_Couple is new L.CopieTriee(InsererTriee_Couple);
 
    -----------------------------------------------------------------
    -----------------------------------------------------------------
