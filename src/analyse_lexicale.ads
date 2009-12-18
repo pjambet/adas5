@@ -7,6 +7,8 @@ package Analyse_lexicale is
    --utilisation de la liste generique
    use Liste_Couple.L;
 
+   FUNCTION CaractereAutorise(C: IN Character) RETURN Boolean;
+      
    procedure query_liste_couple(L: in out TListe_Couple; NomFic: in String);
    --Renvoit une liste comprenant tous les couples(mot;occurence) du texte, la
    --liste est triée par ordre alphabetique

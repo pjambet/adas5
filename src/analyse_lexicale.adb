@@ -3,34 +3,108 @@ use Ada.Text_IO, Couple;
 
 package body analyse_lexicale is
 
+   FUNCTION CaractereAutorise(C: IN Character) RETURN Boolean IS
+      -- Renvoit vrai si le caractere est autorise en tant que caractere d'un mot, faux sinon
+   BEGIN
+      IF C = Character'Val(32) THEN -- ' '
+         RETURN False;
+      ELSIF C = Character'Val(33) THEN -- '!'
+         RETURN False;
+      ELSIF C = Character'Val(34) THEN -- '"'
+         RETURN False;
+      ELSIF C = Character'Val(35) THEN -- '#'
+         RETURN False;
+      ELSIF C = Character'Val(36) THEN -- '$'
+         RETURN False;
+      ELSIF C = Character'Val(37) THEN -- '%'
+         RETURN False;
+      ELSIF C = Character'Val(38) THEN -- '&'
+         RETURN False;
+      ELSIF C = Character'Val(40) THEN -- '('
+         RETURN False;
+      ELSIF C = Character'Val(41) THEN -- ')'
+         RETURN False;
+      ELSIF C = Character'Val(42) THEN -- '*'
+         RETURN False;
+      ELSIF C = Character'Val(43) THEN -- '+'
+         RETURN False;
+      ELSIF C = Character'Val(44) THEN -- ','
+         RETURN False;
+      ELSIF C = Character'Val(46) THEN -- '.'
+         RETURN False;
+      ELSIF C = Character'Val(47) THEN -- '/'
+         RETURN False;
+      ELSIF C = Character'Val(58) THEN -- ':'
+         RETURN False;
+      ELSIF C = Character'Val(59) THEN -- ';'
+         RETURN False;
+      ELSIF C = Character'Val(60) THEN -- '<'
+         RETURN False;
+      ELSIF C = Character'Val(61) THEN -- '='
+         RETURN False;
+      ELSIF C = Character'Val(62) THEN -- '>'
+         RETURN False;
+      ELSIF C = Character'Val(63) THEN -- '?'
+         RETURN False;
+      ELSIF C = Character'Val(64) THEN -- '@'
+         RETURN False;
+      ELSIF C = Character'Val(91) THEN -- '['
+         RETURN False;
+      ELSIF C = Character'Val(92) THEN -- '\'
+         RETURN False;
+      ELSIF C = Character'Val(93) THEN -- ']'
+         RETURN False;
+      ELSIF C = Character'Val(94) THEN -- '^'
+         RETURN False;
+      ELSIF C = Character'Val(95) THEN -- '_'
+         RETURN False;
+      ELSIF C = Character'Val(96) THEN -- '`'
+         RETURN False;
+      ELSIF C = Character'Val(10) THEN -- LF
+         RETURN False;
+      ELSIF C = Character'Val(13) THEN -- CR
+         RETURN False;
+      ELSE
+         RETURN True;
+      END IF;
+   END;
+                     
    procedure query_liste_couple(L: in out TListe_Couple; NomFic: in String) is
       --Renvoit une liste comprenant tous les couples(mot;occurence) du fichier texte NomFic
       Orig : File_Type; -- Fichier source
       C : Character;
       Mot : String(1 .. 30);
-      Index : Integer;
+      Indice : Integer;
       Couple : T_Couple;
    BEGIN
-      Index := 1;
-      C := ' ';
+      Indice := 0;
+      C := Character'Val(0);
       Open(Orig, In_File, NomFic);
       While not End_Of_File(Orig) loop
-         if End_Of_Line(Orig) then
+         IF End_Of_Line(Orig) THEN
+            Put_Line("SkipLine"); --TEST
             Skip_Line(Orig);
-         else
-            while C /= Character'Val(32) or C /= Character'Val(44) loop -- On crée le mot
+         ELSE
+            While CaractereAutorise(C) Loop
                Get(Orig, C);
-               Skip_Line;
-               Mot(Index) := C;
-               Index := Index + 1;
-            end loop;
-            IF EstMotSignificatif(Mot(1 .. Index)) THEN
-               Put_Line(Mot);
-               Set_Mot(Couple, Mot);
+               if CaractereAutorise(C) then -- On crée le mot
+                  Indice := Indice + 1;
+                  Mot(Indice) := C;
+                  
+                  Put("C : " & C); Put_Line(" - Mot 1 .." & Integer'Image(Indice) & " : " & Mot(1 .. Indice)); --TEST
+                     
+               END IF;
+            END LOOP;
+            Put("C : " & C); Put_Line(" - Mot 1 .." & Integer'Image(Indice) & " : " & Mot(1 .. Indice)); --TEST
+            Skip_Line;
+            IF EstMotSignificatif(Mot(1 .. Indice)) THEN
+               Set_Mot(Couple, Mot(1 .. Indice));
                Set_NbOcc(Couple, 1);
-               InsererTriee_couple(L, Couple); -- Ajoute dans la liste le premier mot significatif      
-            end if;
-            Index := 1;
+               Set_Fin(Couple, Indice);
+               InsererTriee_Couple(L, Couple); -- Ajoute dans la liste le premier mot significatif      
+            END IF;
+            Indice := 0;
+            C := Character'Val(0);            
          end if;
       end loop;
       Close(Orig);
