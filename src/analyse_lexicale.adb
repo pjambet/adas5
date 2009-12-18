@@ -28,7 +28,7 @@ package body analyse_lexicale is
                Put_Line(Mot);
                Set_Mot(Couple, Mot);
                Set_NbOcc(Couple, 1);
-               InsererTriee(L, Couple); -- Ajoute dans la liste le premier mot significatif      
+               InsererTriee_couple(L, Couple); -- Ajoute dans la liste le premier mot significatif      
             end if;
             Index := 1;
          end if;
