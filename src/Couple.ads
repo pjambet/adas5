@@ -25,6 +25,13 @@ package Couple is
    function Get_NbOcc(C: T_Couple) return Integer;
    --Renvoie le nombre d'occurence du mot du Couple C
 
+   function Get_Fin(C: T_Couple) return Integer;
+   --Renvoie l'indice de fin du mot de C
+
+   procedure Set_Fin(C: in out T_Couple;I: in Integer);
+   --Modifie le Fin de C en I
+   --Get_Fin(Set_Fin(C,I))=I
+
    function EstMot(S: String)return boolean;
    --Renvoie vrai si la chaine S est un mot,
    --par exemple "Bonjour" est un mot mais "hello world" n'en est pas un

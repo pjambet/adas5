@@ -41,6 +41,19 @@ package body couple is
       return C.Nbocc;
    end Get_NbOcc;
 
+   function Get_Fin(C: T_Couple) return Integer is
+   --Renvoie l'indice de fin du mot de C
+   begin
+      return C.Fin;
+   end Get_Fin;
+
+   procedure Set_Fin(C: in out T_Couple;I: in Integer) is
+   --Modifie le Fin de C en I
+   --Get_Fin(Set_Fin(C,I))=I
+   begin
+      C.Fin := I;
+   end Set_Fin;
+
    function Estmot(S: String)return Boolean is
       --j'suis pas sur qu'il faille mettre ca ...
       --Renvoie vrai si la chaine S est un mot,
