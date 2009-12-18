@@ -17,7 +17,7 @@ package Liste_Couple is
 
    -----------------------------------------------------------------
    --instanciation du paquetage Listegen
-   package L is new ListeGen(T_Elem => T_Couple,Imprime => Imprime_Couple,">" => SuperieurCouple, "<" => InferieurCouple,"=" => EgaleCouple );
+   package L is new ListeGen(T_Elem => T_Couple,Imprime => Imprime_Couple);
    --utilisation de la liste instancié
    use L;
    --declaration su sous type
@@ -28,6 +28,7 @@ package Liste_Couple is
    --mais cela sera fait dans la fonction Fusion definie dans listegen
 
    procedure Fusion_Couple is new L.Fusion(Modif_FusionCouple);
+   procedure InsererTriee_Couple is new L.InsererTriee(SuperieurCouple,EgaleCouple,InferieurCouple);
 
    -----------------------------------------------------------------
    -----------------------------------------------------------------

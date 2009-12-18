@@ -3,9 +3,6 @@ with Ada.Unchecked_Deallocation;
 
 generic
    type T_Elem is private;
-   with function ">"(T1,T2: T_Elem)return Boolean is <>;
-   with function "="(T1,T2: T_Elem)return Boolean is <>;
-   with function "<"(T1,T2: T_Elem)return Boolean is <>;
    with procedure Imprime(X: in T_Elem);
    --Affiche L'element X
 
@@ -91,6 +88,10 @@ package ListeGen is
    --les memes elements que L mais trié par ordre croissant
    --La fonction apelle la procedure InsererTriée ci dessous
 
+   generic
+       with function ">"(T1,T2: T_Elem)return Boolean is <>;
+       with function "="(T1,T2: T_Elem)return Boolean is <>;
+       with function "<"(T1,T2: T_Elem)return Boolean is <>;
    procedure InsererTriee(L: in out T_Liste;X: in T_Elem);
    --L est triée par ordre croissant
    --Insere X dans L de maniere a conserver le tri de L
