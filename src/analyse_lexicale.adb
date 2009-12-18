@@ -1,5 +1,6 @@
-WITH Ada.Text_IO;
-use Ada.Text_IO;
+WITH Ada.Text_IO, Couple;
+use Ada.Text_IO, Couple;
+
 package body analyse_lexicale is
 
    procedure query_liste_couple(L: in out TListe_Couple; NomFic: in String) is
@@ -10,7 +11,8 @@ package body analyse_lexicale is
       Index : Integer;
       Couple : T_Couple;
    BEGIN
-      Index := 0;
+      Index := 1;
+      C := ' ';
       Open(Orig, In_File, NomFic);
       While not End_Of_File(Orig) loop
          if End_Of_Line(Orig) then
@@ -22,13 +24,13 @@ package body analyse_lexicale is
                Mot(Index) := C;
                Index := Index + 1;
             end loop;
-            IF EstMotSignificatif(Mot) THEN
+            IF EstMotSignificatif(Mot(1 .. Index)) THEN
                Put_Line(Mot);
                Set_Mot(Couple, Mot);
                Set_NbOcc(Couple, 1);
                InsererTriee(L, Couple); -- Ajoute dans la liste le premier mot significatif      
             end if;
-            Mot := " ";
+            Index := 1;
          end if;
       end loop;
       Close(Orig);
@@ -36,7 +38,7 @@ package body analyse_lexicale is
 
    function query_NbOcc(l: TListe_Couple; m: String) return Integer is
    --Requete renvoyant le nombre d'occurence du mot m dans le texte
-   begin
+   BEGIN
       if EstVide(l) then
          return 0;
       elsif Get_Mot(Valeur(L)) = m then
@@ -50,7 +52,8 @@ package body analyse_lexicale is
    --Requete renvoyant le nombre de mot ayant s pour préfixe et le nombre d'occurence de s (Appel de query_NbOcc(s))
    temp : TListe_Couple;
    res : Integer;
-   begin
+   BEGIN
+      res := 0;
       temp := l;
       while not EstVide(Temp) loop
          if Estprefixede(Get_Mot(Valeur(Temp)), s) then
@@ -66,7 +69,8 @@ package body analyse_lexicale is
    --Requete renvoyant le nombre de mot ayant s pour suffixe et le nombre d'occurence de s (Appel de query_NbOcc(s))
    temp : TListe_Couple;
    res : Integer;
-   begin
+   BEGIN
+      res := 0;
       temp := l;
       while not Estvide(Temp) loop
          if Estsuffixede(Get_Mot(Valeur(Temp)), s) then
@@ -82,7 +86,8 @@ package body analyse_lexicale is
    --Requete renvoyant le nombre de mot ayant s pour facteur et le nombre d'occurence de s (Appel de query_NbOcc(s))
    temp : TListe_Couple;
    res : Integer;
-   begin
+   BEGIN
+      res := 0;
       temp := l;
       while not EstVide(Temp) loop
          if Estfacteurde(Get_Mot(Valeur(Temp)), s) then
