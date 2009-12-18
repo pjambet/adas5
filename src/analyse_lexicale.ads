@@ -37,6 +37,8 @@ package Analyse_lexicale is
    --Mot2 NbOcc2
    --etc ...
    ------------------------------------------
+   
+   function Existe (Name : in String) return boolean;
 
    procedure Recup_Liste(L: out TListe_Couple);
    --procedure qui recrée la liste de couple a partir du fichier "liste-mot.txt"

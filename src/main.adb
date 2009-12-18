@@ -22,7 +22,7 @@ procedure main is
       when Name_Error =>
            return False;
       When others =>
-           raise;
+         RAISE;
    end Existe;
 
 begin
