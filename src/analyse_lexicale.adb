@@ -1,15 +1,16 @@
+WITH Ada.Text_IO;
+use Ada.Text_IO;
 package body analyse_lexicale is
 
    procedure query_liste_couple(L: in out TListe_Couple; NomFic: in String) is
       --Renvoit une liste comprenant tous les couples(mot;occurence) du fichier texte NomFic
       Orig : File_Type; -- Fichier source
-      Ligne : String(0..100);
-      Last : Natural;
       C : Character;
-      Mot : String(0..30);
-      Index : Integer := 0;
+      Mot : String(1 .. 30);
+      Index : Integer;
       Couple : T_Couple;
    BEGIN
+      Index := 0;
       Open(Orig, In_File, NomFic);
       While not End_Of_File(Orig) loop
          if End_Of_Line(Orig) then
@@ -17,15 +18,17 @@ package body analyse_lexicale is
          else
             while C /= Character'Val(32) or C /= Character'Val(44) loop -- On crée le mot
                Get(Orig, C);
+               Skip_Line;
                Mot(Index) := C;
                Index := Index + 1;
             end loop;
             IF EstMotSignificatif(Mot) THEN
+               Put_Line(Mot);
                Set_Mot(Couple, Mot);
                Set_NbOcc(Couple, 1);
                InsererTriee(L, Couple); -- Ajoute dans la liste le premier mot significatif      
             end if;
-            Mot := "";
+            Mot := " ";
          end if;
       end loop;
       Close(Orig);

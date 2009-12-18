@@ -19,15 +19,17 @@ begin
       Put_Line("Entrez 2 pour XXX");
       New_Line;
       Get(Choix);
-
+      Skip_Line;
+      
       case Choix is
          when 1 =>
 
             Menu := False;
             Put_Line("Veuillez entrer le nom du fichier");
             Get_Line(Buffer, Last);
-            query_liste_couple(L, Buffer(1 .. Last)); -- Remplissage de la liste avec les mots significatifs du texte
-
+            Query_Liste_Couple(L, Buffer(1 .. Last)); -- Remplissage de la liste avec les mots significatifs du texte
+            
+            
          when 2 =>
 
             Menu := False;
@@ -41,7 +43,7 @@ begin
       end case;
 
    end loop;
-   Get(Choix);
+   Get(Buffer);
 end;
 
 

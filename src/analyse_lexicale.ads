@@ -1,8 +1,5 @@
-with Couple;use Couple;
-with Liste_Couple;use Liste_Couple;
-with Ada.Text_Io;use Ada.Text_Io;
-with Text_Stat; use Text_Stat;
-
+WITH Liste_Couple, Ada.Text_IO, Text_Stat, Couple;
+USE Liste_Couple, Ada.Text_IO, Text_Stat, Couple;
 --Faut créer un nouveau paquetage T_Mot pour créer le type T_Mot;
 
 package Analyse_lexicale is
