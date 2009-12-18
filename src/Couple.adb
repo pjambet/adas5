@@ -4,15 +4,25 @@ package body couple is
    --Declaration des fonctions utiles a l'instanciation de la liste
    procedure Imprime_Couple(C: in T_Couple) is
    begin
-      Put(Get_Mot(C));Put("/t");Put(Get_NbOcc(C));
+      Put(Get_Mot(C));Put(" ");Put(Get_NbOcc(C));New_Line;
    end Imprime_Couple;
 
    PROCEDURE Set_Mot(C: in out T_Couple; M: in String) is
-   -- Affecte C.Mot = M
-   BEGIN
-      C.Mot := M;
+      -- Affecte C.Mot = M
+      I: Integer;
+   begin
+      if M'Length=30 then
+         C.Mot := M;
+      else
+         for I in 1..M'Length loop
+            C.Mot(I) := M(I);
+         end loop;
+         for I in M'Length+1..30 loop
+            C.Mot(I):=' ';
+         end loop;
+      end if;
    END;
-   
+
    PROCEDURE Set_NbOcc(C: in out T_Couple; E: in Integer) is
    -- Affecte C.NbOcc = E
    BEGIN

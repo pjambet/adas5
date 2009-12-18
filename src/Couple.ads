@@ -13,12 +13,12 @@ package Couple is
 
    PROCEDURE Set_Mot(C: in out T_Couple; M: in String);
    --Modifie le mot de C en M
-   --Get_Mot(Set_Mot(C,M))=M   
-   
+   --Get_Mot(Set_Mot(C,M))=M
+
    PROCEDURE Set_NbOcc(C: in out T_Couple; E: in Integer);
    --Modifie la nbocc de C en E
    --Get_Nbocc(Set_NbOcc(C,E))=E
-     
+
    function Get_Mot(C: T_Couple) return String;
    --Renvoie le mot du couple C
 
@@ -72,6 +72,7 @@ private
    type T_Couple is record
       Mot: String(1..30);
       NbOcc: Integer;
+      Fin: Integer;
    end record;
 
 
