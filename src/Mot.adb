@@ -133,7 +133,7 @@ package body Mot is
          Open(Fic_Mots,In_File,"petits-mots.txt");
          while not End_Of_File(Fic_Mots) loop
             Get_Line(Fic_Mots,Ligne,Last);
-            Put(Ligne);New_Line;
+            --Put(Ligne); New_Line;
             if Compare_Chaine_Mot(Ligne,M) then
                return True;
             end if;

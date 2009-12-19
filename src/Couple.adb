@@ -1,14 +1,17 @@
-package body couple is
+package body Couple is
 
    ----------------------------------------------------------------
    --Declaration des fonctions utiles a l'instanciation de la liste
    procedure Imprime_Couple(C: in T_Couple) is
       --I: Integer;
    begin
-      for I in 1..Get_Fin(C.Mot) loop
-         Put(Get_Chaine(C.Mot)(I));
-      end loop;
-      Put(" ");Put(Get_NbOcc(C));Put(" ");Put("Fin: ");Put(Get_Fin(C.Mot));New_Line;
+--      for I in 1..Get_Fin(C.Mot) loop
+--         Put(Get_Chaine(C.Mot)(I));
+--      end loop;
+--      Put(" ");Put(Get_NbOcc(C));Put(" ");Put("Fin: ");Put(Get_Fin(C.Mot));New_Line;
+-- Code chelou
+      Put(Get_Chaine(Get_Mot(C))(1 .. Get_Fin(Get_Mot(C))));
+      Put_Line(Integer'Image(Get_NbOcc(C)));
    end Imprime_Couple;
 
    PROCEDURE Set_Mot(C: in out T_Couple;M: in T_Mot) is

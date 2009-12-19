@@ -2,7 +2,8 @@ with Analyse_Lexicale;
 use Analyse_Lexicale;
 with Liste_Couple;
 use Liste_Couple;
-with Text_Stat;use Text_Stat;
+with Text_Stat;
+use Text_Stat;
 with Ada.Text_IO;
 use Ada.Text_Io;
 with Ada.Integer_Text_IO;
@@ -13,12 +14,10 @@ procedure Main is
    Menu   : Boolean;
    Choix  : Integer;
    L      : TListe_Couple;
-   M      : TListe_Couple;
-   P      : TListe_Couple;
    Buffer : String (1 .. 30);
    Last   : Natural;
    NomFic : Boolean;
-   NbMot : Integer;
+   NbMot  : Integer;
 
 begin
 
@@ -62,7 +61,7 @@ begin
 
          when 3 =>
 
-            Recup_Liste(P);
+            Recup_Liste(L);
 
          when 4 =>
 

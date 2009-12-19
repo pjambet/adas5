@@ -258,7 +258,7 @@ package body ListeGen is
             --soit on ajoute y au debut
             AjoutDebut(l,x);
          else -- L.all.val = X
-            Put("Egalité");
+            --Put("Egalité");
             Traitement_Doublon(L);
          end if;
       elsif Ltemp.All.Val > X then
@@ -283,7 +283,7 @@ package body ListeGen is
                Ltemp.Prec.Suiv := Linser;
                Ltemp.Prec := Linser;
             else --ltemp.all.val=x
-               Put("Egalité");
+               --Put("Egalité");
                Traitement_Doublon(Ltemp);
             end if;
          else
@@ -296,7 +296,7 @@ package body ListeGen is
                Ltemp.Prec.Suiv := Linser;
                Ltemp.Prec := Linser;
             else --ltemp.all.val = x
-               Put("Egalité");
+               --Put("Egalité");
                Traitement_Doublon(Ltemp);
             end if;
          end if;
