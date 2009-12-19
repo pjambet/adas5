@@ -1,5 +1,5 @@
-WITH Liste_Couple;
-USE Liste_Couple;
+with Mot;use Mot;
+WITH Liste_Couple;USE Liste_Couple;
 
 PACKAGE Analyse_Lexicale IS
    --Package permettant d'analyser le texte et d'effectuer les requetes dessus

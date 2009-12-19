@@ -80,6 +80,7 @@ package body Analyse_Lexicale is
       Mot    : String (1 .. 30);
       Indice : Integer;
       Couple : T_Couple;
+      M      : T_Mot;
    begin
       Indice := 0;
       C := Character'Val(0);
@@ -97,10 +98,11 @@ package body Analyse_Lexicale is
             else -- non(CaractereAutorise(C))
                -- TEST Put_Line("Mot 1 .." & Integer'Image(Indice) & " : " & Mot(1 .. Indice));
                Put(".");
-               if EstMotSignificatif(Mot(1 .. Indice)) then
-                  Set_Mot(Couple, Mot(1 .. Indice));
+               M := Creer_Mot(Mot(1 .. Indice));
+               if EstMotSignificatif(M) then
+                  Set_Mot(Couple, M);
                   Set_NbOcc(Couple, 1);
-                  Set_Fin(Couple, Indice);
+                  --Set_Fin(Couple, Indice);
                   InsererTriee_Couple(L, Couple); -- Ajoute dans la liste le premier mot significatif
                end if;
                Indice := 0;
@@ -122,7 +124,7 @@ package body Analyse_Lexicale is
    begin
       if EstVide(L) then
          return 0;
-      elsif Get_Mot(Valeur(L)) = M then
+      elsif Compare_Chaine_Mot(M,Get_Mot(Valeur(L))) then
          return 1+Query_NbOcc(Suivant(L), M);
       else
          return Query_NbOcc(Suivant(L), M);
@@ -137,11 +139,13 @@ package body Analyse_Lexicale is
       --Requete renvoyant le nombre de mot ayant s pour préfixe et le nombre d'occurence de s (Appel de query_NbOcc(s))
       Temp : TListe_Couple;
       Res  : Integer;
+      MotS : T_Mot;
    begin
       Res := 0;
       Temp := L;
+      MotS := Creer_Mot(S);
       while not EstVide(Temp) loop
-         if Estprefixede(Get_Mot(Valeur(Temp)), S) then
+         if Estprefixede(Get_Mot(Valeur(Temp)), MotS) then
             Res := Res + 1;
          end if;
          Temp := Suivant(Temp);
@@ -158,11 +162,13 @@ package body Analyse_Lexicale is
       --Requete renvoyant le nombre de mot ayant s pour suffixe et le nombre d'occurence de s (Appel de query_NbOcc(s))
       Temp : TListe_Couple;
       Res  : Integer;
+      MotS : T_Mot;
    begin
       Res := 0;
       Temp := L;
+      MotS := Creer_Mot(S);
       while not Estvide(Temp) loop
-         if Estsuffixede(Get_Mot(Valeur(Temp)), S) then
+         if Estsuffixede(Get_Mot(Valeur(Temp)), MotS) then
             Res := Res + 1;
          end if;
          Temp := Suivant(Temp);
@@ -179,11 +185,13 @@ package body Analyse_Lexicale is
       --Requete renvoyant le nombre de mot ayant s pour facteur et le nombre d'occurence de s (Appel de query_NbOcc(s))
       Temp : TListe_Couple;
       Res  : Integer;
+      MotS : T_Mot;
    begin
       Res := 0;
       Temp := L;
+      MotS := Creer_Mot(S);
       while not EstVide(Temp) loop
-         if Estfacteurde(Get_Mot(Valeur(Temp)), S) then
+         if Estfacteurde(Get_Mot(Valeur(Temp)), MotS) then
             Res := Res + 1;
          end if;
          Temp := Suivant(Temp);
@@ -208,7 +216,7 @@ package body Analyse_Lexicale is
       Create(Dest, Name => "liste-mot.txt");
       Put("Debut creation");
       while not EstVide(Temp) loop
-         Put(Dest, Get_Mot(Premier(Temp))(1 .. Get_Fin(Premier(Temp))));
+         Put(Dest, Get_Chaine(Get_Mot(Premier(Temp)))(1 .. Get_Fin(Get_Mot(Premier(Temp)))));
          Put_Line(Dest, Integer'Image(Get_NbOcc(Premier(Temp))));
          Temp := Suivant(Temp);
          Put(".");
@@ -246,6 +254,7 @@ package body Analyse_Lexicale is
       Mot    : String (1 .. 30);
       Indice : Integer;
       Couple : T_Couple;
+      M: T_Mot;
    begin
       Indice := 0;
       if Existe("liste-mot.txt") then
@@ -260,8 +269,9 @@ package body Analyse_Lexicale is
                Get(Orig, C);
                if C = Character'Val(32) then -- C = ' '
                   -- TEST Put("Mot 1 .." & Integer'Image(Indice) & " : " & Mot(1 .. Indice));
-                  Set_Mot(Couple, Mot(1 .. Indice));
-                  Set_Fin(Couple, Indice);
+                  M := Creer_Mot(Mot(1 .. Indice));
+                  Set_Mot(Couple, M);
+                  --Set_Fin(Couple, Indice);
                   Indice := 0;
                   while not End_Of_Line(Orig) loop
                      Get(Orig, C);
