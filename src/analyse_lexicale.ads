@@ -50,7 +50,7 @@ PACKAGE Analyse_Lexicale IS
 
    PROCEDURE Creer_Fichier_Listemot (
          L : IN     TListe_Couple);
-   --Procedure qui crée le fichier listeMot a partir de la liste de couple l
+   --Procedure qui crée le fichier "liste-mot.txt" a partir de la liste de couple l
    --Le Fichier créé est de la forme suivante
    ------------------------------------------
    --Mot1 Nbocc1

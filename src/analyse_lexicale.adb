@@ -84,19 +84,19 @@ PACKAGE BODY Analyse_Lexicale IS
       Indice := 0;
       C := Character'Val(0);
       Open(Orig, In_File, NomFic);
+      Put("Debut lecture");
       WHILE NOT End_Of_File(Orig) LOOP
          IF End_Of_Line(Orig) THEN
-            Skip_Line;
             Indice := 0;
+            Skip_Line(Orig);
          ELSE -- non(End_Of_Line(Orig))
             Get(Orig, C);
             IF CaractereAutorise(C) THEN -- On crée le mot
                Indice := Indice + 1;
                Mot(Indice) := C;
-               Put_Line("C : " & C & " - Mot 1 .." & Integer'Image(Indice) & " : " & Mot(1 .. Indice)); --TEST
             ELSE -- non(CaractereAutorise(C))
-               Put_Line("C : " & C & " - Mot 1 .." & Integer'Image(Indice) & " : " & Mot(1 .. Indice));
-               Skip_Line; --TEST
+               -- TEST Put_Line("Mot 1 .." & Integer'Image(Indice) & " : " & Mot(1 .. Indice));
+               Put(".");
                IF EstMotSignificatif(Mot(1 .. Indice)) THEN
                   Set_Mot(Couple, Mot(1 .. Indice));
                   Set_NbOcc(Couple, 1);
@@ -107,10 +107,11 @@ PACKAGE BODY Analyse_Lexicale IS
                C := Character'Val(0);
             END IF;
          END IF;
-         Put_Line("Fin Boucle!"); --TEST
       END LOOP;
       Close(Orig);
-      Put_Line("Close!"); --TEST
+      New_Line;
+      Put_Line("Fin lecture !");
+      Skip_Line;
    END;
 
    FUNCTION Query_NbOcc (
@@ -202,15 +203,22 @@ PACKAGE BODY Analyse_Lexicale IS
       ------------------------------------------
       Dest : File_Type;
       Temp : TListe_Couple;
+      Mot : String(1 .. 30);
+      Fin : Integer;
    BEGIN
       Temp := L;
       Create(Dest, Name => "liste-mot.txt");
+      Put("Debut creation");
       WHILE NOT EstVide(Temp) LOOP
-         Put(Dest, Get_Mot(Premier(Temp)));
-         Put_Line(" " & Integer'Image(Get_NbOcc(Premier(Temp))));
+         Put(Dest, Get_Mot(Premier(Temp))(1 .. Get_Fin(Premier(Temp))));
+         Put_Line(Dest, Integer'Image(Get_NbOcc(Premier(Temp))));
          Temp := Suivant(Temp);
+         Put(".");
       END LOOP;
       Close(Dest);
+      New_Line;
+      Put_Line("Fin creation !");
+      Skip_Line;
    END;
 
    FUNCTION Existe (
@@ -242,28 +250,38 @@ PACKAGE BODY Analyse_Lexicale IS
    BEGIN
       Indice := 0;
       IF Existe("liste-mot.txt") THEN
+         Open(Orig, In_File, "liste-mot.txt");
+         Put("Debut recuperation");
          WHILE NOT End_Of_File(Orig) LOOP
             IF End_Of_Line(Orig) THEN
                InsererTriee_Couple(L, Couple);
+               Put(".");
                Skip_Line(Orig);
             ELSE
                Get(Orig, C);
                IF C = Character'Val(32) THEN -- C = ' '
+                  -- TEST Put("Mot 1 .." & Integer'Image(Indice) & " : " & Mot(1 .. Indice));
                   Set_Mot(Couple, Mot(1 .. Indice));
                   Set_Fin(Couple, Indice);
                   Indice := 0;
-                  WHILE NOT End_Of_Line LOOP
+                  WHILE NOT End_Of_Line(Orig) LOOP
                      Get(Orig, C);
                      Indice := Indice + 1;
                      Mot(Indice) := C;
                   END LOOP;
+                  -- TEST Put_Line(" - NbOCcc : " & Mot(1 .. Indice));
                   Set_NbOcc(Couple, Integer'Value(Mot(1 .. Indice)));
+                  Indice := 0;
                ELSE
                   Indice := Indice + 1;
                   Mot(Indice) := C;
                END IF;
             END IF;
          END LOOP;
+         Close(Orig);
+         New_Line;
+         Put_Line("Fin recuperation !");
+         Skip_Line;
       ELSE
          Put_Line("Le fichier " & Character'Val(34) & "liste-mot.txt" & Character'Val(34) & " n'existe pas !");
       END IF;
