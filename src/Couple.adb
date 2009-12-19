@@ -3,24 +3,18 @@ package body couple is
    ----------------------------------------------------------------
    --Declaration des fonctions utiles a l'instanciation de la liste
    procedure Imprime_Couple(C: in T_Couple) is
+      --I: Integer;
    begin
-      Put(Get_Mot(C));Put(" ");Put(Get_NbOcc(C));New_Line;
+      for I in 1..Get_Fin(C.Mot) loop
+         Put(Get_Chaine(C.Mot)(I));
+      end loop;
+      Put(" ");Put(Get_NbOcc(C));Put(" ");Put("Fin: ");Put(Get_Fin(C.Mot));New_Line;
    end Imprime_Couple;
 
-   PROCEDURE Set_Mot(C: in out T_Couple; M: in String) is
+   PROCEDURE Set_Mot(C: in out T_Couple;M: in T_Mot) is
       -- Affecte C.Mot = M
-      I: Integer;
    begin
-      if M'Length=30 then
-         C.Mot := M;
-      else
-         for I in 1..M'Length loop
-            C.Mot(I) := M(I);
-         end loop;
-         for I in M'Length+1..30 loop
-            C.Mot(I):=' ';
-         end loop;
-      end if;
+      C.Mot := M;
    END;
 
    PROCEDURE Set_NbOcc(C: in out T_Couple; E: in Integer) is
@@ -29,7 +23,7 @@ package body couple is
       C.NbOcc := E;
    END;
 
-   function Get_Mot(C: T_Couple) return String is
+   function Get_Mot(C: T_Couple) return T_Mot is
       --Renvoie le mot du couple C
    begin
       return C.Mot;
@@ -41,130 +35,6 @@ package body couple is
       return C.Nbocc;
    end Get_NbOcc;
 
-   function Get_Fin(C: T_Couple) return Integer is
-   --Renvoie l'indice de fin du mot de C
-   begin
-      return C.Fin;
-   end Get_Fin;
 
-   procedure Set_Fin(C: in out T_Couple;I: in Integer) is
-   --Modifie le Fin de C en I
-   --Get_Fin(Set_Fin(C,I))=I
-   begin
-      C.Fin := I;
-   end Set_Fin;
-
-   function Estmot(S: String)return Boolean is
-      --j'suis pas sur qu'il faille mettre ca ...
-      --Renvoie vrai si la chaine S est un mot,
-      --par exemple "Bonjour" est un mot mais "hello world" n'en est pas un
-   begin
-      --pour le moment je mets rien
-      return true;
-   end;
-
-   function EstMotSignificatif(T: String)return boolean is
-      --Renvoie vrai si le mot T est significatif. un mot est significatif si il
-      --est de longueur supérieur a 3 ou si il est de longeur de 3 et qu'il est
-      --est un "petit mot important" (cf petits-mots.txt)
-   begin
-      return EstLongMot(T) or else Estpetitmotimp(T) ;
-   end;
-
-   function Estlongmot(T: String) return Boolean is
-      --Renvoie vrai si le mot T est de longueur strictement supérieur a 3
-   begin
-      return T'length > 3;
-   end;
-
-   function Estpetitmotimp(T: String) return Boolean is
-      --Renvoie true si T est de longueur 3 et qu'il fait parti du fichier
-      --petits-mots.txt
-
-      Fic_Mots: File_Type;
-      Ligne: String(1..30);
-      Last: Integer;
-   begin
-      if (T'Length = 3) then
-         Open(Fic_Mots,In_File,"petits-mots.txt");
-         while not End_Of_File(Fic_Mots) loop
-            Get_Line(Fic_Mots,Ligne,Last);
-            if Ligne = T then
-               return True;
-            end if;
-         end loop;
-      end if;
-      return False;
-   end;
-
-   function Estsuffixede(T1: String;T2: String)return Boolean is
-      --precondition : taille(T1)<taille(T2)
-      --
-      --Renvoie true si T1 est suffixe de T2, false sinon
-      --exemple : T1 : "ment" T2 = "lentement"
-      --La fonction renvoie vrai
-      I: Integer;
-      Continue: Boolean;
-   begin
-      I := T2'Length-T1'Length+1;--on rajoute le +1 pour etre sur la case correspondant au debut du suffixe
-      Continue := True;
-      While I <= T1'Length and then continue loop
-         if T1(I) /= T2(I) then
-            Continue := False;
-         end if;
-         I := I+1;
-      end loop;
-      return Continue;
-   end Estsuffixede;
-
-   function Estprefixede(T1: String;T2: String)return Boolean is
-      --precondition : taille(T1)<taille(T2)
-      --
-      --Renvoie true si T1 est prefixe de T2, false sinon
-      --exemple : T1 = "lent" T2="lentement"
-      --La fonction renvoie vrai
-      I: Integer;
-      Continue : Boolean;
-   begin
-      I := 1;
-      Continue := True;
-      while I <= T1'Length and then Continue loop
-         if T1(I) /= T2(I) then
-            Continue := False;
-         end if;
-         I := I+1;
-      end loop;
-      return Continue;
-   end Estprefixede;
-
-   function Estfacteurde(T1: String;T2: String)return Boolean is
-      --precondition : taille(T1)<taille(T2)
-      --
-      --Renvoie true si T2 est facteur de T2, false sinon
-      --exemple : T1 = "bbb" T2 = "abbba"
-      --La fonction renvoie vrai
-      I,J: Integer;
-      Continue: Boolean;
-   begin
-      I:=1;
-      while I+T1'Length-1 <= T2'Length loop
-         Continue := True;
-         J := I;
-         while J <= I+T1'Length-1 and then Continue loop
-            if T1(J) /= T2(J) then
-               Continue := False;
-            end if;
-            J := J+1;
-         end loop;
-         --Si Continue n'a pas été mis a faux, alors on est sorti de
-         --la boucle uniquement a cause de la premier condition(fin du
-         --tableau) donc T1 est facteur de T2
-         if Continue = True then
-            return True;
-         end if;
-         I := I+1;
-      end loop;
-      return False;
-   end;
 
 end couple;

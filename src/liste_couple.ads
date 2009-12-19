@@ -1,17 +1,18 @@
 with Listegen;
+with Mot;use Mot;
 with Couple;use Couple;
 
 package Liste_Couple is
 
-   function InferieurCouple(Couple1: T_Couple;Couple2: T_Couple) return Boolean;
+   function Inferieur_Couple(Couple1: T_Couple;Couple2: T_Couple) return Boolean;
    --redefinition de la fonction "<" pour le type couple
    --ici on tri les couples par ordre lexicographique
 
-   function SuperieurCouple(Couple1: T_Couple;Couple2: T_Couple) return Boolean;
+   function Superieur_Couple(Couple1: T_Couple;Couple2: T_Couple) return Boolean;
    --redefinition de la fonction ">" pour le type couple
    --ici on trie les couples par ordre lexicographique
 
-   function EgaleCouple(Couple1: T_Couple;Couple2: T_Couple) return Boolean;
+   function Egale_Couple(Couple1: T_Couple;Couple2: T_Couple) return Boolean;
    --redefinition de la fonction "=" pour le type couple
    --ici on trie les couples par ordre lexicographique
 
@@ -28,7 +29,7 @@ package Liste_Couple is
    --mais cela sera fait dans la fonction Fusion definie dans listegen
 
    procedure Fusion_Couple is new L.Fusion(Modif_FusionCouple);
-   procedure InsererTriee_Couple is new L.InsererTriee(SuperieurCouple,EgaleCouple,InferieurCouple);
+   procedure InsererTriee_Couple is new L.InsererTriee(Superieur_Couple,Egale_Couple,Inferieur_Couple);
    function CopieTriee_Couple is new L.CopieTriee(InsererTriee_Couple);
 
    -----------------------------------------------------------------
