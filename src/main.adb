@@ -11,26 +11,13 @@ procedure Main is
 
    Menu   : Boolean;
    Choix  : Integer;
-   L,
+   L      : TListe_Couple;
+   M      : TListe_Couple;
    P      : TListe_Couple;
    Buffer : String (1 .. 30);
    Last   : Natural;
    NomFic : Boolean;
-
---   function Existe (
---         Name : in     String)
---     return Boolean is
---      File : File_Type;
---   begin
---      Open(File, In_File, Name);
---      Close(File);
---      return True;
---   exception
---      when Name_Error =>
---         return False;
---      when others =>
---         raise;
---   end Existe;
+   NbMot : Integer;
 
 begin
 
@@ -39,6 +26,7 @@ begin
       Put_Line("Entrez 1 pour analyser un texte.");
       Put_Line("Entrez 2 pour enregistrer la liste dans le fichier " & Character'Val(34) & "liste-mots.txt" & Character'Val(34) & ".");
       Put_Line("Entrez 3 pour recuperer la liste a partir du fichier " & Character'Val(34) & "liste-mots.txt" & Character'Val(34) & ".");
+      Put_Line("Entrez 4 pour afficher les mots les plus utilises.");
       Put_Line("Entrez 0 pour quitter.");
       New_Line;
       Get(Choix);
@@ -49,13 +37,13 @@ begin
          
          when 0 =>
             
-            null; -- return 0 ?!
+            Menu := False;
 
          when 1 =>
 
             NomFic := True;
             while NomFic loop
-               Put_Line("Veuillez entrer le nom du fichier");
+               Put_Line("Veuillez entrer le nom du fichier.");
                Get_Line(Buffer, Last);
                New_Line;
                if Existe(Buffer(1 .. Last)) then
@@ -74,6 +62,14 @@ begin
          when 3 =>
 
             Recup_Liste(P);
+            
+         when 4 =>
+            
+            Put_Line("Veuillez entrer le nombre de mots a afficher.");
+            Get(NbMot);
+            New_Line;
+            --Tri L par NBOCC
+            AffichageN(L, NbMot);
 
          when others =>
 

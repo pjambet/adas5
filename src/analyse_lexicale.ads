@@ -68,6 +68,12 @@ PACKAGE Analyse_Lexicale IS
    --le fichier n'est pas passé en parametre car il sera créé auparavant par la fonction Creer_Fichier_Listemot
    --et donc le fichier existera forcement et pourra etre ouvert dans le corps de la fonction
    --declenche une exception si le fichier n'existe pas
+   
+procedure AffichageN (
+         L : in     TListe_Couple;
+         N : in     Integer);
+      -- affiche les N premiers mots de la liste
+
 
 END Analyse_Lexicale;
 

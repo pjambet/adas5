@@ -296,4 +296,21 @@ package body Analyse_Lexicale is
       end if;
    end;
 
+   procedure AffichageN (
+         L : in     TListe_Couple;
+         N : in     Integer) is
+      -- affiche les N premiers mots de la liste
+      Compteur : Integer;
+      Temp     : TListe_Couple;
+   begin
+      Temp := L;
+      Compteur := 0;
+      while not EstVide(Temp) and then Compteur < N loop
+         Imprime_Couple(Premier(Temp));
+         Compteur := Compteur + 1;
+         Temp := Suivant(Temp);
+      end loop;
+      New_Line;
+   end;
+
 end Analyse_Lexicale;
