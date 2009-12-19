@@ -1,3 +1,4 @@
+with Mot;use Mot;
 with Couple;use Couple;
 with Liste_Couple;use Liste_Couple;
 with Ada.Text_Io;use Ada.Text_Io;

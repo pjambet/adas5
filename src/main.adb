@@ -2,6 +2,7 @@ with Analyse_Lexicale;
 use Analyse_Lexicale;
 with Liste_Couple;
 use Liste_Couple;
+with Text_Stat;use Text_Stat;
 with Ada.Text_IO;
 use Ada.Text_Io;
 with Ada.Integer_Text_IO;
@@ -34,9 +35,9 @@ begin
       New_Line;
 
       case Choix is
-         
+
          when 0 =>
-            
+
             Menu := False;
 
          when 1 =>
@@ -62,9 +63,9 @@ begin
          when 3 =>
 
             Recup_Liste(P);
-            
+
          when 4 =>
-            
+
             Put_Line("Veuillez entrer le nombre de mots a afficher.");
             Get(NbMot);
             New_Line;

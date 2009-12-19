@@ -38,7 +38,7 @@ package body Text_Stat is
       N:=0;Total:=0;
       Ltemp := L;
       while not EstVide(Ltemp) loop
-         N:=N+Get_Mot(Valeur(Ltemp))'Length;
+         N:=N+Get_Fin(Get_Mot(Valeur(Ltemp)));
          Total:=Total+1;
          Ltemp := Suivant(Ltemp);
       end loop;
@@ -52,7 +52,7 @@ package body Text_Stat is
       x :=0;
       Ltemp:= L;
       while not EstVide(Ltemp) loop
-         if Get_Mot(Valeur(Ltemp))'Length > N then x:=x+1;
+         if Get_Fin(Get_Mot(Valeur(Ltemp))) > N then x:=x+1;
          end if;
          Ltemp := Suivant(Ltemp);
       end loop;
