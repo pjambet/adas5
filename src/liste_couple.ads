@@ -1,8 +1,16 @@
 with Listegen;
 with Mot;use Mot;
 with Couple;use Couple;
+with Ada.Text_Io;use Ada.Text_Io;
 
 package Liste_Couple is
+   -----------------------------------------------------------------
+   --instanciation du paquetage Listegen
+   package L is new ListeGen(T_Elem => T_Couple,Imprime => Imprime_Couple);
+   --utilisation de la liste instancié
+   use L;
+   --declaration su sous type
+   subtype TListe_Couple is L.T_Liste;
 
    function Inferieur_Couple(Couple1: T_Couple;Couple2: T_Couple) return Boolean;
    --redefinition de la fonction "<" pour le type couple
@@ -15,14 +23,6 @@ package Liste_Couple is
    function Egale_Couple(Couple1: T_Couple;Couple2: T_Couple) return Boolean;
    --redefinition de la fonction "=" pour le type couple
    --ici on trie les couples par ordre lexicographique
-
-   -----------------------------------------------------------------
-   --instanciation du paquetage Listegen
-   package L is new ListeGen(T_Elem => T_Couple,Imprime => Imprime_Couple);
-   --utilisation de la liste instancié
-   use L;
-   --declaration su sous type
-   subtype TListe_Couple is L.T_Liste;
 
    procedure Modif_FusionCouple(L1,L2: in out TListe_Couple);
    --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprimé

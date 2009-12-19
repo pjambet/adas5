@@ -4,6 +4,7 @@ package body Liste_couple is
       --redefinition de la fonction "<" pour le type couple
       --ici on tri les couples par ordre lexicographique
    begin
+      Put("test <");
       return Inferieur_Mot(Get_Mot(Couple1),Get_Mot(COuple2));
    end;
 
@@ -11,6 +12,7 @@ package body Liste_couple is
       --redefinition de la fonction ">" pour le type couple
       --ici on trie les couples par ordre lexicographique
    begin
+      Put("test >");
       return Superieur_Mot(Get_Mot(Couple1),Get_Mot(Couple2));
    end;
 
@@ -18,6 +20,7 @@ package body Liste_couple is
       --redefinition de la fonction ">" pour le type couple
       --ici on trie les couples par ordre lexicographique
    begin
+      Put("test =");
       return Egale_Mot(Get_Mot(Couple1), Get_Mot(Couple2));
    end;
 
@@ -28,6 +31,7 @@ package body Liste_couple is
    begin
       C:=Valeur(L1);
       Set_NbOcc(C, Get_NbOcc(Valeur(L1))+Get_NbOcc(Valeur(L2)));
+      Modifie(L1,C);
    end;
 
    procedure Traitement_Doublon_Couple(L: in out TListe_Couple) is
@@ -35,6 +39,7 @@ package body Liste_couple is
    begin
       C:=Valeur(L);
       Set_NbOcc(C,Get_NbOcc(Valeur(L))+1);
+      Modifie(L,C);
    end Traitement_Doublon_Couple;
 
 

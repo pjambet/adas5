@@ -6,7 +6,6 @@ generic
    with procedure Imprime(X: in T_Elem);
    --Affiche L'element X
 
-
 package ListeGen is
    --Implementation d'une structure de données de type liste
    --doublement chainée avec structure de controle(les modifications sont en cours).
@@ -15,6 +14,8 @@ package ListeGen is
    type T_Liste is private;
    ListeVideException: exception;
    Elt_Inexistant: Exception;
+
+   procedure Modifie(L: in out T_Liste;L2: in T_Elem);
 
    function Valeur(L: T_Liste) return T_Elem;
    --Renvoie l'element contenu dans L

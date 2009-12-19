@@ -5,6 +5,11 @@ package body ListeGen is
    --crÃ©e une procedure de liberation d'espace pour les objets
    --dÃ©signÃ©s par une liste
 
+   procedure Modifie(L: in out T_Liste;L2: in T_Elem) is
+   begin
+      L.val:=L2;
+   end Modifie;
+
    function Valeur(L: T_Liste) return T_Elem is
    --Renvoie l'element contenu dans L
    --Declenche une ListeVideException si L est null
@@ -253,6 +258,7 @@ package body ListeGen is
             --soit on ajoute y au debut
             AjoutDebut(l,x);
          else -- L.all.val = X
+            Put("Egalité");
             Traitement_Doublon(L);
          end if;
       elsif Ltemp.All.Val > X then
@@ -277,6 +283,7 @@ package body ListeGen is
                Ltemp.Prec.Suiv := Linser;
                Ltemp.Prec := Linser;
             else --ltemp.all.val=x
+               Put("Egalité");
                Traitement_Doublon(Ltemp);
             end if;
          else
@@ -289,6 +296,7 @@ package body ListeGen is
                Ltemp.Prec.Suiv := Linser;
                Ltemp.Prec := Linser;
             else --ltemp.all.val = x
+               Put("Egalité");
                Traitement_Doublon(Ltemp);
             end if;
          end if;
