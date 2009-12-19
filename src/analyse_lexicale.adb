@@ -1,199 +1,199 @@
-WITH Ada.Text_IO, Couple;
-USE Ada.Text_IO, Couple;
+with Ada.Text_IO, Couple;
+use Ada.Text_IO, Couple;
 
-PACKAGE BODY Analyse_Lexicale IS
+package body Analyse_Lexicale is
 
-   FUNCTION CaractereAutorise (
-         C : IN     Character)
-     RETURN Boolean IS
+   function CaractereAutorise (
+         C : in     Character)
+     return Boolean is
       -- Renvoit vrai si le caractere est autorise en tant que caractere d'un mot, faux sinon
-   BEGIN
-      IF C = Character'Val(32) THEN -- ' '
-         RETURN False;
-      ELSIF C = Character'Val(33) THEN -- '!'
-         RETURN False;
-      ELSIF C = Character'Val(34) THEN -- '"'
-         RETURN False;
-      ELSIF C = Character'Val(35) THEN -- '#'
-         RETURN False;
-      ELSIF C = Character'Val(36) THEN -- '$'
-         RETURN False;
-      ELSIF C = Character'Val(37) THEN -- '%'
-         RETURN False;
-      ELSIF C = Character'Val(38) THEN -- '&'
-         RETURN False;
-      ELSIF C = Character'Val(40) THEN -- '('
-         RETURN False;
-      ELSIF C = Character'Val(41) THEN -- ')'
-         RETURN False;
-      ELSIF C = Character'Val(42) THEN -- '*'
-         RETURN False;
-      ELSIF C = Character'Val(43) THEN -- '+'
-         RETURN False;
-      ELSIF C = Character'Val(44) THEN -- ','
-         RETURN False;
-      ELSIF C = Character'Val(46) THEN -- '.'
-         RETURN False;
-      ELSIF C = Character'Val(47) THEN -- '/'
-         RETURN False;
-      ELSIF C = Character'Val(58) THEN -- ':'
-         RETURN False;
-      ELSIF C = Character'Val(59) THEN -- ';'
-         RETURN False;
-      ELSIF C = Character'Val(60) THEN -- '<'
-         RETURN False;
-      ELSIF C = Character'Val(61) THEN -- '='
-         RETURN False;
-      ELSIF C = Character'Val(62) THEN -- '>'
-         RETURN False;
-      ELSIF C = Character'Val(63) THEN -- '?'
-         RETURN False;
-      ELSIF C = Character'Val(64) THEN -- '@'
-         RETURN False;
-      ELSIF C = Character'Val(91) THEN -- '['
-         RETURN False;
-      ELSIF C = Character'Val(92) THEN -- '\'
-         RETURN False;
-      ELSIF C = Character'Val(93) THEN -- ']'
-         RETURN False;
-      ELSIF C = Character'Val(94) THEN -- '^'
-         RETURN False;
-      ELSIF C = Character'Val(95) THEN -- '_'
-         RETURN False;
-      ELSIF C = Character'Val(96) THEN -- '`'
-         RETURN False;
-      ELSIF C = Character'Val(10) THEN -- LF
-         RETURN False;
-      ELSIF C = Character'Val(13) THEN -- CR
-         RETURN False;
-      ELSE
-         RETURN True;
-      END IF;
-   END;
+   begin
+      if C = Character'Val(32) then -- ' '
+         return False;
+      elsif C = Character'Val(33) then -- '!'
+         return False;
+      elsif C = Character'Val(34) then -- '"'
+         return False;
+      elsif C = Character'Val(35) then -- '#'
+         return False;
+      elsif C = Character'Val(36) then -- '$'
+         return False;
+      elsif C = Character'Val(37) then -- '%'
+         return False;
+      elsif C = Character'Val(38) then -- '&'
+         return False;
+      elsif C = Character'Val(40) then -- '('
+         return False;
+      elsif C = Character'Val(41) then -- ')'
+         return False;
+      elsif C = Character'Val(42) then -- '*'
+         return False;
+      elsif C = Character'Val(43) then -- '+'
+         return False;
+      elsif C = Character'Val(44) then -- ','
+         return False;
+      elsif C = Character'Val(46) then -- '.'
+         return False;
+      elsif C = Character'Val(47) then -- '/'
+         return False;
+      elsif C = Character'Val(58) then -- ':'
+         return False;
+      elsif C = Character'Val(59) then -- ';'
+         return False;
+      elsif C = Character'Val(60) then -- '<'
+         return False;
+      elsif C = Character'Val(61) then -- '='
+         return False;
+      elsif C = Character'Val(62) then -- '>'
+         return False;
+      elsif C = Character'Val(63) then -- '?'
+         return False;
+      elsif C = Character'Val(64) then -- '@'
+         return False;
+      elsif C = Character'Val(91) then -- '['
+         return False;
+      elsif C = Character'Val(92) then -- '\'
+         return False;
+      elsif C = Character'Val(93) then -- ']'
+         return False;
+      elsif C = Character'Val(94) then -- '^'
+         return False;
+      elsif C = Character'Val(95) then -- '_'
+         return False;
+      elsif C = Character'Val(96) then -- '`'
+         return False;
+      elsif C = Character'Val(10) then -- LF
+         return False;
+      elsif C = Character'Val(13) then -- CR
+         return False;
+      else
+         return True;
+      end if;
+   end;
 
-   PROCEDURE Query_Liste_Couple (
-         L      : IN OUT TListe_Couple;
-         NomFic : IN     String) IS
+   procedure Query_Liste_Couple (
+         L      : in out TListe_Couple;
+         NomFic : in     String) is
       --Renvoit une liste comprenant tous les couples(mot;occurence) du fichier texte NomFic
       Orig   : File_Type;        -- Fichier source
       C      : Character;
       Mot    : String (1 .. 30);
       Indice : Integer;
       Couple : T_Couple;
-   BEGIN
+   begin
       Indice := 0;
       C := Character'Val(0);
       Open(Orig, In_File, NomFic);
       Put("Debut lecture");
-      WHILE NOT End_Of_File(Orig) LOOP
-         IF End_Of_Line(Orig) THEN
+      while not End_Of_File(Orig) loop
+         if End_Of_Line(Orig) then
             Indice := 0;
             Skip_Line(Orig);
-         ELSE -- non(End_Of_Line(Orig))
+         else -- non(End_Of_Line(Orig))
             Get(Orig, C);
-            IF CaractereAutorise(C) THEN -- On crée le mot
+            if CaractereAutorise(C) then -- On crée le mot
                Indice := Indice + 1;
                Mot(Indice) := C;
-            ELSE -- non(CaractereAutorise(C))
+            else -- non(CaractereAutorise(C))
                -- TEST Put_Line("Mot 1 .." & Integer'Image(Indice) & " : " & Mot(1 .. Indice));
                Put(".");
-               IF EstMotSignificatif(Mot(1 .. Indice)) THEN
+               if EstMotSignificatif(Mot(1 .. Indice)) then
                   Set_Mot(Couple, Mot(1 .. Indice));
                   Set_NbOcc(Couple, 1);
                   Set_Fin(Couple, Indice);
                   InsererTriee_Couple(L, Couple); -- Ajoute dans la liste le premier mot significatif
-               END IF;
+               end if;
                Indice := 0;
                C := Character'Val(0);
-            END IF;
-         END IF;
-      END LOOP;
+            end if;
+         end if;
+      end loop;
       Close(Orig);
       New_Line;
       Put_Line("Fin lecture !");
       Skip_Line;
-   END;
+   end;
 
-   FUNCTION Query_NbOcc (
+   function Query_NbOcc (
          L : TListe_Couple;
          M : String)
-     RETURN Integer IS
+     return Integer is
       --Requete renvoyant le nombre d'occurence du mot m dans le texte
-   BEGIN
-      IF EstVide(L) THEN
-         RETURN 0;
-      ELSIF Get_Mot(Valeur(L)) = M THEN
-         RETURN 1+Query_NbOcc(Suivant(L), M);
-      ELSE
-         RETURN Query_NbOcc(Suivant(L), M);
-      END IF;
-   END;
+   begin
+      if EstVide(L) then
+         return 0;
+      elsif Get_Mot(Valeur(L)) = M then
+         return 1+Query_NbOcc(Suivant(L), M);
+      else
+         return Query_NbOcc(Suivant(L), M);
+      end if;
+   end;
 
-   PROCEDURE Query_NbPref (
-         L     : IN     TListe_Couple;
-         S     : IN     String;
-         NbMot :    OUT Integer;
-         NbOcc :    OUT Integer) IS
+   procedure Query_NbPref (
+         L     : in     TListe_Couple;
+         S     : in     String;
+         NbMot :    out Integer;
+         NbOcc :    out Integer) is
       --Requete renvoyant le nombre de mot ayant s pour préfixe et le nombre d'occurence de s (Appel de query_NbOcc(s))
       Temp : TListe_Couple;
       Res  : Integer;
-   BEGIN
+   begin
       Res := 0;
       Temp := L;
-      WHILE NOT EstVide(Temp) LOOP
-         IF Estprefixede(Get_Mot(Valeur(Temp)), S) THEN
+      while not EstVide(Temp) loop
+         if Estprefixede(Get_Mot(Valeur(Temp)), S) then
             Res := Res + 1;
-         END IF;
+         end if;
          Temp := Suivant(Temp);
-      END LOOP;
+      end loop;
       NbMot := Res;
       NbOcc := Query_NbOcc(L,S);
-   END;
+   end;
 
-   PROCEDURE Query_NbSuff (
-         L     : IN     TListe_Couple;
-         S     : IN     String;
-         NbMot :    OUT Integer;
-         NbOcc :    OUT Integer) IS
+   procedure Query_NbSuff (
+         L     : in     TListe_Couple;
+         S     : in     String;
+         NbMot :    out Integer;
+         NbOcc :    out Integer) is
       --Requete renvoyant le nombre de mot ayant s pour suffixe et le nombre d'occurence de s (Appel de query_NbOcc(s))
       Temp : TListe_Couple;
       Res  : Integer;
-   BEGIN
+   begin
       Res := 0;
       Temp := L;
-      WHILE NOT Estvide(Temp) LOOP
-         IF Estsuffixede(Get_Mot(Valeur(Temp)), S) THEN
+      while not Estvide(Temp) loop
+         if Estsuffixede(Get_Mot(Valeur(Temp)), S) then
             Res := Res + 1;
-         END IF;
+         end if;
          Temp := Suivant(Temp);
-      END LOOP;
+      end loop;
       NbMot := Res;
       NbOcc := Query_NbOcc(L,S);
-   END;
+   end;
 
-   PROCEDURE Query_NbFact (
-         L     : IN     TListe_Couple;
-         S     : IN     String;
-         NbMot :    OUT Integer;
-         NbOcc :    OUT Integer) IS
+   procedure Query_NbFact (
+         L     : in     TListe_Couple;
+         S     : in     String;
+         NbMot :    out Integer;
+         NbOcc :    out Integer) is
       --Requete renvoyant le nombre de mot ayant s pour facteur et le nombre d'occurence de s (Appel de query_NbOcc(s))
       Temp : TListe_Couple;
       Res  : Integer;
-   BEGIN
+   begin
       Res := 0;
       Temp := L;
-      WHILE NOT EstVide(Temp) LOOP
-         IF Estfacteurde(Get_Mot(Valeur(Temp)), S) THEN
+      while not EstVide(Temp) loop
+         if Estfacteurde(Get_Mot(Valeur(Temp)), S) then
             Res := Res + 1;
-         END IF;
+         end if;
          Temp := Suivant(Temp);
-      END LOOP;
+      end loop;
       NbMot := Res;
       NbOcc := Query_NbOcc(L,S);
-   END;
+   end;
 
-   PROCEDURE Creer_Fichier_Listemot (
-         L : IN     TListe_Couple) IS
+   procedure Creer_Fichier_Listemot (
+         L : in     TListe_Couple) is
       --Procedure qui crée le fichier liste-mot.txt a partir de la liste de couple l
       --Le Fichier créé est de la forme suivante
       ------------------------------------------
@@ -203,41 +203,40 @@ PACKAGE BODY Analyse_Lexicale IS
       ------------------------------------------
       Dest : File_Type;
       Temp : TListe_Couple;
-      Mot : String(1 .. 30);
-      Fin : Integer;
-   BEGIN
+   begin
       Temp := L;
       Create(Dest, Name => "liste-mot.txt");
       Put("Debut creation");
-      WHILE NOT EstVide(Temp) LOOP
+      while not EstVide(Temp) loop
          Put(Dest, Get_Mot(Premier(Temp))(1 .. Get_Fin(Premier(Temp))));
          Put_Line(Dest, Integer'Image(Get_NbOcc(Premier(Temp))));
          Temp := Suivant(Temp);
          Put(".");
-      END LOOP;
+      end loop;
+      New_Line(Dest);
       Close(Dest);
       New_Line;
       Put_Line("Fin creation !");
       Skip_Line;
-   END;
+   end;
 
-   FUNCTION Existe (
-         Name : IN     String)
-     RETURN Boolean IS
+   function Existe (
+         Name : in     String)
+     return Boolean is
       File : File_Type;
-   BEGIN
+   begin
       Open(File, In_File, Name);
       Close(File);
-      RETURN True;
-   EXCEPTION
-      WHEN Name_Error =>
-         RETURN False;
-      WHEN OTHERS =>
-         RAISE;
-   END Existe;
+      return True;
+   exception
+      when Name_Error =>
+         return False;
+      when others =>
+         raise;
+   end Existe;
 
-   PROCEDURE Recup_Liste (
-         L : IN OUT TListe_Couple) IS
+   procedure Recup_Liste (
+         L : in out TListe_Couple) is
       --procedure qui recrée la liste de couple a partir du fichier "liste-mot.txt"
       --le fichier n'est pas passé en parametre car il sera créé auparavant par la fonction Creer_Fichier_Listemot
       --et donc le fichier existera forcement et pourra etre ouvert dans le corps de la fonction
@@ -247,44 +246,44 @@ PACKAGE BODY Analyse_Lexicale IS
       Mot    : String (1 .. 30);
       Indice : Integer;
       Couple : T_Couple;
-   BEGIN
+   begin
       Indice := 0;
-      IF Existe("liste-mot.txt") THEN
+      if Existe("liste-mot.txt") then
          Open(Orig, In_File, "liste-mot.txt");
          Put("Debut recuperation");
-         WHILE NOT End_Of_File(Orig) LOOP
-            IF End_Of_Line(Orig) THEN
+         while not End_Of_File(Orig) loop
+            if End_Of_Line(Orig) then
                InsererTriee_Couple(L, Couple);
                Put(".");
                Skip_Line(Orig);
-            ELSE
+            else
                Get(Orig, C);
-               IF C = Character'Val(32) THEN -- C = ' '
+               if C = Character'Val(32) then -- C = ' '
                   -- TEST Put("Mot 1 .." & Integer'Image(Indice) & " : " & Mot(1 .. Indice));
                   Set_Mot(Couple, Mot(1 .. Indice));
                   Set_Fin(Couple, Indice);
                   Indice := 0;
-                  WHILE NOT End_Of_Line(Orig) LOOP
+                  while not End_Of_Line(Orig) loop
                      Get(Orig, C);
                      Indice := Indice + 1;
                      Mot(Indice) := C;
-                  END LOOP;
-                  -- TEST Put_Line(" - NbOCcc : " & Mot(1 .. Indice));
+                  end loop;
+                  -- TEST Put_Line(" - NbOcc : " & Mot(1 .. Indice));
                   Set_NbOcc(Couple, Integer'Value(Mot(1 .. Indice)));
                   Indice := 0;
-               ELSE
+               else
                   Indice := Indice + 1;
                   Mot(Indice) := C;
-               END IF;
-            END IF;
-         END LOOP;
+               end if;
+            end if;
+         end loop;
          Close(Orig);
          New_Line;
          Put_Line("Fin recuperation !");
          Skip_Line;
-      ELSE
+      else
          Put_Line("Le fichier " & Character'Val(34) & "liste-mot.txt" & Character'Val(34) & " n'existe pas !");
-      END IF;
-   END;
+      end if;
+   end;
 
-END Analyse_Lexicale;
+end Analyse_Lexicale;

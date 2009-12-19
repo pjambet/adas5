@@ -1,81 +1,87 @@
-WITH Analyse_Lexicale;
-USE Analyse_Lexicale;
-WITH Liste_Couple;
-USE Liste_Couple;
-WITH Ada.Text_IO;
-USE Ada.Text_Io;
-WITH Ada.Integer_Text_IO;
-USE Ada.Integer_Text_IO;
+with Analyse_Lexicale;
+use Analyse_Lexicale;
+with Liste_Couple;
+use Liste_Couple;
+with Ada.Text_IO;
+use Ada.Text_Io;
+with Ada.Integer_Text_IO;
+use Ada.Integer_Text_IO;
 
-PROCEDURE Main IS
+procedure Main is
 
    Menu   : Boolean;
    Choix  : Integer;
-   L,P    : TListe_Couple;
+   L,
+   P      : TListe_Couple;
    Buffer : String (1 .. 30);
    Last   : Natural;
    NomFic : Boolean;
 
-   FUNCTION Existe (
-         Name : IN     String)
-     RETURN Boolean IS
-      File : File_Type;
-   BEGIN
-      Open(File, In_File, Name);
-      Close(File);
-      RETURN True;
-   EXCEPTION
-      WHEN Name_Error =>
-         RETURN False;
-      WHEN OTHERS =>
-         RAISE;
-   END Existe;
+--   function Existe (
+--         Name : in     String)
+--     return Boolean is
+--      File : File_Type;
+--   begin
+--      Open(File, In_File, Name);
+--      Close(File);
+--      return True;
+--   exception
+--      when Name_Error =>
+--         return False;
+--      when others =>
+--         raise;
+--   end Existe;
 
-BEGIN
+begin
 
    Menu := True;
-   WHILE Menu LOOP
-      Put_Line("Entrez 1 pour analyser un texte");
-      Put_Line("Entrez 2 pour XXX");
+   while Menu loop
+      Put_Line("Entrez 1 pour analyser un texte.");
+      Put_Line("Entrez 2 pour enregistrer la liste dans le fichier " & Character'Val(34) & "liste-mots.txt" & Character'Val(34) & ".");
+      Put_Line("Entrez 3 pour recuperer la liste a partir du fichier " & Character'Val(34) & "liste-mots.txt" & Character'Val(34) & ".");
+      Put_Line("Entrez 0 pour quitter.");
+      New_Line;
       Get(Choix);
       Skip_Line;
       New_Line;
 
-      CASE Choix IS
-         WHEN 1 =>
+      case Choix is
+         
+         when 0 =>
+            
+            null; -- return 0 ?!
 
-            Menu := False;
+         when 1 =>
+
             NomFic := True;
-            WHILE NomFic LOOP
+            while NomFic loop
                Put_Line("Veuillez entrer le nom du fichier");
                Get_Line(Buffer, Last);
                New_Line;
-               IF Existe(Buffer(1 .. Last)) THEN
+               if Existe(Buffer(1 .. Last)) then
                   NomFic := False;
                   Query_Liste_Couple(L, Buffer(1 .. Last)); -- Remplissage de la liste avec les mots significatifs du texte
-                  Creer_Fichier_Listemot(L);
-                  Recup_Liste(P);
-                  --Creer_Fichier_Listemot(P);
-               ELSE
+               else
                   Put_Line("Nom de fichier invalide !");
                   New_Line;
-               END IF;
-            END LOOP;
+               end if;
+            end loop;
 
-         WHEN 2 =>
+         when 2 =>
 
-            Menu := False;
-            Put_Line("XXX");
+            Creer_Fichier_Listemot(L);
 
-         WHEN OTHERS =>
+         when 3 =>
+
+            Recup_Liste(P);
+
+         when others =>
 
             Put_Line("Valeur non valide !");
             New_Line;
 
-      END CASE;
+      end case;
 
-   END LOOP;
-   
-END;
+   end loop;
 
-
+end;
