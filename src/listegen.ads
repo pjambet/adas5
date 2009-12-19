@@ -94,6 +94,7 @@ package ListeGen is
        with function ">"(T1,T2: T_Elem)return Boolean is <>;
        with function "="(T1,T2: T_Elem)return Boolean is <>;
        with function "<"(T1,T2: T_Elem)return Boolean is <>;
+       with procedure Traitement_Doublon(L: in out T_Liste);
    procedure InsererTriee(L: in out T_Liste;X: in T_Elem);
    --L est triée par ordre croissant
    --Insere X dans L de maniere a conserver le tri de L

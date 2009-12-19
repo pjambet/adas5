@@ -24,10 +24,18 @@ package body Liste_couple is
    procedure Modif_FusionCouple(L1,L2: in out TListe_Couple) is
       --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprimé
       --mais cela sera fait dans la fonction Fusion definie dans listegen
-   C: T_Couple;
+      C: T_Couple;
    begin
       C:=Valeur(L1);
       Set_NbOcc(C, Get_NbOcc(Valeur(L1))+Get_NbOcc(Valeur(L2)));
    end;
+
+   procedure Traitement_Doublon_Couple(L: in out TListe_Couple) is
+      C: T_Couple;
+   begin
+      C:=Valeur(L);
+      Set_NbOcc(C,Get_NbOcc(Valeur(L))+1);
+   end Traitement_Doublon_Couple;
+
 
 end Liste_Couple;

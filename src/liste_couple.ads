@@ -28,8 +28,10 @@ package Liste_Couple is
    --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprimé
    --mais cela sera fait dans la fonction Fusion definie dans listegen
 
+   procedure Traitement_Doublon_Couple(L: in out TListe_Couple);
+
    procedure Fusion_Couple is new L.Fusion(Modif_FusionCouple);
-   procedure InsererTriee_Couple is new L.InsererTriee(Superieur_Couple,Egale_Couple,Inferieur_Couple);
+   procedure InsererTriee_Couple is new L.InsererTriee(Superieur_Couple,Egale_Couple,Inferieur_Couple,Traitement_Doublon_Couple);
    function CopieTriee_Couple is new L.CopieTriee(InsererTriee_Couple);
 
    -----------------------------------------------------------------

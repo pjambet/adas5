@@ -249,9 +249,11 @@ package body ListeGen is
          if L.all.Val < x then
             --soit on ajoute x a la fin
             AjoutFin(l,x);
-         else
+         elsif L.all.Val > X then
             --soit on ajoute y au debut
             AjoutDebut(l,x);
+         else -- L.all.val = X
+            Traitement_Doublon(L);
          end if;
       elsif Ltemp.All.Val > X then
          --On insere au debut
@@ -267,24 +269,28 @@ package body ListeGen is
             --Si on est sur le dernier element
             if Ltemp.all.Val < X then
                Ajoutfin(Ltemp,X);
-            else
+            elsif Ltemp.all.Val > X then
                -- Linser := new Cellule'(X,Ltemp,Ltemp.Prec); inversion des champs prec et suiv ??
                -- ???????????????????????????
                Linser := new Cellule'(X,Ltemp.Prec,Ltemp);
 
                Ltemp.Prec.Suiv := Linser;
                Ltemp.Prec := Linser;
+            else --ltemp.all.val=x
+               Traitement_Doublon(Ltemp);
             end if;
          else
             --On est au milieu de la liste et ltemp.val >= x
-
-            -- InsererAvant(ltemp,x,ltemp.all.Val);
-            --  non vous insérez avant ltemp, mais l'insertion avant le premier élément d'un liste
-            --  revient à un ajout-deb => vous perdez le lien avec le prédécesseur de ltemp
-            Linser := new Cellule'(X,Ltemp.Prec,Ltemp);
-            Ltemp.Prec.Suiv := Linser;
-            Ltemp.Prec := Linser;
-
+            if Ltemp.all.Val > X then
+               -- InsererAvant(ltemp,x,ltemp.all.Val);
+               --  non vous insérez avant ltemp, mais l'insertion avant le premier élément d'un liste
+               --  revient à un ajout-deb => vous perdez le lien avec le prédécesseur de ltemp
+               Linser := new Cellule'(X,Ltemp.Prec,Ltemp);
+               Ltemp.Prec.Suiv := Linser;
+               Ltemp.Prec := Linser;
+            else --ltemp.all.val = x
+               Traitement_Doublon(Ltemp);
+            end if;
          end if;
       end if;
    end inserertriee;
