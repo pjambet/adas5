@@ -4,7 +4,6 @@ package body Liste_couple is
       --redefinition de la fonction "<" pour le type couple
       --ici on tri les couples par ordre lexicographique
    begin
-      Put("test <");
       return Inferieur_Mot(Get_Mot(Couple1),Get_Mot(COuple2));
    end;
 
@@ -12,7 +11,6 @@ package body Liste_couple is
       --redefinition de la fonction ">" pour le type couple
       --ici on trie les couples par ordre lexicographique
    begin
-      Put("test >");
       return Superieur_Mot(Get_Mot(Couple1),Get_Mot(Couple2));
    end;
 
@@ -20,7 +18,6 @@ package body Liste_couple is
       --redefinition de la fonction ">" pour le type couple
       --ici on trie les couples par ordre lexicographique
    begin
-      Put("test =");
       return Egale_Mot(Get_Mot(Couple1), Get_Mot(Couple2));
    end;
 
