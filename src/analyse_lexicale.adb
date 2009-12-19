@@ -203,10 +203,11 @@ PACKAGE BODY Analyse_Lexicale IS
       Dest : File_Type;
       Temp : TListe_Couple;
    BEGIN
+      Temp := L;
       Create(Dest, Name => "liste-mot.txt");
       WHILE NOT EstVide(Temp) LOOP
-         Put(Dest, Get_Mot(Temp.Val(1 .. Get_Fin(L))));
-         Put_Line(" " & Integer'Image(Get_NbOcc(L)));
+         Put(Dest, Get_Mot(Premier(Temp)));
+         Put_Line(" " & Integer'Image(Get_NbOcc(Premier(Temp))));
          Temp := Suivant(Temp);
       END LOOP;
       Close(Dest);
@@ -228,15 +229,14 @@ PACKAGE BODY Analyse_Lexicale IS
    END Existe;
 
    PROCEDURE Recup_Liste (
-         L :    OUT TListe_Couple) IS
+         L : IN OUT TListe_Couple) IS
       --procedure qui recrée la liste de couple a partir du fichier "liste-mot.txt"
       --le fichier n'est pas passé en parametre car il sera créé auparavant par la fonction Creer_Fichier_Listemot
       --et donc le fichier existera forcement et pourra etre ouvert dans le corps de la fonction
       --declenche une exception si le fichier n'existe pas
-      Orig : File_Type;
-      Temp : TListe_Couple;
-      C : Character;
-      Mot : String(1 .. 30);
+      Orig   : File_Type;
+      C      : Character;
+      Mot    : String (1 .. 30);
       Indice : Integer;
       Couple : T_Couple;
    BEGIN
@@ -244,21 +244,20 @@ PACKAGE BODY Analyse_Lexicale IS
       IF Existe("liste-mot.txt") THEN
          WHILE NOT End_Of_File(Orig) LOOP
             IF End_Of_Line(Orig) THEN
+               InsererTriee_Couple(L, Couple);
                Skip_Line(Orig);
             ELSE
                Get(Orig, C);
-               IF C = Character'Val(32) THEN
-                  Couple.Mot := Mot(1 .. Indice);
-                  Set_Mot(L, Couple);
-                  Couple.Fin := Indice;
-                  Set_Fin(L, Couple);
+               IF C = Character'Val(32) THEN -- C = ' '
+                  Set_Mot(Couple, Mot(1 .. Indice));
+                  Set_Fin(Couple, Indice);
                   Indice := 0;
                   WHILE NOT End_Of_Line LOOP
                      Get(Orig, C);
                      Indice := Indice + 1;
                      Mot(Indice) := C;
                   END LOOP;
-                  L := Set_NbOcc(Mot(1 .. Indice));
+                  Set_NbOcc(Couple, Integer'Value(Mot(1 .. Indice)));
                ELSE
                   Indice := Indice + 1;
                   Mot(Indice) := C;
