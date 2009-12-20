@@ -103,7 +103,7 @@ package body Analyse_Lexicale is
                   Set_Mot(Couple, M);
                   Set_NbOcc(Couple, 1);
                   --Set_Fin(Couple, Indice);
-                  InsererTriee_Couple(L, Couple); -- Ajoute dans la liste le premier mot significatif
+                  InsererTriee_Couple_Lex(L, Couple); -- Ajoute dans la liste le premier mot significatif
                end if;
                Indice := 0;
                C := Character'Val(0);
@@ -262,7 +262,7 @@ package body Analyse_Lexicale is
          Put("Debut recuperation");
          while not End_Of_File(Orig) loop
             if End_Of_Line(Orig) then
-               InsererTriee_Couple(L, Couple);
+               InsererTriee_Couple_Lex(L, Couple);
                Put(".");
                Skip_Line(Orig);
             else
@@ -303,8 +303,9 @@ package body Analyse_Lexicale is
       Compteur : Integer;
       Temp     : TListe_Couple;
    begin
-      Temp := L;
+      --Temp := L;
       Compteur := 0;
+      Temp := CopieTriee_Couple_Occ(L);
       while not EstVide(Temp) and then Compteur < N loop
          Imprime_Couple(Premier(Temp));
          Compteur := Compteur + 1;
