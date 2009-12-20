@@ -311,7 +311,7 @@ package body ListeGen is
       lresult := CreerListe;
       New_LIne;
       while ltemp /= null loop
-         Imprime(Ltemp.Val); New_Line;
+         --Imprime(Ltemp.Val); New_Line;
          InsererTriee(lresult,ltemp.val);
          Ltemp := Ltemp.Suiv;
       end loop;

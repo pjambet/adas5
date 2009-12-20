@@ -15,7 +15,6 @@ procedure Main is
    Menu      : Boolean;
    Choix     : Integer;
    L         : TListe_Couple;
-   M         : TListe_Couple;
    Buffer    : String (1 .. 30);
    Last      : Natural;
    NomFic    : Boolean;
@@ -70,9 +69,7 @@ begin
 
             Put_Line("Veuillez entrer le nombre de mots a afficher.");
             Get(NbMot);
-            New_Line;
-            --Tri L par NBOCC
-            AffichageN(M, NbMot);
+            AffichageN(L, NbMot);
 
          when 5 =>
 
