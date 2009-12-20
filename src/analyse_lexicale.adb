@@ -313,18 +313,4 @@ package body Analyse_Lexicale is
       New_Line;
    end;
 
-   --obsolete
-   procedure AffichageListe (
-         L : in     TListe_Couple) is
-      -- affiche les elements de la liste
-      Temp : TListe_Couple;
-   begin
-      Temp := L;
-      while not EstVide(Temp) loop
-         Imprime_Couple(Premier(Temp));
-         Temp := Suivant(Temp);
-      end loop;
-      New_Line;
-   end;
-
 end Analyse_Lexicale;

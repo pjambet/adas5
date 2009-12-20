@@ -4,7 +4,8 @@ with Liste_Couple;
 use Liste_Couple;
 with Couple;
 use Couple;
-with Mot;use Mot;
+with Mot;
+use Mot;
 with Listegen;
 with Text_Stat;
 use Text_Stat;
@@ -15,17 +16,21 @@ use Ada.Integer_Text_IO;
 
 procedure Main is
 
-   Menu      : Boolean;
-   Choix     : Integer;
-   L         : TListe_Couple;
-   Buffer    : String (1 .. 30);
-   Last      : Natural;
-   NomFic    : Boolean;
-   NbMot     : Integer;
-   Buf2,Buf3 : String(1..30);
-   Last2,Last3: Natural;
-   C1,C2: T_Couple;
-   M1,M2: T_Mot;
+   Menu   : Boolean;
+   Choix  : Integer;
+   L      : TListe_Couple;
+   Buffer : String (1 .. 30);
+   Last   : Natural;
+   NomFic : Boolean;
+   NbMot  : Integer;
+   Buf2,
+   Buf3   : String (1 .. 30);
+   Last2,
+   Last3  : Natural;
+   C1,
+   C2     : T_Couple;
+   M1,
+   M2     : T_Mot;
    use Liste_Couple.L;
 begin
 
@@ -81,15 +86,18 @@ begin
 
          when 5 =>
 
-            --AffichageListe(L);
             Affiche(L);
 
          when 6 =>
+
             Get_Line(Buf2,Last2);
             Get_Line(Buf3,Last3);
-            M1 := Creer_Mot(Buf2(1..Last2));Set_Mot(C1,M1);
-            M2 := Creer_Mot(Buf3(1..Last3));Set_Mot(C2,M2);
+            M1 := Creer_Mot(Buf2(1..Last2));
+            Set_Mot(C1,M1);
+            M2 := Creer_Mot(Buf3(1..Last3));
+            Set_Mot(C2,M2);
             Fusion_Couple(L,C1,C2);
+
          when others =>
 
             Put_Line("Valeur non valide !");
