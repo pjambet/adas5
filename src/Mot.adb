@@ -112,7 +112,7 @@ package body Mot is
       --est de longueur supérieur a 3 ou si il est de longeur de 3 et qu'il est
       --est un "petit mot important" (cf petits-mots.txt)
    begin
-      return EstLongMot(M) or else Estpetitmotimp(M) ;
+      return EstLongMot(M) or else Estpetitmotimp(M);
    end;
 
    function Estlongmot(M: T_Mot) return Boolean is
@@ -130,14 +130,14 @@ package body Mot is
       Last: Integer;
    begin
       if (Get_Fin(M) = 3) then
-         Open(Fic_Mots,In_File,"petits-mots.txt");
+         Open(Fic_Mots, In_File, "petits-mots.txt");
          while not End_Of_File(Fic_Mots) loop
-            Get_Line(Fic_Mots,Ligne,Last);
-            --Put(Ligne); New_Line;
-            if Compare_Chaine_Mot(Ligne,M) then
+            Get_Line(Fic_Mots, Ligne, Last);
+            if Compare_Chaine_Mot(Ligne, M) then
                return True;
             end if;
          end loop;
+         Close(Fic_Mots);
       end if;
       return False;
    end;
