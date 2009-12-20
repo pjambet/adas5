@@ -19,9 +19,9 @@ procedure Main is
    Last      : Natural;
    NomFic    : Boolean;
    NbMot     : Integer;
-
+   use Liste_Couple.L;
 begin
-
+   
    Menu := True;
    while Menu loop
       Put_Line("Entrez 1 pour analyser un texte.");
@@ -73,8 +73,8 @@ begin
 
          when 5 =>
 
-            AffichageListe(L);
-
+            --AffichageListe(L);
+            Affiche(L);
          when others =>
 
             Put_Line("Valeur non valide !");

@@ -49,12 +49,12 @@ package body ListeGen is
    Ltemp: T_Liste;
    begin
       Ltemp := L;
-      New_Line;Put("[");
+      --New_Line;Put("[");
       while Ltemp /= null loop
-         Imprime(Ltemp.all.Val);Put("|");
+         Imprime(Ltemp.all.Val);--Put("|");
          Ltemp := Ltemp.all.Suiv;
       end loop;
-      Put("]");New_Line;
+      --Put("]");New_Line;
       null;
    end Affiche;
 

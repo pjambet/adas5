@@ -11,7 +11,7 @@ package Analyse_Lexicale is
 
    function CaractereAutorise (
          C : in     Character)
-     return Boolean;
+   return Boolean;
 
    procedure Query_Liste_Couple (
          L      : in out TListe_Couple;
