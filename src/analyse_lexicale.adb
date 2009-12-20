@@ -254,7 +254,7 @@ package body Analyse_Lexicale is
       Mot    : String (1 .. 30);
       Indice : Integer;
       Couple : T_Couple;
-      M: T_Mot;
+      M      : T_Mot;
    begin
       Indice := 0;
       if Existe("liste-mot.txt") then
@@ -303,12 +303,24 @@ package body Analyse_Lexicale is
       Compteur : Integer;
       Temp     : TListe_Couple;
    begin
-      --Temp := L;
       Compteur := 0;
       Temp := CopieTriee_Couple_Occ(L);
       while not EstVide(Temp) and then Compteur < N loop
          Imprime_Couple(Premier(Temp));
          Compteur := Compteur + 1;
+         Temp := Suivant(Temp);
+      end loop;
+      New_Line;
+   end;
+
+   procedure AffichageListe (
+         L : in     TListe_Couple) is
+      -- affiche les elements de la liste
+      Temp : TListe_Couple;
+   begin
+      Temp := L;
+      while not EstVide(Temp) loop
+         Imprime_Couple(Premier(Temp));
          Temp := Suivant(Temp);
       end loop;
       New_Line;
