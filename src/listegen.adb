@@ -331,13 +331,13 @@ package body ListeGen is
       return linvers;
    end Copieinverse;
 
-   procedure Fusion(L: in out T_Liste; L1,L2: in out T_Liste) is
+   procedure Fusion(L: in out T_Liste; T1,T2: in out T_Elem) is
       --precondition : L1,L2 /= null
-      --L'element pointé par L2 est fusionné dans L2
-      --Fusionne L2 dans L1 en supprimant L2 et en appliquant a L1 la procedure modif_Fusion
+      --La premiere occurence de T2 est fusionné dans la premiere occurence de  T1
+      --Fusionne T2 dans T1 en supprimant T2 et en appliquant a T1 la procedure modif_Fusion
    begin
-      Modif_Fusion(L1,L2);
-      Supprimer(L,L1.Val);
+      Modif_Fusion(L,T1,T2);
+      Supprimer(L,T2);
    end;
 
 end ListeGen;

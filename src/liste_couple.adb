@@ -42,14 +42,28 @@ package body Liste_couple is
       return Get_NbOcc(Couple1) = Get_NbOcc(Couple2);
    end Egale_Couple_Occ;
 
-   procedure Modif_FusionCouple(L1,L2: in out TListe_Couple) is
+   procedure Modif_FusionCouple(L: in out TListe_Couple;T1,T2: in out T_Couple) is
       --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprimé
       --mais cela sera fait dans la fonction Fusion definie dans listegen
       C: T_Couple;
+      Ltemp: T_Liste;
+      L1,L2: T_Liste;
    begin
-      C:=Valeur(L1);
-      Set_NbOcc(C, Get_NbOcc(Valeur(L1))+Get_NbOcc(Valeur(L2)));
+      --C:=Valeur(T1);
+      --Placement de L1
+      L1 := L;
+      while not EstVide(L1) and then Get_Chaine(Get_Mot(Valeur(L1))) /= Get_Chaine(Get_Mot(T1)) loop
+         L1 := Suivant(L1);
+      end loop;
+      --Placement De L2
+      L2 := L;
+      while not EstVide(L2) and then Get_Chaine(Get_Mot(Valeur(L2))) /= Get_Chaine(Get_Mot(T2)) loop
+         L2 := Suivant(L2);
+      end loop;
+      C := Valeur(L1);
+      Set_NbOcc(C, Get_NbOcc(C)+Get_NbOcc(Valeur(L2)) );
       Modifie(L1,C);
+
    end;
 
    procedure Traitement_Doublon_Couple(L: in out TListe_Couple) is

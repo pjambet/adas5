@@ -101,8 +101,8 @@ package ListeGen is
    --Insere X dans L de maniere a conserver le tri de L
 
    generic
-      with procedure Modif_Fusion(L1,L2: in out T_Liste);
-   procedure Fusion(L: in out T_Liste; L1,L2: in out T_Liste);
+      with procedure Modif_Fusion(L: in out T_Liste;T1,T2: in out T_Elem);
+   procedure Fusion(L: in out T_Liste; T1,T2: in out T_Elem);
    --Fusionne m2 dans m1 en supprimant m2 et augmentant l'occurence de m1
    --precondition : L1,L2 /= null
    --L'element pointé par L2 est fusionné dans L2

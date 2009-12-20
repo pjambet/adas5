@@ -130,13 +130,20 @@ package body Mot is
       Last: Integer;
    begin
       if (Get_Fin(M) = 3) then
+         --Put("Ouverture petits mots");New_Line;
          Open(Fic_Mots, In_File, "petits-mots.txt");
          while not End_Of_File(Fic_Mots) loop
-            Get_Line(Fic_Mots, Ligne, Last);
+            --Put("Recuperation ligne : ");
+            Get_Line(Fic_Mots, Ligne, Last);--Skip_Line(Fic_Mots);
+            --Put(Ligne);New_Line;
+            --Put("Comparaison avec");Put(Get_Chaine(M));New_Line;
             if Compare_Chaine_Mot(Ligne, M) then
+               --Put("C'est bon !");
+               Close(Fic_Mots);
                return True;
             end if;
          end loop;
+         --Put("Fermeture petits mots");New_Line;
          Close(Fic_Mots);
       end if;
       return False;

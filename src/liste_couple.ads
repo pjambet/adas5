@@ -36,7 +36,7 @@ package Liste_Couple is
    --redefinition de la fonction "=" pour le type couple
    --ici on trie les couples par nombre d'occurence décroissante
 
-   procedure Modif_FusionCouple(L1,L2: in out TListe_Couple);
+   procedure Modif_FusionCouple(L: in out T_Liste;T1,T2: in out T_Couple);
    --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprimé
    --mais cela sera fait dans la fonction Fusion definie dans listegen
 
