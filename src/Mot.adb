@@ -80,7 +80,7 @@ package body Mot is
                return False;
             end if;
          end loop;
-         return False;
+         return True;
       end if;
    end Compare_Mots;
 

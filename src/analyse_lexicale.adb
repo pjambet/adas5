@@ -313,6 +313,7 @@ package body Analyse_Lexicale is
       New_Line;
    end;
 
+   --obsolete
    procedure AffichageListe (
          L : in     TListe_Couple) is
       -- affiche les elements de la liste

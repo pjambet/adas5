@@ -2,6 +2,9 @@ with Analyse_Lexicale;
 use Analyse_Lexicale;
 with Liste_Couple;
 use Liste_Couple;
+with Couple;
+use Couple;
+with Mot;use Mot;
 with Listegen;
 with Text_Stat;
 use Text_Stat;
@@ -19,9 +22,13 @@ procedure Main is
    Last      : Natural;
    NomFic    : Boolean;
    NbMot     : Integer;
+   Buf2,Buf3 : String(1..30);
+   Last2,Last3: Natural;
+   C1,C2: T_Couple;
+   M1,M2: T_Mot;
    use Liste_Couple.L;
 begin
-   
+
    Menu := True;
    while Menu loop
       Put_Line("Entrez 1 pour analyser un texte.");
@@ -29,6 +36,7 @@ begin
       Put_Line("Entrez 3 pour recuperer la liste a partir du fichier " & Character'Val(34) & "liste-mots.txt" & Character'Val(34) & ".");
       Put_Line("Entrez 4 pour afficher les mots les plus utilises.");
       Put_Line("Entrez 5 pour afficher la liste.");
+      Put_Line("Entrez 6 pour fusionner un mot dans un autre");
       Put_Line("Entrez 0 pour quitter.");
       New_Line;
       Get(Choix);
@@ -75,6 +83,13 @@ begin
 
             --AffichageListe(L);
             Affiche(L);
+
+         when 6 =>
+            Get_Line(Buf2,Last2);
+            Get_Line(Buf3,Last3);
+            M1 := Creer_Mot(Buf2(1..Last2));Set_Mot(C1,M1);
+            M2 := Creer_Mot(Buf3(1..Last3));Set_Mot(C2,M2);
+            Fusion_Couple(L,C1,C2);
          when others =>
 
             Put_Line("Valeur non valide !");

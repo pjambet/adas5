@@ -337,7 +337,7 @@ package body ListeGen is
       --Fusionne T2 dans T1 en supprimant T2 et en appliquant a T1 la procedure modif_Fusion
    begin
       Modif_Fusion(L,T1,T2);
-      Supprimer(L,T2);
+      --Supprimer(L,T2);
    end;
 
 end ListeGen;
