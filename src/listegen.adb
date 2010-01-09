@@ -54,8 +54,8 @@ package body ListeGen is
          Imprime(Ltemp.all.Val);--Put("|");
          Ltemp := Ltemp.all.Suiv;
       end loop;
-      --Put("]");
-      New_Line;
+      --Put("]");New_Line;
+      null;
    end Affiche;
 
    procedure AjoutDebut(L: in out T_Liste;X: in T_Elem) is

@@ -75,6 +75,10 @@ package Analyse_Lexicale is
          L : in     TListe_Couple;
          N : in     Integer);
    -- affiche les N premiers mots de la liste
+   
+   procedure AffichageListe (
+         L : in     TListe_Couple);
+      -- affiche les elements de la liste
 
    end Analyse_Lexicale;
 

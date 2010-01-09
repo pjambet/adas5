@@ -1,37 +1,20 @@
-with Analyse_Lexicale;
-use Analyse_Lexicale;
-with Liste_Couple;
-use Liste_Couple;
-with Couple;
-use Couple;
-with Mot;
-use Mot;
-with Listegen;
-with Text_Stat;
-use Text_Stat;
-with Ada.Text_IO;
-use Ada.Text_Io;
-with Ada.Integer_Text_IO;
-use Ada.Integer_Text_IO;
+with Analyse_Lexicale, Liste_Couple, Couple, Mot, Listegen, Text_Stat, Ada.Text_IO, Ada.Integer_Text_IO, Ada.Float_Text_IO;
+use Analyse_Lexicale, Liste_Couple, Couple, Mot, Text_Stat, Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
 
 procedure Main is
 
-   Menu   : Boolean;
-   Choix  : Integer;
-   L      : TListe_Couple;
-   Buffer : String (1 .. 30);
-   Last   : Natural;
-   NomFic : Boolean;
-   NbMot  : Integer;
-   Buf2,
-   Buf3   : String (1 .. 30);
-   Last2,
-   Last3  : Natural;
-   C1,
-   C2     : T_Couple;
-   M1,
-   M2     : T_Mot;
+   Menu      : Boolean;
+   Choix     : Integer;
+   L,L2      : TListe_Couple;
+   Buffer    : String (1 .. 30);
+   Last      : Natural;
+   NomFic    : Boolean;
+   NbMot     : Integer;
+   C1,C2: T_Couple;
+   M: T_Mot;
+   Num : Integer;
    use Liste_Couple.L;
+
 begin
 
    Menu := True;
@@ -42,6 +25,7 @@ begin
       Put_Line("Entrez 4 pour afficher les mots les plus utilises.");
       Put_Line("Entrez 5 pour afficher la liste.");
       Put_Line("Entrez 6 pour fusionner un mot dans un autre");
+      Put_Line("Entrez 7 pour comparer 2 textes");
       Put_Line("Entrez 0 pour quitter.");
       New_Line;
       Get(Choix);
@@ -63,12 +47,22 @@ begin
                New_Line;
                if Existe(Buffer(1 .. Last)) then
                   NomFic := False;
-                  Query_Liste_Couple(L, Buffer(1 .. Last)); -- Remplissage de la liste avec les mots significatifs du texte
+                  Query_Liste_Couple(L, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
                else
                   Put_Line("Nom de fichier invalide !");
                   New_Line;
                end if;
             end loop;
+
+            Put_Line("Veuillez entrer un entier.");
+            Get(Num);
+            New_Line;
+
+            Put_Line("Nombre de mot total :" & Integer'Image(Num_Mot_Tot(L)) & ".");
+            Put("Nombre d'occurence moyen : "); Put(Num_Occ_Moy(L), 2, 1, 0); Put_Line(".");
+            Put("Longueur moyenne des mots :"); Put(Long_Moy(L), 2, 1, 0); Put_Line(".");
+            Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(Num_Mot_Sup(L, Num)) & ".");
+            New_Line;
 
          when 2 =>
 
@@ -87,16 +81,61 @@ begin
          when 5 =>
 
             Affiche(L);
+            New_Line;
 
          when 6 =>
 
-            Get_Line(Buf2,Last2);
-            Get_Line(Buf3,Last3);
-            M1 := Creer_Mot(Buf2(1..Last2));
-            Set_Mot(C1,M1);
-            M2 := Creer_Mot(Buf3(1..Last3));
-            Set_Mot(C2,M2);
-            Fusion_Couple(L,C1,C2);
+            Put_Line("Veuillez entrer le premier mot.");
+            Get_Line(Buffer, Last);
+            New_Line;
+            M := Creer_Mot(Buffer(1 .. Last));
+            Set_Mot(C1, M);
+
+            Put_Line("Veuillez entrer le deuxieme mot.");
+            Get_Line(Buffer, Last);
+            New_Line;
+            M := Creer_Mot(Buffer(1 .. Last));
+            Set_Mot(C2, M);
+
+            Fusion_Couple(L, C1, C2);
+
+         when 7 =>
+
+            NomFic := True;
+            while NomFic loop
+               Put_Line("Veuillez entrer le nom du premier fichier.");
+               Get_Line(Buffer, Last);
+               New_Line;
+               if Existe(Buffer(1 .. Last)) then
+                  NomFic := False;
+                  Query_Liste_Couple(L, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
+               else
+                  Put_Line("Nom de fichier invalide !");
+                  New_Line;
+               end if;
+            end loop;
+
+            NomFic := True;
+            while NomFic loop
+               Put_Line("Veuillez entrer le nom du deuxieme fichier.");
+               Get_Line(Buffer, Last);
+               New_Line;
+               if Existe(Buffer(1 .. Last)) then
+                  NomFic := False;
+                  Query_Liste_Couple(L2, Buffer(1 .. Last));--Remplissage de la liste avec les mots significatifs du texte
+               else
+                  Put_Line("Nom de fichier invalide !");
+                  New_Line;
+               end if;
+            end loop;
+
+            Put_Line("Veuillez entrer un mot.");
+            Get_Line(Buffer, Last);
+            New_Line;
+
+            Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(Query_NbOcc(L, Buffer(1 .. Last))) & ".");
+            Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(Query_NbOcc(L2, Buffer(1 .. Last))) & ".");
+            New_Line;
 
          when others =>
 

@@ -1,5 +1,5 @@
-with Ada.Text_IO, Couple;
-use Ada.Text_IO, Couple;
+with Ada.Text_IO, Couple, Ada.Characters.Handling;
+use Ada.Text_IO, Couple, Ada.Characters.Handling;
 
 package body Analyse_Lexicale is
 
@@ -94,6 +94,9 @@ package body Analyse_Lexicale is
             Get(Orig, C);
             if CaractereAutorise(C) then -- On crée le mot
                Indice := Indice + 1;
+               if Is_Upper(C) then
+                  C := To_Lower(C);
+               end if;
                Mot(Indice) := C;
             else -- non(CaractereAutorise(C))
                -- TEST Put_Line("Mot 1 .." & Integer'Image(Indice) & " : " & Mot(1 .. Indice));
@@ -125,7 +128,7 @@ package body Analyse_Lexicale is
       if EstVide(L) then
          return 0;
       elsif Compare_Chaine_Mot(M,Get_Mot(Valeur(L))) then
-         return 1+Query_NbOcc(Suivant(L), M);
+         return Get_NbOcc(Valeur(L));
       else
          return Query_NbOcc(Suivant(L), M);
       end if;
@@ -308,6 +311,20 @@ package body Analyse_Lexicale is
       while not EstVide(Temp) and then Compteur < N loop
          Imprime_Couple(Premier(Temp));
          Compteur := Compteur + 1;
+         Temp := Suivant(Temp);
+      end loop;
+      New_Line;
+   end;
+
+   --obsolete
+   procedure AffichageListe (
+         L : in     TListe_Couple) is
+      -- affiche les elements de la liste
+      Temp : TListe_Couple;
+   begin
+      Temp := L;
+      while not EstVide(Temp) loop
+         Imprime_Couple(Premier(Temp));
          Temp := Suivant(Temp);
       end loop;
       New_Line;
