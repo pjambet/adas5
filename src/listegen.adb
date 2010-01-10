@@ -5,9 +5,9 @@ package body ListeGen is
    --crée une procedure de liberation d'espace pour les objets
    --désignés par une liste
 
-   procedure Modifie(L: in out T_Liste;L2: in T_Elem) is
+   procedure Modifie(L: in out T_Liste;E: in T_Elem) is
    begin
-      L.val:=L2;
+      L.val:=E;
    end Modifie;
 
    function Valeur(L: T_Liste) return T_Elem is

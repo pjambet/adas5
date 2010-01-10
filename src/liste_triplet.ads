@@ -71,22 +71,34 @@ package Liste_Triplet is
    -----------------------------------------------------------------
 
 
+
+   ------------------------------------------------------------------
+   ---------INSTANCIATION DES FONCTIONS GENERIQUES-------------------
    procedure Modif_FusionTriplet(L: in out T_Liste;T1,T2: in out T_Triplet);
    --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprimé
    --mais cela sera fait dans la fonction Fusion definie dans listegen
 
-   procedure Traitement_Doublon_Triplet(L: in out TListe_Triplet);
+   procedure Traitement_Doublon_Triplet(L: in out TListe_Triplet;Txt: Integer);
+   --Gere les actions a executer en cas de doublon dans la liste
+   --Le parametre Txt correspond au texte sur lequel on travail
+   --Exemple: On analyse le texte 1, le parametre txt doit etre a 1 pour
+   --que les occurences soient gérées pour le texte 1
 
    procedure Fusion_Triplet is new L.Fusion(Modif_FusionTriplet);
 
+   ------TRI LEXICALE-------------------------------------------------
    procedure InsererTriee_Triplet_Lex is new L.InsererTriee(Superieur_Triplet_Lex,Egale_Triplet_Lex,Inferieur_Triplet_Lex,Traitement_Doublon_Triplet);
    function CopieTriee_Triplet_Lex is new L.CopieTriee(InsererTriee_Triplet_Lex);
+
+   -----TRI PAR OCCURENCE DU TEXTE 1----------------------------------
    procedure InsererTriee_Triplet_Occ1 is new L.InsererTriee(Superieur_Triplet_Occ1,Egale_Triplet_Occ1,Inferieur_Triplet_Occ1,Traitement_Doublon_Triplet);
    function CopieTriee_Triplet_Occ1 is new L.CopieTriee(InsererTriee_Triplet_Occ1);
 
+   -----TRI PAR OCCURENCE DU TEXTE 2----------------------------------
    procedure InsererTriee_Triplet_Occ2 is new L.InsererTriee(Superieur_Triplet_Occ2,Egale_Triplet_Occ2,Inferieur_Triplet_Occ2,Traitement_Doublon_Triplet);
    function CopieTriee_Triplet_Occ2 is new L.CopieTriee(InsererTriee_Triplet_Occ2);
 
+   -----TRI PAR SOMME DES OCCURENCES----------------------------------
    procedure InsererTriee_Triplet_OccS is new L.InsererTriee(Superieur_Triplet_OccS,Egale_Triplet_OccS,Inferieur_Triplet_OccS,Traitement_Doublon_Triplet);
    function CopieTriee_Triplet_OccS is new L.CopieTriee(InsererTriee_Triplet_OccS);
 

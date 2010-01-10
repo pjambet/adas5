@@ -7,9 +7,6 @@ package Mot is
 
    type T_Mot is private;
 
-   function Superieur_Mot(M1,M2: T_Mot)return Boolean;
-   function Inferieur_Mot(M1,M2: T_Mot)return Boolean;
-   function Egale_Mot(M1,M2: T_Mot)return Boolean;
 
    function Creer_Mot(S: String) return T_Mot;
 
