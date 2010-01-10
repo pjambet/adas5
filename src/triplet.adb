@@ -7,6 +7,12 @@ package body Triple is
       null;
    end From_Couple_To_Triplet;
 
+   function Creer_Triplet(M: T_Mot;N1: Integer;N2: Integer)return T_Triplet is
+      --Crée Un triplet
+   begin
+      return T_Triplet'(M,N1,N2);
+   end Creer_Triplet;
+
    procedure Imprime_Triplet(C: in T_Couple) is
       --Definition de la fonction d'affichage d'un Triplet
       --Necessaire pour l'instanciation de la liste generique

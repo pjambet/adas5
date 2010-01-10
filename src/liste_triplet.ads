@@ -1,16 +1,21 @@
 with Listegen;
 with Mot;use Mot;
+with Couple; use Couple;
+with Liste_Couple;use Liste_Couple;
 with Triplet;use Triplet;
 with Ada.Text_Io;use Ada.Text_Io;
 
 package Liste_Triplet is
    -----------------------------------------------------------------
    --instanciation du paquetage Listegen
-   package L is new ListeGen(T_Elem => T_Triplet,Imprime => Imprime_Triplet);
+   package LT is new ListeGen(T_Elem => T_Triplet,Imprime => Imprime_Triplet);
    --utilisation de la liste instancié
-   use L;
+   use LT;
    --declaration su sous type
-   subtype TListe_Triplet is L.T_Liste;
+   subtype TListe_Triplet is LT.T_Liste;
+
+   function From_Couple_to_Triplet(L1: TListe_Couple; L2 : TListe_Couple) return TListe_Triplet;
+   --Crée une liste de couple a partir d'une liste de triplet
 
    -----------------------------------------------------------------
    --------FONCTION CONCERNANT L'ORDE LEXICALE----------------------
@@ -78,32 +83,43 @@ package Liste_Triplet is
    --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprimé
    --mais cela sera fait dans la fonction Fusion definie dans listegen
 
-   procedure Traitement_Doublon_Triplet(L: in out TListe_Triplet;Txt: Integer);
+   procedure Traitement_Doublon_Triplet_Txt1(L: in out TListe_Triplet);
    --Gere les actions a executer en cas de doublon dans la liste
-   --Le parametre Txt correspond au texte sur lequel on travail
-   --Exemple: On analyse le texte 1, le parametre txt doit etre a 1 pour
-   --que les occurences soient gérées pour le texte 1
+   --Quand on tombe sur un doublon, on increment le NbOcc1 du Triplet
 
-   procedure Fusion_Triplet is new L.Fusion(Modif_FusionTriplet);
+   procedure Traitement_Doublon_Triplet_Txt2(L: in out Tliste_Triplet);
+   --Gere les actions a executer en cas de doublon dans la liste
+   --Quand on tombe sur un doublon, on increment le NbOcc2 du Triplet
+
+   procedure Traitement_Doublon_Triplet_Som(L: in out Tliste_Triplet);
+   --Gere les actions a executer en cas de doublon dans la liste
+   --Quand on tombe sur un doublon, on increment le NbOcc2 du Triplet
+
+   procedure Fusion_Triplet is new LT.Fusion(Modif_FusionTriplet);
 
    ------TRI LEXICALE-------------------------------------------------
-   procedure InsererTriee_Triplet_Lex is new L.InsererTriee(Superieur_Triplet_Lex,Egale_Triplet_Lex,Inferieur_Triplet_Lex,Traitement_Doublon_Triplet);
-   function CopieTriee_Triplet_Lex is new L.CopieTriee(InsererTriee_Triplet_Lex);
+   procedure InsererTriee_Triplet_Lex_Txt1 is new LT.InsererTriee(Superieur_Triplet_Lex,Egale_Triplet_Lex,Inferieur_Triplet_Lex,Traitement_Doublon_Triplet_Txt1);
+   function CopieTriee_Triplet_Lex_Txt1 is new LT.CopieTriee(InsererTriee_Triplet_Lex_Txt1);
+
+   procedure InsererTriee_Triplet_Lex_Txt2 is new LT.InsererTriee(Superieur_Triplet_Lex,Egale_Triplet_Lex,Inferieur_Triplet_Lex,Traitement_Doublon_Triplet_Txt2);
+   function CopieTriee_Triplet_Lex_Txt2 is new LT.CopieTriee(InsererTriee_Triplet_Lex_Txt2);
 
    -----TRI PAR OCCURENCE DU TEXTE 1----------------------------------
-   procedure InsererTriee_Triplet_Occ1 is new L.InsererTriee(Superieur_Triplet_Occ1,Egale_Triplet_Occ1,Inferieur_Triplet_Occ1,Traitement_Doublon_Triplet);
-   function CopieTriee_Triplet_Occ1 is new L.CopieTriee(InsererTriee_Triplet_Occ1);
+   procedure InsererTriee_Triplet_Occ1 is new LT.InsererTriee(Superieur_Triplet_Occ1,Egale_Triplet_Occ1,Inferieur_Triplet_Occ1,Traitement_Doublon_Triplet_Txt1);
+   function CopieTriee_Triplet_Occ1 is new LT.CopieTriee(InsererTriee_Triplet_Occ1);
 
    -----TRI PAR OCCURENCE DU TEXTE 2----------------------------------
-   procedure InsererTriee_Triplet_Occ2 is new L.InsererTriee(Superieur_Triplet_Occ2,Egale_Triplet_Occ2,Inferieur_Triplet_Occ2,Traitement_Doublon_Triplet);
-   function CopieTriee_Triplet_Occ2 is new L.CopieTriee(InsererTriee_Triplet_Occ2);
+   procedure InsererTriee_Triplet_Occ2 is new LT.InsererTriee(Superieur_Triplet_Occ2,Egale_Triplet_Occ2,Inferieur_Triplet_Occ2,Traitement_Doublon_Triplet_Txt2);
+   function CopieTriee_Triplet_Occ2 is new LT.CopieTriee(InsererTriee_Triplet_Occ2);
 
    -----TRI PAR SOMME DES OCCURENCES----------------------------------
-   procedure InsererTriee_Triplet_OccS is new L.InsererTriee(Superieur_Triplet_OccS,Egale_Triplet_OccS,Inferieur_Triplet_OccS,Traitement_Doublon_Triplet);
-   function CopieTriee_Triplet_OccS is new L.CopieTriee(InsererTriee_Triplet_OccS);
-
+   procedure InsererTriee_Triplet_OccS is new LT.InsererTriee(Superieur_Triplet_OccS,Egale_Triplet_OccS,Inferieur_Triplet_OccS,Traitement_Doublon_Triplet_Som);
+   function CopieTriee_Triplet_OccS is new LT.CopieTriee(InsererTriee_Triplet_OccS);
 
    -----------------------------------------------------------------
    -----------------------------------------------------------------
+
+   procedure InsererTriee_Txt1_Lex(L: in out TListe_Triplet;T: in T_Triplet;Txt: in Integer);
+   --Insere le triplet T dans la liste L
 
 end Liste_Triplet;

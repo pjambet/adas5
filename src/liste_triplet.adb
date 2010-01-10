@@ -114,18 +114,29 @@ package body Liste_Triplet is
 
    end;
 
-   procedure Traitement_Doublon_Triplet(L: in out TListe_Triplet;Txt: Integer) is
+   procedure Traitement_Doublon_Triplet_Txt1(L: in out TListe_Triplet) is
      T: T_Triplet;
    begin
       T:=Valeur(L);
-      if Txt = 1 then
-         Set_NbOcc1(T,Get_NbOcc1(Valeur(L))+1);
-      elsif Ttx = 2 then
-         Set_NbOcc2(T,Get_NbOcc2(Valeur(L))+1);
-      else
-
-      end if;
+      Set_NbOcc1(T,Get_NbOcc1(Valeur(L))+1);
       Modifie(L,T);
-   end Traitement_Doublon_Triplet;
+   end Traitement_Doublon_Triplet_Txt1;
+
+   procedure Traitement_Doublon_Triplet_Txt2(L: in out Tliste_Triplet) is
+   --Gere les actions a executer en cas de doublon dans la liste
+   --Quand on tombe sur un doublon, on increment le NbOcc2 du Triplet
+   begin
+      T:=Valeur(L);
+      Set_NbOcc2(T,Get_NbOcc2(Valeur(L))+1);
+      Modifie(L,T);
+   end Traitement_Doublon_Triplet_Txt2;
+
+   procedure Traitement_Doublon_Triplet_Som(L: in out Tliste_Triplet) is
+   --Gere les actions a executer en cas de doublon dans la liste
+   --Quand on tombe sur un doublon, on increment le NbOcc2 du Triplet
+   begin
+      --TODO
+      null;
+   end Traitement_Doublon_Triplet_Som;
 
 end Liste_Triplet;

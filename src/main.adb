@@ -19,7 +19,7 @@ begin
 
    Menu := True;
    while Menu loop
-      
+
       Put_Line("Entrez 1 pour analyser un texte.");
       Put_Line("Entrez 2 pour enregistrer la liste dans le fichier " & Character'Val(34) & "liste-mots.txt" & Character'Val(34) & ".");
       Put_Line("Entrez 3 pour recuperer la liste a partir du fichier " & Character'Val(34) & "liste-mots.txt" & Character'Val(34) & ".");

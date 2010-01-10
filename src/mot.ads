@@ -38,7 +38,6 @@ package Mot is
 
    function EstSuffixede(M1: T_Mot;M2: T_Mot)return Boolean;
    --precondition : taille(M1)<taille(M2)
-   --
    --Renvoie true si M1 est suffixe de M2, false sinon
    --exemple : M1 : "ment" M2 = "lentement"
    --La fonction renvoie vrai
