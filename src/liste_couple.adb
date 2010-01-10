@@ -37,7 +37,7 @@ package body Liste_couple is
    --redefinition de la fonction ">" pour le type couple
    --ici on trie les couples par nombre d'occurence décroissante
    begin
-      return Get_NbOcc(Couple1) <= Get_NbOcc(Couple2);
+      return Get_NbOcc(Couple1) < Get_NbOcc(Couple2);
    end Superieur_Couple_Occ;
 
    function Egale_Couple_Occ(Couple1: T_Couple;Couple2: T_Couple) return Boolean is
