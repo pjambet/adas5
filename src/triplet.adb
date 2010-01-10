@@ -15,7 +15,7 @@ package body Triple is
       Put(Integer'Image(Get_NbOcc(C)));Put(" ");Put_Line(Integer(Image(Get_NbOcc2)));
    end Imprime_Triplet;
 
-   procedure Set_Mot(T: in out T_Triplet; M: in T_Mot) is
+   procedure Set_Mot_T(T: in out T_Triplet; M: in T_Mot) is
       --Modifie le mot de T en M
       --Get_Mot(Set_Mot(T,M))=M
    begin
@@ -36,7 +36,7 @@ package body Triple is
       T.NbOcc2 := E;
    end Set_NbOcc2;
 
-   function Get_Mot(T: T_Triplet) return T_Mot is
+   function Get_Mot_T(T: T_Triplet) return T_Mot is
       --Renvoie le mot du couple T
    begin
       return T.Mot;

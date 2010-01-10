@@ -14,7 +14,7 @@ package Triplet is
    --Definition de la fonction d'affichage d'un couple
    --Necessaire pour l'instanciation de la liste generique
 
-   procedure Set_Mot(C: in out T_Couple; M: in T_Mot);
+   procedure Set_Mot_T(C: in out T_Couple; M: in T_Mot);
    --Modifie le mot de C en M
    --Get_Mot(Set_Mot(C,M))=M
 
@@ -26,7 +26,7 @@ package Triplet is
    --Modifie la nbocc de C en E
    --Get_Nbocc(Set_NbOcc(C,E))=E
 
-   function Get_Mot(C: T_Couple) return T_Mot;
+   function Get_Mot_T(C: T_Couple) return T_Mot;
    --Renvoie le mot du couple C
 
    function Get_NbOcc1(C: T_Couple) return Integer;
@@ -35,8 +35,8 @@ package Triplet is
    function Get_NbOcc2(C: T_Couple) return Integer;
    --Renvoie le nombre d'occurence du mot du Couple C
 
-
-private:
+   private
+      
       type T_Triplet is record
          mot: T_Mot;
          nbOccTxt1: T_Mot;

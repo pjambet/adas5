@@ -1,7 +1,5 @@
-with Mot;
-use Mot;
-with Liste_Couple;
-use Liste_Couple;
+with Mot, Liste_Couple, Liste_Triplet;
+use Mot, Liste_Couple, Liste_Triplet;
 
 package Analyse_Lexicale is
    --Package permettant d'analyser le texte et d'effectuer les requetes dessus
@@ -80,5 +78,9 @@ package Analyse_Lexicale is
          L : in     TListe_Couple);
       -- affiche les elements de la liste
 
-   end Analyse_Lexicale;
+   procedure Query_Intersection(
+      L : in   TListe_Triplet);
+      -- affiche les mots communs de deux auteurs
+      
+end Analyse_Lexicale;
 

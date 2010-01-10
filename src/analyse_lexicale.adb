@@ -1,5 +1,5 @@
-with Ada.Text_IO, Couple, Ada.Characters.Handling;
-use Ada.Text_IO, Couple, Ada.Characters.Handling;
+with Ada.Text_IO, Couple, Triplet, Ada.Characters.Handling;
+use Ada.Text_IO, Couple, Triplet, Ada.Characters.Handling;
 
 package body Analyse_Lexicale is
 
@@ -316,4 +316,18 @@ package body Analyse_Lexicale is
       New_Line;
    end;
 
+   procedure Query_Intersection (
+         L : in TListe_Triplet) is
+      Temp : TListe_Triplet;
+   begin
+      Temp := L;
+      while not EstVide(Temp) loop
+         if Get_NbOcc1(Premier(Temp)) = Get_NbOcc2(Premier(Temp)) then
+            Put(Get_Mot_T(Premier(Temp))); Put(", ");
+         end if;
+         Temp := Suivant(Temp);
+      end loop;
+      New_Line;
+   end;
+   
 end Analyse_Lexicale;
