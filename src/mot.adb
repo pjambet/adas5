@@ -5,33 +5,37 @@ package body Mot is
       return M1.Chaine > M2.Chaine;
    end Superieur_Mot;
 
-   function Inferieur_Mot(M1,M2: T_Mot)return Boolean is
+   function Inferieur_Mot(M1,M2: T_Mot) return Boolean is
    begin
       return M1.Chaine < M2.Chaine;
    end Inferieur_Mot;
 
-   function Egale_Mot(M1,M2: T_Mot)return Boolean is
+   function Egale_Mot(M1,M2: T_Mot) return Boolean is
    begin
       return M1.Chaine = M2.Chaine;
    end Egale_Mot;
 
-   function Creer_Mot(S: String)return T_Mot is
+   function Creer_Mot(S: String) return T_Mot is
       I: Integer;
       M: T_Mot;
-      Sret: String(1..30);
+      Sret: String(1 .. 30);
       Fin: Integer;
    begin
-      I:=1;
       Fin := 0;
-      while I<=S'Length and then S(I)/= Character'Val(32) loop
-         Sret(I):=S(I);
+      if S'Length > 0 and then S(1) = Character'Val(45) then -- '-'
+         I := 2;
+      else
+         I := 1;
+      end if;            
+      while I <= S'Length and then S(I) /= Character'Val(32) loop
+         Sret(I) := S(I);
          Fin := Fin+1;
-         I := i+1;
-      end loop;--I=S'length+1 ou S(i)=' '
-      for I in (Fin+1)..30 loop
-         Sret(I):=' ';
+         I := I+1;
+      end loop; -- I = S'length+1 ou S(i)=' '
+      for I in (Fin+1) .. 30 loop
+         Sret(I) := ' ';
       end loop;
-      M := T_Mot'(Sret,Fin);
+      M := T_Mot'(Sret, Fin);
       return M;
    end Creer_Mot;
 
