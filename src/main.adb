@@ -136,6 +136,8 @@ begin
 
             Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(Query_NbOcc(L, Buffer(1 .. Last))) & ".");
             Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(Query_NbOcc(L2, Buffer(1 .. Last))) & ".");
+            Put_Line("Les mots employés par les deux auteurs sont :");
+            Put_Line("Les mots employés par un auteur et pas par l'autre sont :");
             New_Line;
 
          when others =>
