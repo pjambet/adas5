@@ -317,13 +317,13 @@ package body Analyse_Lexicale is
    end;
 
    procedure Query_Intersection (
-         L : in TListe_Triplet) is
+         T : in TListe_Triplet) is
       Temp : TListe_Triplet;
    begin
-      Temp := L;
+      Temp := T;
       while not EstVide(Temp) loop
          if Get_NbOcc1(Premier(Temp)) = Get_NbOcc2(Premier(Temp)) then
-            Put(Get_Mot_T(Premier(Temp))); Put(", ");
+            Put(Get_Chaine(Get_Mot(Premier(Temp)))(1 .. Get_Fin(Get_Mot(Premier(Temp)))) & " (" & Integer'Image(Get_NbOcc1(Premier(Temp))) & ", " & Integer'Image(Get_NbOcc2(Premier(Temp))) & ") ");
          end if;
          Temp := Suivant(Temp);
       end loop;
