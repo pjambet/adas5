@@ -158,14 +158,12 @@ package body Analyse_Lexicale_Couple is
          Open(Orig, In_File, "liste-mot.txt");
          Put("Debut recuperation");
          while not End_Of_File(Orig) loop
-            if End_Of_Line(Orig) then
-               Couple := Creer_Couple(M, NbOcc);
-               InsererTriee_Couple_Lex(L, Couple);
-               Put(".");
-               Skip_Line(Orig);
-            else
+            if not End_Of_Line(Orig) then
                Get(Orig, C);
-               if C = Character'Val(32) then -- C = ' '
+               if C /= Character'Val(32) then -- C /= ' '
+                  Indice := Indice + 1;
+                  Mot(Indice) := C;
+               else
                   M := Creer_Mot(Mot(1 .. Indice));
                   Indice := 0;
                   while not End_Of_Line(Orig) loop
@@ -174,11 +172,13 @@ package body Analyse_Lexicale_Couple is
                      Mot(Indice) := C;
                   end loop;
                   NbOcc := Integer'Value(Mot(1 .. Indice));
-                  Indice := 0;
-               else
-                  Indice := Indice + 1;
-                  Mot(Indice) := C;
+                  Indice := 0;                  
                end if;
+            else
+               Couple := Creer_Couple(M, NbOcc);
+               InsererTriee_Couple_Lex(L, Couple);
+               Put(".");
+               Skip_Line(Orig);
             end if;
          end loop;
          Close(Orig);

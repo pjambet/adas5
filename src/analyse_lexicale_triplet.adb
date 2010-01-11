@@ -158,14 +158,12 @@ package body Analyse_Lexicale_Triplet is
          Open(Orig, In_File, "liste-mot2.txt");
          Put("Debut recuperation");
          while not End_Of_File(Orig) loop
-            if End_Of_Line(Orig) then
-               Triplet := Creer_Triplet(M, NbOcc1, NbOcc2);
-               InsererTriee_Triplet_OccS(L, Triplet);
-               Put(".");
-               Skip_Line(Orig);
-            else
+            if not End_Of_Line(Orig) then
                Get(Orig, C);
-               if C = Character'Val(32) then -- C = ' '
+               if C /= Character'Val(32) then -- C /= ' '
+                  Indice := Indice + 1;
+                  Mot(Indice) := C;
+               else
                   M := Creer_Mot(Mot(1 .. Indice));
                   Indice := 0;
                   loop
@@ -183,10 +181,12 @@ package body Analyse_Lexicale_Triplet is
                   end loop;
                   NbOcc2 := Integer'Value(Mot(1 .. Indice));                  
                   Indice := 0;
-               else
-                  Indice := Indice + 1;
-                  Mot(Indice) := C;
                end if;
+            else
+               Triplet := Creer_Triplet(M, NbOcc1, NbOcc2);
+               InsererTriee_Triplet_OccS(L, Triplet);
+               Put(".");
+               Skip_Line(Orig);
             end if;
          end loop;
          Close(Orig);
