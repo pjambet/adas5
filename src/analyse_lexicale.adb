@@ -3,9 +3,7 @@ use Ada.Text_IO, Couple, Triplet, Ada.Characters.Handling;
 
 package body Analyse_Lexicale is
 
-   function CaractereAutorise (
-         C : in     Character)
-     return Boolean is
+   function CaractereAutorise (C : in Character) return Boolean is
       -- Renvoit vrai si le caractere est autorise en tant que caractere d'un mot, faux sinon
    begin
       if C = Character'Val(32) then -- ' '
@@ -71,16 +69,14 @@ package body Analyse_Lexicale is
       end if;
    end;
 
-   procedure Query_Liste_Couple (
-         L      : in out TListe_Couple;
-         NomFic : in     String) is
-      --Renvoit une liste comprenant tous les couples(mot;occurence) du fichier texte NomFic
-      Orig   : File_Type;        -- Fichier source
-      C      : Character;
-      Mot    : String (1 .. 30);
+   procedure Query_Liste_Couple (L: in out TListe_Couple; NomFic : in String) is
+      -- Renvoit une liste comprenant tous les couples(mot;occurence) du fichier texte NomFic
+      Orig : File_Type; -- Fichier source
+      C : Character;
+      Mot : String(1 .. 30);
       Indice : Integer;
       Couple : T_Couple;
-      M      : T_Mot;
+      M : T_Mot;
    begin
       Indice := 0;
       C := Character'Val(0);
@@ -99,12 +95,10 @@ package body Analyse_Lexicale is
                end if;
                Mot(Indice) := C;
             else -- non(CaractereAutorise(C))
-               -- TEST Put_Line("Mot 1 .." & Integer'Image(Indice) & " : " & Mot(1 .. Indice));
                Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
-                  Set_Mot(Couple, M);
-                  Set_NbOcc(Couple, 1);
+                  Couple := Creer_Couple(M, 1);
                   --Set_Fin(Couple, Indice);
                   InsererTriee_Couple_Lex(L, Couple); -- Ajoute dans la liste le premier mot significatif
                end if;
@@ -119,16 +113,14 @@ package body Analyse_Lexicale is
       Skip_Line;
    end;
    
-   procedure Query_Liste_Triplet_Txt1 (
-         L      : in out TListe_Triplet;
-         NomFic : in     String) is
-      --Renvoit une liste comprenant tous les couples(mot;occurence) du fichier texte NomFic
-      Orig   : File_Type;        -- Fichier source
-      C      : Character;
-      Mot    : String (1 .. 30);
+   procedure Query_Liste_Triplet_Txt1 (L : in out TListe_Triplet; NomFic : in String) is
+      -- Renvoit une liste comprenant tous les couples(mot;occurence) du fichier texte NomFic
+      Orig : File_Type; -- Fichier source
+      C : Character;
+      Mot : String(1 .. 30);
       Indice : Integer;
       Triplet : T_Triplet;
-      M      : T_Mot;
+      M : T_Mot;
    begin
       Indice := 0;
       C := Character'Val(0);
@@ -147,7 +139,6 @@ package body Analyse_Lexicale is
                end if;
                Mot(Indice) := C;
             else -- non(CaractereAutorise(C))
-               -- TEST Put_Line("Mot 1 .." & Integer'Image(Indice) & " : " & Mot(1 .. Indice));
                Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
@@ -166,16 +157,14 @@ package body Analyse_Lexicale is
       Skip_Line;
    end;
    
-   procedure Query_Liste_Triplet_Txt2 (
-         L      : in out TListe_Triplet;
-         NomFic : in     String) is
-      --Renvoit une liste comprenant tous les couples(mot;occurence) du fichier texte NomFic
-      Orig   : File_Type;        -- Fichier source
-      C      : Character;
-      Mot    : String (1 .. 30);
+   procedure Query_Liste_Triplet_Txt2 (L : in out TListe_Triplet; NomFic : in String) is
+      -- Renvoit une liste comprenant tous les couples(mot;occurence) du fichier texte NomFic
+      Orig : File_Type; -- Fichier source
+      C : Character;
+      Mot : String(1 .. 30);
       Indice : Integer;
       Triplet : T_Triplet;
-      M      : T_Mot;
+      M : T_Mot;
    begin
       Indice := 0;
       C := Character'Val(0);
@@ -194,7 +183,6 @@ package body Analyse_Lexicale is
                end if;
                Mot(Indice) := C;
             else -- non(CaractereAutorise(C))
-               -- TEST Put_Line("Mot 1 .." & Integer'Image(Indice) & " : " & Mot(1 .. Indice));
                Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
@@ -213,11 +201,8 @@ package body Analyse_Lexicale is
       Skip_Line;
    end;
 
-   function Query_NbOcc (
-         L : TListe_Couple;
-         M : String)
-     return Integer is
-      --Requete renvoyant le nombre d'occurence du mot m dans le texte
+   function Query_NbOcc (L : TListe_Couple; M : String) return Integer is
+      -- Requete renvoyant le nombre d'occurence du mot m dans le texte
    begin
       if EstVide(L) then
          return 0;
@@ -228,114 +213,92 @@ package body Analyse_Lexicale is
       end if;
    end;
 
-   function Query_NbOcc_Txt1 (
-         L : TListe_Triplet;
-         M : String)
-     return Integer is
-      --Requete renvoyant le nombre d'occurence du mot m dans le texte 1
+   function Query_NbOcc_Txt1 (L : TListe_Triplet; M : String) return Integer is
+      -- Requete renvoyant le nombre d'occurence du mot m dans le texte 1
    begin
       if EstVide(L) then
          return 0;
       elsif Compare_Chaine_Mot(M, Get_Mot_T(Valeur(L))) then
-         return Get_NbOcc1(Valeur(L));
+         return Get_NbOcc_Txt1(Valeur(L));
       else
          return Query_NbOcc_Txt1(Suivant(L), M);
       end if;
    end;
 
-   function Query_NbOcc_Txt2 (
-         L : TListe_Triplet;
-         M : String)
-     return Integer is
+   function Query_NbOcc_Txt2 (L : TListe_Triplet; M : String) return Integer is
       --Requete renvoyant le nombre d'occurence du mot m dans le texte 2
    begin
       if EstVide(L) then
          return 0;
       elsif Compare_Chaine_Mot(M, Get_Mot_T(Valeur(L))) then
-         return Get_NbOcc2(Valeur(L));
+         return Get_NbOcc_Txt2(Valeur(L));
       else
          return Query_NbOcc_Txt2(Suivant(L), M);
       end if;
    end;
 
-   procedure Query_NbPref (
-         L     : in     TListe_Couple;
-         S     : in     String;
-         NbMot :    out Integer;
-         NbOcc :    out Integer) is
-      --Requete renvoyant le nombre de mot ayant s pour préfixe et le nombre d'occurence de s (Appel de query_NbOcc(s))
+   procedure Query_NbPref (L : in TListe_Couple; S : in String; NbMot : out Integer; NbOcc : out Integer) is
+      -- Requete renvoyant le nombre de mot ayant s pour préfixe et le nombre d'occurence de s (Appel de query_NbOcc(s))
       Temp : TListe_Couple;
-      Res  : Integer;
+      Res : Integer;
       MotS : T_Mot;
    begin
       Res := 0;
       Temp := L;
       MotS := Creer_Mot(S);
       while not EstVide(Temp) loop
-         if Estprefixede(Get_Mot(Valeur(Temp)), MotS) then
+         if EstPrefixeDe(Get_Mot(Valeur(Temp)), MotS) then
             Res := Res + 1;
          end if;
          Temp := Suivant(Temp);
       end loop;
       NbMot := Res;
-      NbOcc := Query_NbOcc(L,S);
+      NbOcc := Query_NbOcc(L, S);
    end;
 
-   procedure Query_NbSuff (
-         L     : in     TListe_Couple;
-         S     : in     String;
-         NbMot :    out Integer;
-         NbOcc :    out Integer) is
-      --Requete renvoyant le nombre de mot ayant s pour suffixe et le nombre d'occurence de s (Appel de query_NbOcc(s))
+   procedure Query_NbSuff (L : in TListe_Couple; S : in String; NbMot : out Integer; NbOcc : out Integer) is
+      -- Requete renvoyant le nombre de mot ayant s pour suffixe et le nombre d'occurence de s (Appel de query_NbOcc(s))
       Temp : TListe_Couple;
-      Res  : Integer;
+      Res : Integer;
       MotS : T_Mot;
    begin
       Res := 0;
       Temp := L;
       MotS := Creer_Mot(S);
       while not Estvide(Temp) loop
-         if Estsuffixede(Get_Mot(Valeur(Temp)), MotS) then
+         if EstSuffixeDe(Get_Mot(Valeur(Temp)), MotS) then
             Res := Res + 1;
          end if;
          Temp := Suivant(Temp);
       end loop;
       NbMot := Res;
-      NbOcc := Query_NbOcc(L,S);
+      NbOcc := Query_NbOcc(L, S);
    end;
 
-   procedure Query_NbFact (
-         L     : in     TListe_Couple;
-         S     : in     String;
-         NbMot :    out Integer;
-         NbOcc :    out Integer) is
-      --Requete renvoyant le nombre de mot ayant s pour facteur et le nombre d'occurence de s (Appel de query_NbOcc(s))
+   procedure Query_NbFact (L : in TListe_Couple; S : in String; NbMot : out Integer; NbOcc : out Integer) is
+      -- Requete renvoyant le nombre de mot ayant s pour facteur et le nombre d'occurence de s (Appel de query_NbOcc(s))
       Temp : TListe_Couple;
-      Res  : Integer;
+      Res : Integer;
       MotS : T_Mot;
    begin
       Res := 0;
       Temp := L;
       MotS := Creer_Mot(S);
       while not EstVide(Temp) loop
-         if Estfacteurde(Get_Mot(Valeur(Temp)), MotS) then
+         if EstFacteurDe(Get_Mot(Valeur(Temp)), MotS) then
             Res := Res + 1;
          end if;
          Temp := Suivant(Temp);
       end loop;
       NbMot := Res;
-      NbOcc := Query_NbOcc(L,S);
+      NbOcc := Query_NbOcc(L, S);
    end;
 
-   procedure Creer_Fichier_Listemot (
-         L : in     TListe_Couple) is
+   procedure Creer_Fichier_Listemot (L : in TListe_Couple) is
       --Procedure qui crée le fichier liste-mot.txt a partir de la liste de couple l
       --Le Fichier créé est de la forme suivante
-      ------------------------------------------
       --Mot1 Nbocc1
       --Mot2 NbOcc2
-      --etc ...
-      ------------------------------------------
       Dest : File_Type;
       Temp : TListe_Couple;
    begin
@@ -355,24 +318,20 @@ package body Analyse_Lexicale is
       Skip_Line;
    end;
 
-   procedure Creer_Fichier_Listemot_T (
-         L : in     TListe_Triplet) is
+   procedure Creer_Fichier_Listemot_T (L : in     TListe_Triplet) is
       --Procedure qui crée le fichier liste-mot.txt-y a partir de la liste de triplet l
       --Le Fichier créé est de la forme suivante
-      ------------------------------------------
       --Mot1 NboccTxt1 NbOccTxt2
       --Mot2 NbOccTxt1 NbOccTxt2
-      --etc ...
-      ------------------------------------------
       Dest : File_Type;
       Temp : TListe_Triplet;
    begin
       Temp := L;
-      Create(Dest, Name => "liste-mot-t.txt");
+      Create(Dest, Name => "liste-mot2.txt");
       Put("Debut creation");
       while not EstVide(Temp) loop
          Put(Dest, Get_Chaine(Get_Mot_T(Premier(Temp)))(1 .. Get_Fin(Get_Mot_T(Premier(Temp)))));
-         Put_Line(Dest, Integer'Image(Get_NbOcc1(Premier(Temp))) & Integer'Image(Get_NbOcc2(Premier(Temp))));
+         Put_Line(Dest, Integer'Image(Get_NbOcc_Txt1(Premier(Temp))) & Integer'Image(Get_NbOcc_Txt2(Premier(Temp))));
          Temp := Suivant(Temp);
          Put(".");
       end loop;
@@ -383,9 +342,7 @@ package body Analyse_Lexicale is
       Skip_Line;
    end;
 
-   function Existe (
-         Name : in     String)
-     return Boolean is
+   function Existe (Name : in String) return Boolean is
       File : File_Type;
    begin
       Open(File, In_File, Name);
@@ -398,18 +355,18 @@ package body Analyse_Lexicale is
          raise;
    end Existe;
 
-   procedure Recup_Liste (
-         L : in out TListe_Couple) is
+   procedure Recup_Liste (L : in out TListe_Couple) is
       --procedure qui recrée la liste de couple a partir du fichier "liste-mot.txt"
       --le fichier n'est pas passé en parametre car il sera créé auparavant par la fonction Creer_Fichier_Listemot
       --et donc le fichier existera forcement et pourra etre ouvert dans le corps de la fonction
       --declenche une exception si le fichier n'existe pas
-      Orig   : File_Type;
-      C      : Character;
-      Mot    : String (1 .. 30);
+      Orig : File_Type;
+      C : Character;
+      Mot : String(1 .. 30);
       Indice : Integer;
+      NbOcc : Integer;
       Couple : T_Couple;
-      M      : T_Mot;
+      M : T_Mot;
    begin
       Indice := 0;
       if Existe("liste-mot.txt") then
@@ -417,24 +374,21 @@ package body Analyse_Lexicale is
          Put("Debut recuperation");
          while not End_Of_File(Orig) loop
             if End_Of_Line(Orig) then
+               Couple := Creer_Couple(M, NbOcc);
                InsererTriee_Couple_Lex(L, Couple);
                Put(".");
                Skip_Line(Orig);
             else
                Get(Orig, C);
                if C = Character'Val(32) then -- C = ' '
-                  -- TEST Put("Mot 1 .." & Integer'Image(Indice) & " : " & Mot(1 .. Indice));
                   M := Creer_Mot(Mot(1 .. Indice));
-                  Set_Mot(Couple, M);
-                  --Set_Fin(Couple, Indice);
                   Indice := 0;
                   while not End_Of_Line(Orig) loop
                      Get(Orig, C);
                      Indice := Indice + 1;
                      Mot(Indice) := C;
                   end loop;
-                  -- TEST Put_Line(" - NbOcc : " & Mot(1 .. Indice));
-                  Set_NbOcc(Couple, Integer'Value(Mot(1 .. Indice)));
+                  NbOcc := Integer'Value(Mot(1 .. Indice));
                   Indice := 0;
                else
                   Indice := Indice + 1;
@@ -451,52 +405,49 @@ package body Analyse_Lexicale is
       end if;
    end;
 
-   procedure Recup_Liste_T (
-         L : in out TListe_Triplet) is
+   procedure Recup_Liste_T (L : in out TListe_Triplet) is
       --procedure qui recrée la liste de couple a partir du fichier "liste-mot-t.txt"
       --le fichier n'est pas passé en parametre car il sera créé auparavant par la fonction Creer_Fichier_Listemot_T
       --et donc le fichier existera forcement et pourra etre ouvert dans le corps de la fonction
       --declenche une exception si le fichier n'existe pas
-      Orig   : File_Type;
-      C      : Character;
-      Mot    : String (1 .. 30);
+      Orig : File_Type;
+      C : Character;
+      Mot : String(1 .. 30);
       Indice : Integer;
       NbOcc1 : Integer;
       NbOcc2 : Integer;
       Triplet : T_Triplet;
-      M      : T_Mot;
+      M : T_Mot;
    begin
       Indice := 0;
-      if Existe("liste-mot-t.txt") then
-         Open(Orig, In_File, "liste-mot-t.txt");
+      if Existe("liste-mot2.txt") then
+         Open(Orig, In_File, "liste-mot2.txt");
          Put("Debut recuperation");
          while not End_Of_File(Orig) loop
             if End_Of_Line(Orig) then
-	       Triplet := Creer_Triplet(M, NbOcc1, NbOcc2);
-               InsererTriee_Triplet_Lex_Txt1(L, Triplet);
+               Triplet := Creer_Triplet(M, NbOcc1, NbOcc2);
+               InsererTriee_Triplet_OccS(L, Triplet);
                Put(".");
                Skip_Line(Orig);
             else
                Get(Orig, C);
                if C = Character'Val(32) then -- C = ' '
-                  -- TEST Put("Mot 1 .." & Integer'Image(Indice) & " : " & Mot(1 .. Indice));
                   M := Creer_Mot(Mot(1 .. Indice));
                   Indice := 0;
-                  while not (C = Character'Val(32)) loop -- C = ' '
+                  loop
                      Get(Orig, C);
                      Indice := Indice + 1;
                      Mot(Indice) := C;
+                     exit when C = Character'Val(32); -- C = ' '
                   end loop;
-                  -- TEST Put_Line(" - NbOcc : " & Mot(1 .. Indice));
                   NbOcc1 := Integer'Value(Mot(1 .. Indice));
-                  Get(Orig, C);
                   Indice := 0;
                   while not End_Of_Line(Orig) loop
                      Get(Orig, C);
                      Indice := Indice + 1;
-                     Mot(Indice) := C; 
+                     Mot(Indice) := C;
                   end loop;
-                  NbOcc2 := Integer'Value(Mot(1 .. Indice));
+                  NbOcc2 := Integer'Value(Mot(1 .. Indice));                  
                   Indice := 0;
                else
                   Indice := Indice + 1;
@@ -513,12 +464,10 @@ package body Analyse_Lexicale is
       end if;
    end;
 
-   procedure AffichageN (
-         L : in     TListe_Couple;
-         N : in     Integer) is
+   procedure AffichageN (L : in TListe_Couple; N : in Integer) is
       -- affiche les N premiers mots de la liste
       Compteur : Integer;
-      Temp     : TListe_Couple;
+      Temp : TListe_Couple;
    begin
       Compteur := 0;
       Temp := CopieTriee_Couple_Occ(L);
@@ -529,14 +478,28 @@ package body Analyse_Lexicale is
       end loop;
       New_Line;
    end;
+   
+   procedure AffichageN_T (L : in TListe_Triplet; N : in Integer) is
+      -- affiche les N premiers mots de la liste
+      Compteur : Integer;
+      Temp : TListe_Triplet;
+   begin
+      Compteur := 0;
+      Temp := CopieTriee_Triplet_OccS(L);
+      while not EstVide(Temp) and then Compteur < N loop
+         Imprime_Triplet(Premier(Temp));
+         Compteur := Compteur + 1;
+         Temp := Suivant(Temp);
+      end loop;
+      New_Line;
+   end;
 
-   procedure Query_Intersection (
-         T : in TListe_Triplet) is
+   procedure Query_Intersection (T : in TListe_Triplet) is
       Temp : TListe_Triplet;
    begin
       Temp := T;
       while not EstVide(Temp) loop
-         if (Get_NbOcc1(Premier(Temp)) /= 0) and then (Get_NbOcc2(Premier(Temp)) /= 0) then
+         if (Get_NbOcc_Txt1(Premier(Temp)) /= 0) and then (Get_NbOcc_Txt2(Premier(Temp)) /= 0) then
             Imprime_Triplet(Premier(Temp));
          end if;
          Temp := Suivant(Temp);
@@ -544,13 +507,12 @@ package body Analyse_Lexicale is
       New_Line;
    end;
 
-   procedure Query_Difference (
-         T : in TListe_Triplet) is
+   procedure Query_Difference (T : in TListe_Triplet) is
       Temp : TListe_Triplet;
    begin
       Temp := T;
       while not EstVide(Temp) loop
-         if (Get_NbOcc1(Premier(Temp)) /= 0) xor (Get_NbOcc2(Premier(Temp)) /= 0) then
+         if (Get_NbOcc_Txt1(Premier(Temp)) /= 0) xor (Get_NbOcc_Txt2(Premier(Temp)) /= 0) then
             Imprime_Triplet(Premier(Temp));
          end if;
          Temp := Suivant(Temp);
