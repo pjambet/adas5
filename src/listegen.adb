@@ -191,12 +191,15 @@ package body ListeGen is
    procedure Viderliste(L: in out T_Liste) is
       Ltemp : T_Liste;
       lprec : T_Liste;
-   begin      
-      Lprec: T_Liste;
+   begin
       Ltemp := L;
+      if not EstVide(ltemp) then
          while not Estvide(Ltemp) loop
+            lprec := ltemp;
             Ltemp := Ltemp.Suiv;
+            Liberer(lprec);
          end loop;
+         liberer(ltemp);
       end if;
    end ViderListe;
 
