@@ -27,8 +27,8 @@ begin
       Put_Line("Entrez 2 pour effectuer des requetes.");
       Put_Line("Entrez 3 pour enregistrer la liste dans le fichier " & Character'Val(34) & "liste-mots.txt" & Character'Val(34) & ".");
       Put_Line("Entrez 4 pour recuperer la liste a partir du fichier " & Character'Val(34) & "liste-mots.txt" & Character'Val(34) & ".");
-      Put_Line("Entrez 5 pour afficher la liste des couplets.");
-      Put_Line("Entrez 6 pour effacer la liste des couplets.");
+      Put_Line("Entrez 5 pour afficher la liste des couples.");
+      Put_Line("Entrez 6 pour effacer la liste des couples.");
       New_Line;
       Put_Line("Entrez 7 pour comparer 2 textes");
       Put_Line("Entrez 8 pour effectuer des requetes.");
@@ -82,6 +82,7 @@ begin
             Get(NbMot);
             AffichageN(L, NbMot);
 
+            Skip_Line;
             Put_Line("Veuillez entrer le premier mot.");
             Get_Line(Buffer, Last);
             New_Line;
@@ -142,22 +143,8 @@ begin
                end if;
             end loop;
 
-            Put_Line("Veuillez entrer un mot.");
-            Get_Line(Buffer, Last);
-            New_Line;
-
-            Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(Query_NbOcc_Txt1(LT, Buffer(1 .. Last))) & ".");
-            Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(Query_NbOcc_Txt2(LT, Buffer(1 .. Last))) & ".");
-            New_Line;
-			
-            Put_Line("Les mots employés par les deux auteurs sont :");
-            Query_Intersection(LT);
-			
-            Put_Line("Les mots employés par un auteur et pas par l'autre sont :");
-            Query_Difference(LT);
-
          when 8 => 
-         
+
             Put_Line("Veuillez entrer un entier.");
             Get(Num);
             New_Line;
@@ -172,6 +159,21 @@ begin
             Put_Line("Veuillez entrer le nombre N de mots a afficher.");
             Get(NbMot);
             AffichageN_T(LT, NbMot);
+            
+            Skip_Line;
+            Put_Line("Veuillez entrer un mot.");
+            Get_Line(Buffer, Last);
+            New_Line;
+
+            Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(Query_NbOcc_Txt1(LT, Buffer(1 .. Last))) & ".");
+            Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(Query_NbOcc_Txt2(LT, Buffer(1 .. Last))) & ".");
+            New_Line;
+			
+            Put_Line("Les mots employés par les deux auteurs sont :");
+            Query_Intersection(LT);
+			
+            Put_Line("Les mots employés par un auteur et pas par l'autre sont :");
+            Query_Difference(LT);
          
          when 9 =>
 

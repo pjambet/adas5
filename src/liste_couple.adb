@@ -55,8 +55,7 @@ package body liste_couple is
       L1, L2 : T_Liste;
    begin
       --Placement de L1
-      Put("Fusion");
-	  New_Line;
+	New_Line;
       L1 := L;
       while not EstVide(L1) and then not Compare_Mots(Get_Mot(Valeur(L1)), Get_Mot(T1)) loop
          L1 := Suivant(L1);
@@ -72,8 +71,7 @@ package body liste_couple is
       Set_NbOcc(C, Get_NbOcc(C)+Get_NbOcc(Valeur(L2)) );
       Modifie(L1,C);
       Supprimer(L, Valeur(L2));
-      New_Line;
-	  Put_Line("Le mot " & Get_Chaine(Get_Mot(T2)) & " a été supprimé");
+      Put_Line("Le mot " & Get_Chaine(Get_Mot(T2))(1 .. Get_Fin(Get_Mot(T2))) & " a ete supprime !");
    end;
 
    procedure Traitement_Doublon_Couple(L : in out TListe_Couple) is
