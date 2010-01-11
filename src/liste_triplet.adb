@@ -1,10 +1,7 @@
-package body Liste_Triplet is
+with Mot, Ada.Text_IO;
+use Mot, Ada.Text_IO;
 
-   function From_Couple_to_Triplet(L1 : TListe_Couple; L2 : TListe_Couple) return TListe_Triplet is
-      Triplet : TListe_Triplet;
-   begin
-      return Triplet;
-   end;
+package body Liste_Triplet is
 
    function Inferieur_Triplet_Lex(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean is
      --redefinition de la fonction "<" pour le type Triplet
@@ -94,7 +91,6 @@ package body Liste_Triplet is
      --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprimé
      --mais cela sera fait dans la fonction Fusion definie dans listegen
      T : T_Triplet;
-     Ltemp : TListe_Triplet;
      L1, L2 : TListe_Triplet;
    begin
       --Placement de L1

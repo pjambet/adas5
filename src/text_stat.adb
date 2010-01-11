@@ -1,3 +1,6 @@
+with Mot, Couple, Liste_Couple;
+use Mot, Couple, Liste_Couple.L;
+
 package body Text_Stat is
 
    function Num_Mot_Tot(L : TListe_Couple) return Integer is

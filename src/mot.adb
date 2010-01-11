@@ -22,16 +22,15 @@ package body Mot is
       Fin : Integer;
    begin
       Fin := 0;
+      I := 1;
       if S'Length > 0 and then S(1) = Character'Val(45) then -- '-'
-         I := 2;
-      else
-         I := 1;
+         I := I + 1;
       end if;            
       while I <= S'Length and then S(I) /= Character'Val(32) loop
          Sret(I) := S(I);
          Fin := Fin+1;
          I := I+1;
-      end loop; -- I = S'length+1 ou S(i)=' '
+      end loop; -- I = S'length+1 ou S(I)=' '
       for I in (Fin+1) .. 30 loop
          Sret(I) := ' ';
       end loop;
@@ -95,7 +94,7 @@ package body Mot is
    --renvoie faux sinon
    --On a besoin de cette fonction pour utiliser l'indice de fin
    --contenu dans le couple
-      I, Min, Cmp : Integer;
+      Min, Cmp : Integer;
    begin
       if S'Last > M.Fin then
          Min := M.Fin;

@@ -1,3 +1,6 @@
+with Ada.Text_IO;
+use Ada.Text_IO;
+
 package body Triplet is
 
    function Creer_Triplet(M : T_Mot; N1 : Integer; N2 : Integer) return T_Triplet is

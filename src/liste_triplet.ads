@@ -1,5 +1,5 @@
-with Listegen, Mot, Couple, Liste_Couple, Triplet, Ada.Text_IO;
-use Mot, Couple, Liste_Couple, Triplet, Ada.Text_IO;
+with Listegen, Triplet;
+use Triplet;
 
 package Liste_Triplet is
 
@@ -9,9 +9,6 @@ package Liste_Triplet is
    use LT;
    --declaration su sous type
    subtype TListe_Triplet is LT.T_Liste;
-
-   function From_Couple_to_Triplet(L1: TListe_Couple; L2 : TListe_Couple) return TListe_Triplet;
-   --Crée une liste de couple a partir d'une liste de triplet
 
    -----------------------------------------------------------------
    --------FONCTION CONCERNANT L'ORDE LEXICALE----------------------

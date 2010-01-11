@@ -1,3 +1,6 @@
+with Ada.Text_IO;
+use Ada.Text_IO;
+
 package body Couple is
 
    --Declaration des fonctions utiles a l'instanciation de la liste

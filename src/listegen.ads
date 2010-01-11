@@ -1,6 +1,3 @@
-with Ada.Text_IO, Ada.Unchecked_Deallocation;
-use Ada.Text_IO;
-
 generic
 
    type T_Elem is private;

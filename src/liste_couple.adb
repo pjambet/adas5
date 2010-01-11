@@ -1,5 +1,5 @@
-with Ada.Text_IO;
-use Ada.Text_IO;
+with Mot, Ada.Text_IO;
+use Mot, Ada.Text_IO;
 
 package body liste_couple is
 
@@ -52,7 +52,6 @@ package body liste_couple is
       --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprimé
       --mais cela sera fait dans la fonction Fusion definie dans listegen
       C : T_Couple;
-      Ltemp : T_Liste;
       L1, L2 : T_Liste;
    begin
       --Placement de L1

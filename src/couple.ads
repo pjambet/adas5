@@ -1,5 +1,5 @@
-with Mot, Ada.Text_Io, Ada.Integer_Text_IO;
-use Mot, Ada.Text_Io, Ada.Integer_Text_IO;
+with Mot;
+use Mot;
 
 package Couple is
 

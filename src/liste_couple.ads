@@ -1,5 +1,5 @@
-with Listegen, Mot, Couple, Ada.Text_IO;
-use Mot, Couple, Ada.Text_IO;
+with Listegen, Couple;
+use Couple;
 
 package Liste_Couple is
 

@@ -1,5 +1,5 @@
-with Analyse_Lexicale, Liste_Couple, Liste_Triplet, Couple, Mot, Text_Stat, Ada.Text_IO, Ada.Integer_Text_IO, Ada.Float_Text_IO;
-use Analyse_Lexicale, Liste_Couple, Liste_Triplet, Couple, Mot, Text_Stat, Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
+with Analyse_Lexicale, Analyse_Lexicale_Couple, Analyse_Lexicale_Triplet, Liste_Couple, Liste_Triplet, Couple, Mot, Text_Stat, Ada.Text_IO, Ada.Integer_Text_IO, Ada.Float_Text_IO;
+use Analyse_Lexicale, Analyse_Lexicale_Couple, Analyse_Lexicale_Triplet, Liste_Couple, Liste_Triplet, Couple, Mot, Text_Stat, Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
 
 procedure Main is
 
