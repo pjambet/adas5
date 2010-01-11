@@ -189,6 +189,9 @@ package body ListeGen is
    end SupprimerTout;
 
    procedure Viderliste(L: in out T_Liste) is
+      Ltemp : T_Liste;
+      lprec : T_Liste;
+   begin      
       Lprec: T_Liste;
       Ltemp := L;
          while not Estvide(Ltemp) loop
