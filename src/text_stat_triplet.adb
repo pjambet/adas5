@@ -61,4 +61,4 @@ package body Text_Stat_Triplet is
       return X;
    end;
 
-end text_stat;
+end text_stat_triplet;

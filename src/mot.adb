@@ -22,10 +22,7 @@ package body Mot is
       Fin : Integer;
    begin
       Fin := 0;
-      I := 1;
-      if S'Length > 0 and then S(1) = Character'Val(45) then -- '-'
-         I := I + 1;
-      end if;            
+      I := 1;           
       while I <= S'Length and then S(I) /= Character'Val(32) loop
          Sret(I) := S(I);
          Fin := Fin+1;

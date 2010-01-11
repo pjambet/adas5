@@ -96,16 +96,18 @@ package ListeGen is
    --La fonction apelle la procedure InsererTriée ci dessous
 
    generic
-       with function ">"(T1, T2 : T_Elem) return Boolean is <>;
-       with function "="(T1, T2 : T_Elem) return Boolean is <>;
-       with function "<"(T1, T2 : T_Elem) return Boolean is <>;
-       with procedure Traitement_Doublon(L : in out T_Liste);
+      with function ">"(T1, T2 : T_Elem) return Boolean is <>;
+      with function "="(T1, T2 : T_Elem) return Boolean is <>;
+      with function "<"(T1, T2 : T_Elem) return Boolean is <>;
+      with procedure Traitement_Doublon(L : in out T_Liste);
+      
    procedure InsererTriee(L : in out T_Liste; X : in T_Elem);
    --L est triée par ordre croissant
    --Insere X dans L de maniere a conserver le tri de L
 
    generic
       with procedure Modif_Fusion(L : in out T_Liste; T1, T2 : in out T_Elem);
+      
    procedure Fusion(L : in out T_Liste; T1, T2 : in out T_Elem);
    --Fusionne m2 dans m1 en supprimant m2 et augmentant l'occurence de m1
    --precondition : L1,L2 /= null
@@ -119,6 +121,7 @@ package ListeGen is
    --inverse par rapport a la liste originale
 
 private
+      
    type Cellule;
    type T_Liste is access Cellule;
    type Cellule is record

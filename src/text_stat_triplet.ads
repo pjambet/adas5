@@ -1,7 +1,7 @@
 with Liste_Triplet;
 use Liste_Triplet;
 
-package Text_Stat is
+package Text_Stat_Triplet is
    
    --Ce paquetage permet d'effectuer des opérations "statistiques" sur le texte analysé
    --nombre total de mots, nombre de mots de longueur supérieur ou égale a un entier positif donné,
@@ -20,4 +20,4 @@ package Text_Stat is
    function Num_Mot_Sup(L : TListe_Triplet; N : Integer) return Integer;
    --Calcule le nombre de mot dont la longueur est supérieur ou égale a un entier positif donné
 
-end Text_Stat;
+end Text_Stat_Triplet;
