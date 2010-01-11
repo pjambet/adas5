@@ -118,6 +118,100 @@ package body Analyse_Lexicale is
       Put_Line("Fin lecture !");
       Skip_Line;
    end;
+   
+   procedure Query_Liste_Triplet_Txt1 (
+         L      : in out TListe_Triplet;
+         NomFic : in     String) is
+      --Renvoit une liste comprenant tous les couples(mot;occurence) du fichier texte NomFic
+      Orig   : File_Type;        -- Fichier source
+      C      : Character;
+      Mot    : String (1 .. 30);
+      Indice : Integer;
+      Triplet : T_Triplet;
+      M      : T_Mot;
+   begin
+      Indice := 0;
+      C := Character'Val(0);
+      Open(Orig, In_File, NomFic);
+      Put("Debut lecture");
+      while not End_Of_File(Orig) loop
+         if End_Of_Line(Orig) then
+            Indice := 0;
+            Skip_Line(Orig);
+         else -- non(End_Of_Line(Orig))
+            Get(Orig, C);
+            if CaractereAutorise(C) then -- On crée le mot
+               Indice := Indice + 1;
+               if Is_Upper(C) then
+                  C := To_Lower(C);
+               end if;
+               Mot(Indice) := C;
+            else -- non(CaractereAutorise(C))
+               -- TEST Put_Line("Mot 1 .." & Integer'Image(Indice) & " : " & Mot(1 .. Indice));
+               Put(".");
+               M := Creer_Mot(Mot(1 .. Indice));
+               if EstMotSignificatif(M) then
+                  Triplet := Creer_Triplet(M, 1, 0);
+                  --Set_Fin(Couple, Indice);
+                  InsererTriee_Triplet_Lex_Txt1(L, Triplet); -- Ajoute dans la liste le premier mot significatif
+               end if;
+               Indice := 0;
+               C := Character'Val(0);
+            end if;
+         end if;
+      end loop;
+      Close(Orig);
+      New_Line;
+      Put_Line("Fin lecture !");
+      Skip_Line;
+   end;
+   
+   procedure Query_Liste_Triplet_Txt2 (
+         L      : in out TListe_Triplet;
+         NomFic : in     String) is
+      --Renvoit une liste comprenant tous les couples(mot;occurence) du fichier texte NomFic
+      Orig   : File_Type;        -- Fichier source
+      C      : Character;
+      Mot    : String (1 .. 30);
+      Indice : Integer;
+      Triplet : T_Triplet;
+      M      : T_Mot;
+   begin
+      Indice := 0;
+      C := Character'Val(0);
+      Open(Orig, In_File, NomFic);
+      Put("Debut lecture");
+      while not End_Of_File(Orig) loop
+         if End_Of_Line(Orig) then
+            Indice := 0;
+            Skip_Line(Orig);
+         else -- non(End_Of_Line(Orig))
+            Get(Orig, C);
+            if CaractereAutorise(C) then -- On crée le mot
+               Indice := Indice + 1;
+               if Is_Upper(C) then
+                  C := To_Lower(C);
+               end if;
+               Mot(Indice) := C;
+            else -- non(CaractereAutorise(C))
+               -- TEST Put_Line("Mot 1 .." & Integer'Image(Indice) & " : " & Mot(1 .. Indice));
+               Put(".");
+               M := Creer_Mot(Mot(1 .. Indice));
+               if EstMotSignificatif(M) then
+                  Triplet := Creer_Triplet(M, 0, 1);
+                  --Set_Fin(Couple, Indice);
+                  InsererTriee_Triplet_Lex_Txt2(L, Triplet); -- Ajoute dans la liste le premier mot significatif
+               end if;
+               Indice := 0;
+               C := Character'Val(0);
+            end if;
+         end if;
+      end loop;
+      Close(Orig);
+      New_Line;
+      Put_Line("Fin lecture !");
+      Skip_Line;
+   end;
 
    function Query_NbOcc (
          L : TListe_Couple;
@@ -323,7 +417,7 @@ package body Analyse_Lexicale is
       Temp := T;
       while not EstVide(Temp) loop
          if Get_NbOcc1(Premier(Temp)) = Get_NbOcc2(Premier(Temp)) then
-            Put(Get_Chaine(Get_Mot(Premier(Temp)))(1 .. Get_Fin(Get_Mot(Premier(Temp)))) & " (" & Integer'Image(Get_NbOcc1(Premier(Temp))) & ", " & Integer'Image(Get_NbOcc2(Premier(Temp))) & ") ");
+            Imprime_Triplet(Premier(Temp));
          end if;
          Temp := Suivant(Temp);
       end loop;

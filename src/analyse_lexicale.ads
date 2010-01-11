@@ -6,6 +6,7 @@ package Analyse_Lexicale is
 
    --utilisation de la liste generique
    use Liste_Couple.L;
+   use Liste_Triplet.LT;   
 
    function CaractereAutorise (
          C : in     Character)
@@ -20,6 +21,14 @@ package Analyse_Lexicale is
    --je pense qu'il faudrait faire qu'on parcourt tout le texte
    --et qu'a chaque mot trouvé on l'insere de maniere triéee dans la liste qu'on renvoit
    --si on le trouve dans la liste alors on fait juste augmenter le nbOcc
+
+   procedure Query_Liste_Triplet_Txt1 (
+         L      : in out TListe_Triplet;
+         NomFic : in     String);
+
+   procedure Query_Liste_Triplet_Txt2 (
+         L      : in out TListe_Triplet;
+         NomFic : in     String);
 
    function Query_NbOcc (
          L : TListe_Couple;

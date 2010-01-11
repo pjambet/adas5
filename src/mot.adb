@@ -36,6 +36,7 @@ package body Mot is
          Sret(I) := ' ';
       end loop;
       M := T_Mot'(Sret, Fin);
+--      M := T_Mot'(S(1 .. Last), Last);
       return M;
    end Creer_Mot;
 

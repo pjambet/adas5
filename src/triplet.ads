@@ -40,8 +40,8 @@ package Triplet is
 
       type T_Triplet is record
          mot: T_Mot;
-         nbOccTxt1: T_Mot;
-         nbOccTxt2: T_Mot;
+         nbOccTxt1: Integer;
+         nbOccTxt2: Integer;
       end record;
 
 end Triplet;

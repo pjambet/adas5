@@ -9,7 +9,7 @@ package body Liste_couple is
       --redefinition de la fonction "<" pour le type couple
       --ici on tri les couples par ordre lexicographique
    begin
-      return Inferieur_Mot(Get_Mot(Couple1),Get_Mot(COuple2));
+      return Inferieur_Mot(Get_Mot(Couple1),Get_Mot(Couple2));
    end;
 
    function Superieur_Couple_Lex(Couple1: T_Couple;Couple2: T_Couple) return Boolean is
