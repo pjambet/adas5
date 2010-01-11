@@ -92,7 +92,7 @@ begin
 
          when 5 =>
 
-            null;
+            ViderListe(L);
 
          when 6 =>
 
@@ -152,7 +152,7 @@ begin
 
          when 10 => 
            
-            null;
+            ViderListe(LT);
 
          when 20 =>
 
