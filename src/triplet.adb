@@ -1,24 +1,17 @@
 package body Triplet is
 
-   function From_Couple_to_Triplet(L1: TListe_Couple; L2 : TListe_Couple) return TListe_Triplet is
-      --Crée une liste de couple a partir d'une liste de triplet
-   begin
-      --TODO
-      return null;
-   end From_Couple_To_Triplet;
-
    function Creer_Triplet(M: T_Mot; N1: Integer; N2: Integer)return T_Triplet is
       --Crée Un triplet
    begin
       return T_Triplet'(M, N1, N2);
    end Creer_Triplet;
 
-   procedure Imprime_Triplet(C: in T_Couple) is
+   procedure Imprime_Triplet(C: in T_Triplet) is
       --Definition de la fonction d'affichage d'un Triplet
       --Necessaire pour l'instanciation de la liste generique
    begin
-      Put(Get_Chaine(Get_Mot_T(C))(1 .. Get_Fin(Get_Mot_T(C))));
-      Put(Integer'Image(Get_NbOcc(C)));Put(" ");Put_Line(Integer(Image(Get_NbOcc2)));
+      Put("- "); Put(Get_Chaine(Get_Mot_T(C))(1 .. Get_Fin(Get_Mot_T(C))));
+      Put_Line(" (" & Integer'Image(Get_NbOcc1(C)) & " |" & Integer'Image(Get_NbOcc2(C)) & " )");
    end Imprime_Triplet;
 
    procedure Set_Mot_T(T: in out T_Triplet; M: in T_Mot) is

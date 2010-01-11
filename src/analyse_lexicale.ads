@@ -36,6 +36,18 @@ package Analyse_Lexicale is
      return Integer;
    --Requete renvoyant le nombre d'occurence du mot m dans le texte
 
+   function Query_NbOcc_Txt1 (
+         L : TListe_Triplet;
+         M : String)
+     return Integer;
+   --Requete renvoyant le nombre d'occurence du mot m dans le texte 1
+
+   function Query_NbOcc_Txt2 (
+         L : TListe_Triplet;
+         M : String)
+     return Integer;
+   --Requete renvoyant le nombre d'occurence du mot m dans le texte 2
+
    procedure Query_NbPref (
          L     : in     TListe_Couple;
          S     : in     String;
@@ -67,6 +79,16 @@ package Analyse_Lexicale is
    --etc ...
    ------------------------------------------
 
+   procedure Creer_Fichier_Listemot_T (
+         L : in     TListe_Triplet);
+      --Procedure qui crée le fichier liste-mot.txt-y a partir de la liste de triplet l
+      --Le Fichier créé est de la forme suivante
+      ------------------------------------------
+      --Mot1 NboccTxt1 NbOccTxt2
+      --Mot2 NbOccTxt1 NbOccTxt2
+      --etc ...
+      ------------------------------------------
+
    function Existe (
          Name : in     String)
      return Boolean;
@@ -78,6 +100,13 @@ package Analyse_Lexicale is
    --et donc le fichier existera forcement et pourra etre ouvert dans le corps de la fonction
    --declenche une exception si le fichier n'existe pas
 
+   procedure Recup_Liste_T (
+         L : in out TListe_Triplet);
+      --procedure qui recrée la liste de couple a partir du fichier "liste-mot-t.txt"
+      --le fichier n'est pas passé en parametre car il sera créé auparavant par la fonction Creer_Fichier_Listemot_T
+      --et donc le fichier existera forcement et pourra etre ouvert dans le corps de la fonction
+      --declenche une exception si le fichier n'existe pas
+
    procedure AffichageN (
          L : in     TListe_Couple;
          N : in     Integer);
@@ -86,6 +115,10 @@ package Analyse_Lexicale is
    procedure Query_Intersection (
          T : in TListe_Triplet);
       -- affiche les mots communs de deux auteurs
+
+   procedure Query_Difference (
+         T : in TListe_Triplet);
+      -- affiche les mots d'un auteur et pas de l'autre (et vice versa)
       
 end Analyse_Lexicale;
 

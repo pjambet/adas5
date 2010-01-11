@@ -119,7 +119,4 @@ package Liste_Triplet is
    -----------------------------------------------------------------
    -----------------------------------------------------------------
 
-   procedure InsererTriee_Txt1_Lex(L: in out TListe_Triplet;T: in T_Triplet;Txt: in Integer);
-   --Insere le triplet T dans la liste L
-
 end Liste_Triplet;
