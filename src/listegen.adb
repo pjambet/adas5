@@ -189,17 +189,21 @@ package body ListeGen is
    end SupprimerTout;
 
    procedure Viderliste(L: in out T_Liste) is
-      Ltemp : T_Liste;
-      lprec : T_Liste;
+      Lprec : T_Liste;
+      ltest : t_Liste;
    begin
-      Ltemp := L;
-      if not EstVide(ltemp) then
-         while not Estvide(Ltemp) loop
-            lprec := ltemp;
-            Ltemp := Ltemp.Suiv;
-            Liberer(lprec);
-         end loop;
-         liberer(ltemp);
+      if not Estvide(L) then
+         if Estvide(Suivant(L)) then
+            Liberer(L);
+         else
+            while not Estvide(L) loop
+            Lprec := L;
+            Ltest := Lprec;
+            L.Prec := null; 
+            L := L.Suiv; 
+            Liberer(Lprec);
+            end loop;
+         end if;
       end if;
    end ViderListe;
 

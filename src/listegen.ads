@@ -16,6 +16,8 @@ package ListeGen is
    ListeVideException : Exception;
    Elt_Inexistant : Exception;
 
+   
+   
    procedure Modifie(L : in out T_Liste; E : in T_Elem);
    --Modifie L en y remplacant son element par E
 

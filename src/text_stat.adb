@@ -54,7 +54,7 @@ package body Text_Stat is
       X := 0;
       Ltemp := L;
       while not EstVide(Ltemp) loop
-         if Get_Fin(Get_Mot(Valeur(Ltemp))) > N then
+         if Get_Fin(Get_Mot(Valeur(Ltemp))) >= N then
 		    X := X + 1;
          end if;
          Ltemp := Suivant(Ltemp);
