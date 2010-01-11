@@ -1,3 +1,6 @@
+with Ada.Text_IO, Ada.Unchecked_Deallocation;
+use Ada.Text_IO;
+
 package body ListeGen is
 
    procedure Liberer is new Ada.Unchecked_Deallocation(Cellule, T_Liste);
@@ -175,33 +178,21 @@ package body ListeGen is
          end if;
       end if;
    end Supprimer;
-   
-   procedure SupprimerTout(L : in out T_Liste; X : in T_Elem) is
-      Ltemp: T_Liste;
-   begin
-      Ltemp := L;
-      while Ltemp /= null loop
-         if Premier(L) = X then
-		    Supprimer(L, X);
-         end if;
-         Ltemp := Ltemp.all.Suiv;
-      end loop;
-   end SupprimerTout;
 
    procedure Viderliste(L: in out T_Liste) is
       Lprec : T_Liste;
-      ltest : t_Liste;
+      Ltest : T_Liste;
    begin
-      if not Estvide(L) then
-         if Estvide(Suivant(L)) then
+      if not EstVide(L) then
+         if EstVide(Suivant(L)) then
             Liberer(L);
          else
-            while not Estvide(L) loop
-            Lprec := L;
-            Ltest := Lprec;
-            L.Prec := null; 
-            L := L.Suiv; 
-            Liberer(Lprec);
+            while not EstVide(L) loop
+               Lprec := L;
+               Ltest := Lprec;
+               L.Prec := null;
+               L := L.Suiv;
+               Liberer(Lprec);
             end loop;
          end if;
       end if;
