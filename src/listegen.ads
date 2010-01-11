@@ -70,6 +70,9 @@ package ListeGen is
    procedure Supprimer(L : in out T_Liste; X : in T_Elem);
    --Supprime la premiere occurence de X dans la liste L
    --n'a aucun effet dans le cas d'une liste vide
+   
+   procedure Viderliste(L: in out T_Liste);
+   --Supprime tous les elements de la liste
 
    function Index(L : T_Liste; X : T_Elem) return Integer;
    --Renvoie l'indice de la premiere occurende de l'element X de la liste L

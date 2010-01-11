@@ -175,8 +175,8 @@ package body ListeGen is
          end if;
       end if;
    end Supprimer;
-
-   procedure SupprimerTout(L: in out T_Liste;X: in T_Elem) is --A REFAIRE
+   
+   procedure SupprimerTout(L : in out T_Liste; X : in T_Elem) is
       Ltemp: T_Liste;
    begin
       Ltemp := L;
@@ -188,7 +188,16 @@ package body ListeGen is
       end loop;
    end SupprimerTout;
 
-   function Index(L : T_Liste; X : T_Elem) return Integer is
+   procedure Viderliste(L: in out T_Liste) is
+      Lprec: T_Liste;
+      Ltemp := L;
+         while not Estvide(Ltemp) loop
+            Ltemp := Ltemp.Suiv;
+         end loop;
+      end if;
+   end ViderListe;
+
+   function Index(L: T_Liste;X: T_Elem) return Integer is
    begin
       if EstVide(L) then
 	     raise ListeVideException;
