@@ -20,24 +20,45 @@ procedure Main is
 
 begin
 
+   New_Line;New_Line;
+   Put_line("********************************************************************");
+   Put_line("********************************************************************");
+   Put_Line("*                  ANALYSEUR LEXICALE v2                           *");
+   Put_Line("*                  PROJET ADA S5                                   *");
+   Put_Line("*                                                                  *");
+   Put_Line("*Auteurs :                                                         *");
+   Put_Line("*  JAMBET PIERRE                                                   *");
+   Put_Line("*  DREYER QUENTIN                                                  *");
+   Put_Line("*                                                                  *");
+   Put_line("********************************************************************");
+   Put_line("********************************************************************");
+   Put_Line("");
+
    Menu := True;
    while Menu loop
 
-      Put_Line("Entrez 1 pour analyser un texte.");
-      Put_Line("Entrez 2 pour effectuer des requetes.");
-      Put_Line("Entrez 3 pour enregistrer la liste dans le fichier " & Character'Val(34) & "liste-mots.txt" & Character'Val(34) & ".");
-      Put_Line("Entrez 4 pour recuperer la liste a partir du fichier " & Character'Val(34) & "liste-mots.txt" & Character'Val(34) & ".");
-      Put_Line("Entrez 5 pour afficher la liste des couples.");
-      Put_Line("Entrez 6 pour effacer la liste des couples.");
+      Put("Etat Memoire : ");
+      if not EstVide(L) then Put("(*)");end if;
+      if not EstVide(LT) then Put("(**)");end if;
       New_Line;
-      Put_Line("Entrez 7 pour comparer 2 textes");
-      Put_Line("Entrez 8 pour effectuer des requetes.");
-      Put_Line("Entrez 9 pour enregistrer la liste dans le fichier " & Character'Val(34) & "liste-mots2.txt" & Character'Val(34) & ".");
-      Put_Line("Entrez 10 pour recuperer la liste a partir du fichier " & Character'Val(34) & "liste-mots2.txt" & Character'Val(34) & ".");
-      Put_Line("Entrez 11 pour afficher la liste des triplets.");
-      Put_Line("Entrez 12 pour effacer la liste des triplets.");
-	New_Line;
-      Put_Line("Entrez 0 pour quitter.");
+      Put_Line("Signification :");
+      Put_Line(" (*) -> Il y a une liste de couples en memoire ");
+      Put_Line(" (**) -> Il y a une liste de tripelts en memoire ");New_Line;
+      Put_Line("1 -> Entrez 1 pour analyser un texte.");
+      Put_Line("2 -> Entrez 2 pour effectuer des requetes.");
+      Put_Line("3 -> Entrez 3 pour enregistrer la liste dans le fichier " & Character'Val(34) & "liste-mots.txt" & Character'Val(34) & ".");
+      Put_Line("4 -> Entrez 4 pour recuperer la liste a partir du fichier " & Character'Val(34) & "liste-mots.txt" & Character'Val(34) & ".");
+      Put_Line("5 -> Entrez 5 pour afficher la liste des couples.");
+      Put_Line("6 -> Entrez 6 pour effacer la liste des couples.");
+      New_Line;
+      Put_Line("7 -> Entrez 7 pour comparer 2 textes");
+      Put_Line("8 -> Entrez 8 pour effectuer des requetes.");
+      Put_Line("9 -> Entrez 9 pour enregistrer la liste dans le fichier " & Character'Val(34) & "liste-mots2.txt" & Character'Val(34) & ".");
+      Put_Line("10 -> Entrez 10 pour recuperer la liste a partir du fichier " & Character'Val(34) & "liste-mots2.txt" & Character'Val(34) & ".");
+      Put_Line("11 -> Entrez 11 pour afficher la liste des triplets.");
+      Put_Line("12 -> Entrez 12 pour effacer la liste des triplets.");
+      New_Line;
+      Put_Line(" -> Entrez 0 pour quitter.");
       New_Line;
       Get(Choix);
       Skip_Line;
@@ -58,7 +79,7 @@ begin
                New_Line;
                if Existe(Buffer(1 .. Last)) then
                   NomFic := False;
-                  Query_Liste_Couple(L, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
+                  Query_Liste_Couple(L, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte       
                else
                   Put_Line("Nom de fichier invalide !");
                   New_Line;

@@ -1,5 +1,5 @@
-with Analyse_Lexicale, Mot, Couple, Ada.Text_IO, Ada.Characters.Handling, Liste_Couple;
-use Analyse_Lexicale, Mot, Couple, Ada.Text_IO, Ada.Characters.Handling, Liste_Couple.L;
+with Analyse_Lexicale, Mot, Couple, Ada.Text_IO, Ada.Characters.Handling, Liste_Couple, Ada.Calendar;
+use Analyse_Lexicale, Mot, Couple, Ada.Text_IO, Ada.Characters.Handling, Liste_Couple.L, Ada.Calendar;
 
 package body Analyse_Lexicale_Couple is
 
@@ -11,9 +11,12 @@ package body Analyse_Lexicale_Couple is
       Indice : Integer;
       Couple : T_Couple;
       M : T_Mot;
+      Chrono_start : Integer;
+      Chrono_end : Integer;
    begin
       Indice := 0;
       C := Character'Val(0);
+      Chrono_start := Integer(seconds(Clock));
       Open(Orig, In_File, NomFic);
       Put("Debut lecture");
       while not End_Of_File(Orig) loop
@@ -42,8 +45,10 @@ package body Analyse_Lexicale_Couple is
          end if;
       end loop;
       Close(Orig);
+      Chrono_end := Integer(seconds(Clock));
       New_Line;
       Put_Line("Fin lecture !");
+      Put_Line("Temps d'analyse : " & Integer'Image(Chrono_end-Chrono_start));
       Skip_Line;
    end;
    
