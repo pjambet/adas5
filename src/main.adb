@@ -182,7 +182,7 @@ begin
             AffichageN_T(LT, NbMot);
             
             Skip_Line;
-            Put_Line("Veuillez entrer un mot.");
+            Put_Line("Veuillez entrer un mot afin de connaitre son nombre d'occurence dans chacun des textes.");
             Get_Line(Buffer, Last);
             New_Line;
 

@@ -23,7 +23,7 @@ package body Mot is
    begin
       Fin := 0;
       I := 1;           
-      while I <= S'Length and then S(I) /= Character'Val(32) loop
+      while I <= S'Length and then S(I) /= Character'Val(32) loop -- character'val(32)' '
          Sret(I) := S(I);
          Fin := Fin+1;
          I := I+1;
@@ -85,26 +85,26 @@ package body Mot is
    end Compare_Mots;
 
    function Compare_Chaine_Mot(S : String; M : T_Mot) return Boolean is
-   --Compare une chaine avec le mot contenu dans t_couple
+   --Compare une chaine avec le mot contenu dans t_mot
    --renvoie vrai si S = M.mot
    --renvoie faux sinon
    --On a besoin de cette fonction pour utiliser l'indice de fin
    --contenu dans le couple
       Min, Cmp : Integer;
    begin
-      if S'Last > M.Fin then
-         Min := M.Fin;
+      if S'Last /= M.Fin then
+         return false;
       else
-         Min := S'Last;
+         min := S'last;
+         Cmp := 0;
+         for I in 1 .. Min loop
+            if S(I) /= M.Chaine(I) then
+               return False;
+            end if;
+            Cmp := Cmp+1;
+         end loop;
+         return Cmp = Min;
       end if;
-      Cmp := 0;
-      for I in 1 .. Min loop
-         if S(I) /= M.Chaine(I) then
-            return False;
-         end if;
-         Cmp := Cmp+1;
-      end loop;
-      return Cmp = Min;
    end Compare_Chaine_Mot;
 
    function EstMotSignificatif(M : T_Mot) return boolean is
