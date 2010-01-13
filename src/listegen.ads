@@ -4,7 +4,7 @@ generic
    with procedure Imprime(X : in T_Elem);
 
 package ListeGen is
-
+      
    --Implementation d'une structure de données de type liste
    --doublement chainée avec structure de controle(les modifications sont en cours).
    --Les elements stockées par la liste sont de type generiques
@@ -12,8 +12,6 @@ package ListeGen is
    type T_Liste is private;
    ListeVideException : Exception;
    Elt_Inexistant : Exception;
-
-   
    
    procedure Modifie(L : in out T_Liste; E : in T_Elem);
    --Modifie L en y remplacant son element par E
@@ -121,7 +119,7 @@ package ListeGen is
    --inverse par rapport a la liste originale
 
 private
-      
+           
    type Cellule;
    type T_Liste is access Cellule;
    type Cellule is record
