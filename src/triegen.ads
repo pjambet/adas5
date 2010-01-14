@@ -18,7 +18,7 @@ generic
       function ComptePrefixe(T : T_Trie; E : T_Elem) return Integer;
       -- si T = Vide alors retourne 0
 
-      private
+   private
          
       type Tab is array (1 .. 30) of T_Trie;
       type Cellule;
@@ -29,4 +29,4 @@ generic
          Prefixe : Integer;
       end record;
       
-   end TrieGen;
+end TrieGen;
