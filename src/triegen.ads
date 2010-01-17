@@ -1,14 +1,17 @@
 generic
 
    type T_Elem is private;
-   with procedure Imprime(X : in T_Elem);
+   with procedure Imprime(E : in T_Elem);
 
    package TrieGen is
       
       type T_Trie is private;
          
       function CreerTrie return T_Trie;
+      
       function TrieVide(T : T_Trie) return Boolean;
+      function ElemVide(E : T_Elem) return Boolean;
+  
       function AjouterMot(T : T_Trie; E : T_Elem) return T_Trie;
       -- si T = Vide alors crée un T contenant E
       
@@ -20,13 +23,13 @@ generic
 
    private
          
-      type Tab is array (1 .. 30) of T_Trie;
-      type Cellule;
-      type T_Trie is access Cellule;
-      type Cellule is record
+      type Tab is array (1 .. 26) of T_Trie;
+      type Celulle;
+      type T_Trie is access Celulle;
+      type Celulle is record
          ST : Tab;
-         Mots : T_Elem;
-         Prefixe : Integer;
+         Mots : Integer;
+         Prefixes : Integer;
       end record;
       
 end TrieGen;

@@ -17,13 +17,13 @@ package body Mot is
 
    function Creer_Mot(S : String) return T_Mot is
       I : Integer;
-      M : T_Mot;
+      --M : T_Mot;
       Sret : String(1 .. 30);
       Fin : Integer;
    begin
       Fin := 0;
       I := 1;           
-      while I <= S'Length and then S(I) /= Character'Val(32) loop -- character'val(32)' '
+      while I <= S'Length and then S(I) /= Character'Val(32) loop -- ' '
          Sret(I) := S(I);
          Fin := Fin+1;
          I := I+1;
@@ -31,10 +31,16 @@ package body Mot is
       for I in (Fin+1) .. 30 loop
          Sret(I) := ' ';
       end loop;
-      M := T_Mot'(Sret, Fin);
-      return M;
+      --M := T_Mot'(Sret, Fin);
+      --return M;
+      return T_Mot'(Sret, Fin);
    end Creer_Mot;
 
+   function EstVide(M : T_Mot) return Boolean is
+   begin
+      return M.Chaine(M.Chaine'First) /= ' ';
+   end;
+   
    procedure Set_Chaine(M : in out T_Mot; S : in String) is
       -- Affecte C.Mot = M
    begin
