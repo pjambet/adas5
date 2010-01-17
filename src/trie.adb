@@ -50,8 +50,19 @@ package body Trie is
    end;
       
    function ComptePrefixe(T : T_Trie; M : T_Mot) return Integer is
+      -- si T = Vide alors retourne 0
+      C : Character;
+      Mot : T_Mot;      
    begin
-      return 0;
+      if TrieVide(T) then
+         return 0;
+      elsif MotVide(M) then
+         return T.Prefixes;
+      else
+         C := Get_Char(M);
+         Mot := Get_CharSuffixe(M);
+         return ComptePrefixe(T.ST(C), Mot);
+      end if;
    end;
       
 end Trie;

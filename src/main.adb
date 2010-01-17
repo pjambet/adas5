@@ -1,5 +1,5 @@
-with Analyse_Lexicale, Analyse_Lexicale_Couple, Analyse_Lexicale_Triplet, Liste_Couple, Liste_Triplet, Couple, Mot, Text_Stat_Couple, Text_Stat_Triplet, Ada.Text_IO, Ada.Integer_Text_IO, Ada.Float_Text_IO;
-use Analyse_Lexicale, Analyse_Lexicale_Couple, Analyse_Lexicale_Triplet, Liste_Couple, Liste_Triplet, Couple, Mot, Text_Stat_Couple, Text_Stat_Triplet, Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
+with Analyse_Lexicale, Analyse_Lexicale_Couple, Analyse_Lexicale_Triplet, Liste_Couple, Liste_Triplet, Couple, Trie, Mot, Text_Stat_Couple, Text_Stat_Triplet, Ada.Text_IO, Ada.Integer_Text_IO, Ada.Float_Text_IO;
+use Analyse_Lexicale, Analyse_Lexicale_Couple, Analyse_Lexicale_Triplet, Liste_Couple, Liste_Triplet, Couple, Trie, Mot, Text_Stat_Couple, Text_Stat_Triplet, Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
 
 procedure Main is
 
@@ -20,7 +20,8 @@ procedure Main is
 
 begin
 
-   New_Line;New_Line;
+   New_Line;
+   New_Line;
    Put_line("********************************************************************");
    Put_line("********************************************************************");
    Put_Line("*                  ANALYSEUR LEXICALE v2                           *");
@@ -32,7 +33,7 @@ begin
    Put_Line("*                                                                  *");
    Put_line("********************************************************************");
    Put_line("********************************************************************");
-   Put_Line("");
+   New_Line;
 
    Menu := True;
    while Menu loop
