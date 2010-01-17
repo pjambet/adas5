@@ -26,6 +26,7 @@ package body Trie is
          T.Mots := T.Mots + 1;
          return T;
       else
+         T.Prefixes := T.Prefixes + 1;
          C := Get_Char(M);
          Mot := Get_CharSuffixe(M);
          T.ST(C) := AjouterMot(T.ST(C), Mot);
