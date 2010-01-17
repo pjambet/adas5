@@ -60,7 +60,11 @@ package Arbre_Binaire is
    --Si tout va bien la hauteur entre le SAG et le SAD ne devrait pas différer
    --de plus de 1 si l'arbre est bien équilibré
    --La hauteur d'un arbre null est 0
-   
+
+   function Estequilibre(A: T_Abr) return Boolean;
+   --Renvoie vrai si l'arbre A est équilibré
+   --C-a-d si la hauteur entre le SAG et le SAD ne varie pas plus que un
+
    generic
       with Procedure Traitement(A: in out T_ABR);
    procedure Prefixe(A: in out T_ABR);
@@ -96,6 +100,10 @@ package Arbre_Binaire is
 
    procedure Suppression_ABR(A: in out T_ABR;V: in T_Elem);
    --Supprime l'element V de A
+   
+   procedure Vider_Arbre(A: in out T_Abr);
+   --Supprime tous les elements de A
+   --ArbreVide(Vider_Arbre(A)) = true
 
 private
     type Noeud;

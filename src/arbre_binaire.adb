@@ -26,7 +26,6 @@ package body Arbre_Binaire is
    --Declenche une ArbreVideException si A est null ou si son sag est null
    begin
       if ArbreVide(A) then raise ArbreVideException;
-      elsif ArbreVide(A) then raise ArbreVideException;
       else return A.SAG;
       end if;
    end SAG;
@@ -36,7 +35,6 @@ package body Arbre_Binaire is
    --Declenche une ArbreVideException si A est null ou si son sad est null
    begin
       if ArbreVide(A) then raise ArbreVideException;
-      elsif ArbreVide(A.SAD) then raise ArbreVideExcpetion;
       else return A.SAD;
       end if;
    end SAD;
@@ -46,7 +44,6 @@ package body Arbre_Binaire is
       --Renvoie une ArbreVideException si A est null ou si son pere est null
    begin
       if ArbreVide(A) then raise ArbreVideException;
-      elsif ArbreVide(A.Pere) then raise ArbreVideException;
       else return A.Pere;
       end if;
    end Pere;
@@ -203,6 +200,18 @@ package body Arbre_Binaire is
       end if;
    end Hauteur;
    
+   function Estequilibre(A: T_Abr) return Boolean is
+   --Renvoie vrai si l'arbre A est équilibré
+   --C-a-d si la hauteur entre le SAG et le SAD ne varie pas plus que un
+   Diff_Haut: Integer;
+   begin
+      if ArbreVide(A) then raise ArbreVideException;
+      else
+         Diff_Haut := Hauteur(Sag(A))-Hauteur(Sad(A));
+         return ( Diff_Haut := 1 or else Diff_Haut = -1 );
+      end if;
+   end Estequilibre;
+      
    function RechercheR(A: T_ABR) return T_ABR is
       --fonciton aussi appelé recherchepluspetit ou un autre nom comme ca
       --la fonction va soit chercher le plus grand a gauche soit le plus petit a droite
@@ -256,9 +265,9 @@ package body Arbre_Binaire is
    function Rotation_Gauche_Simple(X,Y: T_ABR) return T_ABR is
       --Effectue une rotation simple avec X comme racine et Y comme pivot(enfin je crois)
    begin
-      --A modifier par symetrie
-      X.Sag := Y.Sad;
-      if not ArbreVide(Y.Sad) then
+      --Modification par symetrié effectué, a verifier quand meme
+      X.Sad := Y.Sag;
+      if not ArbreVide(Y.Sag) then
          Y.Sad.Pere := X;
       end if;
       Y.Pere := X.Pere;
@@ -269,7 +278,7 @@ package body Arbre_Binaire is
             X.Pere.Sad := Y;
          end if;
       end if;
-      Y.Sad := X;
+      Y.Sag := X;
       X.Pere := Y;
       return Y;
    end Rotation_Gauche_Simple;
@@ -279,15 +288,16 @@ package body Arbre_Binaire is
       --prerequis : y appartient au sag de x
       z: T_ABR;
    begin
-      --A modifier par symetrie avec le truc de Droite
-      if X.Sag = Y then return Rotation_Droite_Simple(X,Y);
+      --Modification effectuée, tous les gauches changés en droit et inversement, comme pour au dessus
+      --a tester, j'suis pas certain que tout soit juste
+      if X.Sad = Y then return Rotation_Gauche_Simple(X,Y);
       else
          Z := Y.Pere;
          if FilsGauche(Y) then
-            Z := Rotation_Droite_SImple(Z);
-            return Rotation_Droite(X,Z);
+            Z := Rotation_gauche_SImple(Z);
+            return Rotation_gauche(X,Z);
          else--y est fils droit
-            return Rotation_Droite(X,Rotation_Gauche_Simple(Z));
+            return Rotation_Gauche(X,Rotation_Droite_Simple(Z));
          end if;
       end if;
    end Rotation_Gauche;
@@ -295,7 +305,7 @@ package body Arbre_Binaire is
    function Cas_Equilib_Insertion_Arn(A: T_Abr) return Integer is
       --Renvoie un entier qui nous permettra dans quel cas on se trouve apres l'insertion d'un element
       --dans l'ARN
-   begin
+   begin   
       if Est_Racine(A) then return 10;
       elsif Est_Racine(A.Pere) then return 10;
       elsif A.Pere.Couleur = True then return 0;
@@ -317,13 +327,14 @@ package body Arbre_Binaire is
 
    function Equilibrage_ARN(A,X: T_Abr) return T_ABR is
       --Equilibre l'arbre
+      --fonction a terminer
       N: Integer;
    begin
       N := Cas_Equilib_Insertion_Arn(X);
       if N=0 then
          
       elsif N=10 then
-                  
+         
       elsif N=20 then
          
       elsif N=31 then
@@ -392,7 +403,7 @@ package body Arbre_Binaire is
    --Supprime l'element V de A
       T: T_ABR;      
    begin
-      T := REcherche_ABR(A,V);
+      T := Reherche_ABR(A,V);
       if ArbreVide(A) then return A; 
       elsif Est_Feuille(T) then
          if Est_Racine(T) then return null;
@@ -427,8 +438,24 @@ package body Arbre_Binaire is
          T.Racine := R.Racine;
          --R.sad = null
          R := Supprimer(R,R.Racine);
+      end if;      
+   end Suppression_Abr;
+   
+   procedure Vider_Arbre(A: in out T_Abr) is
+   --Supprime tous les elements de A
+   --ArbreVide(Vider_Arbre(A)) = true
+   begin
+      if not Arbrevide(A) then
+         if not Arbrevide(Sag(A)) then
+            if Estfeuille(Sag(A)) then Liberer(Sag(A));
+            else Vider_arbre(Sag(A));--on vide a gauche
+            end if;
+         elsif not Arbrevide(Sad(A)) then
+            if Estfeuille(SAD(A)) then Liberer(SAD(A));
+            else Vider_Arbre(SAD(A));--et on vide a droite  
+            end if;
+         end if;         
       end if;
+   end Vider_Arbre;
       
-   end Suppression_ABR;
-
 end Arbre_Binaire;
