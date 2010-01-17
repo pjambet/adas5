@@ -14,8 +14,13 @@ package Mot is
    function Egale_Mot(M1, M2 : T_Mot) return Boolean;
 
    function Creer_Mot(S : String) return T_Mot;
-   function EstVide(M : T_Mot) return Boolean;
+   function MotVide(M : T_Mot) return Boolean;
 
+   function Get_Char(M : T_Mot) return Character;
+      -- Renvoie le premier element de M  
+   function Get_CharSuffixe(M : T_Mot) return T_Mot;
+      -- Renvoie le T_Mot privé du premier element
+      
    procedure Set_Chaine(M : in out T_Mot; S : in String);
    function Get_Chaine(M : T_Mot) return String;
 

@@ -36,9 +36,9 @@ package body Mot is
       return T_Mot'(Sret, Fin);
    end Creer_Mot;
 
-   function EstVide(M : T_Mot) return Boolean is
+   function MotVide(M : T_Mot) return Boolean is
    begin
-      return M.Chaine(M.Chaine'First) /= ' ';
+      return M.Chaine(M.Chaine'First) = ' ';
    end;
    
    procedure Set_Chaine(M : in out T_Mot; S : in String) is
@@ -58,11 +58,23 @@ package body Mot is
    END;
 
    function Get_Chaine(M : T_Mot) return String is
-      --Renvoie le mot du couple C
+      --Renvoie le string du T_Mot
    begin
       return M.Chaine;
    end Get_Chaine;
 
+   function Get_Char(M : T_Mot) return Character is
+      -- Renvoie le premier element de M
+   begin
+      return M.Chaine(M.Chaine'First);
+   end;
+   
+   function Get_CharSuffixe(M : T_Mot) return T_Mot is
+      -- Renvoie le string du T_Mot privé du premier element
+   begin
+      return T_Mot'(M.Chaine(M.Chaine'First+1 .. M.Chaine'Last) & " ", M.Fin);
+   end;
+      
    function Get_Fin(M : T_Mot) return Integer is
    --Renvoie l'indice de fin du mot de C
    begin
