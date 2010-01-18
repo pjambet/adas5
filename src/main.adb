@@ -142,8 +142,16 @@ begin
                      New_Line;
                      M := Creer_Mot(Buffer(1 .. Last));
                      Set_Mot(C2, M);
-
-                     Fusion_Couple(L, C1, C2);
+                     
+                     begin
+                        Fusion_Couple(L, C1, C2);
+                     exception
+                        when Constraint_Error => 
+                           Put_Line("Erreur de contrainte");
+                        when Liste_Couple.L.Listevideexception =>
+                           Put_Line("Probleme : Element non trouvés dans la liste");
+                     end;
+                     
 
                   when 3 =>
 

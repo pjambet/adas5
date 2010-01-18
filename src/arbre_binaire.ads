@@ -1,10 +1,12 @@
 with Ada.Text_Io;use Ada.Text_Io;
-with Ada.Unchecked_Deallocation;--use Ada.Unchecked_Deallocation;
 
 generic
    type T_Elem is private;
    with procedure Imprime(X: in T_Elem);
    --Affiche l'element X
+   with function ">"(T1, T2 : T_Elem) return Boolean is <>;
+   with function "="(T1, T2 : T_Elem) return Boolean is <>;
+   with function "<"(T1, T2 : T_Elem) return Boolean is <>;
 
 package Arbre_Binaire is
    --Representation generique d'un arbre binaire de recherche auto équilibré (rouge et noir)
@@ -17,7 +19,7 @@ package Arbre_Binaire is
    procedure Modifie(A: in out T_ABR;E: in T_Elem);
    --Modifie A en y remplacant son element par E
 
-   function LireRacine(A: T_ABR) return T_Elem;
+   function Lire_Racine(A: T_ABR) return T_Elem;
    --Renvoie l'element contenu dans A
    --Declenche un ArbreVideException si A est null
 
@@ -48,10 +50,10 @@ package Arbre_Binaire is
    --Affiche l'arbre dans la console
    --Utilise imprime qui est generic
 
-   function ArbreVide(A: T_ABR) return Boolean;
+   function Arbre_Vide(A: T_ABR) return Boolean;
    --Teste la vacuité de l'arbre A
 
-   function Estracine(A: T_Abr) return Boolean;
+   function Est_racine(A: T_Abr) return Boolean;
    --Teste si A est racine de l'arbre
 
    function Hauteur(A: T_ABR) return Integer;
@@ -61,25 +63,25 @@ package Arbre_Binaire is
    --de plus de 1 si l'arbre est bien équilibré
    --La hauteur d'un arbre null est 0
 
-   function Estequilibre(A: T_Abr) return Boolean;
+   function Est_equilibre(A: T_Abr) return Boolean;
    --Renvoie vrai si l'arbre A est équilibré
    --C-a-d si la hauteur entre le SAG et le SAD ne varie pas plus que un
 
    generic
       with Procedure Traitement(A: in out T_ABR);
-   procedure Prefixe(A: in out T_ABR);
+   function Prefixe(A: T_ABR) return T_ABR;
    --Parcours l'arbre A de maniere prefixe et applique la procedure traitement
    --Cette procedure est generique et sera définie a l'instanciation
 
    generic
       with Procedure Traitement(A: in out T_ABR);
-   procedure Suffixe(A: in out T_ABR);
+   function Postfixe(A: T_ABR) return T_ABR;
    --Parcours l'arbre A de maniere suffixe et applique la procedure traitement
    --Cette procedure est generique et sera définie a l'instanciation
 
    generic
       with Procedure Traitement(A: in out T_ABR);
-   procedure Infixe(A: in out T_ABR);
+   function Infixe(A: T_ABR) return T_ABR;
    --Parcours l'arbre A de maniere infixe et applique la procedure traitement
    --Cette procedure est generique et sera définie a l'instanciation
 
@@ -91,17 +93,27 @@ package Arbre_Binaire is
    --Renvoie l'arbre ayant v pour racine
    --Leve une ArbreVideException si il n'y a aucun element dans A
 
+   generic
+      with procedure Traitement_Doublon(A : in out T_ABR);
+      with function ">"(T1, T2 : T_Elem) return Boolean is <>;
+      with function "="(T1, T2 : T_Elem) return Boolean is <>;
+      with function "<"(T1, T2 : T_Elem) return Boolean is <>;
    procedure Insertion_ABR(A:in out T_ABR;V: in T_Elem);
    --Insere l'element V dans l'arbre en respectant les contraintes des ABR
-   
+
+   generic
+      with procedure Traitement_Doublon(A : in out T_ABR);
+      with function ">"(T1, T2 : T_Elem) return Boolean is <>;
+      with function "="(T1, T2 : T_Elem) return Boolean is <>;
+      with function "<"(T1, T2 : T_Elem) return Boolean is <>;
    procedure Insertion_ARN(A:in out T_ABR;V: in T_Elem);
    --Insere l'element V dans l'arbre en respectant l'équilibrage(gesion des couleurs rouges et noires)
    --et en respectant les contraintes des N
 
-   procedure Suppression_ABR(A: in out T_ABR;V: in T_Elem);
+   procedure Supprimer_ABR(A: in out T_ABR;V: in T_Elem);
    --Supprime l'element V de A
    
-   procedure Vider_Arbre(A: in out T_Abr);
+   function Vider_Arbre(A: T_Abr) return T_Abr;
    --Supprime tous les elements de A
    --ArbreVide(Vider_Arbre(A)) = true
 
