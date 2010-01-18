@@ -492,7 +492,8 @@ package body Arbre_Binaire is
    --ArbreVide(Vider_Arbre(A)) = true
    tmp: T_ABR;
    begin
-      if not Arbre_vide(A) then
+      if Arbre_Vide(A) then return A;
+      else-- Arbre_vide(A) then
          if not Arbre_vide(Sag(A)) then
             if Est_Feuille(Sag(A)) then
                tmp := SAG(A);
