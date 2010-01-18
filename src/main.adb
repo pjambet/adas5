@@ -265,12 +265,7 @@ begin
             SMenu := True;
             while SMenu loop
 
-               Put("Etat memoire :");
-               if not EstVide(L) then
-                  Put(" (*)");
-               elsif not EstVide(LT) then
-                  Put(" (**)");
-               end if;
+               Put("Etat memoire : TODO");
 
                New_Line;
                Put_Line("1 -> Entrez 1 pour analyser un texte.");

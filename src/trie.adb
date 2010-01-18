@@ -82,7 +82,10 @@ package body Trie is
                if T.ST(I).Mots > 0 then
                   Put_Line(Integer'Image(T.ST(I).Mots));
                end if;
-            end if;   
+               for J in 2 .. T.ST(I).Prefixes loop
+                  Put(I);
+               end loop;
+            end if;
             AfficheTrie(T.ST(I));
          end loop;
       end if;
