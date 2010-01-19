@@ -65,4 +65,45 @@ package body Text_Stat_Couple is
       return X;
    end;
    
+   -----------ARBRES------------------------------------
+
+   function Num_Mot_Tot(A : TABR_Couple) return Integer is
+   --Calcule le nombre total de mot du texte                    
+   begin
+      if Arbre_Vide(A) then return 0;
+      else return 1 + Num_Mot_Tot(Sag(A))+ Num_Mot_Tot(Sad(A));
+      end if;
+   end;
+   
+   function Num_Occ_Moy(A : TABR_Couple) return Float is
+   --Calcule le nombre d'occurence moyen a partir de la liste obtenu des mots
+   --dans le texte
+      N,Total: Integer;      
+   begin
+      if Arbre_Vide(A) then return 0.0;
+      else
+         null;
+         --return Float(Get_NbOcc(Lire_Racine(A))) + Num_Occ_Moy(SAG(A)) + Num_Occ_Moy(SAD(A));
+      end if;
+      return 0.0;
+   end;
+   
+   function Long_Moy(A : TABR_Couple) return Float is
+   --Calcule la longueur moyenne d'un mot dans le texte
+   begin
+      return 0.0;
+   end;
+   
+   function Num_Mot_Sup(A : TABR_Couple; N : Integer) return Integer is
+   --Calcule le nombre de mot dont la longueur est supérieur ou égale a un entier positif donne
+   begin
+      if Arbre_Vide(A) then return 0;
+      elsif Get_Fin(Get_Mot(Lire_Racine(A))) >= N then
+         return 1 + Num_Mot_Sup(Sag(A),N) + Num_Mot_Sup(Sad(A),N);
+      else
+         return Num_Mot_Sup(Sag(A),N) + Num_Mot_Sup(Sad(A),N);
+      end if;
+   end;
+
+   
 end text_stat_couple;

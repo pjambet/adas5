@@ -60,5 +60,38 @@ package body Text_Stat_Triplet is
       end loop;
       return X;
    end;
+   
+   function Num_Mot_Tot(A : TABR_Triplet) return Integer is
+   --Calcule le nombre total de mot du texte
+   begin
+      if Arbre_Vide(A) then return 0;
+      else return 1 + Num_Mot_Tot(Sag(A))+ Num_Mot_Tot(Sad(A));
+      end if;
+   end Num_Mot_Tot;
+   
+   function Num_Occ_Moy(A : TABR_Triplet) return Float is
+   --Calcule le nombre d'occurence moyen a partir de la liste obtenu des mots
+   --dans le texte
+   begin
+      return 0.0;
+   end Num_Occ_Moy;
+   
+   function Long_Moy(A : TABR_Triplet) return Float is
+   --Calcule la longueur moyenne d'un mot dans le texte
+   begin
+      return 0.0;      
+   end Long_Moy;
+   
+   function Num_Mot_Sup(A : TABR_Triplet; N : Integer) return Integer is
+   --Calcule le nombre de mot dont la longueur est supérieur ou égale a un entier positif donné
+   begin
+      if Arbre_Vide(A) then return 0;
+      elsif Get_Fin(Get_Mot(Lire_Racine(A))) >= N then
+         return 1 + Num_Mot_Sup(Sag(A),N) + Num_Mot_Sup(Sad(A),N);
+      else
+         return Num_Mot_Sup(Sag(A),N) + Num_Mot_Sup(Sad(A),N);
+      end if;
+   end Num_Mot_Sup;
 
-end text_stat_triplet;
+end Text_Stat_Triplet;
+
