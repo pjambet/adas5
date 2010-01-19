@@ -1,5 +1,14 @@
-with Analyse_Lexicale, Analyse_Lexicale_Couple, Analyse_Lexicale_Triplet, Analyse_Lexicale_Trie, Liste_Couple, Liste_Triplet, Couple, Trie, Mot, Text_Stat_Couple, Text_Stat_Triplet, Ada.Text_IO, Ada.Integer_Text_IO, Ada.Float_Text_IO;
-use Analyse_Lexicale, Analyse_Lexicale_Couple, Analyse_Lexicale_Triplet, Analyse_Lexicale_Trie, Liste_Couple, Liste_Triplet, Couple, Trie, Mot, Text_Stat_Couple, Text_Stat_Triplet, Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
+with Analyse_Lexicale, Analyse_Lexicale_Trie, Trie, Mot;
+use Analyse_Lexicale, Analyse_Lexicale_Trie, Trie, Mot;
+
+with Analyse_Lexicale_Couple, Liste_Couple, Couple, Text_Stat_Couple;
+use Analyse_Lexicale_Couple, Liste_Couple, Couple, Text_Stat_Couple;
+
+with Analyse_Lexicale_Triplet, Liste_Triplet, Arbre_Binaire_Triplet, Text_Stat_Triplet;
+use Analyse_Lexicale_Triplet, Liste_Triplet, Arbre_Binaire_Triplet, Text_Stat_Triplet;
+
+with Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
+use Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
 
 procedure Main is
 
@@ -7,7 +16,8 @@ procedure Main is
    SMenu : Boolean;
    Choix : Integer;
    L : TListe_Couple;
-   LT : TListe_Triplet;
+   LT : Tliste_Triplet;
+   AB : TABR_Triplet;
    Buffer : String(1 .. 30);
    Last : Natural;
    NomFic : Boolean;
@@ -18,7 +28,8 @@ procedure Main is
    T : T_Trie;
 
    use Liste_Couple.L;
-   use Liste_Triplet.LT;
+   use Liste_Triplet.Lt;
+   use Arbre_Binaire_Triplet.AB;
 
 begin
 
@@ -258,7 +269,7 @@ begin
 
          when 2 =>
 
-            null; -- PJambet
+            AB := CreerArbre;   
 
          when 3 =>
 
