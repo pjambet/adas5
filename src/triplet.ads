@@ -33,6 +33,64 @@ package Triplet is
    function Get_NbOcc_Txt2(T : T_Triplet) return Integer;
    --Renvoie le nombre d'occurence du mot du Couple C
 
+   -----------------------------------------------------------------
+   --------FONCTION CONCERNANT L'ORDE LEXICALE----------------------
+
+   function Inferieur_Triplet_Lex(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean;
+   --redefinition de la fonction "<" pour le type Triplet
+   --ici on tri les Triplets par ordre lexicographique
+
+   function Superieur_Triplet_Lex(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean;
+   --redefinition de la fonction ">" pour le type Triplet
+   --ici on trie les Triplets par ordre lexicographique
+
+   function Egale_Triplet_Lex(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean;
+   --redefinition de la fonction "=" pour le type Triplet
+   --ici on trie les Triplets par ordre lexicographique
+
+   -----------------------------------------------------------------
+   --------FONCTION CONCERNANT LES OCCURENCES DU TEXTE 1------------
+   function Inferieur_Triplet_Occ1(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean;
+   --redefinition de la fonction "<" pour le type Triplet
+   --ici on tri les Triplets par nombre d'occurence(du texte1) décroissante
+
+   function Superieur_Triplet_Occ1(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean;
+   --redefinition de la fonction ">" pour le type Triplet
+   --ici on trie les Triplets par nombre d'occurence(du texte1) décroissante
+
+   function Egale_Triplet_Occ1(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean;
+   --redefinition de la fonction "=" pour le type Triplet
+   --ici on trie les Triplets par nombre d'occurence(du texte1) décroissante
+
+   -----------------------------------------------------------------
+   --------FONCTION CONCERNANT LES OCCURENCES DU TEXTE 2------------
+   function Inferieur_Triplet_Occ2(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean;
+   --redefinition de la fonction "<" pour le type Triplet
+   --ici on tri les Triplets par nombre d'occurence(du texte2) décroissante
+
+   function Superieur_Triplet_Occ2(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean;
+   --redefinition de la fonction ">" pour le type Triplet
+   --ici on trie les Triplets par nombre d'occurence(du texte2) décroissante
+
+   function Egale_Triplet_Occ2(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean;
+   --redefinition de la fonction "=" pour le type Triplet
+   --ici on trie les Triplets par nombre d'occurence(du texte2) décroissante
+
+   -----------------------------------------------------------------
+   --------FONCTION CONCERNANT LES OCCURENCES DES 2 TEXTES----------
+   function Inferieur_Triplet_OccS(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean;
+   --redefinition de la fonction "<" pour le type Triplet
+   --ici on tri les Triplets par nombre d'occurence(somme des occ) décroissante
+
+   function Superieur_Triplet_OccS(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean;
+   --redefinition de la fonction ">" pour le type Triplet
+   --ici on trie les Triplets par nombre d'occurence(somme des occ) décroissante
+
+   function Egale_Triplet_OccS(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean;
+   --redefinition de la fonction "=" pour le type Triplet
+   --ici on trie les Triplets par nombre d'occurence(somme des occ) décroissante
+   -----------------------------------------------------------------
+
    private
 
       type T_Triplet is record

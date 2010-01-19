@@ -26,6 +26,30 @@ package Couple is
    function Get_NbOcc(C : T_Couple) return Integer;
    --Renvoie le nombre d'occurence du mot du Couple C
 
+   function Inferieur_Couple_Lex(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean;
+   --redefinition de la fonction "<" pour le type couple
+   --ici on tri les couples par ordre lexicographique
+
+   function Superieur_Couple_Lex(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean;
+   --redefinition de la fonction ">" pour le type couple
+   --ici on trie les couples par ordre lexicographique
+
+   function Egale_Couple_Lex(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean;
+   --redefinition de la fonction "=" pour le type couple
+   --ici on trie les couples par ordre lexicographique
+
+   function Inferieur_Couple_Occ(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean;
+   --redefinition de la fonction "<" pour le type couple
+   --ici on tri les couples par nombre d'occurence décroissante
+
+   function Superieur_Couple_Occ(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean;
+   --redefinition de la fonction ">" pour le type couple
+   --ici on trie les couples par nombre d'occurence décroissante
+
+   function Egale_Couple_Occ(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean;
+   --redefinition de la fonction "=" pour le type couple
+   --ici on trie les couples par nombre d'occurence décroissante
+
 private
 
    type T_Couple is record

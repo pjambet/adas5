@@ -53,6 +53,90 @@ package body Triplet is
       --Renvoie le nombre d'occurence du mot du Couple C
    begin
       return T.NbOccTxt2;
-   end Get_NbOcc_Txt2;
+   end Get_Nbocc_Txt2;
+   
+   function Inferieur_Triplet_Lex(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean is
+     --redefinition de la fonction "<" pour le type Triplet
+     --ici on tri les Triplets par ordre lexicographique
+   begin
+      return Inferieur_Mot(Get_Mot_T(Triplet1), Get_Mot_T(Triplet2));
+   end;
+
+   function Superieur_Triplet_Lex(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean is
+     --redefinition de la fonction ">" pour le type Triplet
+     --ici on trie les Triplets par ordre lexicographique
+   begin
+      return Superieur_Mot(Get_Mot_T(Triplet1), Get_Mot_T(Triplet2));
+   end;
+
+   function Egale_Triplet_Lex(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean is
+     --redefinition de la fonction ">" pour le type Triplet
+     --ici on trie les Triplets par ordre lexicographique
+   begin
+      return Egale_Mot(Get_Mot_T(Triplet1), Get_Mot_T(Triplet2));
+   end;
+
+   function Inferieur_Triplet_Occ1(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean is
+     --redefinition de la fonction "<" pour le type Triplet
+     --ici on tri les Triplets par nombre d'occurence décroissante
+   begin
+      return Get_NbOcc_Txt1(Triplet1) > Get_NbOcc_Txt1(Triplet2);
+   end Inferieur_Triplet_Occ1;
+
+   function Superieur_Triplet_Occ1(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean is
+     --redefinition de la fonction ">" pour le type Triplet
+     --ici on trie les Triplets par nombre d'occurence décroissante
+   begin
+      return Get_NbOcc_Txt1(Triplet1) <= Get_NbOcc_Txt1(Triplet2);
+   end Superieur_Triplet_Occ1;
+
+   function Egale_Triplet_Occ1(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean is
+     --redefinition de la fonction "=" pour le type Triplet
+     --ici on trie les Triplets par nombre d'occurence décroissante
+   begin
+      return Get_NbOcc_Txt1(Triplet1) = Get_NbOcc_Txt1(Triplet2);
+   end Egale_Triplet_Occ1;
+
+   function Inferieur_Triplet_Occ2(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean is
+   --redefinition de la fonction "<" pour le type Triplet
+   --ici on tri les Triplets par nombre d'occurence(du texte2) décroissante
+   begin
+      return Get_NbOcc_Txt2(Triplet1) > Get_NbOcc_Txt2(Triplet2);
+   end Inferieur_Triplet_Occ2;
+
+   function Superieur_Triplet_Occ2(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean is
+   --redefinition de la fonction ">" pour le type Triplet
+   --ici on trie les Triplets par nombre d'occurence(du texte2) décroissante
+   begin
+      return Get_NbOcc_Txt2(Triplet1) <= Get_NbOcc_Txt2(Triplet2);
+   end Superieur_Triplet_Occ2;
+
+   function Egale_Triplet_Occ2(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean is
+   --redefinition de la fonction "=" pour le type Triplet
+   --ici on trie les Triplets par nombre d'occurence(du texte2) décroissante
+   begin
+      return Get_NbOcc_Txt2(Triplet1) = Get_NbOcc_Txt2(Triplet2);
+   end Egale_Triplet_Occ2;
+
+   function Inferieur_Triplet_OccS(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean is
+   --redefinition de la fonction "<" pour le type Triplet
+   --ici on tri les Triplets par nombre d'occurence(somme des occ) décroissante
+   begin
+      return Get_NbOcc_Txt2(Triplet1) + Get_NbOcc_Txt1(Triplet1) > Get_NbOcc_Txt1(Triplet2) + Get_NbOcc_Txt2(Triplet2);
+   end Inferieur_Triplet_OccS;
+
+   function Superieur_Triplet_OccS(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean is
+   --redefinition de la fonction ">" pour le type Triplet
+   --ici on trie les Triplets par nombre d'occurence(somme des occ) décroissante
+   begin
+      return Get_NbOcc_Txt2(Triplet1) + Get_NbOcc_Txt1(Triplet1) <= Get_NbOcc_Txt1(Triplet2) + Get_NbOcc_Txt2(Triplet2);
+   end Superieur_Triplet_OccS;
+
+   function Egale_Triplet_OccS(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean is
+   --redefinition de la fonction "=" pour le type Triplet
+   --ici on trie les Triplets par nombre d'occurence(somme des occ) décroissante
+   begin
+      return Get_NbOcc_Txt2(Triplet1) + Get_NbOcc_Txt1(Triplet1) = Get_NbOcc_Txt1(Triplet2) + Get_NbOcc_Txt2(Triplet2);
+   end Egale_Triplet_OccS;
 
 end Triplet;

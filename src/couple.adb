@@ -37,6 +37,48 @@ package body Couple is
       --Renvoie le nombre d'occurence du mot du Couple C
    begin
       return C.Nbocc;
-   end Get_NbOcc;
+   end Get_Nbocc;
+   
+   function Inferieur_Couple_Lex(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean is
+      --redefinition de la fonction "<" pour le type couple
+      --ici on tri les couples par ordre lexicographique
+   begin
+      return Inferieur_Mot(Get_Mot(Couple1), Get_Mot(Couple2));
+   end;
+
+   function Superieur_Couple_Lex(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean is
+      --redefinition de la fonction ">" pour le type couple
+      --ici on trie les couples par ordre lexicographique
+   begin
+      return Superieur_Mot(Get_Mot(Couple1), Get_Mot(Couple2));
+   end;
+
+   function Egale_Couple_Lex(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean is
+      --redefinition de la fonction ">" pour le type couple
+      --ici on trie les couples par ordre lexicographique
+   begin
+      return Egale_Mot(Get_Mot(Couple1), Get_Mot(Couple2));
+   end;
+
+   function Inferieur_Couple_Occ(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean is
+   --redefinition de la fonction "<" pour le type couple
+   --ici on tri les couples par nombre d'occurence décroissante
+   begin
+      return Get_NbOcc(Couple1) > Get_NbOcc(Couple2);
+   end Inferieur_Couple_Occ;
+
+   function Superieur_Couple_Occ(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean is
+   --redefinition de la fonction ">" pour le type couple
+   --ici on trie les couples par nombre d'occurence décroissante
+   begin
+      return Get_NbOcc(Couple1) <= Get_NbOcc(Couple2);
+   end Superieur_Couple_Occ;
+
+   function Egale_Couple_Occ(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean is
+   --redefinition de la fonction "=" pour le type couple
+   --ici on trie les couples par nombre d'occurence décroissante
+   begin
+      return Get_NbOcc(Couple1) = Get_NbOcc(Couple2);
+   end Egale_Couple_Occ;
 
 end couple;

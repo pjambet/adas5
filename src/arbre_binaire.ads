@@ -68,20 +68,20 @@ package Arbre_Binaire is
    --C-a-d si la hauteur entre le SAG et le SAD ne varie pas plus que un
 
    generic
-      with Procedure Traitement(A: in out T_ABR);
-   procedure Prefixe(A: in out T_ABR);
+      with Procedure Traitement(A: in T_ABR);
+   procedure Prefixe(A: in T_ABR);
    --Parcours l'arbre A de maniere prefixe et applique la procedure traitement
    --Cette procedure est generique et sera définie a l'instanciation
 
    generic
-      with Procedure Traitement(A: in out T_ABR);
-   procedure Postfixe(A: in out T_ABR);
+      with Procedure Traitement(A: in T_ABR);
+   procedure Postfixe(A: in T_ABR);
    --Parcours l'arbre A de maniere suffixe et applique la procedure traitement
    --Cette procedure est generique et sera définie a l'instanciation
 
    generic
-      with Procedure Traitement(A: in out T_ABR);
-   procedure Infixe(A: in out T_ABR);
+      with Procedure Traitement(A: in T_ABR);
+   procedure Infixe(A: in T_ABR);
    --Parcours l'arbre A de maniere infixe et applique la procedure traitement
    --Cette procedure est generique et sera définie a l'instanciation
 

@@ -10,29 +10,7 @@ package Liste_Couple is
    --declaration su sous type
    subtype TListe_Couple is L.T_Liste;
 
-   function Inferieur_Couple_Lex(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean;
-   --redefinition de la fonction "<" pour le type couple
-   --ici on tri les couples par ordre lexicographique
-
-   function Superieur_Couple_Lex(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean;
-   --redefinition de la fonction ">" pour le type couple
-   --ici on trie les couples par ordre lexicographique
-
-   function Egale_Couple_Lex(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean;
-   --redefinition de la fonction "=" pour le type couple
-   --ici on trie les couples par ordre lexicographique
-
-   function Inferieur_Couple_Occ(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean;
-   --redefinition de la fonction "<" pour le type couple
-   --ici on tri les couples par nombre d'occurence décroissante
-
-   function Superieur_Couple_Occ(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean;
-   --redefinition de la fonction ">" pour le type couple
-   --ici on trie les couples par nombre d'occurence décroissante
-
-   function Egale_Couple_Occ(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean;
-   --redefinition de la fonction "=" pour le type couple
-   --ici on trie les couples par nombre d'occurence décroissante
+   
 
    procedure Modif_FusionCouple(L : in out T_Liste; T1, T2 : in out T_Couple);
    --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprimé

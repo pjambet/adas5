@@ -6,47 +6,7 @@ package body liste_couple is
    package Es_Entier is new Ada.Text_Io.Integer_Io(Integer);
    use Es_Entier;
 
-   function Inferieur_Couple_Lex(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean is
-      --redefinition de la fonction "<" pour le type couple
-      --ici on tri les couples par ordre lexicographique
-   begin
-      return Inferieur_Mot(Get_Mot(Couple1), Get_Mot(Couple2));
-   end;
-
-   function Superieur_Couple_Lex(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean is
-      --redefinition de la fonction ">" pour le type couple
-      --ici on trie les couples par ordre lexicographique
-   begin
-      return Superieur_Mot(Get_Mot(Couple1), Get_Mot(Couple2));
-   end;
-
-   function Egale_Couple_Lex(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean is
-      --redefinition de la fonction ">" pour le type couple
-      --ici on trie les couples par ordre lexicographique
-   begin
-      return Egale_Mot(Get_Mot(Couple1), Get_Mot(Couple2));
-   end;
-
-   function Inferieur_Couple_Occ(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean is
-   --redefinition de la fonction "<" pour le type couple
-   --ici on tri les couples par nombre d'occurence décroissante
-   begin
-      return Get_NbOcc(Couple1) > Get_NbOcc(Couple2);
-   end Inferieur_Couple_Occ;
-
-   function Superieur_Couple_Occ(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean is
-   --redefinition de la fonction ">" pour le type couple
-   --ici on trie les couples par nombre d'occurence décroissante
-   begin
-      return Get_NbOcc(Couple1) <= Get_NbOcc(Couple2);
-   end Superieur_Couple_Occ;
-
-   function Egale_Couple_Occ(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean is
-   --redefinition de la fonction "=" pour le type couple
-   --ici on trie les couples par nombre d'occurence décroissante
-   begin
-      return Get_NbOcc(Couple1) = Get_NbOcc(Couple2);
-   end Egale_Couple_Occ;
+   
 
    procedure Modif_FusionCouple(L : in out TListe_Couple; T1, T2 : in out T_Couple) is
       --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprimé

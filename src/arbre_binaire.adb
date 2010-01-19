@@ -129,7 +129,7 @@ package body Arbre_Binaire is
       return Arbre_Vide(Pere(A));
    end;
 
-   procedure Prefixe(A: in out T_ABR) is
+   procedure Prefixe(A: in T_ABR) is
       --Parcours l'arbre A de maniere prefixe et applique la procedure traitement
       --Cette procedure est generique et sera définie a l'instanciation
       AG,AD: T_ABR;
@@ -144,7 +144,7 @@ package body Arbre_Binaire is
       end if;
    end Prefixe;
 
-   procedure Postfixe(A: in out T_ABR) is
+   procedure Postfixe(A: in T_ABR) is
       --Parcours l'arbre A de maniere Postfixe et applique la procedure traitement
       --Cette procedure est generique et sera définie a l'instanciation
       AG,AD: T_ABR;
@@ -159,7 +159,7 @@ package body Arbre_Binaire is
       end if;
    end Postfixe;
 
-   procedure Infixe(A: in out T_ABR) is
+   procedure Infixe(A: in T_ABR) is
       --Parcours l'arbre A de maniere infixe et applique la procedure traitement
       --Cette procedure est generique et sera définie a l'instanciation
       AG,AD: T_ABR;
@@ -405,14 +405,14 @@ package body Arbre_Binaire is
       elsif V < Lire_racine(A) then
          if Sag(A) = null then A.Sag := new Noeud'(V,null,null,A,False);
          else
-            Insertion_Abr(A.Sag,V);
+            Inserer_Abr(A.Sag,V);
             A.Sag.Pere := A;
          end if;
          --return A;--c'est une procedure, pas de return
       elsif V > Lire_racine(A) then
          if A.Sad = null then A.Sad := new Noeud'(V,null,null,A,False);
          else
-            Insertion_Abr(A.Sad,V);
+            Inserer_Abr(A.Sad,V);
             A.Sad.Pere := A;
          end if;
          --return A;--c'est une procedure, pas de return
@@ -437,7 +437,7 @@ package body Arbre_Binaire is
 	    A.Sag := new Noeud'(V,null,null,A,False);
 	    Equilibrage_ARN(A);
          else
-            Insertion_ARN(A.Sag,V);
+            Inserer_ARN(A.Sag,V);
             A.Sag.Pere := A;
 	    Equilibrage_ARN(A);
          end if;
@@ -447,7 +447,7 @@ package body Arbre_Binaire is
 	    A.Sad := new Noeud'(V,null,null,A,False);
 	    Equilibrage_ARN(A);
          else
-            Insertion_ARN(A.Sad,V);
+            Inserer_ARN(A.Sad,V);
             A.Sad.Pere := A;
 	    Equilibrage_ARN(A);
          end if;
