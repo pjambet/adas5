@@ -69,19 +69,19 @@ package Arbre_Binaire is
 
    generic
       with Procedure Traitement(A: in out T_ABR);
-   function Prefixe(A: T_ABR) return T_ABR;
+   procedure Prefixe(A: in out T_ABR);
    --Parcours l'arbre A de maniere prefixe et applique la procedure traitement
    --Cette procedure est generique et sera définie a l'instanciation
 
    generic
       with Procedure Traitement(A: in out T_ABR);
-   function Postfixe(A: T_ABR) return T_ABR;
+   procedure Postfixe(A: in out T_ABR);
    --Parcours l'arbre A de maniere suffixe et applique la procedure traitement
    --Cette procedure est generique et sera définie a l'instanciation
 
    generic
       with Procedure Traitement(A: in out T_ABR);
-   function Infixe(A: T_ABR) return T_ABR;
+   procedure Infixe(A: in out T_ABR);
    --Parcours l'arbre A de maniere infixe et applique la procedure traitement
    --Cette procedure est generique et sera définie a l'instanciation
 
@@ -94,26 +94,26 @@ package Arbre_Binaire is
    --Leve une ArbreVideException si il n'y a aucun element dans A
 
    generic
-      with procedure Traitement_Doublon(A : in out T_ABR);
       with function ">"(T1, T2 : T_Elem) return Boolean is <>;
       with function "="(T1, T2 : T_Elem) return Boolean is <>;
       with function "<"(T1, T2 : T_Elem) return Boolean is <>;
-   procedure Insertion_ABR(A:in out T_ABR;V: in T_Elem);
+      with procedure Traitement_Doublon(A : in out T_ABR);
+   procedure Inserer_ABR(A:in out T_ABR;V: in T_Elem);
    --Insere l'element V dans l'arbre en respectant les contraintes des ABR
 
    generic
-      with procedure Traitement_Doublon(A : in out T_ABR);
       with function ">"(T1, T2 : T_Elem) return Boolean is <>;
       with function "="(T1, T2 : T_Elem) return Boolean is <>;
       with function "<"(T1, T2 : T_Elem) return Boolean is <>;
-   procedure Insertion_ARN(A:in out T_ABR;V: in T_Elem);
+      with procedure Traitement_Doublon(A : in out T_ABR);
+   procedure Inserer_ARN(A:in out T_ABR;V: in T_Elem);
    --Insere l'element V dans l'arbre en respectant l'équilibrage(gesion des couleurs rouges et noires)
    --et en respectant les contraintes des N
 
    procedure Supprimer_ABR(A: in out T_ABR;V: in T_Elem);
    --Supprime l'element V de A
    
-   function Vider_Arbre(A: T_Abr) return T_Abr;
+   procedure Vider_Arbre(A: in out T_Abr);
    --Supprime tous les elements de A
    --ArbreVide(Vider_Arbre(A)) = true
 

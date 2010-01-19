@@ -129,39 +129,48 @@ package body Arbre_Binaire is
       return Arbre_Vide(Pere(A));
    end;
 
-   function Prefixe(A: T_ABR) return T_ABR is
+   procedure Prefixe(A: in out T_ABR) is
       --Parcours l'arbre A de maniere prefixe et applique la procedure traitement
       --Cette procedure est generique et sera définie a l'instanciation
+      AG,AD: T_ABR;
    begin 
       if Arbre_Vide(A) then raise ArbreVideException;
       else
          Traitement(A);
-         return Prefixe(SAG(A));
-         return Prefixe(SAD(A));
+	 AG := SAG(A);
+         Prefixe(AG);
+	 AD := SAD(A);
+         Prefixe(AD);
       end if;
    end Prefixe;
 
-   function Postfixe(A: T_ABR) return T_ABR is
+   procedure Postfixe(A: in out T_ABR) is
       --Parcours l'arbre A de maniere Postfixe et applique la procedure traitement
       --Cette procedure est generique et sera définie a l'instanciation
+      AG,AD: T_ABR;
    begin
       if Arbre_Vide(A) then raise ArbreVideException;
       else
-         return Postfixe(SAG(A));
-         return Postfixe(SAD(A));
+         AG := SAG(A);
+	 Postfixe(AG);
+	 AD := SAD(A);
+         Postfixe(AD);
          Traitement(A);
       end if;
    end Postfixe;
 
-   function Infixe(A: T_ABR) return T_ABR is
+   procedure Infixe(A: in out T_ABR) is
       --Parcours l'arbre A de maniere infixe et applique la procedure traitement
       --Cette procedure est generique et sera définie a l'instanciation
+      AG,AD: T_ABR;
    begin
       if Arbre_Vide(A) then raise ArbreVideException;
       else
-         return Infixe(SAG(A));
+         AG := SAG(A);
+	 Infixe(AG);
          Traitement(A);
-         return Infixe(SAD(A));
+	 AD := SAD(A);
+         Infixe(AD);
       end if;
    end Infixe;
 
@@ -383,7 +392,7 @@ package body Arbre_Binaire is
       end if;
    end Equilibrage_ARN;
 
-   procedure Insertion_ABR(A:in out T_ABR;V: in T_Elem) is
+   procedure Inserer_ABR(A:in out T_ABR;V: in T_Elem) is
    --Insere l'element V dans l'arbre en respectant les contraintes des ABR
    begin
       if Arbre_vide(A) then
@@ -391,7 +400,7 @@ package body Arbre_Binaire is
       elsif Lire_Racine(A) = V then
          --dans ce cas rien a faire, le mot est deja la
          --eventuellement un traitement des doublons
-         null;
+         Traitement_Doublon(A);
          --return A; c'est une procedure pas de return
       elsif V < Lire_racine(A) then
          if Sag(A) = null then A.Sag := new Noeud'(V,null,null,A,False);
@@ -408,9 +417,9 @@ package body Arbre_Binaire is
          end if;
          --return A;--c'est une procedure, pas de return
       end if;
-   end Insertion_Abr;
+   end Inserer_Abr;
 
-   procedure Insertion_ARN(A:in out T_ABR;V: in T_Elem) is
+   procedure Inserer_ARN(A:in out T_ABR;V: in T_Elem) is
    --Insere l'element V dans l'arbre en respectant l'équilibrage(gesion des couleurs rouges et noires)
    --et en respectant les contraintes des ARN
    begin
@@ -421,24 +430,30 @@ package body Arbre_Binaire is
       elsif Lire_racine(A) = V then
          --dans ce cas rien a faire, le mot est deja la
          --eventuellement un traitement des doublons
-         null;
+         Traitement_Doublon(A);
          --return A;c'est une procedure pas de return
       elsif V < Lire_racine(A) then
-         if Sag(A) = null then A.Sag := new Noeud'(V,null,null,A,False);
+         if Sag(A) = null then
+	    A.Sag := new Noeud'(V,null,null,A,False);
+	    Equilibrage_ARN(A);
          else
             Insertion_ARN(A.Sag,V);
             A.Sag.Pere := A;
+	    Equilibrage_ARN(A);
          end if;
          --return A;c'est une procedure pas de return
       elsif V > Lire_racine(A) then
-         if A.Sad = null then A.Sad := new Noeud'(V,null,null,A,False);
+         if A.Sad = null then
+	    A.Sad := new Noeud'(V,null,null,A,False);
+	    Equilibrage_ARN(A);
          else
             Insertion_ARN(A.Sad,V);
             A.Sad.Pere := A;
+	    Equilibrage_ARN(A);
          end if;
          --return A;c'est une procedure pas de return
       end if;
-   end Insertion_ARN;
+   end Inserer_ARN;
 
    procedure Supprimer_ABR(A: in out T_ABR;V: in T_Elem) is
    --Supprime l'element V de A
@@ -450,10 +465,14 @@ package body Arbre_Binaire is
       T := Recherche_ABR(A,V);
       if Arbre_Vide(A) then null;--rien a faire
       elsif Est_Feuille(T) then
-         if Est_Racine(T) then A := null;
-         elsif FilsGauche(T) then T.Pere.Sag := null;
-         else T.Pere.Sad := null;--T est fils droit
+         if Est_Racine(T) then
+	    A := null;
+         elsif FilsGauche(T) then
+	    T.Pere.Sag := null;
+         else
+	    T.Pere.Sad := null;--T est fils droit
          end if;
+	 Equilibrage_ARN(A);
       elsif T.Sag = null then
          if Est_Racine(T) then
             T.Sad.Pere := null;
@@ -465,6 +484,7 @@ package body Arbre_Binaire is
             T.Pere.Sad := T.Sad;
             T.Sad.Pere := T.Pere;
          end if;
+	 Equilibrage_ARN(A);--a verifier
          liberer(T);--pas sur, mais ce devrait etre juste
       elsif T.sad = null then
             --symetrique
@@ -477,34 +497,40 @@ package body Arbre_Binaire is
          elsif FilsDroit(T) then
             T.Pere.Sad := T.Sag;
             T.Sag.Pere := T.Pere;
-         end if;
+         end if;	 
+	 Equilibrage_ARN(A);--a verifier
          liberer(T);
       else
          R := RechercheR(T);
          T.Racine := R.Racine;
          --R.sad = null
          Supprimer_ABR(R,R.Racine);
+	 Equilibrage_ARN(A);--a verifier
       end if;
    end Supprimer_Abr;
 
-   function Vider_Arbre(A: T_Abr) return T_ABR is
+   procedure Vider_Arbre(A: in out T_Abr) is
    --Supprime tous les elements de A
    --ArbreVide(Vider_Arbre(A)) = true
-   tmp: T_ABR;
+   tmp,AG,AD: T_ABR;
    begin
-      if Arbre_Vide(A) then return A;
+      if Arbre_Vide(A) then null;
       else-- Arbre_vide(A) then
          if not Arbre_vide(Sag(A)) then
             if Est_Feuille(Sag(A)) then
                tmp := SAG(A);
                Liberer(tmp);
-            else return Vider_arbre(Sag(A));--on vide a gauche
+            else 
+	       AG := SAG(A);
+	       Vider_arbre(AG);--on vide a gauche
             end if;
          elsif not Arbre_vide(Sad(A)) then
             if Est_Feuille(Sad(A)) then
                tmp := SAD(A);
                Liberer(tmp);
-            else return Vider_Arbre(SAD(A));--et on vide a droite
+            else 
+	       AD := SAD(A);
+	       Vider_Arbre(AD);--et on vide a droite
             end if;
          end if;
       end if;
