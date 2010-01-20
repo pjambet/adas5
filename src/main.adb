@@ -8,6 +8,8 @@ procedure Main is
    Choix : Integer;
    L : TListe_Couple;
    LT : TListe_Triplet;
+   AB : TABR_Triplet;
+   ABT : TABR_Triplet;
    Buffer : String(1 .. 30);
    Last : Natural;
    NomFic : Boolean;
@@ -19,6 +21,7 @@ procedure Main is
 
    use Liste_Couple.L;
    use Liste_Triplet.LT;
+   use Arbre_Binaire_Triplet.AB;   
 
 begin
 
