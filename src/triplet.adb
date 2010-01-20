@@ -4,7 +4,7 @@ use Ada.Text_IO;
 package body Triplet is
 
    function Creer_Triplet(M : T_Mot; N1 : Integer; N2 : Integer) return T_Triplet is
-      --Crée un triplet
+      --Cree un triplet
    begin
       return T_Triplet'(M, N1, N2);
    end Creer_Triplet;

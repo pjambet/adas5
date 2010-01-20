@@ -10,7 +10,7 @@ package Triplet is
    --Necessaire pour l'instanciation de la liste generique
 
    function Creer_Triplet(M : T_Mot; N1 : Integer; N2 : Integer) return T_Triplet;
-   --Crée un triplet
+   --Cree un triplet
 
    procedure Set_Mot_T(T : in out T_Triplet; M : in T_Mot);
    --Modifie le mot de C en M
