@@ -18,6 +18,7 @@ procedure Main is
    M : T_Mot;
    Num : Integer;
    T : T_Trie;
+   Chaine : String(1 .. 30);
 
    use Liste_Couple.L;
    use Liste_Triplet.LT;
@@ -327,7 +328,7 @@ begin
 
                   when 5 =>
 
-                     AfficheTrie(T, " ");
+                     AfficheTrie(T, Chaine);
                      New_Line;
 
                   when 6 =>
