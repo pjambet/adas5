@@ -29,7 +29,7 @@ package body Trie is
          Trie := CreerTrie;
          return AjouterMot(Trie, M);
       elsif MotVide(M) then
-         T.Prefixes := T.Prefixes;
+         T.Prefixes := T.Prefixes + 1;
          T.Mots := T.Mots + 1;
          return T;
       else
@@ -73,24 +73,30 @@ package body Trie is
       end if;
    end;
 
-   procedure AfficheTrie(T : in T_Trie) is
+   procedure AfficheTrie(T : in T_Trie; C : in String) is
    begin
       if not TrieVide(T) then
          for I in Tindice loop
             if T.ST(I) /= null then
-               Put(I);
-               if T.ST(I).Mots > 0 then
-                  Put_Line(Integer'Image(T.ST(I).Mots));
-               end if;
-               for J in 2 .. T.ST(I).Prefixes loop
+               if C(C'First) /= ' ' then
+                  Put(C & I);
+               else
                   Put(I);
-               end loop;
+               end if;
+               if T.ST(I).Mots > 0 then
+                     Put_Line(Integer'Image(T.ST(I).Mots));
+               end if;
+--                 if T.ST(I).Prefixes <= 1 then
+--                    AfficheTrie(T.ST(I), C&I);
+--                 else
+--                    AfficheTrie(T.ST(I), C);
+--                 end if;
             end if;
-            AfficheTrie(T.ST(I));
+            AfficheTrie(T.ST(I), C);
          end loop;
       end if;
    end;
-   
+
    procedure AffichageN(T : in T_Trie; N : in Integer) is
    -- affiche les N premiers mots du trie
    begin
@@ -101,7 +107,7 @@ package body Trie is
                if T.ST(I).Mots > 0 then
                   Put_Line(Integer'Image(T.ST(I).Mots));
                end if;
-            end if;   
+            end if;
             AffichageN(T.ST(I), N-1);
          end loop;
       end if;

@@ -17,7 +17,7 @@ package Trie is
    function ComptePrefixe(T : in T_Trie; M : in T_Mot) return Integer;
    -- si T = Vide alors retourne 0
 
-   procedure AfficheTrie(T : in T_Trie);
+   procedure AfficheTrie(T : in T_Trie; C : in String);
 
    procedure AffichageN(T : in T_Trie; N : in Integer);
    -- affiche les N premiers mots du trie
