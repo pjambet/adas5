@@ -1,5 +1,3 @@
-with Ada.Text_Io;use Ada.Text_Io;
-
 generic
    type T_Elem is private;
    with procedure Imprime(X: in T_Elem);

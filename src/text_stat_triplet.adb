@@ -1,5 +1,5 @@
-with Mot, Triplet, Liste_Triplet;
-use Mot, Triplet, Liste_Triplet.LT;
+with Mot, Triplet, Liste_Triplet, Arbre_Binaire_Triplet;
+use Mot, Triplet, Liste_Triplet.LT, Arbre_Binaire_Triplet.AB;
 
 package body Text_Stat_Triplet is
 
@@ -73,20 +73,20 @@ package body Text_Stat_Triplet is
    --Calcule le nombre d'occurence moyen a partir de la liste obtenu des mots
    --dans le texte
    begin
-      return 0.0;
+      return Float'Value(Get_Chaine(Get_Mot_T(Lire_Racine(A)))); --TODO
    end Num_Occ_Moy;
    
    function Long_Moy(A : TABR_Triplet) return Float is
    --Calcule la longueur moyenne d'un mot dans le texte
    begin
-      return 0.0;      
+      return Float'Value(Get_Chaine(Get_Mot_T(Lire_Racine(A)))); --TODO    
    end Long_Moy;
    
    function Num_Mot_Sup(A : TABR_Triplet; N : Integer) return Integer is
    --Calcule le nombre de mot dont la longueur est supérieur ou égale a un entier positif donné
    begin
       if Arbre_Vide(A) then return 0;
-      elsif Get_Fin(Get_Mot(Lire_Racine(A))) >= N then
+      elsif Get_Fin(Get_Mot_T(Lire_Racine(A))) >= N then
          return 1 + Num_Mot_Sup(Sag(A),N) + Num_Mot_Sup(Sad(A),N);
       else
          return Num_Mot_Sup(Sag(A),N) + Num_Mot_Sup(Sad(A),N);

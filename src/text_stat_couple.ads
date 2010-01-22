@@ -3,7 +3,7 @@ use Liste_Couple, Arbre_Binaire_Couple;
 
 package Text_Stat_Couple is
 
-   use Arbre_Binaire_Couple.AB;
+   --use Arbre_Binaire_Couple.AB;
    --Ce paquetage permet d'effectuer des opérations "statistiques" sur le texte analysé
    --nombre total de mots, nombre de mots de longueur supérieur ou égale a un entier positif donné,
    --longueur moyenne d'un mot, et surement d'autres plus tard

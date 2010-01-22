@@ -17,14 +17,14 @@ package Trie is
    function ComptePrefixe(T : in T_Trie; M : in T_Mot) return Integer;
    -- si T = Vide alors retourne 0
 
-   procedure AfficheTrie(T : in T_Trie; C : in String);
+   procedure AfficheTrie(T : in T_Trie; C : in out String; F : in out Natural);
 
    procedure AffichageN(T : in T_Trie; N : in Integer);
    -- affiche les N premiers mots du trie
 
 private
 
-   subtype Tindice is character range 'a' .. 'z';
+   subtype Tindice is character range Character'Val(39) .. Character'Val(122); -- ''' .. 'z';
 
    type Tab is array (Tindice) of T_Trie;
    type Celulle;

@@ -73,26 +73,22 @@ package body Trie is
       end if;
    end;
 
-   procedure AfficheTrie(T : in T_Trie; C : in String) is
+   procedure AfficheTrie(T : in T_Trie; C : in out String; F : in out Natural) is
    begin
       if not TrieVide(T) then
          for I in Tindice loop
             if T.ST(I) /= null then
-               if C(C'First) /= ' ' then
-                  Put(C & I);
-               else
-                  Put(I);
+               if T.ST(I).Prefixes > 0 then
+                  F := F + 1;
+                  C(F) := I; 
                end if;
-               if T.ST(I).Mots > 0 then
-                     Put_Line(Integer'Image(T.ST(I).Mots));
-               end if;
---                 if T.ST(I).Prefixes <= 1 then
---                    AfficheTrie(T.ST(I), C&I);
---                 else
---                    AfficheTrie(T.ST(I), C);
---                 end if;
+               if T.ST(I).Mots > 0 then -- nbOcc = 1 ou +
+                  Put(C(C'First .. F));
+                  Put_Line(Integer'Image(T.ST(I).Mots));
+               end if;               
+               AfficheTrie(T.ST(I), C, F);
+               F := 1;
             end if;
-            AfficheTrie(T.ST(I), C);
          end loop;
       end if;
    end;

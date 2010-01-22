@@ -1,5 +1,5 @@
-with Mot, Couple, Liste_Couple;
-use Mot, Couple, Liste_Couple.L;
+with Mot, Couple, Liste_Couple, Arbre_Binaire_Couple;
+use Mot, Couple, Liste_Couple.L, Arbre_Binaire_Couple.AB;
 
 package body Text_Stat_Couple is
 
@@ -78,7 +78,7 @@ package body Text_Stat_Couple is
    function Num_Occ_Moy(A : TABR_Couple) return Float is
    --Calcule le nombre d'occurence moyen a partir de la liste obtenu des mots
    --dans le texte
-      N,Total: Integer;      
+      --N, Total: Integer;      
    begin
       if Arbre_Vide(A) then return 0.0;
       else
@@ -91,7 +91,7 @@ package body Text_Stat_Couple is
    function Long_Moy(A : TABR_Couple) return Float is
    --Calcule la longueur moyenne d'un mot dans le texte
    begin
-      return 0.0;
+      return Float'Value(Get_Chaine(Get_Mot(Lire_Racine(A)))); --TODO
    end;
    
    function Num_Mot_Sup(A : TABR_Couple; N : Integer) return Integer is
