@@ -30,7 +30,6 @@ package body Text_Stat is
    end;
    
    function Num_Mot_Tot(A : TABR_Couple) return Integer is
-   --Calcule le nombre total de mot du texte                    
    begin
       if Arbre_Vide(A) then return 0;
       else return 1 + Num_Mot_Tot(Sag(A))+ Num_Mot_Tot(Sad(A));
@@ -38,7 +37,6 @@ package body Text_Stat is
    end;
    
    function Num_Mot_Tot(A : TABR_Triplet) return Integer is
-   --Calcule le nombre total de mot du texte
    begin
       if Arbre_Vide(A) then return 0;
       else return 1 + Num_Mot_Tot(Sag(A))+ Num_Mot_Tot(Sad(A));
@@ -83,8 +81,6 @@ package body Text_Stat is
    end;
 
    function Num_Occ_Moy(A : TABR_Couple) return Float is
-   --Calcule le nombre d'occurence moyen a partir de la liste obtenu des mots
-   --dans le texte
       --N, Total: Integer;      
    begin
       if Arbre_Vide(A) then return 0.0;
@@ -96,8 +92,6 @@ package body Text_Stat is
    end;
    
    function Num_Occ_Moy(A : TABR_Triplet) return Float is
-   --Calcule le nombre d'occurence moyen a partir de la liste obtenu des mots
-   --dans le texte
    begin
       return Float'Value(Get_Chaine(Get_Mot_T(Lire_Racine(A)))); --TODO
    end Num_Occ_Moy;
@@ -140,13 +134,11 @@ package body Text_Stat is
    end;
    
    function Long_Moy(A : TABR_Couple) return Float is
-   --Calcule la longueur moyenne d'un mot dans le texte
    begin
       return Float'Value(Get_Chaine(Get_Mot(Lire_Racine(A)))); --TODO
    end;
   
    function Long_Moy(A : TABR_Triplet) return Float is
-   --Calcule la longueur moyenne d'un mot dans le texte
    begin
       return Float'Value(Get_Chaine(Get_Mot_T(Lire_Racine(A)))); --TODO    
    end Long_Moy;
@@ -189,7 +181,6 @@ package body Text_Stat is
    end;
  
    function Num_Mot_Sup(A : TABR_Couple; N : Integer) return Integer is
-   --Calcule le nombre de mot dont la longueur est supérieur ou égale a un entier positif donne
    begin
       if Arbre_Vide(A) then return 0;
       elsif Get_Fin(Get_Mot(Lire_Racine(A))) >= N then
@@ -200,7 +191,6 @@ package body Text_Stat is
    end;
  
    function Num_Mot_Sup(A : TABR_Triplet; N : Integer) return Integer is
-   --Calcule le nombre de mot dont la longueur est supérieur ou égale a un entier positif donné
    begin
       if Arbre_Vide(A) then return 0;
       elsif Get_Fin(Get_Mot_T(Lire_Racine(A))) >= N then
