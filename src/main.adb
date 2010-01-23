@@ -22,7 +22,8 @@ procedure Main is
 
    use Liste_Couple.L;
    use Liste_Triplet.Lt;
-   use Arbre_Binaire_Triplet.AB;
+   use Arbre_Binaire_Triplet.ABT;
+   use Arbre_Binaire_Couple.AB;
 
 begin
 
@@ -62,7 +63,7 @@ begin
             Put_Line("Signification de l'etat memoire :");
             Put_Line(" (*) -> Il y a une liste de couples en memoire");
             Put_Line(" (**) -> Il y a une liste de triplets en memoire");
-            New_Line;            
+            New_Line;
             while SMenu loop
 
                Put("Etat memoire :");
@@ -181,7 +182,7 @@ begin
                            NomFic := False;
                            Query_Struct_Txt1(LT, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
-                           null;                        
+                           null;
                         else
                            Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;
@@ -267,13 +268,13 @@ begin
             Put_Line("Signification de l'etat memoire :");
             Put_Line(" (*) -> Il y a un arbre binaire de couples en memoire");
             Put_Line(" (**) -> Il y a un arbre binaire de triplets en memoire");
-            New_Line;                   
+            New_Line;
             while SMenu loop
 
                Put("Etat memoire :");
-               if not EstVide(L) then
+               if not Arbre_Vide(AB) then
                   Put(" (*)");
-               elsif not EstVide(LT) then
+               elsif not Arbre_Vide(ABT) then
                   Put(" (**)");
                end if;
 
@@ -305,22 +306,44 @@ begin
                      SMenu := False;
 
                   when 1 =>
+                     AB := CreerArbre;
+                     Inserer_ABR_Couple(AB,Creer_Couple(Creer_Mot("papa"),1));
+                     Inserer_ABR_Couple(AB,Creer_Couple(Creer_Mot("maman"),1));
+                     Inserer_ABR_Couple(AB,Creer_Couple(Creer_Mot("frere"),1));
+                     Inserer_ABR_Couple(AB,Creer_Couple(Creer_Mot("grand-mere"),1));
+                     Inserer_ABR_Couple(AB,Creer_Couple(Creer_Mot("soeur"),1));
+                     Inserer_ABR_Couple(AB,Creer_Couple(Creer_Mot("soeur"),1));
+                     Inserer_ABR_Couple(AB,Creer_Couple(Creer_Mot("soeur"),1));
+                     Inserer_ABR_Couple(AB,Creer_Couple(Creer_Mot("soeur"),1));
 
-                     NomFic := True;
-                     while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
-                        Put_Line("Veuillez entrer le nom du fichier.");
-                        Get_Line(Buffer, Last);
-                        New_Line;
-                        if Existe(Buffer(1 .. Last)) then
-                           NomFic := False;
-                           -- Rajout d'une fonction qui insere dans l'arbreQuery_Liste_Couple(L, Buffer(1 .. Last)); --Remplissage de l'arbre avec les mots significatifs du texte
-                        elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
-                           null;
-                        else
-                           Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
-                           New_Line;
-                        end if;
-                     end loop;
+                     if Arbre_Vide(AB) then Put_Line("L'arbre est vide ...");end if;
+
+                     Affiche_Inf(AB);Put_Line("");
+                     Put_Line("INFIXE : ");
+                     Verification_Arbre_Inf(AB);
+                     Put_Line("PREFIXE : ");
+                     Verification_Arbre_Pre(AB);
+                     Put_Line("POSTFIXE : ");
+                     Verification_Arbre_Post(AB);
+
+                     if Est_Equilibre(AB) then Put_Line("L'arbre est equilibré");
+                     else Put_Line("L'arbre n'est pas equilibré");
+                     end if;
+                     --  NomFic := True;
+--                       while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
+--                          Put_Line("Veuillez entrer le nom du fichier.");
+--                          Get_Line(Buffer, Last);
+--                          New_Line;
+--                          if Existe(Buffer(1 .. Last)) then
+--                             NomFic := False;
+--                             -- Rajout d'une fonction qui insere dans l'arbreQuery_Liste_Couple(L, Buffer(1 .. Last)); --Remplissage de l'arbre avec les mots significatifs du texte
+--                          elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
+--                             null;
+--                          else
+--                             Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
+--                             New_Line;
+--                          end if;
+--                       end loop;
 
                   when 2 =>
 
@@ -478,7 +501,7 @@ begin
                if not TrieVide(T) then
                   Put(" (*)");
                end if;
-                  
+
                New_Line;
                Put_Line("1 -> Entrez 1 pour analyser un texte.");
                Put_Line("2 -> Entrez 2 pour effectuer des requetes.");
@@ -603,7 +626,7 @@ begin
                            Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;
                         end if;
-                     end loop;                     
+                     end loop;
 
                   when 8 =>
 
@@ -625,7 +648,7 @@ begin
                      Skip_Line;
                      Put_Line("Veuillez entrer un mot afin de connaitre son nombre d'occurence dans chacun des textes.");
                      Get_Line(Buffer, Last);
-                     M := Creer_Mot(Buffer(1 .. Last));   
+                     M := Creer_Mot(Buffer(1 .. Last));
                      New_Line;
 
                      Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(CompteMotsTxt1(T, M)) & ".");
@@ -634,11 +657,11 @@ begin
 
                      Put_Line("Les mots employés par les deux auteurs sont :");
                      Query_Intersection(T, Chaine, 0);
-                     New_Line;   
+                     New_Line;
 
                      Put_Line("Les mots employés par un auteur et pas par l'autre sont :");
                      Query_Difference(T, Chaine, 0);
-                     New_Line;   
+                     New_Line;
 
                   when 9 =>
 
@@ -656,7 +679,7 @@ begin
                   when 12 =>
 
                      ViderTrie(T);
-                        
+
                   when others =>
 
                      Put_Line("Valeur non valide !");

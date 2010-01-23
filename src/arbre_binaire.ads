@@ -1,3 +1,4 @@
+with Ada.Text_Io;use Ada.Text_Io;
 generic
    type T_Elem is private;
    with procedure Imprime(X: in T_Elem);
@@ -28,7 +29,7 @@ package Arbre_Binaire is
    function SAD(A: T_ABR) return T_ABR;
    --Renvoie le sous arbre droit de A si il existe
    --Declenche une ArbreVideException si A est null ou si son sad est null
-   
+
    function Pere(A: T_ABR) return T_ABR;
    --Renvoie le pere de A si il existe
    --Renvoie une ArbreVideException si A est null ou si son pere est null
@@ -40,7 +41,7 @@ package Arbre_Binaire is
    function Frere(A: T_ABR) return T_ABR;
    --Renvoie le frere de A, c-a-d l'autre fils du pere de A
    --Renvoie une ArbreVideException si on tombe sur un pointeur null
-   
+
    function CreerArbre return T_ABR;
    --Crée un arbre vide
 
@@ -53,6 +54,9 @@ package Arbre_Binaire is
 
    function Est_racine(A: T_Abr) return Boolean;
    --Teste si A est racine de l'arbre
+
+   function Est_Feuille(A: T_ABR) return Boolean;
+   --Teste si A est une feuille
 
    function Hauteur(A: T_ABR) return Integer;
    --Renvoie la hauteur de A
@@ -86,7 +90,7 @@ package Arbre_Binaire is
    function Recherche_ABR_ToF(A: T_ABR;V: T_Elem) return Boolean;
    --Renvoie vrai si V appartient a A
    --ToF signifie True or False pour signaler que la fonction renvoit un booléen
-   
+
    function Recherche_ABR(A: T_ABR;V: T_Elem) return T_ABR;
    --Renvoie l'arbre ayant v pour racine
    --Leve une ArbreVideException si il n'y a aucun element dans A
@@ -110,7 +114,7 @@ package Arbre_Binaire is
 
    procedure Supprimer_ABR(A: in out T_ABR;V: in T_Elem);
    --Supprime l'element V de A
-   
+
    procedure Vider_Arbre(A: in out T_Abr);
    --Supprime tous les elements de A
    --ArbreVide(Vider_Arbre(A)) = true
@@ -122,7 +126,7 @@ private
        Racine : T_Elem;
        SAG: T_ABR;
        Sad: T_ABR;
-       pere: T_ABR;       
+       pere: T_ABR;
        Couleur: Boolean;
        --True equivaut a noir et false équivaut a rouge
     end record;

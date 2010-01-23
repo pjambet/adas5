@@ -9,12 +9,17 @@ package body Couple is
       Put_Line("- " & Get_Chaine(Get_Mot(C))(1 .. Get_Fin(Get_Mot(C))) & Integer'Image(Get_NbOcc(C)));
    end Imprime_Couple;
 
+   function ToString(C: T_Couple) return String is
+   begin
+      return ("- " & Get_Chaine(Get_Mot(C))(1 .. Get_Fin(Get_Mot(C))) & Integer'Image(Get_NbOcc(C)));
+   end ToString;
+
    function Creer_Couple(M : T_Mot; N : Integer) return T_Couple is
       -- Crée un couple
    begin
       return T_Couple'(M, N);
    end;
-   
+
    procedure Set_Mot(C : in out T_Couple; M : in T_Mot) is
       -- Affecte C.Mot = M
    begin
@@ -38,7 +43,7 @@ package body Couple is
    begin
       return C.Nbocc;
    end Get_Nbocc;
-   
+
    function Inferieur_Couple_Lex(Couple1 : T_Couple; Couple2 : T_Couple) return Boolean is
       --redefinition de la fonction "<" pour le type couple
       --ici on tri les couples par ordre lexicographique
