@@ -1,13 +1,11 @@
-with Arbre_Binaire, Couple, Ada.Text_Io;
-use Couple, Ada.Text_Io;
+with Arbre_Binaire, Couple;
+use Couple;
+
 package Arbre_Binaire_Couple is
    --instanciation du paquetage Arbre_Binaire
-   package AB is new Arbre_Binaire(T_Elem => T_Couple,
-                                   Imprime => Imprime_Couple,
-                                   ">" => Superieur_Couple_Lex,
-                                   "=" => Egale_Couple_Lex,
-                                   "<" => Inferieur_Couple_Lex);
-
+   --package AB is new Arbre_Binaire(T_Elem => T_Couple, Imprime => Imprime_Couple, ">" => Superieur_Couple_Lex, "=" => Egale_Couple_Lex, "<" => Inferieur_Couple_Lex);
+   package AB is new Arbre_Binaire(T_Elem => T_Couple, Imprime => Imprime_Couple, ">" => Superieur_Couple_Lex, "=" => Egale_Couple_Lex);
+   
    use AB;
    subtype TABR_Couple is AB.T_ABR;
 

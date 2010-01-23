@@ -95,7 +95,7 @@ package ListeGen is
 
    generic
       with function ">"(T1, T2 : T_Elem) return Boolean is <>;
-      with function "="(T1, T2 : T_Elem) return Boolean is <>;
+      --with function "="(T1, T2 : T_Elem) return Boolean is <>;
       with function "<"(T1, T2 : T_Elem) return Boolean is <>;
       with procedure Traitement_Doublon(L : in out T_Liste);
       

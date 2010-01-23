@@ -1,5 +1,5 @@
 with Mot, Couple, Triplet, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie;
-use Mot, Couple, Triplet, Liste_Couple.L, Liste_Triplet.LT, Arbre_Binaire_Couple.AB, Arbre_Binaire_Triplet.AB, Trie;
+use Mot, Couple, Triplet, Liste_Couple.L, Liste_Triplet.LT, Arbre_Binaire_Couple.AB, Arbre_Binaire_Triplet.ABT, Trie;
 
 package body Text_Stat is
 
@@ -45,7 +45,7 @@ package body Text_Stat is
 
    function Num_Mot_Tot(T : T_Trie) return Integer is
    begin
-      return 0;
+      return Get_MotsTxt1(Get_SousTab(T, 'a'));
    end;
 
    -- #################################################################################
@@ -98,7 +98,7 @@ package body Text_Stat is
 
    function Num_Occ_Moy(T : T_Trie) return Float is
    begin
-      return 0.0;
+      return Float(Get_MotsTxt1(Get_SousTab(T, 'a')));
    end;
  
    -- #################################################################################
@@ -145,7 +145,7 @@ package body Text_Stat is
 
    function Long_Moy(T : T_Trie) return Float is
    begin
-      return 0.0;
+      return Float(Get_MotsTxt1(Get_SousTab(T, 'a')));
    end;
 
    -- #################################################################################
@@ -202,7 +202,7 @@ package body Text_Stat is
 
    function Num_Mot_Sup(T : T_Trie; N : Integer) return Integer is
    begin
-      return N;
+      return Get_MotsTxt1(Get_SousTab(T, Integer'Image(N)(N)));
    end;
 
 end Text_Stat;

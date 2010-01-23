@@ -284,4 +284,19 @@ package body Trie is
       end if;
    end;
    
+   function Get_SousTab(T : in T_Trie; I : in Tindice) return T_Trie is
+   begin
+      return T.ST(I);
+   end;
+   
+   function Get_MotsTxt1(T : in T_Trie) return Integer is
+   begin
+      return T.MotsTxt1;
+   end;
+      
+   function Get_MotsTxt2(T : in T_Trie) return Integer is
+   begin
+      return T.MotsTxt2;
+   end;   
+   
 end Trie;

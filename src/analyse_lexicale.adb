@@ -1,5 +1,5 @@
 with Mot, Couple, Triplet, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie, Ada.Text_IO, Ada.Characters.Handling, Ada.Calendar;
-use Mot, Couple, Triplet, Liste_Couple.L, Liste_Triplet.LT, Arbre_Binaire_Couple.AB, Arbre_Binaire_Triplet.AB, Trie, Ada.Text_IO, Ada.Characters.Handling, Ada.Calendar;
+use Mot, Couple, Triplet, Liste_Couple.L, Liste_Triplet.LT, Arbre_Binaire_Couple.AB, Arbre_Binaire_Triplet.ABT, Trie, Ada.Text_IO, Ada.Characters.Handling, Ada.Calendar;
 
 package body Analyse_Lexicale is
 

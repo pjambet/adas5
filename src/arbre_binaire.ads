@@ -1,11 +1,11 @@
-with Ada.Text_Io;use Ada.Text_Io;
 generic
+   
    type T_Elem is private;
    with procedure Imprime(X: in T_Elem);
    --Affiche l'element X
    with function ">"(T1, T2 : T_Elem) return Boolean is <>;
    with function "="(T1, T2 : T_Elem) return Boolean is <>;
-   with function "<"(T1, T2 : T_Elem) return Boolean is <>;
+   --with function "<"(T1, T2 : T_Elem) return Boolean is <>;
 
 package Arbre_Binaire is
    --Representation generique d'un arbre binaire de recherche auto équilibré (rouge et noir)

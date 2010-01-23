@@ -3,8 +3,9 @@ use Mot, Ada.Text_IO;
 
 package Trie is
 
-   type T_Trie is private;
-
+   type T_Trie is private;  
+   subtype Tindice is character range Character'Val(39) .. Character'Val(255); -- ''' .. 'z';
+      
    function CreerTrie return T_Trie;
    function TrieVide(T : in T_Trie) return Boolean;
    procedure ViderTrie(T : in out T_Trie);
@@ -29,10 +30,13 @@ package Trie is
    procedure Query_Difference (T : in T_Trie; C : in String; F : in Natural);
    -- affiche les mots d'un auteur et pas de l'autre (et vice versa)
 
-private
+   function Get_SousTab(T : in T_Trie; I : in Tindice) return T_Trie;
+   function Get_MotsTxt1(T : in T_Trie) return Integer;
+   function Get_MotsTxt2(T : in T_Trie) return Integer;
+   
+   private
 
-   subtype Tindice is character range Character'Val(39) .. Character'Val(255); -- ''' .. 'z';
-   type Tab is array (Tindice) of T_Trie;
+   type Tab is array (Tindice) of T_Trie;    
    type Cellule;
    type T_Trie is access Cellule;
    type Cellule is record

@@ -1,4 +1,5 @@
-with Ada.Unchecked_Deallocation;--use Ada.Unchecked_Deallocation;
+with Ada.Text_IO, Ada.Unchecked_Deallocation;
+use Ada.Text_IO;
 
 package body Arbre_Binaire is
 
@@ -114,7 +115,7 @@ package body Arbre_Binaire is
       --Utilise imprime qui est generic
    begin
       --TODO
-      null;
+      Imprime(Lire_Racine(A));
    end Affiche;
 
    function Arbre_Vide(A: T_ABR) return Boolean is

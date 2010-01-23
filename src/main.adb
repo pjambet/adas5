@@ -103,7 +103,7 @@ begin
                   when 1 =>
 
                      NomFic := True;
-                     while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
+                     while NomFic loop -- '0'
                         Put_Line("Veuillez entrer le nom du fichier.");
                         Get_Line(Buffer, Last);
                         New_Line;
@@ -111,7 +111,7 @@ begin
                            NomFic := False;
                            Query_Struct(L, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
-                           null;
+                           NomFic := False;
                         else
                            Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;
@@ -174,7 +174,7 @@ begin
                   when 7 =>
 
                      NomFic := True;
-                     while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
+                     while NomFic loop
                         Put_Line("Veuillez entrer le nom du premier fichier.");
                         Get_Line(Buffer, Last);
                         New_Line;
@@ -182,7 +182,7 @@ begin
                            NomFic := False;
                            Query_Struct_Txt1(LT, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
-                           null;
+                           NomFic := False;
                         else
                            Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;
@@ -190,7 +190,7 @@ begin
                      end loop;
 
                      NomFic := True;
-                     while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
+                     while NomFic loop
                         Put_Line("Veuillez entrer le nom du deuxieme fichier.");
                         Get_Line(Buffer, Last);
                         New_Line;
@@ -198,7 +198,7 @@ begin
                            NomFic := False;
                            Query_Struct_Txt2(LT, Buffer(1 .. Last));--Remplissage de la liste avec les mots significatifs du texte
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
-                           null;
+                           NomFic := False;
                         else
                            Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;
@@ -330,7 +330,7 @@ begin
                      else Put_Line("L'arbre n'est pas equilibré");
                      end if;
                      --  NomFic := True;
---                       while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
+--                       while NomFic loop
 --                          Put_Line("Veuillez entrer le nom du fichier.");
 --                          Get_Line(Buffer, Last);
 --                          New_Line;
@@ -338,7 +338,7 @@ begin
 --                             NomFic := False;
 --                             -- Rajout d'une fonction qui insere dans l'arbreQuery_Liste_Couple(L, Buffer(1 .. Last)); --Remplissage de l'arbre avec les mots significatifs du texte
 --                          elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
---                             null;
+--                             NomFic := False;
 --                          else
 --                             Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
 --                             New_Line;
@@ -401,7 +401,7 @@ begin
                   when 7 =>
 
                      NomFic := True;
-                     while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
+                     while NomFic loop
                         Put_Line("Veuillez entrer le nom du premier fichier.");
                         Get_Line(Buffer, Last);
                         New_Line;
@@ -409,7 +409,7 @@ begin
                            NomFic := False;
                            --Query_Liste_Triplet_Txt1(LT, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
-                           null;
+                           NomFic := False;
                         else
                            Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;
@@ -417,7 +417,7 @@ begin
                      end loop;
 
                      NomFic := True;
-                     while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
+                     while NomFic loop
                         Put_Line("Veuillez entrer le nom du deuxieme fichier.");
                         Get_Line(Buffer, Last);
                         New_Line;
@@ -425,7 +425,7 @@ begin
                            NomFic := False;
                            --Query_Liste_Triplet_Txt2(LT, Buffer(1 .. Last));--Remplissage de la liste avec les mots significatifs du texte
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
-                           null;
+                           NomFic := False;
                         else
                            Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;
@@ -462,7 +462,7 @@ begin
                      --Query_Intersection(ABT);
 
                      Put_Line("Les mots employés par un auteur et pas par l'autre sont :");
-                  --Query_Difference(ABT);
+                     --Query_Difference(ABT);
 
                   when 9 =>
 
@@ -532,7 +532,7 @@ begin
                   when 1 =>
 
                      NomFic := True;
-                     while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
+                     while NomFic loop
                         Put_Line("Veuillez entrer le nom du fichier.");
                         Get_Line(Buffer, Last);
                         New_Line;
@@ -540,7 +540,7 @@ begin
                            NomFic := False;
                            Query_Struct_Txt1(T, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
-                           null;
+                           NomFic := False;
                         else
                            Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;
@@ -597,7 +597,7 @@ begin
                   when 7 =>
 
                      NomFic := True;
-                     while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
+                     while NomFic loop
                         Put_Line("Veuillez entrer le nom du premier fichier.");
                         Get_Line(Buffer, Last);
                         New_Line;
@@ -605,7 +605,7 @@ begin
                            NomFic := False;
                            Query_Struct_Txt1(T, Buffer(1 .. Last)); --Remplissage du trie avec les mots significatifs du texte 1
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
-                           null;
+                           NomFic := False;
                         else
                            Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;
@@ -613,7 +613,7 @@ begin
                      end loop;
 
                      NomFic := True;
-                     while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
+                     while NomFic loop
                         Put_Line("Veuillez entrer le nom du deuxieme fichier.");
                         Get_Line(Buffer, Last);
                         New_Line;
@@ -621,7 +621,7 @@ begin
                            NomFic := False;
                            Query_Struct_Txt2(T, Buffer(1 .. Last)); --Remplissage du trie avec les mots significatifs du texte 2
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
-                           null;
+                           NomFic := False;
                         else
                            Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;

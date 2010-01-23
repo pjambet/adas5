@@ -18,10 +18,13 @@ package Liste_Couple is
 
    procedure Fusion_Couple is new L.Fusion(Modif_FusionCouple);
 
-   procedure InsererTriee_Couple_Lex is new L.InsererTriee(Superieur_Couple_Lex, Egale_Couple_Lex, Inferieur_Couple_Lex, Traitement_Doublon_Couple);
+   --procedure InsererTriee_Couple_Lex is new L.InsererTriee(Superieur_Couple_Lex, Egale_Couple_Lex, Inferieur_Couple_Lex, Traitement_Doublon_Couple);
+   procedure InsererTriee_Couple_Lex is new L.InsererTriee(Superieur_Couple_Lex, Inferieur_Couple_Lex, Traitement_Doublon_Couple);
+
    function CopieTriee_Couple_Lex is new L.CopieTriee(InsererTriee_Couple_Lex);
 
-   procedure InsererTriee_Couple_Occ is new L.InsererTriee(Superieur_Couple_Occ, Egale_Couple_Occ, Inferieur_Couple_Occ, Traitement_Doublon_Couple);
+   --procedure InsererTriee_Couple_Occ is new L.InsererTriee(Superieur_Couple_Occ, Egale_Couple_Occ, Inferieur_Couple_Occ, Traitement_Doublon_Couple);
+   procedure InsererTriee_Couple_Occ is new L.InsererTriee(Superieur_Couple_Occ, Inferieur_Couple_Occ, Traitement_Doublon_Couple);   
    function CopieTriee_Couple_Occ is new L.CopieTriee(InsererTriee_Couple_Occ);
 
 end Liste_Couple;

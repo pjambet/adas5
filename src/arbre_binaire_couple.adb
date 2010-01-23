@@ -1,3 +1,6 @@
+with Ada.Text_IO;
+use Ada.Text_IO;
+
 package body Arbre_Binaire_Couple is
 
    procedure Traitement_Doublon_Couple(A: in out Tabr_Couple) is

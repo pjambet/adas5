@@ -4,11 +4,8 @@ use Triplet;
 package Arbre_Binaire_Triplet is
 
    --instanciation du paquetage Arbre_Binaire
-   package ABT is new Arbre_Binaire(T_Elem => T_Triplet,
-                                   Imprime => Imprime_Triplet,
-                                   ">" => Superieur_Triplet_Lex,
-                                   "=" => Egale_Triplet_Lex,
-                                   "<" => Inferieur_Triplet_Lex);
+   --package ABT is new Arbre_Binaire(T_Elem => T_Triplet, Imprime => Imprime_Triplet, ">" => Superieur_Triplet_Lex, "=" => Egale_Triplet_Lex, "<" => Inferieur_Triplet_Lex);
+   package ABT is new Arbre_Binaire(T_Elem => T_Triplet, Imprime => Imprime_Triplet, ">" => Superieur_Triplet_Lex, "=" => Egale_Triplet_Lex);
 
    use ABT;
    subtype TABR_Triplet is ABT.T_ABR;
