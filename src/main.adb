@@ -1,11 +1,5 @@
-with Analyse_Lexicale, Trie, Text_Stat, Mot, Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
-use Analyse_Lexicale, Trie, Text_Stat, Mot, Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
-
-with Liste_Couple, Couple, Arbre_Binaire_Couple, Text_Stat_Couple;
-use Liste_Couple, Couple, Arbre_Binaire_Couple, Text_Stat_Couple;
-
-with Liste_Triplet, Arbre_Binaire_Triplet, Text_Stat_Triplet;
-use Liste_Triplet, Arbre_Binaire_Triplet, Text_Stat_Triplet;
+with Analyse_Lexicale, Trie, Text_Stat, Mot, Couple, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
+use Analyse_Lexicale, Trie, Text_Stat, Mot, Couple, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
 
 procedure Main is
 
@@ -114,7 +108,7 @@ begin
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
-                           Query_Liste_Couple(L, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
+                           Query_Struct(L, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
                            null;
                         else
@@ -162,11 +156,11 @@ begin
 
                   when 3 =>
 
-                     Creer_Fichier_Listemot(L);
+                     Creer_Fichier(L);
 
                   when 4 =>
 
-                     Recup_Liste(L);
+                     Recup_Fichier(L);
 
                   when 5 =>
 
@@ -185,7 +179,7 @@ begin
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
-                           Query_Liste_Triplet_Txt1(LT, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
+                           Query_Struct_Txt1(LT, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
                            null;                        
                         else
@@ -201,7 +195,7 @@ begin
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
-                           Query_Liste_Triplet_Txt2(LT, Buffer(1 .. Last));--Remplissage de la liste avec les mots significatifs du texte
+                           Query_Struct_Txt2(LT, Buffer(1 .. Last));--Remplissage de la liste avec les mots significatifs du texte
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
                            null;
                         else
@@ -244,11 +238,11 @@ begin
 
                   when 9 =>
 
-                     Creer_Fichier_Listemot_T(LT);
+                     Creer_Fichier(LT);
 
                   when 10 =>
 
-                     Recup_Liste_T(LT);
+                     Recup_Fichier(LT);
 
                   when 11 =>
 
@@ -521,7 +515,7 @@ begin
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
-                           Query_Trie_Txt1(T, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
+                           Query_Struct_Txt1(T, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
                            null;
                         else
@@ -562,11 +556,11 @@ begin
 
                   when 3 =>
 
-                     Creer_Fichier_Trie_Txt1(T);
+                     Creer_Fichier_Txt1(T);
 
                   when 4 =>
 
-                     Recup_Trie_Txt1(T);
+                     Recup_Fichier_Txt1(T);
 
                   when 5 =>
 
@@ -586,7 +580,7 @@ begin
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
-                           Query_Trie_Txt1(T, Buffer(1 .. Last)); --Remplissage du trie avec les mots significatifs du texte 1
+                           Query_Struct_Txt1(T, Buffer(1 .. Last)); --Remplissage du trie avec les mots significatifs du texte 1
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
                            null;
                         else
@@ -602,7 +596,7 @@ begin
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
-                           Query_Trie_Txt2(T, Buffer(1 .. Last)); --Remplissage du trie avec les mots significatifs du texte 2
+                           Query_Struct_Txt2(T, Buffer(1 .. Last)); --Remplissage du trie avec les mots significatifs du texte 2
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
                            null;
                         else
@@ -648,11 +642,11 @@ begin
 
                   when 9 =>
 
-                     Creer_Fichier_Trie_Txt2(T);
+                     Creer_Fichier_Txt2(T);
 
                   when 10 =>
 
-                     Recup_Trie_Txt2(T);
+                     Recup_Fichier_Txt2(T);
 
                   when 11 =>
 

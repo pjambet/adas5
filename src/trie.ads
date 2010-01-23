@@ -4,15 +4,13 @@ use Mot, Ada.Text_IO;
 package Trie is
 
    type T_Trie is private;
-   subtype Tindice is character range Character'Val(39) .. Character'Val(255); -- ''' .. 'z';
-   type Tab is array (Tindice) of T_Trie;
 
    function CreerTrie return T_Trie;
    function TrieVide(T : in T_Trie) return Boolean;
    procedure ViderTrie(T : in out T_Trie);
 
-   function AjouterMot_Txt1(T : in T_Trie; M : in T_Mot) return T_Trie;
-   function AjouterMot_Txt2(T : in T_Trie; M : in T_Mot) return T_Trie;
+   function AjouterMot_Txt1(T : in T_Trie; M : in T_Mot; N : in Integer) return T_Trie;
+   function AjouterMot_Txt2(T : in T_Trie; M : in T_Mot; N : in Integer) return T_Trie;
 
    function CompteMotsTxt1(T : in T_Trie; M : in T_Mot) return Integer;   
    function CompteMotsTxt2(T : in T_Trie; M : in T_Mot) return Integer;
@@ -33,6 +31,8 @@ package Trie is
 
 private
 
+   subtype Tindice is character range Character'Val(39) .. Character'Val(255); -- ''' .. 'z';
+   type Tab is array (Tindice) of T_Trie;
    type Cellule;
    type T_Trie is access Cellule;
    type Cellule is record
