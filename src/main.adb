@@ -1,14 +1,11 @@
-with Analyse_Lexicale, Analyse_Lexicale_Trie, Trie, Mot;
-use Analyse_Lexicale, Analyse_Lexicale_Trie, Trie, Mot;
+with Analyse_Lexicale, Trie, Text_Stat, Mot, Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
+use Analyse_Lexicale, Trie, Text_Stat, Mot, Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
 
-with Analyse_Lexicale_Couple, Liste_Couple, Couple, Arbre_Binaire_Couple, Text_Stat_Couple;
-use Analyse_Lexicale_Couple, Liste_Couple, Couple, Arbre_Binaire_Couple, Text_Stat_Couple;
+with Liste_Couple, Couple, Arbre_Binaire_Couple, Text_Stat_Couple;
+use Liste_Couple, Couple, Arbre_Binaire_Couple, Text_Stat_Couple;
 
-with Analyse_Lexicale_Triplet, Liste_Triplet, Arbre_Binaire_Triplet, Text_Stat_Triplet;
-use Analyse_Lexicale_Triplet, Liste_Triplet, Arbre_Binaire_Triplet, Text_Stat_Triplet;
-
-with Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
-use Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
+with Liste_Triplet, Arbre_Binaire_Triplet, Text_Stat_Triplet;
+use Liste_Triplet, Arbre_Binaire_Triplet, Text_Stat_Triplet;
 
 procedure Main is
 
@@ -22,7 +19,6 @@ procedure Main is
    Buffer : String(1 .. 30);
    Chaine : String(1 .. 30);
    Last : Natural;
-   Fin : Natural;
    NomFic : Boolean;
    NbMot : Integer;
    C1, C2 : T_Couple;
@@ -37,7 +33,6 @@ procedure Main is
 begin
 
    Put_line("********************************************************************");
-   Put_line("********************************************************************");
    Put_Line("*                                                                  *");
    Put_Line("*                  ANALYSEUR LEXICALE v2                           *");
    Put_Line("*                      PROJET ADA S5                               *");
@@ -46,11 +41,6 @@ begin
    Put_Line("*   JAMBET PIERRE                                                  *");
    Put_Line("*   DREYER QUENTIN                                                 *");
    Put_Line("*                                                                  *");
-   Put_Line("* Note : (Signification de l'etat memoire)                         *");
-   Put_Line("*   (*) -> Il y a une liste de couples en memoire                  *");
-   Put_Line("*   (**) -> Il y a une liste de triplets en memoire                *");
-   Put_Line("*                                                                  *");
-   Put_line("********************************************************************");
    Put_line("********************************************************************");
    New_Line;
 
@@ -75,6 +65,10 @@ begin
          when 1 =>
 
             SMenu := True;
+            Put_Line("Signification de l'etat memoire :");
+            Put_Line(" (*) -> Il y a une liste de couples en memoire");
+            Put_Line(" (**) -> Il y a une liste de triplets en memoire");
+            New_Line;            
             while SMenu loop
 
                Put("Etat memoire :");
@@ -114,15 +108,17 @@ begin
                   when 1 =>
 
                      NomFic := True;
-                     while NomFic loop
+                     while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
                         Put_Line("Veuillez entrer le nom du fichier.");
                         Get_Line(Buffer, Last);
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
                            Query_Liste_Couple(L, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
+                        elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
+                           null;
                         else
-                           Put_Line("Nom de fichier invalide !");
+                           Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;
                         end if;
                      end loop;
@@ -156,13 +152,13 @@ begin
                      New_Line;
                      M := Creer_Mot(Buffer(1 .. Last));
                      Set_Mot(C2, M);
-                     
+
                      begin
                         Fusion_Couple(L, C1, C2);
                      exception
                         when Constraint_Error => Put_Line("Erreur de contrainte");
                         when Liste_Couple.L.Listevideexception => Put_Line("Probleme : Element non trouvés dans la liste");
-                     end;               
+                     end;
 
                   when 3 =>
 
@@ -183,29 +179,33 @@ begin
                   when 7 =>
 
                      NomFic := True;
-                     while NomFic loop
+                     while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
                         Put_Line("Veuillez entrer le nom du premier fichier.");
                         Get_Line(Buffer, Last);
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
                            Query_Liste_Triplet_Txt1(LT, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
+                        elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
+                           null;                        
                         else
-                           Put_Line("Nom de fichier invalide !");
+                           Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;
                         end if;
                      end loop;
 
                      NomFic := True;
-                     while NomFic loop
+                     while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
                         Put_Line("Veuillez entrer le nom du deuxieme fichier.");
                         Get_Line(Buffer, Last);
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
                            Query_Liste_Triplet_Txt2(LT, Buffer(1 .. Last));--Remplissage de la liste avec les mots significatifs du texte
+                        elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
+                           null;
                         else
-                           Put_Line("Nom de fichier invalide !");
+                           Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;
                         end if;
                      end loop;
@@ -267,10 +267,13 @@ begin
 
             end loop;
 
-            when 2 =>
-                  
-            --ABR-RN
+         when 2 =>
+
             SMenu := True;
+            Put_Line("Signification de l'etat memoire :");
+            Put_Line(" (*) -> Il y a un arbre binaire de couples en memoire");
+            Put_Line(" (**) -> Il y a un arbre binaire de triplets en memoire");
+            New_Line;                   
             while SMenu loop
 
                Put("Etat memoire :");
@@ -310,21 +313,23 @@ begin
                   when 1 =>
 
                      NomFic := True;
-                     while NomFic loop
+                     while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
                         Put_Line("Veuillez entrer le nom du fichier.");
                         Get_Line(Buffer, Last);
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
                            -- Rajout d'une fonction qui insere dans l'arbreQuery_Liste_Couple(L, Buffer(1 .. Last)); --Remplissage de l'arbre avec les mots significatifs du texte
+                        elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
+                           null;
                         else
-                           Put_Line("Nom de fichier invalide !");
+                           Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;
                         end if;
                      end loop;
 
                   when 2 =>
-                        null;
+
                      Put_Line("Veuillez entrer un entier.");
                      Get(Num);
                      New_Line;
@@ -352,17 +357,13 @@ begin
                      New_Line;
                      M := Creer_Mot(Buffer(1 .. Last));
                      Set_Mot(C2, M);
-                     
---                     begin
---                        a implementer   
---                        Fusion_Couple(AB, C1, C2);
---                     exception
---                        when Constraint_Error => 
---                           Put_Line("Erreur de contrainte");
---                        when Liste_Couple.L.Listevideexception =>
---                           Put_Line("Probleme : Element non trouvés dans la liste");
---                     end;
-                     
+
+                     --begin
+                     --Fusion_Couple(AB, C1, C2);
+                     --   exception
+                     --   when Constraint_Error => Put_Line("Erreur de contrainte");
+                     --   when Liste_Couple.L.Listevideexception => Put_Line("Probleme : Element non trouvés dans la liste");
+                     --end;
 
                   when 3 =>
 
@@ -383,29 +384,33 @@ begin
                   when 7 =>
 
                      NomFic := True;
-                     while NomFic loop
+                     while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
                         Put_Line("Veuillez entrer le nom du premier fichier.");
                         Get_Line(Buffer, Last);
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
                            --Query_Liste_Triplet_Txt1(LT, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
+                        elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
+                           null;
                         else
-                           Put_Line("Nom de fichier invalide !");
+                           Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;
                         end if;
                      end loop;
 
                      NomFic := True;
-                     while NomFic loop
+                     while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
                         Put_Line("Veuillez entrer le nom du deuxieme fichier.");
                         Get_Line(Buffer, Last);
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
                            --Query_Liste_Triplet_Txt2(LT, Buffer(1 .. Last));--Remplissage de la liste avec les mots significatifs du texte
+                        elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
+                           null;
                         else
-                           Put_Line("Nom de fichier invalide !");
+                           Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;
                         end if;
                      end loop;
@@ -440,7 +445,7 @@ begin
                      --Query_Intersection(ABT);
 
                      Put_Line("Les mots employés par un auteur et pas par l'autre sont :");
-                     --Query_Difference(ABT);
+                  --Query_Difference(ABT);
 
                   when 9 =>
 
@@ -465,15 +470,21 @@ begin
 
                end case;
 
-           end loop;      
+            end loop;
 
          when 3 =>
 
             SMenu := True;
+            Put_Line("Signification de l'etat memoire :");
+            Put_Line(" (*) -> Il y a un trie memoire");
+            New_Line;
             while SMenu loop
 
-               Put("Etat memoire : TODO");
-
+               Put("Etat memoire :");
+               if not TrieVide(T) then
+                  Put(" (*)");
+               end if;
+                  
                New_Line;
                Put_Line("1 -> Entrez 1 pour analyser un texte.");
                Put_Line("2 -> Entrez 2 pour effectuer des requetes.");
@@ -504,65 +515,154 @@ begin
                   when 1 =>
 
                      NomFic := True;
-                     while NomFic loop
+                     while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
                         Put_Line("Veuillez entrer le nom du fichier.");
                         Get_Line(Buffer, Last);
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
-                           Query_Trie(T, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
+                           Query_Trie_Txt1(T, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
+                        elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
+                           null;
                         else
-                           Put_Line("Nom de fichier invalide !");
+                           Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;
                         end if;
                      end loop;
 
                   when 2 =>
-                     
-                     null;
+
+                     Put_Line("Veuillez entrer un entier.");
+                     Get(Num);
+                     New_Line;
+
+                     Put_Line("Nombre de mot total :" & Integer'Image(Num_Mot_Tot(T)) & ".");
+                     Put("Nombre d'occurence moyen : "); Put(Num_Occ_Moy(T), 2, 1, 0); Put_Line(".");
+                     Put("Longueur moyenne des mots :"); Put(Long_Moy(T), 2, 1, 0); Put_Line(".");
+                     Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(Num_Mot_Sup(T, Num)) & ".");
+                     New_Line;
+
+                     Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
+                     Put_Line("Veuillez entrer le nombre N de mots a afficher.");
+                     Get(NbMot);
+                     AffichageN(T, NbMot, Chaine, 0);
+
+                     Skip_Line;
+                     Put_Line("Veuillez entrer le premier mot.");
+                     Get_Line(Buffer, Last);
+                     New_Line;
+                     M := Creer_Mot(Buffer(1 .. Last));
+                     Set_Mot(C1, M);
+
+                     Put_Line("Veuillez entrer le deuxieme mot.");
+                     Get_Line(Buffer, Last);
+                     New_Line;
+                     M := Creer_Mot(Buffer(1 .. Last));
+                     Set_Mot(C2, M);
 
                   when 3 =>
-                     
-                     null;
+
+                     Creer_Fichier_Trie_Txt1(T);
 
                   when 4 =>
-                     
-                     null;
+
+                     Recup_Trie_Txt1(T);
 
                   when 5 =>
-                     
-                     Fin := 0;
-                     AfficheTrie(T, Chaine, Fin);                  
+
+                     AfficheTrie_Txt1(T, Chaine, 0);
                      New_Line;
 
                   when 6 =>
-                     
-                     null;
-                     
+
+                     ViderTrie(T);
+
                   when 7 =>
-                     
-                     null;
-                     
+
+                     NomFic := True;
+                     while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
+                        Put_Line("Veuillez entrer le nom du premier fichier.");
+                        Get_Line(Buffer, Last);
+                        New_Line;
+                        if Existe(Buffer(1 .. Last)) then
+                           NomFic := False;
+                           Query_Trie_Txt1(T, Buffer(1 .. Last)); --Remplissage du trie avec les mots significatifs du texte 1
+                        elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
+                           null;
+                        else
+                           Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
+                           New_Line;
+                        end if;
+                     end loop;
+
+                     NomFic := True;
+                     while NomFic and then Buffer(Buffer'First) /= Character'Val(48) loop -- '0'
+                        Put_Line("Veuillez entrer le nom du deuxieme fichier.");
+                        Get_Line(Buffer, Last);
+                        New_Line;
+                        if Existe(Buffer(1 .. Last)) then
+                           NomFic := False;
+                           Query_Trie_Txt2(T, Buffer(1 .. Last)); --Remplissage du trie avec les mots significatifs du texte 2
+                        elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
+                           null;
+                        else
+                           Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
+                           New_Line;
+                        end if;
+                     end loop;                     
+
                   when 8 =>
-                     
-                     null;
-                     
+
+                     Put_Line("Veuillez entrer un entier.");
+                     Get(Num);
+                     New_Line;
+
+                     Put_Line("Nombre de mot total :" & Integer'Image(Num_Mot_Tot(T)) & ".");
+                     Put("Nombre d'occurence moyen : "); Put(Num_Occ_Moy(T), 2, 1, 0); Put_Line(".");
+                     Put("Longueur moyenne des mots :"); Put(Long_Moy(T), 2, 1, 0); Put_Line(".");
+                     Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(Num_Mot_Sup(T, Num)) & ".");
+                     New_Line;
+
+                     Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
+                     Put_Line("Veuillez entrer le nombre N de mots a afficher.");
+                     Get(NbMot);
+                     AffichageN(T, NbMot, Chaine, 0); --TODO
+
+                     Skip_Line;
+                     Put_Line("Veuillez entrer un mot afin de connaitre son nombre d'occurence dans chacun des textes.");
+                     Get_Line(Buffer, Last);
+                     M := Creer_Mot(Buffer(1 .. Last));   
+                     New_Line;
+
+                     Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(CompteMotsTxt1(T, M)) & ".");
+                     Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(CompteMotsTxt2(T, M)) & ".");
+                     New_Line;
+
+                     Put_Line("Les mots employés par les deux auteurs sont :");
+                     Query_Intersection(T, Chaine, 0);
+                     New_Line;   
+
+                     Put_Line("Les mots employés par un auteur et pas par l'autre sont :");
+                     Query_Difference(T, Chaine, 0);
+                     New_Line;   
+
                   when 9 =>
-                     
-                     null;
-                     
+
+                     Creer_Fichier_Trie_Txt2(T);
+
                   when 10 =>
-                     
-                     null;
-                     
+
+                     Recup_Trie_Txt2(T);
+
                   when 11 =>
-                     
-                     null;
-                     
+
+                     AfficheTrie_Txt2(T, Chaine, 0);
+                     New_Line;
+
                   when 12 =>
-                     
-                     null;
-                     
+
+                     ViderTrie(T);
+                        
                   when others =>
 
                      Put_Line("Valeur non valide !");
@@ -571,11 +671,6 @@ begin
                end case;
 
             end loop;
-                           when 4 =>                                       Query_Trie(T, "test.txt");
-                     Fin := 0;
-                     AfficheTrie(T, Chaine, Fin);                  
-                     New_Line;
-                  
 
          when others =>
 

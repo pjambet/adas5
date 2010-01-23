@@ -8,9 +8,7 @@ package Liste_Couple is
    --utilisation de la liste instancié
    use L;
    --declaration su sous type
-   subtype TListe_Couple is L.T_Liste;
-
-   
+   subtype TListe_Couple is L.T_Liste;  
 
    procedure Modif_FusionCouple(L : in out T_Liste; T1, T2 : in out T_Couple);
    --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprimé

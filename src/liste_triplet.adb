@@ -3,8 +3,6 @@ use Mot, Ada.Text_IO;
 
 package body Liste_Triplet is
 
-   
-
    procedure Modif_FusionTriplet(L : in out TListe_Triplet; T1, T2: in out T_Triplet) is
      --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprimé
      --mais cela sera fait dans la fonction Fusion definie dans listegen

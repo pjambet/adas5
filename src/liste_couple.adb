@@ -4,9 +4,7 @@ use Mot, Ada.Text_IO;
 package body liste_couple is
 
    package Es_Entier is new Ada.Text_Io.Integer_Io(Integer);
-   use Es_Entier;
-
-   
+   use Es_Entier; 
 
    procedure Modif_FusionCouple(L : in out TListe_Couple; T1, T2 : in out T_Couple) is
       --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprimé
