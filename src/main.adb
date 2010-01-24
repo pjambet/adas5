@@ -496,7 +496,7 @@ begin
                   when 11 =>
 
                      null; --Affiche(ABT);
-                     Affiche_Triplet(ABT);
+                     --Affiche_Triplet(ABT);
 
                   when 12 =>
 
