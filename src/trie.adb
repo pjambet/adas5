@@ -97,6 +97,24 @@ package body Trie is
          return CompteMotsTxt2(T.ST(C), Mot);
       end if;
    end;
+   
+   function CompteMotsTot(T : in T_Trie) return Integer is
+   begin
+      if TrieVide(T) then
+         return 0;
+      else
+         for I in Tindice loop
+            if T.ST(I) /= null then
+               if T.ST(I).MotsTxt1 > 0 then
+                  return 1 + CompteMotsTot(T.ST(I));
+               else
+                  return CompteMotsTot(T.ST(I));
+               end if;
+            end if;
+         end loop;
+         return 0;
+      end if;  
+   end;
 
    procedure AfficheTrie_Txt1(T : in T_Trie; C : in String; F : in Natural) is
       Chaine : String(1 .. 30);

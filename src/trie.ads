@@ -16,6 +16,8 @@ package Trie is
    function CompteMotsTxt1(T : in T_Trie; M : in T_Mot) return Integer;   
    function CompteMotsTxt2(T : in T_Trie; M : in T_Mot) return Integer;
 
+   function CompteMotsTot(T : in T_Trie) return Integer;
+   
    procedure AfficheTrie_Txt1(T : in T_Trie; C : in String; F : in Natural);
    procedure AfficheTrie_Txt2(T : in T_Trie; C : in String; F : in Natural);   
 

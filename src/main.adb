@@ -230,14 +230,13 @@ begin
 
                      Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(Query_NbOcc_Txt1(LT, M)) & ".");
                      Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(Query_NbOcc_Txt2(LT, M)) & ".");
-                     New_Line;
 
                      Skip_Line;
-                     Put_Line("Les mots employés par les deux auteurs sont :");
+                     Put_Line("Les mots employes par les deux auteurs sont :");
                      Query_Intersection(LT);
 
                      Skip_Line;
-                     Put_Line("Les mots employés par un auteur et pas par l'autre sont :");
+                     Put_Line("Les mots employes par un auteur et pas par l'autre sont :");
                      Query_Difference(LT);
 
                   when 9 =>
@@ -488,11 +487,11 @@ begin
                      New_Line;
 
                      Skip_Line;
-                     Put_Line("Les mots employés par les deux auteurs sont :");
+                     Put_Line("Les mots employes par les deux auteurs sont :");
                      Query_Intersection(ABT);
 
                      Skip_Line;
-                     Put_Line("Les mots employés par un auteur et pas par l'autre sont :");
+                     Put_Line("Les mots employes par un auteur et pas par l'autre sont :");
                      Query_Difference(ABT);
 
                   when 9 =>
@@ -505,12 +504,11 @@ begin
 
                   when 11 =>
 
-                     null; --Affiche(ABT);
-                     --Affiche_Triplet(ABT);
+                     Affiche_Triplet(ABT); -- Affiche(ABT);
 
                   when 12 =>
 
-                     null; --ViderArbre(ABT);
+                     Vider_Arbre(ABT);
 
                   when others =>
 
@@ -570,7 +568,7 @@ begin
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
-                           Query_Struct_Txt1(T, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
+                           Query_Struct_Txt1(T, Buffer(1 .. Last)); -- Remplissage de la liste avec les mots significatifs du texte
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
                            NomFic := False;
                         else
@@ -635,7 +633,7 @@ begin
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
-                           Query_Struct_Txt1(T, Buffer(1 .. Last)); --Remplissage du trie avec les mots significatifs du texte 1
+                           Query_Struct_Txt1(T, Buffer(1 .. Last)); -- Remplissage du trie avec les mots significatifs du texte 1
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
                            NomFic := False;
                         else
@@ -651,7 +649,7 @@ begin
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
-                           Query_Struct_Txt2(T, Buffer(1 .. Last)); --Remplissage du trie avec les mots significatifs du texte 2
+                           Query_Struct_Txt2(T, Buffer(1 .. Last)); -- Remplissage du trie avec les mots significatifs du texte 2
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
                            NomFic := False;
                         else
@@ -662,7 +660,7 @@ begin
 
                   when 8 =>
 
-                     Put_Line("Nombre de mot total :" & Integer'Image(Num_Mot_Tot(T)) & ".");
+                     Put_Line("Nombre de mot total :" & Integer'Image(CompteMotsTot(T)) & ".");
                      Put("Nombre d'occurence moyen : "); Put(Num_Occ_Moy(T), 2, 1, 0); Put_Line(".");
                      Put("Longueur moyenne des mots :"); Put(Long_Moy(T), 2, 1, 0); Put_Line(".");
                      New_Line;                     
@@ -671,7 +669,7 @@ begin
                      Put_Line("Veuillez entrer un entier N.");
                      Get(Num);
                      New_Line;
-                     Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(Num_Mot_Sup(T, Num)) & "."); --TODO
+                     --Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(Num_Mot_Sup(T, Num)) & "."); --TODO
                      New_Line;
 
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
@@ -687,15 +685,15 @@ begin
 
                      Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(CompteMotsTxt1(T, M)) & ".");
                      Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(CompteMotsTxt2(T, M)) & ".");
-                     New_Line;
 
                      Skip_Line;
-                     Put_Line("Les mots employés par les deux auteurs sont :");
+                     Put_Line("Les mots employes par les deux auteurs sont :");
                      Query_Intersection(T, Chaine, 0);
 
                      Skip_Line;
-                     Put_Line("Les mots employés par un auteur et pas par l'autre sont :");
+                     Put_Line("Les mots employes par un auteur et pas par l'autre sont :");
                      Query_Difference(T, Chaine, 0);
+                     New_Line;   
 
                   when 9 =>
 
