@@ -4,14 +4,12 @@ use Mot, Ada.Text_IO;
 package body Liste_Triplet is
 
    procedure Modif_FusionTriplet(L : in out TListe_Triplet; T1, T2: in out T_Triplet) is
-     --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprimé
+     --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprime
      --mais cela sera fait dans la fonction Fusion definie dans listegen
      T : T_Triplet;
      L1, L2 : TListe_Triplet;
    begin
       --Placement de L1
-      Put("Fusion");
-	  New_Line;
       L1 := L;
       while not EstVide(L1) and then not Compare_Mots(Get_Mot_T(Valeur(L1)), Get_Mot_T(T1)) loop
          L1 := Suivant(L1);
@@ -29,7 +27,7 @@ package body Liste_Triplet is
       Modifie(L1,T);
       Supprimer(L,Valeur(L2));
       New_Line;
-	  Put_Line("Le mot " & Get_Chaine(Get_Mot_T(T2)) & " a été supprimé");
+      Put_Line("Le mot " & Get_Chaine(Get_Mot_T(T2)) & " a ete supprime !");
    end;
 
    procedure Traitement_Doublon_Triplet_Txt1(L : in out TListe_Triplet) is

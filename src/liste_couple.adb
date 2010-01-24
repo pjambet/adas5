@@ -7,13 +7,12 @@ package body liste_couple is
    use Es_Entier; 
 
    procedure Modif_FusionCouple(L : in out TListe_Couple; T1, T2 : in out T_Couple) is
-      --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprimé
+      --Modifie L1 en y ajoutant les occurence de L2, L2 sera supprime
       --mais cela sera fait dans la fonction Fusion definie dans listegen
       C : T_Couple;
       L1, L2 : T_Liste;
    begin
       --Placement de L1
-	New_Line;
       L1 := L;
       while not EstVide(L1) and then not Compare_Mots(Get_Mot(Valeur(L1)), Get_Mot(T1)) loop
          L1 := Suivant(L1);

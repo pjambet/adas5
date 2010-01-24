@@ -3,22 +3,17 @@ use Analyse_Lexicale, Trie, Text_Stat, Mot, Couple, Liste_Couple, Liste_Triplet,
 
 procedure Main is
 
-   Menu : Boolean;
-   SMenu : Boolean;
-   Choix : Integer;
+   Menu, SMenu, NomFic : Boolean;
+   Choix, NbMot, Num : Integer;
    L : TListe_Couple;
-   LT : Tliste_Triplet;
-   AB,AB1,AB2,AB3 : TABR_Couple;
+   LT : TListe_Triplet;
+   AB, AB1, AB2, AB3 : TABR_Couple;
    ABT : TABR_Triplet;
-   Buffer : String(1 .. 30);
-   Chaine : String(1 .. 30);
+   T : T_Trie;
+   Buffer, Chaine : String(1 .. 30);
    Last : Natural;
-   NomFic : Boolean;
-   NbMot : Integer;
    C1, C2 : T_Couple;
    M : T_Mot;
-   Num : Integer;
-   T : T_Trie;
 
    use Liste_Couple.L;
    use Liste_Triplet.Lt;
@@ -151,9 +146,12 @@ begin
                      begin
                         Fusion_Couple(L, C1, C2);
                      exception
-                        when Constraint_Error => Put_Line("Erreur de contrainte");
-                        when Liste_Couple.L.Listevideexception => Put_Line("Probleme : Element non trouvés dans la liste");
+                        when Constraint_Error =>
+                           Put_Line("Erreur de contrainte");
+                        when Liste_Couple.L.Listevideexception =>
+                           Put_Line("Probleme : Elements non trouves dans la liste");
                      end;
+                     New_Line;
 
                   when 3 =>
 
@@ -415,7 +413,7 @@ begin
 
                   when 5 =>
 
-                     null; --Affiche(AB);
+                     null; --Affiche_Couple(AB);
 
                   when 6 =>
 
@@ -497,7 +495,7 @@ begin
 
                   when 11 =>
 
-                     Affiche(ABT);
+                     Affiche_Triplet(ABT);
 
                   when 12 =>
 
