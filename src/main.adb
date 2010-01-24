@@ -8,7 +8,7 @@ procedure Main is
    Choix : Integer;
    L : TListe_Couple;
    LT : Tliste_Triplet;
-   AB : TABR_Couple;
+   AB,AB1,AB2,AB3 : TABR_Couple;
    ABT : TABR_Triplet;
    Buffer : String(1 .. 30);
    Chaine : String(1 .. 30);
@@ -307,16 +307,10 @@ begin
 
                   when 1 =>
                      AB := CreerArbre;
-                     Inserer_ABR_Couple(AB,Creer_Couple(Creer_Mot("papa"),1));
-                     Inserer_ABR_Couple(AB,Creer_Couple(Creer_Mot("maman"),1));
-                     Inserer_ABR_Couple(AB,Creer_Couple(Creer_Mot("frere"),1));
-                     Inserer_ABR_Couple(AB,Creer_Couple(Creer_Mot("grand-mere"),1));
-                     Inserer_ABR_Couple(AB,Creer_Couple(Creer_Mot("soeur"),1));
-                     Inserer_ABR_Couple(AB,Creer_Couple(Creer_Mot("soeur"),1));
-                     Inserer_ABR_Couple(AB,Creer_Couple(Creer_Mot("soeur"),1));
-                     Inserer_ABR_Couple(AB,Creer_Couple(Creer_Mot("soeur"),1));
-
-                     if Arbre_Vide(AB) then Put_Line("L'arbre est vide ...");end if;
+                     Inserer_ARN_Couple(AB,Creer_Couple(Creer_Mot("papa"),1));
+                     Inserer_ARN_Couple(AB,Creer_Couple(Creer_Mot("arbre"),1));
+                     --Inserer_ARN_Couple(AB,Creer_Couple(Creer_Mot("zoo"),1));
+                     --Inserer_ARN_Couple(AB,Creer_Couple(Creer_Mot("papa"),1));
 
                      Affiche_Inf(AB);Put_Line("");
                      Put_Line("INFIXE : ");
@@ -326,9 +320,38 @@ begin
                      Put_Line("POSTFIXE : ");
                      Verification_Arbre_Post(AB);
 
-                     if Est_Equilibre(AB) then Put_Line("L'arbre est equilibré");
-                     else Put_Line("L'arbre n'est pas equilibré");
-                     end if;
+                     --if Est_Equilibre(AB) then Put_Line("L'arbre est equilibré");
+                     --else Put_Line("L'arbre n'est pas equilibré");
+                     --end if;
+                     --Put_Line("HAUTEUR");
+                     --Put_Line("hauteur de AB :"&Integer'Image(Hauteur(AB)));
+                     --Put_line("hauteur sag :"&Integer'Image(Hauteur(SAG(AB))));
+                     --Put_line("hauteur sad :"&Integer'Image(Hauteur(SAD(AB))));
+
+                     --if Recherche_ABR_ToF(AB,Creer_Couple(Creer_Mot("soeurette"),1)) then
+                     --  Put_Line("Mot Present");
+                     --else
+                     --   Put_Line("Mot pas present");
+                     --end if;
+
+                     --AB1 := RechercheR(AB);
+                     --if Arbre_Vide(AB1) then
+                     --   Put_Line("AB1 est null");
+                     --else
+                     --   Put("AB1 pointe sur: ");Imprime_Couple(Lire_Racine(AB1));
+                     --end if;
+
+                     --Verification_Arbre_Inf(AB);
+                     --Put_Line("################################");
+
+                     --AB1 := Recherche_Abr(AB, Creer_Couple(Creer_Mot("quete"),1));
+
+                     --AB := Rotation_gauche(AB,AB1);
+
+                     --Verification_Arbre_Inf(AB1);
+                     --Put_Line("################################");
+                     --Verification_Arbre_Inf(AB);
+
                      --  NomFic := True;
 --                       while NomFic loop
 --                          Put_Line("Veuillez entrer le nom du fichier.");

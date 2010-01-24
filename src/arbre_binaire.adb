@@ -1,6 +1,6 @@
 with Ada.Text_IO, Ada.Unchecked_Deallocation;
 use Ada.Text_IO;
-
+with Ada.Text_Io; use Ada.Text_Io;
 package body Arbre_Binaire is
 
    procedure Liberer is new Ada.Unchecked_Deallocation(Noeud,T_ABR);
@@ -74,7 +74,7 @@ package body Arbre_Binaire is
       --Renvoie une AbreVideException si A est null ou si son pere est null
    begin
       if Arbre_Vide(A) then raise ArbreVideException;
-      elsif Arbre_Vide(A.Pere) then raise ArbreVideException;
+      elsif Arbre_Vide(A.Pere) then return null; --raise ArbreVideException;
       else return A.Pere.Pere;
       end if;
    end GPere;
@@ -84,8 +84,8 @@ package body Arbre_Binaire is
       --Renvoie une ArbreVideException si A est null ou si il y a des pointeurs null dans le tas
    begin
       if Arbre_Vide(A) then raise ArbreVideException;
-      elsif Est_Racine(A) then raise ArbreVideException;
-      elsif Est_Racine(Pere(A)) then raise ArbreVideException;
+      elsif Est_Racine(A) then return null; -- raise ArbreVideException;
+      elsif Est_Racine(Pere(A)) then return null;--pas sur de l'exception ... :  --raise ArbreVideException;
       else--normalement le pere de A a un frere a ce niveau là
          return Frere(Pere(A));
       end if;
@@ -96,7 +96,7 @@ package body Arbre_Binaire is
       --Renvoie une ArbreVideException si on tombe sur un pointeur null
    begin
       if Arbre_Vide(A) then raise ArbreVideException;
-      elsif Est_Racine(A) then raise ArbreVideException;
+      elsif Est_Racine(A) then return null;--pas sur de l'exception ...  raise ArbreVideException;
       else--A n'est pas nulle et n'est pas une racine
          if FilsGauche(A) then return SAD(A);
          else return SAG(A);
@@ -109,14 +109,6 @@ package body Arbre_Binaire is
    begin
       return null;
    end CreerArbre;
-
-   procedure Affiche(A: in T_ABR) is
-      --Affiche l'arbre dans la console
-      --Utilise imprime qui est generic
-   begin
-      --TODO
-      Imprime(Lire_Racine(A));
-   end Affiche;
 
    function Arbre_Vide(A: T_ABR) return Boolean is
       --Teste la vacuité de l'arbre A
@@ -190,7 +182,7 @@ package body Arbre_Binaire is
    function Recherche_ABR_ToF(A: T_ABR;V: T_Elem) return Boolean is
       --Renvoie vrai si V appartient a A
    begin
-      if Arbre_Vide(A) then raise ArbreVideException;
+      if Arbre_Vide(A) then return False;
       elsif V=Lire_Racine(A) then return True;
       elsif V > Lire_Racine(A) then return Recherche_ABR_ToF(SAD(A),V);
       else return Recherche_ABR_ToF(SAG(A),V);
@@ -201,7 +193,7 @@ package body Arbre_Binaire is
       --Renvoie l'arbre ayant v pour racine
       --Leve une ArbreVideException si il n'y a aucun element dans A
    begin
-      if Arbre_Vide(A) then raise ArbreVideException;
+      if Arbre_Vide(A) then return null;
       elsif V=Lire_Racine(A) then return A;
       elsif V > Lire_Racine(A) then return Recherche_ABR(SAD(A),V);
       else return Recherche_ABR(SAG(A),V);
@@ -233,8 +225,8 @@ package body Arbre_Binaire is
    begin
       if not Arbre_Vide(A) then
          if Est_Feuille(A) then return 0;
-         elsif Arbre_Vide(SAG(A)) then return 1 + Hauteur(SAG(A));
-         elsif Arbre_Vide(SAD(A)) then return 1 + Hauteur(SAD(A));
+         elsif Arbre_Vide(SAG(A)) then return 1 + Hauteur(SAD(A));
+         elsif Arbre_Vide(SAD(A)) then return 1 + Hauteur(SAG(A));
          else return 1 + Max(Hauteur(SAG(A)),Hauteur(SAD(A)));
          end if;
       else
@@ -252,7 +244,7 @@ package body Arbre_Binaire is
       if Arbre_Vide(A) then raise ArbreVideException;
       else
          Diff_Haut := Hauteur(Sag(A))-Hauteur(Sad(A));
-         return ( Diff_Haut = 1 or else Diff_Haut = -1 );
+         return ( Diff_Haut = 1 or else Diff_Haut = -1 or else Diff_Haut = 0);
       end if;
    end Est_Equilibre;
 
@@ -333,7 +325,7 @@ package body Arbre_Binaire is
 
    function Rotation_Gauche(X,Y: T_ABR) return T_ABR is
       --Effectue une rotation avec x comme racine et Y comme pivot
-      --prerequis : y appartient au sag de x
+      --prerequis : y appartient au sad de x
       z: T_ABR;
    begin
       --Modification effectuée, tous les gauches changés en droit et inversement, comme pour au dessus
@@ -342,10 +334,10 @@ package body Arbre_Binaire is
       else
          Z := Y.Pere;
          if FilsGauche(Y) then
-            Z := Rotation_gauche_SImple(Z);
+            Z := Rotation_droite_SImple(Z);
             return Rotation_gauche(X,Z);
          else--y est fils droit
-            return Rotation_Gauche(X,Rotation_Droite_Simple(Z));
+            return Rotation_Gauche(X,Rotation_gauche_Simple(Z));
          end if;
       end if;
    end Rotation_Gauche;
@@ -380,8 +372,14 @@ package body Arbre_Binaire is
       --true equivaut a noir et false a rouge
       N: Integer;P,GP,F: T_ABR;
    begin
-      N := Cas_Equilib_Insertion_Arn(X);
-      P := Pere(X); GP := GPere(X); F := Frere(P);
+      N := Cas_Equilib_Insertion_Arn(X);Put_Line(Integer'Image(N));
+      P := Pere(X);Gp := Gpere(X);
+      if not Arbre_Vide(P) then   
+         F := Frere(P);
+      else
+         F := null;
+      end if;
+      
       if N=0 then
          null;
          --rien a faire ici normalement
@@ -450,6 +448,7 @@ package body Arbre_Binaire is
       --PAS FINI !!!
       --faut rajouter les modifications specifiques aux ARN
       if Arbre_vide(A) then
+         Put_Line("Creation de la racine");
          A := new Noeud'(V,null,null,null,False);--le noeud inséré est colorié en rouge
       elsif Lire_racine(A) = V then
          --dans ce cas rien a faire, le mot est deja la

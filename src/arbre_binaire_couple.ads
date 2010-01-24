@@ -28,7 +28,7 @@ package Arbre_Binaire_Couple is
                                                    Egale_Couple_Lex,
                                                    Inferieur_Couple_Lex,
                                                    Traitement_Doublon_couple);
-   procedure Inserer_ARN_Triplet is new Inserer_ARN(Superieur_Couple_Lex,
+   procedure Inserer_ARN_Couple is new Inserer_ARN(Superieur_Couple_Lex,
                                                    Egale_couple_Lex,
                                                    Inferieur_Couple_Lex,
                                                    Traitement_Doublon_Couple);

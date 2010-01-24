@@ -45,10 +45,6 @@ package Arbre_Binaire is
    function CreerArbre return T_ABR;
    --Crée un arbre vide
 
-   procedure Affiche(A: in T_ABR);
-   --Affiche l'arbre dans la console
-   --Utilise imprime qui est generic
-
    function Arbre_Vide(A: T_ABR) return Boolean;
    --Teste la vacuité de l'arbre A
 
@@ -94,6 +90,13 @@ package Arbre_Binaire is
    function Recherche_ABR(A: T_ABR;V: T_Elem) return T_ABR;
    --Renvoie l'arbre ayant v pour racine
    --Leve une ArbreVideException si il n'y a aucun element dans A
+
+   function RechercheR(A: T_ABR) return T_ABR;
+   function Rotation_gauche_Simple(X: T_ABR) return T_ABR;
+   function Rotation_Droite_Simple(X: T_ABR) return T_ABR;
+   function Rotation_Droite(X,Y: T_ABR) return T_ABR;
+   function Rotation_gauche(X,Y: T_ABR) return T_ABR;
+
 
    generic
       with function ">"(T1, T2 : T_Elem) return Boolean is <>;

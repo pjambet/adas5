@@ -82,7 +82,7 @@ package body Analyse_Lexicale is
    end Existe;
 
    -- #################################################################################
-   
+
    procedure Query_Struct (L: in out TListe_Couple; NomFic : in String) is
       Orig : File_Type; -- Fichier source
       C : Character;
@@ -171,7 +171,7 @@ package body Analyse_Lexicale is
       Put_Line("Fin lecture !");
       Skip_Line;
    end;
-         
+
    procedure Query_Struct_Txt2 (L : in out TListe_Triplet; NomFic : in String) is
       Orig : File_Type; -- Fichier source
       C : Character;
@@ -213,17 +213,17 @@ package body Analyse_Lexicale is
       Put_Line("Fin lecture !");
       Skip_Line;
    end;
-   
+
    procedure Query_Struct (A : in out TABR_Couple; NomFic : in String) is
    begin
       null;
    end;
-   
+
    procedure Query_Struct_Txt1 (A : in out TABR_Triplet; NomFic : in String) is
    begin
       null;
    end;
-   
+
    procedure Query_Struct_Txt2 (A : in out TABR_Triplet; NomFic : in String) is
    begin
       null;
@@ -273,7 +273,7 @@ package body Analyse_Lexicale is
       Put_Line("Temps d'analyse : " & Integer'Image(Chrono_end-Chrono_start));
       Skip_Line;
    end;
-   
+
    procedure Query_Struct_Txt2(T : in out T_Trie; NomFic : in String) is
       Orig : File_Type; -- Fichier source
       C : Character;
@@ -320,7 +320,7 @@ package body Analyse_Lexicale is
    end;
 
    -- #################################################################################
-   
+
    procedure Creer_Fichier (L : in TListe_Couple) is
       Dest : File_Type;
       Temp : TListe_Couple;
@@ -365,12 +365,12 @@ package body Analyse_Lexicale is
    begin
       null;
    end;
-   
+
    procedure Creer_Fichier (A : in out TABR_Triplet) is
    begin
       null;
    end;
-   
+
    procedure Creer_Fichier_Txt1(T : in T_Trie) is
       Dest : File_Type;
       Chaine : String(1 .. 30);
@@ -398,9 +398,9 @@ package body Analyse_Lexicale is
       Close(Dest);
       Skip_Line;
    end;
- 
+
    -- #################################################################################
-   
+
    procedure Recup_Fichier (L : in out TListe_Couple) is
       Orig : File_Type;
       C : Character;
@@ -429,7 +429,7 @@ package body Analyse_Lexicale is
                      Mot(Indice) := C;
                   end loop;
                   NbOcc := Integer'Value(Mot(1 .. Indice));
-                  Indice := 0;                  
+                  Indice := 0;
                end if;
             else
                Couple := Creer_Couple(M, NbOcc);
@@ -483,7 +483,7 @@ package body Analyse_Lexicale is
                      Indice := Indice + 1;
                      Mot(Indice) := C;
                   end loop;
-                  NbOcc2 := Integer'Value(Mot(1 .. Indice));                  
+                  NbOcc2 := Integer'Value(Mot(1 .. Indice));
                   Indice := 0;
                end if;
             else
@@ -506,12 +506,12 @@ package body Analyse_Lexicale is
    begin
       null;
    end;
-   
+
    procedure Recup_Fichier (A : in out TABR_Triplet) is
    begin
       null;
    end;
-   
+
    procedure Recup_Fichier_Txt1(T : in out T_Trie) is
       Orig : File_Type;
       C : Character;
@@ -591,7 +591,7 @@ package body Analyse_Lexicale is
                      Indice := Indice + 1;
                      Mot(Indice) := C;
                   end loop;
-                  NbOcc2 := Integer'Value(Mot(1 .. Indice));                  
+                  NbOcc2 := Integer'Value(Mot(1 .. Indice));
                   Indice := 0;
                end if;
             else
@@ -637,7 +637,7 @@ package body Analyse_Lexicale is
       end loop;
       New_Line;
    end;
-      
+
    procedure AffichageN (L : in TListe_Couple; N : in Integer) is
       -- affiche les N premiers mots de la liste
       Compteur : Integer;
@@ -652,7 +652,7 @@ package body Analyse_Lexicale is
       end loop;
       New_Line;
    end;
-   
+
    function Query_NbOcc_Txt1 (L : TListe_Triplet; M : String) return Integer is
       -- Requete renvoyant le nombre d'occurence du mot m dans le texte 1
    begin
@@ -676,7 +676,7 @@ package body Analyse_Lexicale is
          return Query_NbOcc_Txt2(Suivant(L), M);
       end if;
    end;
-   
+
    procedure AffichageN_T (L : in TListe_Triplet; N : in Integer) is
       -- affiche les N premiers mots de la liste
       Compteur : Integer;
@@ -691,5 +691,5 @@ package body Analyse_Lexicale is
       end loop;
       New_Line;
    end;
-   
+
 end Analyse_Lexicale;

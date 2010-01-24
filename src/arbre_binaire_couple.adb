@@ -21,9 +21,18 @@ package body Arbre_Binaire_Couple is
    procedure Verification_Arbre(A: in TABR_Couple) is
    begin
       if not Arbre_Vide(A) then
-         --if Est_Racine(A) then Put("R");
-         --end if;
-         if Est_Feuille(A) then
+         if Est_Racine(A) then
+            Put("Racine");
+            if Est_Feuille(A) then
+               Put("RF:"&ToString(Lire_Racine(A)));Put_Line("");
+            elsif Arbre_Vide(SAG(A)) then
+               Put("R: "&",sad: "&ToString(Lire_Racine(SAD(A)))&")"&ToString(Lire_Racine(A)));Put_Line("");
+            elsif Arbre_Vide(SAD(A)) then
+               Put("R:"&",sag: "&ToString(Lire_Racine(SAG(A)))&")"&ToString(Lire_Racine(A)));Put_Line("");
+            else--A a un fils gauche et un fils droit
+               Put("R:"&",sag: "&ToString(Lire_Racine(SAG(A)))&",sad"&ToString(Lire_Racine(SAD(A)))&")"&ToString(Lire_Racine(A)));Put_Line("");
+            end if;
+         elsif Est_Feuille(A) then
             Put("F:(pere: "&ToString(Lire_Racine(Pere(A)))&")"&ToString(Lire_Racine(A)));Put_Line("");
          elsif Arbre_Vide(SAG(A)) then
             Put("(pere: "&ToString(Lire_Racine(Pere(A)))&",sad: "&ToString(Lire_Racine(SAD(A)))&")"&ToString(Lire_Racine(A)));Put_Line("");

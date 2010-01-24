@@ -15,7 +15,7 @@ package body Text_Stat is
       end loop;
       return N;
    end;
-   
+
    function Num_Mot_Tot(L : TListe_Triplet) return Integer is
       N : Integer;
       Ltemp : TListe_Triplet;
@@ -28,14 +28,15 @@ package body Text_Stat is
       end loop;
       return N;
    end;
-   
+
    function Num_Mot_Tot(A : TABR_Couple) return Integer is
+   --Calcule le nombre total de mot du texte
    begin
       if Arbre_Vide(A) then return 0;
       else return 1 + Num_Mot_Tot(Sag(A))+ Num_Mot_Tot(Sad(A));
       end if;
    end;
-   
+
    function Num_Mot_Tot(A : TABR_Triplet) return Integer is
    begin
       if Arbre_Vide(A) then return 0;
@@ -49,13 +50,13 @@ package body Text_Stat is
    end;
 
    -- #################################################################################
-   
+
    function Num_Occ_Moy(L : TListe_Couple) return Float is
       N, Total : Integer;
       Ltemp : TListe_Couple;
    begin
       N := 0;
-	  Total := 0;
+          Total := 0;
       Ltemp := L;
       while not EstVide(Ltemp) loop
          N := N + Get_Nbocc(Valeur(Ltemp));
@@ -64,13 +65,13 @@ package body Text_Stat is
       end loop;
       return Float(N) / Float(Total);
    end;
-   
+
    function Num_Occ_Moy(L : TListe_Triplet) return Float is
       N, Total : Integer;
       Ltemp : TListe_Triplet;
    begin
       N := 0;
-	Total := 0;
+        Total := 0;
       Ltemp := L;
       while not EstVide(Ltemp) loop
          N := N + Get_NbOcc_Txt1(Valeur(Ltemp)) + Get_NbOcc_Txt2(Valeur(LTemp));
@@ -81,7 +82,7 @@ package body Text_Stat is
    end;
 
    function Num_Occ_Moy(A : TABR_Couple) return Float is
-      --N, Total: Integer;      
+      --N, Total: Integer;
    begin
       if Arbre_Vide(A) then return 0.0;
       else
@@ -90,7 +91,7 @@ package body Text_Stat is
       end if;
       return 0.0;
    end;
-   
+
    function Num_Occ_Moy(A : TABR_Triplet) return Float is
    begin
       return Float'Value(Get_Chaine(Get_Mot_T(Lire_Racine(A)))); --TODO
@@ -100,15 +101,15 @@ package body Text_Stat is
    begin
       return Float(Get_MotsTxt1(Get_SousTab(T, 'a')));
    end;
- 
+
    -- #################################################################################
-   
+
    function Long_Moy(L : TListe_Couple) return Float is
       N, Total : Integer;
       Ltemp : TListe_Couple;
    begin
       N := 0;
-	Total := 0;
+        Total := 0;
       Ltemp := L;
       while not EstVide(Ltemp) loop
          N := N + Get_Fin(Get_Mot(Valeur(Ltemp)));
@@ -123,7 +124,7 @@ package body Text_Stat is
       Ltemp : TListe_Triplet;
    begin
       N := 0;
-	Total := 0;
+        Total := 0;
       Ltemp := L;
       while not EstVide(Ltemp) loop
          N := N + Get_Fin(Get_Mot_T(Valeur(Ltemp)));
@@ -132,15 +133,15 @@ package body Text_Stat is
       end loop;
       return Float(N) / Float(Total);
    end;
-   
+
    function Long_Moy(A : TABR_Couple) return Float is
    begin
       return Float'Value(Get_Chaine(Get_Mot(Lire_Racine(A)))); --TODO
    end;
-  
+
    function Long_Moy(A : TABR_Triplet) return Float is
    begin
-      return Float'Value(Get_Chaine(Get_Mot_T(Lire_Racine(A)))); --TODO    
+      return Float'Value(Get_Chaine(Get_Mot_T(Lire_Racine(A)))); --TODO
    end Long_Moy;
 
    function Long_Moy(T : T_Trie) return Float is
@@ -149,7 +150,7 @@ package body Text_Stat is
    end;
 
    -- #################################################################################
-   
+
    function Num_Mot_Sup(L : TListe_Couple; N : Integer) return Integer is
       X : Integer;
       Ltemp : TListe_Couple;
@@ -158,13 +159,13 @@ package body Text_Stat is
       Ltemp := L;
       while not EstVide(Ltemp) loop
          if Get_Fin(Get_Mot(Valeur(Ltemp))) >= N then
-		    X := X + 1;
+                    X := X + 1;
          end if;
          Ltemp := Suivant(Ltemp);
       end loop;
       return X;
    end;
-   
+
    function Num_Mot_Sup(L : TListe_Triplet; N : Integer) return Integer is
       X : Integer;
       Ltemp : TListe_Triplet;
@@ -179,7 +180,7 @@ package body Text_Stat is
       end loop;
       return X;
    end;
- 
+
    function Num_Mot_Sup(A : TABR_Couple; N : Integer) return Integer is
    begin
       if Arbre_Vide(A) then return 0;
@@ -189,7 +190,7 @@ package body Text_Stat is
          return Num_Mot_Sup(Sag(A),N) + Num_Mot_Sup(Sad(A),N);
       end if;
    end;
- 
+
    function Num_Mot_Sup(A : TABR_Triplet; N : Integer) return Integer is
    begin
       if Arbre_Vide(A) then return 0;
