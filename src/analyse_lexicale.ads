@@ -1,5 +1,5 @@
-with Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie;
-use Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie;
+with Mot, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie;
+use Mot, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie;
 
 package Analyse_Lexicale is
 
@@ -53,22 +53,34 @@ package Analyse_Lexicale is
    
    -- #################################################################################
    
-   function Query_NbOcc_Txt1 (L : TListe_Triplet; M : String) return Integer;
-   --Requete renvoyant le nombre d'occurence du mot m dans le texte 1
-
-   function Query_NbOcc_Txt2 (L : TListe_Triplet; M : String) return Integer;
-   --Requete renvoyant le nombre d'occurence du mot m dans le texte 2
-
-   procedure Query_Intersection (T : in TListe_Triplet);
-   -- affiche les mots communs de deux auteurs
-
-   procedure Query_Difference (T : in TListe_Triplet);
-   -- affiche les mots d'un auteur et pas de l'autre (et vice versa)
-
-   procedure AffichageN(L : in TListe_Couple; N : in Integer);
-   -- affiche les N premiers mots de la liste 
+   -- Procedure qui affiche N elements de la structure en fonction du nombre d'occurence
    
-   procedure AffichageN_T (L : in TListe_Triplet; N : in Integer);
-   -- affiche les N premiers mots de la liste    
+   procedure AffichageN (L : in TListe_Couple; N : in Integer); 
+   procedure AffichageN (L : in TListe_Triplet; N : in Integer);
+   procedure AffichageN (A : in TABR_Couple; N : in Integer);
+   procedure AffichageN (A : in TABR_Triplet; N : in Integer);
+   
+   -- #################################################################################
+      
+   -- Renvoit le nombre d'occurence du mot M dans le texte 1 ou 2
+   
+   function Query_NbOcc_Txt1 (L : TListe_Triplet; M : T_Mot) return Integer;
+   function Query_NbOcc_Txt2 (L : TListe_Triplet; M : T_Mot) return Integer;
+   function Query_NbOcc_Txt1 (A : TABR_Triplet; M : T_Mot) return Integer;
+   function Query_NbOcc_Txt2 (A : TABR_Triplet; M : T_Mot) return Integer;
+
+   -- #################################################################################
+   
+   -- Procedure qui affiche les mots communs de deux auteurs
+   
+   procedure Query_Intersection (T : in TListe_Triplet);
+   procedure Query_Intersection (A : in TABR_Triplet);
+   
+   -- #################################################################################
+   
+   -- Procedure qui affiche les mots d'un auteur et pas de l'autre (et vice versa)
+   
+   procedure Query_Difference (T : in TListe_Triplet);  
+   procedure Query_Difference (T : in TABR_Triplet);
    
 end Analyse_Lexicale;

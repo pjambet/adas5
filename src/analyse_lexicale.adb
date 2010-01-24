@@ -612,31 +612,6 @@ package body Analyse_Lexicale is
 
    -- #################################################################################
 
-   procedure Query_Intersection (T : in TListe_Triplet) is
-      Temp : TListe_Triplet;
-   begin
-      Temp := T;
-      while not EstVide(Temp) loop
-         if (Get_NbOcc_Txt1(Premier(Temp)) /= 0) and then (Get_NbOcc_Txt2(Premier(Temp)) /= 0) then
-            Imprime_Triplet(Premier(Temp));
-         end if;
-         Temp := Suivant(Temp);
-      end loop;
-      New_Line;
-   end;
-
-   procedure Query_Difference (T : in TListe_Triplet) is
-      Temp : TListe_Triplet;
-   begin
-      Temp := T;
-      while not EstVide(Temp) loop
-         if (Get_NbOcc_Txt1(Premier(Temp)) /= 0) xor (Get_NbOcc_Txt2(Premier(Temp)) /= 0) then
-            Imprime_Triplet(Premier(Temp));
-         end if;
-         Temp := Suivant(Temp);
-      end loop;
-      New_Line;
-   end;
 
    procedure AffichageN (L : in TListe_Couple; N : in Integer) is
       -- affiche les N premiers mots de la liste
@@ -653,31 +628,8 @@ package body Analyse_Lexicale is
       New_Line;
    end;
 
-   function Query_NbOcc_Txt1 (L : TListe_Triplet; M : String) return Integer is
-      -- Requete renvoyant le nombre d'occurence du mot m dans le texte 1
-   begin
-      if EstVide(L) then
-         return 0;
-      elsif Compare_Chaine_Mot(M, Get_Mot_T(Valeur(L))) then
-         return Get_NbOcc_Txt1(Valeur(L));
-      else
-         return Query_NbOcc_Txt1(Suivant(L), M);
-      end if;
-   end;
 
-   function Query_NbOcc_Txt2 (L : TListe_Triplet; M : String) return Integer is
-      --Requete renvoyant le nombre d'occurence du mot m dans le texte 2
-   begin
-      if EstVide(L) then
-         return 0;
-      elsif Compare_Chaine_Mot(M, Get_Mot_T(Valeur(L))) then
-         return Get_NbOcc_Txt2(Valeur(L));
-      else
-         return Query_NbOcc_Txt2(Suivant(L), M);
-      end if;
-   end;
-
-   procedure AffichageN_T (L : in TListe_Triplet; N : in Integer) is
+   procedure AffichageN (L : in TListe_Triplet; N : in Integer) is
       -- affiche les N premiers mots de la liste
       Compteur : Integer;
       Temp : TListe_Triplet;
@@ -692,4 +644,89 @@ package body Analyse_Lexicale is
       New_Line;
    end;
 
+   procedure AffichageN (A : in TABR_Couple; N : in Integer) is
+   begin
+      null;
+   end;
+      
+   procedure AffichageN (A : in TABR_Triplet; N : in Integer) is
+   begin
+      null;
+   end;
+   
+   -- #################################################################################
+
+
+   function Query_NbOcc_Txt1 (L : TListe_Triplet; M : T_Mot) return Integer is
+   begin
+      if EstVide(L) then
+         return 0;
+      elsif Compare_Mots(M, Get_Mot_T(Valeur(L))) then
+         return Get_NbOcc_Txt1(Valeur(L));
+      else
+         return Query_NbOcc_Txt1(Suivant(L), M);
+      end if;
+   end;
+
+   function Query_NbOcc_Txt2 (L : TListe_Triplet; M : T_Mot) return Integer is
+   begin
+      if EstVide(L) then
+         return 0;
+      elsif Compare_Mots(M, Get_Mot_T(Valeur(L))) then
+         return Get_NbOcc_Txt2(Valeur(L));
+      else
+         return Query_NbOcc_Txt2(Suivant(L), M);
+      end if;
+   end;
+
+   function Query_NbOcc_Txt1 (A : TABR_Triplet; M : T_Mot) return Integer is
+   begin
+      return 0;
+   end;
+   
+   function Query_NbOcc_Txt2 (A : TABR_Triplet; M : T_Mot) return Integer is
+   begin
+      return 0;
+   end;
+   
+   -- #################################################################################
+   
+   procedure Query_Intersection (T : in TListe_Triplet) is
+      Temp : TListe_Triplet;
+   begin
+      Temp := T;
+      while not EstVide(Temp) loop
+         if (Get_NbOcc_Txt1(Premier(Temp)) /= 0) and then (Get_NbOcc_Txt2(Premier(Temp)) /= 0) then
+            Imprime_Triplet(Premier(Temp));
+         end if;
+         Temp := Suivant(Temp);
+      end loop;
+      New_Line;
+   end;
+
+   procedure Query_Intersection (A : in TABR_Triplet) is
+   begin
+      null;
+   end;
+   
+   -- #################################################################################
+   
+   procedure Query_Difference (T : in TListe_Triplet) is
+      Temp : TListe_Triplet;
+   begin
+      Temp := T;
+      while not EstVide(Temp) loop
+         if (Get_NbOcc_Txt1(Premier(Temp)) /= 0) xor (Get_NbOcc_Txt2(Premier(Temp)) /= 0) then
+            Imprime_Triplet(Premier(Temp));
+         end if;
+         Temp := Suivant(Temp);
+      end loop;
+      New_Line;
+   end;
+   
+   procedure Query_Difference (T : in TABR_Triplet) is
+   begin
+      null;
+   end;
+   
 end Analyse_Lexicale;
