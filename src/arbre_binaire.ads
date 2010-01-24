@@ -41,6 +41,14 @@ package Arbre_Binaire is
    function Frere(A: T_ABR) return T_ABR;
    --Renvoie le frere de A, c-a-d l'autre fils du pere de A
    --Renvoie une ArbreVideException si on tombe sur un pointeur null
+   
+   function Couleur(A: T_Abr) return Boolean;
+   --Renvoie un boolean correspondant a la couleur du noeud A
+   -- True : NOIR
+   -- False : ROUGE
+
+   function Colortostring(A: T_Abr) return String;
+   --Renvoie un string correspondant a la couleur du noeud selon le code definit ci dessus
 
    function CreerArbre return T_ABR;
    --Crée un arbre vide

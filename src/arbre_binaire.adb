@@ -7,6 +7,22 @@ package body Arbre_Binaire is
       --cree une procedure de liberation d'espace pour les objets
       --designes par un arbre
 
+   function Colortostring(A: T_Abr) return String is
+   begin
+      if Couleur(A) = False then
+         return "Rouge";
+      elsif Couleur(A) = True then
+         return "Noir";
+      else
+         return "Erreur";
+      end if;
+   end Colortostring;
+   
+   function Couleur(A: T_Abr) return Boolean is
+   begin
+      return A.Couleur;
+   end Couleur;
+
    function Filsgauche(A: T_ABR) return Boolean is
       --teste si A est un filsgauche
    begin

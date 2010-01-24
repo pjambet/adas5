@@ -307,8 +307,8 @@ begin
                      AB := CreerArbre;
                      Inserer_ARN_Couple(AB,Creer_Couple(Creer_Mot("papa"),1));
                      Inserer_ARN_Couple(AB,Creer_Couple(Creer_Mot("arbre"),1));
-                     --Inserer_ARN_Couple(AB,Creer_Couple(Creer_Mot("zoo"),1));
-                     --Inserer_ARN_Couple(AB,Creer_Couple(Creer_Mot("papa"),1));
+                     Inserer_ARN_Couple(AB,Creer_Couple(Creer_Mot("zoo"),1));
+                     Inserer_ARN_Couple(AB,Creer_Couple(Creer_Mot("babar"),1));
 
                      Affiche_Inf(AB);Put_Line("");
                      Put_Line("INFIXE : ");
@@ -495,6 +495,7 @@ begin
 
                   when 11 =>
 
+                     null; --Affiche(ABT);
                      Affiche_Triplet(ABT);
 
                   when 12 =>
