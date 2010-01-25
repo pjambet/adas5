@@ -35,8 +35,8 @@ package Text_Stat is
    
    function Num_Occ_Moy (L : TListe_Couple) return Float;
    function Num_Occ_Moy (L : TListe_Triplet) return Float;
-   function Num_Occ_Moy (A : TABR_Triplet) return Float;
-   function Num_Occ_Moy (A : TABR_Couple) return Float;
+   function Num_Occ_Tot (A : TABR_Couple) return Integer;   
+   function Num_Occ_Tot (A : TABR_Triplet) return Integer;
    procedure Num_Occ_Tot_Txt1 (T : in T_Trie; S : in out Integer);
    procedure Num_Occ_Tot_Txt2 (T : in T_Trie; S : in out Integer);
 
@@ -46,8 +46,8 @@ package Text_Stat is
    
    function Long_Moy (L : TListe_Couple) return Float;
    function Long_Moy (L : TListe_Triplet) return Float;
-   function Long_Moy (A : TABR_Couple) return Float;
-   function Long_Moy (A : TABR_Triplet) return Float;
+   function Long_Tot (A : TABR_Couple) return Integer;
+   function Long_Tot (A : TABR_Triplet) return Integer;
    procedure Long_Tot_Txt1 (T : in T_Trie; S : in out Integer);
    procedure Long_Tot_Txt2 (T : in T_Trie; S : in out Integer);
 

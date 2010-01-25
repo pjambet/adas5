@@ -108,21 +108,18 @@ package body Text_Stat is
       return Float(N) / Float(Total);
    end;
 
-   function Num_Occ_Moy(A : TABR_Couple) return Float is
-      --N, Total: Integer;
+   function Num_Occ_Tot(A : TABR_Couple) return Integer is
    begin
-      if Arbre_Vide(A) then return 0.0;
+      if Arbre_Vide(A) then return 0;
       else
-         null;
-         --return Float(Get_NbOcc(Lire_Racine(A))) + Num_Occ_Moy(SAG(A)) + Num_Occ_Moy(SAD(A));
+         return Get_NbOcc(Lire_Racine(A)) + Num_Occ_Tot(SAG(A)) + Num_Occ_Tot(SAD(A));
       end if;
-      return 0.0;
    end;
 
-   function Num_Occ_Moy(A : TABR_Triplet) return Float is
+   function Num_Occ_Tot (A : TABR_Triplet) return Integer is
    begin
-      return Float'Value(Get_Chaine(Get_Mot_T(Lire_Racine(A)))); --TODO
-   end Num_Occ_Moy;
+      return 0;
+   end;
 
    procedure Num_Occ_Tot_Txt1 (T : in T_Trie; S : in out Integer) is
    begin
@@ -184,15 +181,15 @@ package body Text_Stat is
       return Float(N) / Float(Total);
    end;
 
-   function Long_Moy(A : TABR_Couple) return Float is
+   function Long_Tot (A : TABR_Couple) return Integer is
    begin
-      return Float'Value(Get_Chaine(Get_Mot(Lire_Racine(A)))); --TODO
+      return 0;
    end;
 
-   function Long_Moy(A : TABR_Triplet) return Float is
+   function Long_Tot (A : TABR_Triplet) return Integer is
    begin
-      return Float'Value(Get_Chaine(Get_Mot_T(Lire_Racine(A)))); --TODO
-   end Long_Moy;
+      return 0;
+   end;
 
    procedure Long_Tot_Txt1 (T : in T_Trie; S : in out Integer) is
    begin
