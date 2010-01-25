@@ -179,7 +179,7 @@ package body ListeGen is
       end if;
    end Supprimer;
 
-   procedure Viderliste(L: in out T_Liste) is
+   procedure ViderListe(L: in out T_Liste) is
       Lprec : T_Liste;
       Ltest : T_Liste;
    begin
@@ -195,6 +195,8 @@ package body ListeGen is
                Liberer(Lprec);
             end loop;
          end if;
+         Put_Line("Liste effacee !");
+         New_Line;
       end if;
    end ViderListe;
 

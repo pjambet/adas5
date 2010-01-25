@@ -18,7 +18,7 @@ procedure Main is
    LT : TListe_Triplet;
    AB : TABR_Couple;
    ABT : TABR_Triplet;
-   T : T_Trie;
+   T1, T2 : T_Trie;
    Buffer, Chaine : String(1 .. 30);
    Last : Natural;
    C1, C2 : T_Couple;
@@ -32,21 +32,20 @@ procedure Main is
 begin
 
    Put_Line("******************************************************************");
-   Put_line("******************************************************************");
-   Put_line("** ____            _      _               _                     **");
-   Put_line("**|  _ \ _ __ ___ (_) ___| |_    __ _  __| | __ _               **");
-   Put_line("**| |_) | '__/ _ \| |/ _ \ __|  / _` |/ _` |/ _` |              **");
-   Put_line("**|  __/| | | (_) | |  __/ |_  | (_| | (_| | (_| |              **");
-   Put_line("**|_|   |_|  \___// |\___|\__|  \__,_|\__,_|\__,_|              **");
-   Put_line("**                                                              **");
+   Put_Line("******************************************************************");
+   Put_Line("**   ____            _      _               _                   **");
+   Put_Line("**  |  _ \ _ __ ___ (_) ___| |_    __ _  __| | __ _             **");
+   Put_Line("**  | |_) | '__/ _ \| |/ _ \ __|  / _` |/ _` |/ _` |            **");
+   Put_Line("**  |  __/| | | (_) | |  __/ |_  | (_| | (_| | (_| |            **");
+   Put_Line("**  |_|   |_|  \___// |\___|\__|  \__,_|\__,_|\__,_|            **");
    Put_Line("**                                                              **");
    Put_Line("**                                                              **");
-   Put_Line("**                  ANALYSEUR LEXICALE v2                       **");
-   Put_Line("**                      PROJET ADA S5                           **");
+   Put_Line("**                   ANALYSEUR LEXICALE v2                      **");
+   Put_Line("**                       PROJET ADA S5                          **");
    Put_Line("**                                                              **");
    Put_Line("** Auteurs :                                                    **");
    Put_Line("**   JAMBET PIERRE                                              **");
-   Put_Line("**  DREYER QUENTIN                                              **");
+   Put_Line("**   DREYER QUENTIN                                             **");
    Put_Line("**                                                              **");
    Put_Line("******************************************************************");
    Put_line("******************************************************************");
@@ -82,7 +81,8 @@ begin
                Put("Etat memoire :");
                if not EstVide(L) then
                   Put(" (*)");
-               elsif not EstVide(LT) then
+               end if;
+               if not EstVide(LT) then
                   Put(" (**)");
                end if;
 
@@ -133,15 +133,17 @@ begin
 
                   when 2 =>
 
-                     Put_Line("Veuillez entrer un entier.");
-                     Get(Num);
-                     New_Line;
-
                      Put_Line("Nombre de mot total :" & Integer'Image(Num_Mot_Tot(L)) & ".");
                      Put("Nombre d'occurence moyen :"); Put(Num_Occ_Moy(L), 2, 1, 0); Put_Line(".");
                      Put("Longueur moyenne des mots :"); Put(Long_Moy(L), 2, 1, 0); Put_Line(".");
-                     Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(Num_Mot_Sup(L, Num)) & ".");
+                     New_Line;                     
+                     
+                     Put_Line("Affichage des mots superieur a un entier N :");
+                     Put_Line("Veuillez entrer un entier N.");
+                     Get(Num);
                      New_Line;
+                     Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(Num_Mot_Sup(L, Num)) & ".");
+                     New_Line;                     
 
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
@@ -294,7 +296,8 @@ begin
                Put("Etat memoire :");
                if not Arbre_Vide(AB) then
                   Put(" (*)");
-               elsif not Arbre_Vide(ABT) then
+               end if;
+               if not Arbre_Vide(ABT) then
                   Put(" (**)");
                end if;
 
@@ -505,13 +508,17 @@ begin
 
             SMenu := True;
             Put_Line("Signification de l'etat memoire :");
-            Put_Line(" (*) -> Il y a un trie memoire");
+            Put_Line(" (*) -> Il y a un trie contenant 1 texte en memoire");
+            Put_Line(" (**) -> Il y a un trie contenant 2 textes en memoire");               
             New_Line;
             while SMenu loop
 
                Put("Etat memoire :");
-               if not TrieVide(T) then
+               if not TrieVide(T1) then
                   Put(" (*)");
+               end if;
+               if not TrieVide(T2) then
+                  Put(" (**)");
                end if;
 
                New_Line;
@@ -550,7 +557,7 @@ begin
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
-                           Query_Struct_Txt1(T, Buffer(1 .. Last)); -- Remplissage de la liste avec les mots significatifs du texte
+                           Query_Struct_Txt1(T1, Buffer(1 .. Last)); -- Remplissage de la liste avec les mots significatifs du texte
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
                            NomFic := False;
                         else
@@ -562,15 +569,15 @@ begin
                   when 2 =>
 
                      NumMotTot := 0;
-                     Num_Mot_Tot_Txt1(T, NumMotTot);
+                     Num_Mot_Tot_Txt1(T1, NumMotTot);
                      Put_Line("Nombre de mot total :" & Integer'Image(NumMotTot) & ".");
                      
                      NumOccTot := 0;
-                     Num_Occ_Tot_Txt1(T, NumOccTot);   
+                     Num_Occ_Tot_Txt1(T1, NumOccTot);   
                      Put("Nombre d'occurence moyen :"); Put(Div_Float(NumOccTot, NumMotTot), 2, 1, 0); Put_Line(".");
                      
                      LongTot := 0;
-                     Long_Tot_Txt1(T, LongTot);   
+                     Long_Tot_Txt1(T1, LongTot);   
                      Put("Longueur moyenne des mots :"); Put(Div_Float(LongTot, NumMotTot), 2, 1, 0); Put_Line(".");
                      New_Line;                     
                      
@@ -579,7 +586,7 @@ begin
                      Put_Line("Veuillez entrer un entier N.");
                      Get(Num);
                      New_Line;
-                     Num_Mot_Sup_Txt1(T, Num, NumMotSupN);
+                     Num_Mot_Sup_Txt1(T1, Num, NumMotSupN);
                      Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(NumMotSupN) & ".");
                      New_Line;
 
@@ -587,7 +594,7 @@ begin
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
                      Get(NbMot);
                      New_Line;   
-                     AffichageN_Txt1(T, NbMot, Chaine, 0);
+                     AffichageN_Txt1(T1, NbMot, Chaine, 0);
                      New_Line;   
 
                      Skip_Line;
@@ -607,20 +614,20 @@ begin
                         
                   when 3 =>
 
-                     Creer_Fichier_Txt1(T);
+                     Creer_Fichier_Txt1(T1);
 
                   when 4 =>
 
-                     Recup_Fichier_Txt1(T);
+                     Recup_Fichier_Txt1(T1);
 
                   when 5 =>
 
-                     AfficheTrie_Txt1(T, Chaine, 0);
+                     AfficheTrie_Txt1(T1, Chaine, 0);
                      New_Line;
 
                   when 6 =>
 
-                     ViderTrie(T);
+                     ViderTrie(T1);
 
                   when 7 =>
 
@@ -631,7 +638,7 @@ begin
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
-                           Query_Struct_Txt1(T, Buffer(1 .. Last)); -- Remplissage du trie avec les mots significatifs du texte 1
+                           Query_Struct_Txt1(T2, Buffer(1 .. Last)); -- Remplissage du trie avec les mots significatifs du texte 1
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
                            NomFic := False;
                         else
@@ -647,7 +654,7 @@ begin
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
-                           Query_Struct_Txt2(T, Buffer(1 .. Last)); -- Remplissage du trie avec les mots significatifs du texte 2
+                           Query_Struct_Txt2(T2, Buffer(1 .. Last)); -- Remplissage du trie avec les mots significatifs du texte 2
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
                            NomFic := False;
                         else
@@ -656,19 +663,18 @@ begin
                         end if;
                      end loop;
 
-                     when 8 =>
-                        null;
+                  when 8 =>
 
                      NumMotTot := 0;
-                     Num_Mot_Tot_Txt2(T, NumMotTot);
+                     Num_Mot_Tot_Txt2(T2, NumMotTot);
                      Put_Line("Nombre de mot total :" & Integer'Image(NumMotTot) & ".");
                         
                      NumOccTot := 0;                     
-                     Num_Occ_Tot_Txt2(T, NumOccTot);
+                     Num_Occ_Tot_Txt2(T2, NumOccTot);
                      Put("Nombre d'occurence moyen :"); Put(Div_Float(NumOccTot, NumMotTot), 2, 1, 0); Put_Line(".");
                      
                      LongTot := 0;
-                     Long_Tot_Txt2(T, LongTot);
+                     Long_Tot_Txt2(T2, LongTot);
                      Put("Longueur moyenne des mots :"); Put(Div_Float(LongTot, NumMotTot), 2, 1, 0); Put_Line(".");
                      New_Line;                     
                      
@@ -677,7 +683,7 @@ begin
                      Put_Line("Veuillez entrer un entier N.");
                      Get(Num);
                      New_Line;
-                     Num_Mot_Sup_Txt2(T, Num, NumMotSupN);
+                     Num_Mot_Sup_Txt2(T2, Num, NumMotSupN);
                      Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(NumMotSupN) & ".");
                      New_Line;
 
@@ -685,7 +691,7 @@ begin
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
                      Get(NbMot);
                      New_Line;   
-                     AffichageN_Txt2(T, NbMot, Chaine, 0);
+                     AffichageN_Txt2(T2, NbMot, Chaine, 0);
                      New_Line;   
 
                      Skip_Line;
@@ -694,34 +700,34 @@ begin
                      M := Creer_Mot(Buffer(1 .. Last));
                      New_Line;
 
-                     Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(Query_NbOcc_Txt1(T, M)) & ".");
-                     Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(Query_NbOcc_Txt2(T, M)) & ".");
+                     Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(Query_NbOcc_Txt1(T2, M)) & ".");
+                     Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(Query_NbOcc_Txt2(T2, M)) & ".");
 
                      Skip_Line;
                      Put_Line("Les mots employes par les deux auteurs sont :");
-                     Query_Intersection(T, Chaine, 0);
+                     Query_Intersection(T2, Chaine, 0);
 
                      Skip_Line;
                      Put_Line("Les mots employes par un auteur et pas par l'autre sont :");
-                     Query_Difference(T, Chaine, 0);
+                     Query_Difference(T2, Chaine, 0);
                      New_Line;   
 
                   when 9 =>
 
-                     Creer_Fichier_Txt2(T);
+                     Creer_Fichier_Txt2(T2);
 
                   when 10 =>
 
-                     Recup_Fichier_Txt2(T);
+                     Recup_Fichier_Txt2(T2);
 
                   when 11 =>
 
-                     AfficheTrie_Txt2(T, Chaine, 0);
+                     AfficheTrie_Txt2(T2, Chaine, 0);
                      New_Line;
 
                   when 12 =>
 
-                     ViderTrie(T);
+                     ViderTrie(T2);
 
                   when others =>
 
