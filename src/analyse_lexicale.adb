@@ -827,16 +827,16 @@ package body Analyse_Lexicale is
       Chaine : String(1 .. 30);
       Fin : Natural;
    begin
-      if not TrieVide(T) and then N > 0 then
+      if not TrieVide(T) then
          Chaine := C;
          Fin := F;
          for I in Tindice loop
-            if not STVide(T, I) then
+            if not STVide(T, I) and then N >= 0 then
                if Get_Prefixes(Get_ST(T, I)) > 0 then
                   Fin := Fin + 1;
                   Chaine(Fin) := I;
                end if;
-               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 then -- nbOcc = 1 ou +
+               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 and then N >= 0 then -- nbOcc = 1 ou +
                   Put(Chaine(Chaine'First .. Fin));
                   Put_Line(Integer'Image(Get_NbOcc_Txt1(Get_ST(T, I))));
                end if;
@@ -851,16 +851,16 @@ package body Analyse_Lexicale is
       Chaine : String(1 .. 30);
       Fin : Natural;
    begin
-      if not TrieVide(T) and then N > 0 then
+      if not TrieVide(T) then
          Chaine := C;
          Fin := F;
          for I in Tindice loop
-            if not STVide(T, I) then
+            if not STVide(T, I) and then N >= 0 then
                if Get_Prefixes(Get_ST(T, I)) > 0 then
                   Fin := Fin + 1;
                   Chaine(Fin) := I;
                end if;
-               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 or else Get_NbOcc_Txt2(Get_ST(T, I)) > 0 then -- nbOcc = 1 ou +
+               if (Get_NbOcc_Txt1(Get_ST(T, I)) > 0 or else Get_NbOcc_Txt2(Get_ST(T, I)) > 0) and then N >= 0 then -- nbOcc = 1 ou +
                   Put(Chaine(Chaine'First .. Fin));
                   Put_Line(Integer'Image(Get_NbOcc_Txt1(Get_ST(T, I))) & Integer'Image(Get_NbOcc_Txt2(Get_ST(T, I))));
                end if;

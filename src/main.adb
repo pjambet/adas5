@@ -570,7 +570,9 @@ begin
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
                      Get(NbMot);
+                     New_Line;   
                      AffichageN_Txt1(T, NbMot, Chaine, 0);
+                     New_Line;   
 
                      Skip_Line;
                      Put_Line("Veuillez entrer le premier mot.");
@@ -665,7 +667,9 @@ begin
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
                      Get(NbMot);
+                     New_Line;   
                      AffichageN_Txt2(T, NbMot, Chaine, 0);
+                     New_Line;   
 
                      Skip_Line;
                      Put_Line("Veuillez entrer un mot afin de connaitre son nombre d'occurence dans chacun des textes.");
