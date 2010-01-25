@@ -328,30 +328,31 @@ begin
 
                      SMenu := False;
 
-                     when 1 =>  
+                  when 1 =>  
 
-                       NomFic := True;
-                       while NomFic loop
-                          Put_Line("Veuillez entrer le nom du fichier.");
-                          Get_Line(Buffer, Last);
-                          New_Line;
-                          if Existe(Buffer(1 .. Last)) then
-                             NomFic := False;
-                             Query_Struct(AB, Buffer(1 .. Last)); --Remplissage de l'arbre avec les mots significatifs du texte
-                          elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
-                             NomFic := False;
-                          else
-                             Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
-                             New_Line;
-                           end if;
-                           if Est_Equilibre(Ab) then
-                              Put_Line("L'arbre est equilibre");
-                           else
-                              Put_Line("L'arbre n'est pas equilibre");
-                           end if;
-                           Put_Line("L'arbre a "&Integer'Image(Nombre_Elt(AB))&"mots");
-                                                      
-                       end loop;
+                     NomFic := True;
+                     while NomFic loop
+                        Put_Line("Veuillez entrer le nom du fichier.");
+                        Get_Line(Buffer, Last);
+                        New_Line;
+                        if Existe(Buffer(1 .. Last)) then
+                           NomFic := False;
+                           Query_Struct(AB, Buffer(1 .. Last)); --Remplissage de l'arbre avec les mots significatifs du texte
+                        elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
+                           NomFic := False;
+                        else
+                           Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
+                           New_Line;
+                        end if;
+                           
+                        if Est_Equilibre(Ab) then
+                           Put_Line("L'arbre est equilibre");
+                        else
+                           Put_Line("L'arbre n'est pas equilibre");
+                        end if;
+                        Put_Line("L'arbre a" & Integer'Image(Nombre_Elt(AB)) & " mots");
+                        New_Line;                                  
+                    end loop;
 
                   when 2 =>
 
@@ -403,6 +404,7 @@ begin
                   when 5 =>
 
                      Affiche_Inf(AB);
+                     New_Line;   
 
                   when 6 =>
 
@@ -417,7 +419,7 @@ begin
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
-                           Query_Struct_Txt1(ABT, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
+                           Query_Struct_Txt1(ABT, Buffer(1 .. Last)); -- Remplissage de la liste avec les mots significatifs du texte
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
                            NomFic := False;
                         else
@@ -433,7 +435,7 @@ begin
                         New_Line;
                         if Existe(Buffer(1 .. Last)) then
                            NomFic := False;
-                           Query_Struct_Txt2(ABT, Buffer(1 .. Last)); --Remplissage de la liste avec les mots significatifs du texte
+                           Query_Struct_Txt2(ABT, Buffer(1 .. Last)); -- Remplissage de la liste avec les mots significatifs du texte
                         elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'
                            NomFic := False;
                         else
@@ -490,6 +492,7 @@ begin
                   when 11 =>
 
                      Affiche_Inf(ABT);
+                     New_Line;
 
                   when 12 =>
 

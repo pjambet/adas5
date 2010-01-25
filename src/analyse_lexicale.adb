@@ -486,11 +486,11 @@ package body Analyse_Lexicale is
       Dest : File_Type;      
    begin     
       Create(Dest, Name => "liste-mot.txt");      
-      Put("Debut Creation");
-      Ecriture_Dest_Txt1(A,Dest);
+      Put("Debut creation");
+      Ecriture_Dest_Txt1(A, Dest);
       New_Line(Dest);
       New_Line;
-      Put_Line("Fin Creation");
+      Put_Line("Fin creation !");
       Close(Dest);
       Skip_Line;
    end;
@@ -499,11 +499,11 @@ package body Analyse_Lexicale is
       Dest : File_Type;
    begin
       Create(Dest, Name => "liste-mot2.txt");
-      Put("Debut Creation");
-      Ecriture_Dest_Txt2(A,Dest);
+      Put("Debut creation");
+      Ecriture_Dest_Txt2(A, Dest);
       New_Line(Dest);
       New_Line;
-      Put_Line("Fin Creation");
+      Put_Line("Fin creation !");
       Close(Dest);
       Skip_Line;
    end;
@@ -592,6 +592,7 @@ package body Analyse_Lexicale is
    begin
       if not Arbre_Vide(AB) then
          Ecriture_Dest_Txt1(sag(ab),D);
+         Put(".");
          Put(D, Get_Chaine(Get_Mot(Lire_Racine(AB)))(1 .. Get_Fin(Get_Mot(Lire_Racine(AB)))));
          Put_Line(D, Integer'Image(Get_Nbocc(Lire_Racine(AB))));
          Ecriture_Dest_Txt1(sad(ab),D);
@@ -602,6 +603,7 @@ package body Analyse_Lexicale is
    begin
       if not Arbre_Vide(AB) then
          Ecriture_Dest_Txt2(sag(ab),D);
+         Put(".");
          Put(D, Get_Chaine(Get_Mot_T(Lire_Racine(AB)))(1 .. Get_Fin(Get_Mot_T(Lire_Racine(AB)))));
          Put_Line(D, Integer'Image(Get_Nbocc_Txt1(Lire_Racine(AB))) & Integer'Image(Get_NbOcc_Txt2(Lire_racine(AB))));
          Ecriture_Dest_Txt2(sad(ab),D);
