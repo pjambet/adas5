@@ -692,21 +692,38 @@ package body Arbre_Binaire is
       --ArbreVide(Vider_Arbre(A)) = true
       Tmp,Ag,Ad  : T_Abr;
    begin
+      Put("Suppr:");Affiche_Noeud(A);
       if Arbre_Vide(A) then
          null;
-      else-- Arbre_vide(A) then
+      else
+         if Est_Feuille(A) then
+            Liberer(A);
+         end if;         
          if not Arbre_Vide(Sag(A)) then
             if Est_Feuille(Sag(A)) then
-               Tmp := Sag(A);
+               Tmp := A.Sag;
+               Affiche_Noeud(tmp);
                Liberer(Tmp);
+               if Arbre_Vide(Tmp) then
+                  Put_Line("suppr OK");
+               else
+                  Affiche_Noeud(Tmp);
+               end if;
             else
                Ag := Sag(A);
                Vider_Arbre(Ag);--on vide a gauche
             end if;
-         elsif not Arbre_Vide(Sad(A)) then
+         end if;         
+         if not Arbre_Vide(Sad(A)) then
             if Est_Feuille(Sad(A)) then
-               Tmp := Sad(A);
+               Tmp := A.Sad;
+               Affiche_Noeud(tmp);               
                Liberer(Tmp);
+               if Arbre_Vide(Tmp) then
+                  Put_Line("suppr OK");
+               else
+                  Affiche_Noeud(Tmp);
+               end if;
             else
                Ad := Sad(A);
                Vider_Arbre(Ad);--et on vide a droite

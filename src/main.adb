@@ -351,8 +351,7 @@ begin
                         else
                            Put_Line("L'arbre n'est pas equilibre");
                         end if;
-                        Put_Line("L'arbre a" & Integer'Image(Nombre_Elt(AB)) & " mots");
-                        New_Line;                                  
+                                                           
                     end loop;
 
                   when 2 =>
@@ -408,7 +407,8 @@ begin
                      New_Line;   
 
                   when 6 =>
-
+                     
+                     Verification_Arbre_Inf(ab);
                      Vider_Arbre(AB);
 
                   when 7 =>
@@ -630,7 +630,7 @@ begin
                      New_Line;
 
                   when 6 =>
-
+   
                      ViderTrie(T1);
 
                   when 7 =>
