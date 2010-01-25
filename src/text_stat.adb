@@ -3,6 +3,11 @@ use Mot, Couple, Triplet, Liste_Couple.L, Liste_Triplet.LT, Arbre_Binaire_Couple
 
 package body Text_Stat is
 
+   function Div_Float(N : in Integer; M : in Integer) return Float is
+   begin
+      return Float(N) / Float(M);
+   end;
+
    function Num_Mot_Tot(L : TListe_Couple) return Integer is
       N : Integer;
       Ltemp : TListe_Couple;
@@ -10,7 +15,7 @@ package body Text_Stat is
       Ltemp := L;
       N := 0;
       while not EstVide(Ltemp) loop
-         N := N + Get_NbOcc(Valeur(Ltemp));
+         N := N + 1;
          Ltemp := Suivant(Ltemp);
       end loop;
       return N;
@@ -23,7 +28,7 @@ package body Text_Stat is
       Ltemp := L;
       N := 0;
       while not EstVide(Ltemp) loop
-         N := N + Get_NbOcc_Txt1(Valeur(Ltemp)) + Get_NbOcc_Txt2(Valeur(Ltemp));
+         N := N + 1;
          Ltemp := Suivant(Ltemp);
       end loop;
       return N;
@@ -45,25 +50,28 @@ package body Text_Stat is
 
    procedure Num_Mot_Tot_Txt1(T : T_Trie; S : in out Integer) is
    begin
-      if TrieVide(T) then
-         S := 0;
-      else
-         for I in Tindice loop
-            if not STVide(T, I) then
-               if Get_MotsTxt1(Get_ST(T, I)) > 0 then
-                  S := S + Get_MotsTxt1(Get_ST(T, I));
-               end if;
-               Num_Mot_Tot_Txt1(Get_ST(T, I), S);
+      for I in Tindice loop
+         if not STVide(T, I) then
+            if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 then
+               S := S + 1;
             end if;
-         end loop;
-      end if;
+            Num_Mot_Tot_Txt1(Get_ST(T, I), S);
+         end if;
+      end loop;
    end;
    
    procedure Num_Mot_Tot_Txt2 (T : in T_Trie; S : in out Integer) is
    begin
-      null;
+      for I in Tindice loop
+         if not STVide(T, I) then
+            if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 or else Get_NbOcc_Txt2(Get_ST(T, I)) > 0 then
+               S := S + 1;
+            end if;
+            Num_Mot_Tot_Txt2(Get_ST(T, I), S);
+         end if;
+      end loop;
    end;
-   
+
    -- #################################################################################
 
    function Num_Occ_Moy(L : TListe_Couple) return Float is
@@ -71,11 +79,11 @@ package body Text_Stat is
       Ltemp : TListe_Couple;
    begin
       N := 0;
-          Total := 0;
+      Total := 0;
       Ltemp := L;
       while not EstVide(Ltemp) loop
          N := N + Get_Nbocc(Valeur(Ltemp));
-         Total := Total+1;
+         Total := Total + 1;
          Ltemp := Suivant(Ltemp);
       end loop;
       return Float(N) / Float(Total);
@@ -86,7 +94,7 @@ package body Text_Stat is
       Ltemp : TListe_Triplet;
    begin
       N := 0;
-        Total := 0;
+      Total := 0;
       Ltemp := L;
       while not EstVide(Ltemp) loop
          N := N + Get_NbOcc_Txt1(Valeur(Ltemp)) + Get_NbOcc_Txt2(Valeur(LTemp));
@@ -112,14 +120,28 @@ package body Text_Stat is
       return Float'Value(Get_Chaine(Get_Mot_T(Lire_Racine(A)))); --TODO
    end Num_Occ_Moy;
 
-   procedure Num_Occ_Moy_Txt1 (T : in T_Trie; S : in out Float) is
+   procedure Num_Occ_Tot_Txt1 (T : in T_Trie; S : in out Integer) is
    begin
-      null;
+      for I in Tindice loop
+         if not STVide(T, I) then
+            if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 then
+               S := S + Get_NbOcc_Txt1(Get_ST(T, I));
+            end if;
+            Num_Occ_Tot_Txt1(Get_ST(T, I), S);
+         end if;
+      end loop;
    end;
    
-   procedure Num_Occ_Moy_Txt2 (T : in T_Trie; S : in out Float) is
+   procedure Num_Occ_Tot_Txt2 (T : in T_Trie; S : in out Integer) is
    begin
-      null;
+      for I in Tindice loop
+         if not STVide(T, I) then
+            if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 or else Get_NbOcc_Txt2(Get_ST(T, I)) > 0 then
+               S := S + Get_NbOcc_Txt1(Get_ST(T, I)) + Get_NbOcc_Txt2(Get_ST(T, I));
+            end if;
+            Num_Occ_Tot_Txt2(Get_ST(T, I), S);
+         end if;
+      end loop;
    end;
 
    -- #################################################################################
@@ -129,7 +151,7 @@ package body Text_Stat is
       Ltemp : TListe_Couple;
    begin
       N := 0;
-        Total := 0;
+      Total := 0;
       Ltemp := L;
       while not EstVide(Ltemp) loop
          N := N + Get_Fin(Get_Mot(Valeur(Ltemp)));
@@ -144,7 +166,7 @@ package body Text_Stat is
       Ltemp : TListe_Triplet;
    begin
       N := 0;
-        Total := 0;
+      Total := 0;
       Ltemp := L;
       while not EstVide(Ltemp) loop
          N := N + Get_Fin(Get_Mot_T(Valeur(Ltemp)));
@@ -164,14 +186,28 @@ package body Text_Stat is
       return Float'Value(Get_Chaine(Get_Mot_T(Lire_Racine(A)))); --TODO
    end Long_Moy;
 
-   procedure Long_Moy_Txt1 (T : in T_Trie; S : in out Float) is
+   procedure Long_Tot_Txt1 (T : in T_Trie; S : in out Float) is
    begin
-      null;
+      for I in Tindice loop
+         if not STVide(T, I) then
+            if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 then
+               S := S + Get_Fin_Txt1(Get_ST(T, I));
+            end if;
+            Long_Tot_Txt1(Get_ST(T, I), S);
+         end if;
+      end loop;
    end;
    
-   procedure Long_Moy_Txt2 (T : in T_Trie; S : in out Float) is
+   procedure Long_Tot_Txt2 (T : in T_Trie; S : in out Float) is
    begin
-      null;
+      for I in Tindice loop
+         if not STVide(T, I) then
+            if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 or else Get_NbOcc_Txt2(Get_ST(T, I)) > 0 then
+               S := S + Get_Fin_Txt1(Get_ST(T, I)) + Get_Fin_Txt2(Get_ST(T, I));
+            end if;
+            Long_Tot_Txt2(Get_ST(T, I), S);
+         end if;
+      end loop;
    end;
    
    -- #################################################################################
@@ -184,7 +220,7 @@ package body Text_Stat is
       Ltemp := L;
       while not EstVide(Ltemp) loop
          if Get_Fin(Get_Mot(Valeur(Ltemp))) >= N then
-                    X := X + 1;
+            X := X + 1;
          end if;
          Ltemp := Suivant(Ltemp);
       end loop;

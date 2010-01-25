@@ -13,7 +13,7 @@ package body Trie is
       for I in Tindice loop
          ST(I) := null;
       end loop;
-      T := new Cellule'(ST, 0, 0, 0);
+      T := new Cellule'(ST, 0, 0, 0, 0, 0);
       return T;
    end;
 
@@ -45,22 +45,32 @@ package body Trie is
       return T.ST(I);
    end;   
    
-   function Get_MotsTxt1(T : in T_Trie) return Integer is
+   function Get_NbOcc_Txt1(T : in T_Trie) return Integer is
    begin
-      return T.MotsTxt1;
+      return T.NbOccTxt1;
    end;
 
-   function Get_MotsTxt2(T : in T_Trie) return Integer is
+   function Get_nbOcc_Txt2(T : in T_Trie) return Integer is
    begin
-      return T.MotsTxt2;
+      return T.NbOccTxt2;
    end;
 
+   function Get_Fin_Txt1 (T : in T_Trie) return Integer is
+   begin
+      return T.FinTxt1;
+   end;
+      
+   function Get_Fin_Txt2 (T: in T_Trie) return Integer is
+   begin
+      return T.FinTxt2;
+   end;
+   
    function Get_Prefixes (T : in T_Trie) return Integer is
    begin
       return T.Prefixes;
    end;
    
-   function AjouterMot_Txt1(T : in T_Trie; M : in T_Mot; N : in Integer) return T_Trie is
+   function AjouterMot_Txt1(T : in T_Trie; M : in T_Mot; N : in Integer; F : in Integer) return T_Trie is
       Trie : T_Trie;
       C : Character;
       Mot : T_Mot;
@@ -70,7 +80,7 @@ package body Trie is
          return AjouterMot_Txt1(Trie, M, N);
       elsif MotVide(M) then
          T.Prefixes := T.Prefixes + 1;
-         T.MotsTxt1 := T.MotsTxt1 + N;
+         T.NbOccTxt1 := T.NbOccTxt1 + N;
          return T;
       else
          T.Prefixes := T.Prefixes + 1;
@@ -91,7 +101,7 @@ package body Trie is
          return AjouterMot_Txt2(Trie, M, N);
       elsif MotVide(M) then
          T.Prefixes := T.Prefixes + 1;
-         T.MotsTxt2 := T.MotsTxt2 + N;
+         T.NbOccTxt2 := T.NbOccTxt2 + N;
          return T;
       else
          T.Prefixes := T.Prefixes + 1;
@@ -114,9 +124,9 @@ package body Trie is
                   Fin := Fin + 1;
                   Chaine(Fin) := I;
                end if;
-               if T.ST(I).MotsTxt1 > 0 then -- nbOcc = 1 ou +
+               if T.ST(I).NbOccTxt1 > 0 then -- nbOcc = 1 ou +
                   Put(Chaine(Chaine'First .. Fin));
-                  Put_Line(Integer'Image(T.ST(I).MotsTxt1));
+                  Put_Line(Integer'Image(T.ST(I).NbOccTxt1));
                end if;
                AfficheTrie_Txt1(T.ST(I), Chaine, Fin);
                Fin := Fin - 1;
@@ -138,44 +148,14 @@ package body Trie is
                   Fin := Fin + 1;
                   Chaine(Fin) := I;
                end if;
-               if T.ST(I).MotsTxt1 > 0 or else T.ST(I).MotsTxt2 > 0 then -- nbOcc = 1 ou +
+               if T.ST(I).NbOccTxt1 > 0 or else T.ST(I).NbOccTxt2 > 0 then -- nbOcc = 1 ou +
                   Put(Chaine(Chaine'First .. Fin));
-                  Put_Line(Integer'Image(T.ST(I).MotsTxt1) & Integer'Image(T.ST(I).MotsTxt2));
+                  Put_Line(Integer'Image(T.ST(I).NbOccTxt1) & Integer'Image(T.ST(I).NbOccTxt2));
                end if;
                AfficheTrie_Txt2(T.ST(I), Chaine, Fin);
                Fin := Fin - 1;
             end if;
          end loop;
-      end if;
-   end;
-
-   function CompteMotsTxt1(T : in T_Trie; M : in T_Mot) return Integer is
-      C : Character;
-      Mot : T_Mot;
-   begin
-      if TrieVide(T) then
-         return 0;
-      elsif MotVide(M) then
-         return T.MotsTxt1;
-      else
-         C := Get_Char(M);
-         Mot := Get_CharSuffixe(M);
-         return CompteMotsTxt1(T.ST(C), Mot);
-      end if;
-   end;
-
-   function CompteMotsTxt2(T : in T_Trie; M : in T_Mot) return Integer is
-      C : Character;
-      Mot : T_Mot;
-   begin
-      if TrieVide(T) then
-         return 0;
-      elsif MotVide(M) then
-         return T.MotsTxt2;
-      else
-         C := Get_Char(M);
-         Mot := Get_CharSuffixe(M);
-         return CompteMotsTxt2(T.ST(C), Mot);
       end if;
    end;
 

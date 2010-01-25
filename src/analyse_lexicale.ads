@@ -76,7 +76,9 @@ package Analyse_Lexicale is
    function Query_NbOcc_Txt2 (L : TListe_Triplet; M : T_Mot) return Integer;
    function Query_NbOcc_Txt1 (A : TABR_Triplet; M : T_Mot) return Integer;
    function Query_NbOcc_Txt2 (A : TABR_Triplet; M : T_Mot) return Integer;
-
+   function Query_NbOcc_Txt1 (T : in T_Trie; M : in T_Mot) return Integer;   
+   function Query_NbOcc_Txt2 (T : in T_Trie; M : in T_Mot) return Integer;
+   
    -- #################################################################################
    
    -- Procedure qui affiche les mots communs de deux auteurs

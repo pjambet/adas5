@@ -4,8 +4,8 @@ use Analyse_Lexicale, Trie, Text_Stat, Mot, Couple, Liste_Couple, Liste_Triplet,
 procedure Main is
 
    Menu, SMenu, NomFic : Boolean;
-   Choix, NbMot, Num, Stat : Integer;
-   StatF : Float;
+   Choix, NbMot, Num, NumMotTot, NumOccTot : Integer;
+   NumOccMoy, LongTot : Float;
    L : TListe_Couple;
    LT : TListe_Triplet;
    AB : TABR_Couple;
@@ -36,8 +36,6 @@ begin
    New_Line;
 
    Menu := True;
-   Stat := 0;
-   StatF := 0.0;
    while Menu loop
 
       Put_Line("1 -> Entrez 1 pour utiliser la structure de donnee " & Character'Val(34) & "Liste" & Character'Val(34) & ".");
@@ -627,20 +625,25 @@ begin
 
                   when 2 =>
 
-                     Num_Mot_Tot_Txt1(T, Stat);
-                     Put_Line("Nombre de mot total :" & Integer'Image(Stat) & ".");
-                     Num_Occ_Moy_Txt1(T, StatF);   
-                     Put("Nombre d'occurence moyen : "); Put(StatF, 2, 1, 0); Put_Line(".");
-                     Long_Moy_Txt1(T, StatF);   
-                     Put("Longueur moyenne des mots :"); Put(StatF, 2, 1, 0); Put_Line(".");
+                     NumMotTot := 0;
+                     Num_Mot_Tot_Txt1(T, NumMotTot);
+                     Put_Line("Nombre de mot total :" & Integer'Image(NumMotTot) & ".");
+                     
+                     NumOccTot := 0;
+                     Num_Occ_Tot_Txt1(T, NumOccTot);   
+                     Put("Nombre d'occurence moyen : "); Put(Div_Float(NumOccTot, NumMotTot), 2, 1, 0); Put_Line(".");
+                     
+                     LongTot := 0.0;
+                     Long_Tot_Txt1(T, LongTot);   
+                     Put("Longueur moyenne des mots :"); Put(LongTot, 2, 1, 0); Put_Line(".");
                      New_Line;                     
                      
                      Put_Line("Affichage des mots superieur a un entier N :");
                      Put_Line("Veuillez entrer un entier N.");
                      Get(Num);
                      New_Line;
-                     Num_Mot_Sup_Txt1(T, Num, Stat);
-                     Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(Stat) & "."); --TODO
+                     Num_Mot_Sup_Txt1(T, Num, NumMotTot);
+                     Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(NumMotTot) & "."); --TODO
                      New_Line;
 
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
@@ -714,20 +717,25 @@ begin
 
                   when 8 =>
 
-                     Num_Mot_Tot_Txt2(T, Stat);
-                     Put_Line("Nombre de mot total :" & Integer'Image(Stat) & ".");
-                     Num_Occ_Moy_Txt2(T, StatF);
-                     Put("Nombre d'occurence moyen : "); Put(StatF, 2, 1, 0); Put_Line(".");
-                     Long_Moy_Txt2(T, StatF);
-                     Put("Longueur moyenne des mots :"); Put(StatF, 2, 1, 0); Put_Line(".");
+                     NumMotTot := 0;
+                     Num_Mot_Tot_Txt2(T, NumMotTot);
+                     Put_Line("Nombre de mot total :" & Integer'Image(NumMotTot) & ".");
+                        
+                     NumOccTot := 0;                     
+                     Num_Occ_Tot_Txt2(T, NumOccTot);
+                     Put("Nombre d'occurence moyen : "); Put(Div_Float(NumOccTot, NumMotTot), 2, 1, 0); Put_Line(".");
+                     
+                     LongTot := 0.0;
+                     Long_Tot_Txt2(T, LongTot);
+                     Put("Longueur moyenne des mots :"); Put(LongTot, 2, 1, 0); Put_Line(".");
                      New_Line;                     
                      
                      Put_Line("Affichage des mots superieur a un entier N :");
                      Put_Line("Veuillez entrer un entier N.");
                      Get(Num);
                      New_Line;
-                     Num_Mot_Sup_Txt2(T, Num, Stat);
-                     Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(Stat) & "."); --TODO
+                     Num_Mot_Sup_Txt2(T, Num, NumMotTot);
+                     Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(NumMotTot) & "."); --TODO
                      New_Line;
 
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
@@ -741,8 +749,8 @@ begin
                      M := Creer_Mot(Buffer(1 .. Last));
                      New_Line;
 
-                     Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(CompteMotsTxt1(T, M)) & ".");
-                     Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(CompteMotsTxt2(T, M)) & ".");
+                     Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(Query_NbOcc_Txt1(T, M)) & ".");
+                     Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(Query_NbOcc_Txt2(T, M)) & ".");
 
                      Skip_Line;
                      Put_Line("Les mots employes par les deux auteurs sont :");

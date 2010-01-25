@@ -7,14 +7,16 @@ package Text_Stat is
    -- nombre total de mots, nombre de mots de longueur supérieur ou égale a un entier positif donné,
    -- longueur moyenne d'un mot, et surement d'autres plus tard
 
+   function Div_Float(N : in Integer; M : in Integer) return Float;
+
    -- #################################################################################
    
    -- Calcule le nombre total de mot du texte
    
-   function Num_Mot_Tot(L : TListe_Couple) return Integer;
-   function Num_Mot_Tot(L : TListe_Triplet) return Integer;  
-   function Num_Mot_Tot(A : TABR_Couple) return Integer;
-   function Num_Mot_Tot(A : TABR_Triplet) return Integer;
+   function Num_Mot_Tot (L : TListe_Couple) return Integer;
+   function Num_Mot_Tot (L : TListe_Triplet) return Integer;  
+   function Num_Mot_Tot (A : TABR_Couple) return Integer;
+   function Num_Mot_Tot (A : TABR_Triplet) return Integer;
    procedure Num_Mot_Tot_Txt1 (T : in T_Trie; S : in out Integer);
    procedure Num_Mot_Tot_Txt2 (T : in T_Trie; S : in out Integer);
    
@@ -22,23 +24,23 @@ package Text_Stat is
 
    -- Calcule le nombre d'occurence moyen a partir de la liste obtenu des mots dans le texte
    
-   function Num_Occ_Moy(L : TListe_Couple) return Float;
-   function Num_Occ_Moy(L : TListe_Triplet) return Float;
-   function Num_Occ_Moy(A : TABR_Triplet) return Float;
-   function Num_Occ_Moy(A : TABR_Couple) return Float;
-   procedure Num_Occ_Moy_Txt1 (T : in T_Trie; S : in out Float);
-   procedure Num_Occ_Moy_Txt2 (T : in T_Trie; S : in out Float); 
+   function Num_Occ_Moy (L : TListe_Couple) return Float;
+   function Num_Occ_Moy (L : TListe_Triplet) return Float;
+   function Num_Occ_Moy (A : TABR_Triplet) return Float;
+   function Num_Occ_Moy (A : TABR_Couple) return Float;
+   procedure Num_Occ_Tot_Txt1 (T : in T_Trie; S : in out Integer);
+   procedure Num_Occ_Tot_Txt2 (T : in T_Trie; S : in out Integer);
 
    -- #################################################################################
-
+   
    -- Calcule la longueur moyenne d'un mot dans le texte
    
-   function Long_Moy(L : TListe_Couple) return Float;
-   function Long_Moy(L : TListe_Triplet) return Float;
-   function Long_Moy(A : TABR_Couple) return Float;
-   function Long_Moy(A : TABR_Triplet) return Float;
-   procedure Long_Moy_Txt1 (T : in T_Trie; S : in out Float);
-   procedure Long_Moy_Txt2 (T : in T_Trie; S : in out Float);
+   function Long_Moy (L : TListe_Couple) return Float;
+   function Long_Moy (L : TListe_Triplet) return Float;
+   function Long_Moy (A : TABR_Couple) return Float;
+   function Long_Moy (A : TABR_Triplet) return Float;
+   procedure Long_Tot_Txt1 (T : in T_Trie; S : in out Float);
+   procedure Long_Tot_Txt2 (T : in T_Trie; S : in out Float);
 
    -- #################################################################################
    

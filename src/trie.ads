@@ -13,18 +13,17 @@ package Trie is
    function STVide (T : in T_Trie; I : in Tindice) return Boolean;
 
    function Get_ST (T : in T_Trie; I : in Tindice) return T_Trie;
-   function Get_MotsTxt1 (T : in T_Trie) return Integer;
-   function Get_MotsTxt2 (T : in T_Trie) return Integer;
-   function Get_Prefixes (T : in T_Trie) return Integer;
-   
+   function Get_NbOcc_Txt1 (T : in T_Trie) return Integer;
+   function Get_NbOcc_Txt2 (T : in T_Trie) return Integer;
+   function Get_Fin_Txt1 (T : in T_Trie) return Integer;
+   function Get_Fin_Txt2 (T: in T_Trie) return Integer;
+   function Get_Prefixes (T : in T_Trie) return Integer;   
+
    function AjouterMot_Txt1 (T : in T_Trie; M : in T_Mot; N : in Integer) return T_Trie;
    function AjouterMot_Txt2 (T : in T_Trie; M : in T_Mot; N : in Integer) return T_Trie;
 
    procedure AfficheTrie_Txt1(T : in T_Trie; C : in String; F : in Natural);
-   procedure AfficheTrie_Txt2(T : in T_Trie; C : in String; F : in Natural); 
-   
-   function CompteMotsTxt1 (T : in T_Trie; M : in T_Mot) return Integer;   
-   function CompteMotsTxt2 (T : in T_Trie; M : in T_Mot) return Integer;  
+   procedure AfficheTrie_Txt2(T : in T_Trie; C : in String; F : in Natural);   
 
    private
 
@@ -33,8 +32,10 @@ package Trie is
    type T_Trie is access Cellule;
    type Cellule is record
       ST : Tab;
-      MotsTxt1 : Integer;
-      MotsTxt2 : Integer;
+      NbOccTxt1 : Integer;
+      NbOccTxt2 : Integer;
+      FinTxt1 : Integer;
+      FinTxt2 : Integer;
       Prefixes : Integer;
    end record;
 
