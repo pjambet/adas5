@@ -1,3 +1,12 @@
+-- #################################################################################
+-- #                                                                               #
+-- #   Nom : main.adb                                                              #
+-- #   Auteur : DREYER Quentin                                                     #
+-- #   Date de création : 12/12/2009                                               #
+-- #   Date de modification : 25/01/2010                                           #   
+-- #                                                                               #
+-- #################################################################################
+
 with Analyse_Lexicale, Trie, Text_Stat, Mot, Couple, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
 use Analyse_Lexicale, Trie, Text_Stat, Mot, Couple, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
 

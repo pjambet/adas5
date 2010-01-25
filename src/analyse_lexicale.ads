@@ -1,3 +1,12 @@
+-- #################################################################################
+-- #                                                                               #
+-- #   Nom : anaylyse_lexicale.ads                                                 #
+-- #   Auteur : DREYER Quentin                                                     #
+-- #   Date de création : 06/12/2009                                               #
+-- #   Date de modification : 25/01/2010                                           #   
+-- #                                                                               #
+-- #################################################################################
+
 with Mot, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie, Ada.Text_IO;
 use Mot, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie, Ada.Text_IO;
 

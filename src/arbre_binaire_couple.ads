@@ -1,9 +1,18 @@
+-- #################################################################################
+-- #                                                                               #
+-- #   Nom : arbre_binaire_couple.ads                                              #
+-- #   Auteur : JAMBET Pierre                                                      #
+-- #   Date de création : 21/01/2010                                               #
+-- #   Date de modification : 23/01/2010                                           #   
+-- #                                                                               #
+-- #################################################################################
+
 with Arbre_Binaire, Couple;
 use Couple;
 
 package Arbre_Binaire_Couple is
-   --instanciation du paquetage Arbre_Binaire
-   --package AB is new Arbre_Binaire(T_Elem => T_Couple, Imprime => Imprime_Couple, ">" => Superieur_Couple_Lex, "=" => Egale_Couple_Lex, "<" => Inferieur_Couple_Lex);
+   
+   -- Instanciation du paquetage Arbre_Binaire
    package AB is new Arbre_Binaire(T_Elem => T_Couple, Imprime => Imprime_Couple, ">" => Superieur_Couple_Lex, "=" => Egale_Couple_Lex);
    
    use AB;
@@ -24,14 +33,7 @@ package Arbre_Binaire_Couple is
    procedure Verification_Arbre_Pre is new Prefixe(Traitement => Verification_Arbre);
    procedure Verification_Arbre_Post is new Postfixe(Traitement => Verification_Arbre);
 
-   procedure Inserer_ABR_Couple is new Inserer_ABR(Superieur_Couple_Lex,
-                                                   Egale_Couple_Lex,
-                                                   Inferieur_Couple_Lex,
-                                                   Traitement_Doublon_couple);
-   procedure Inserer_ARN_Couple is new Inserer_ARN(Superieur_Couple_Lex,
-                                                   Egale_couple_Lex,
-                                                   Inferieur_Couple_Lex,
-                                                   Traitement_Doublon_Couple);
-
+   procedure Inserer_ABR_Couple is new Inserer_ABR(Superieur_Couple_Lex, Egale_Couple_Lex, Inferieur_Couple_Lex, Traitement_Doublon_couple);
+   procedure Inserer_ARN_Couple is new Inserer_ARN(Superieur_Couple_Lex, Egale_couple_Lex, Inferieur_Couple_Lex, Traitement_Doublon_Couple);
 
 end Arbre_Binaire_Couple;
