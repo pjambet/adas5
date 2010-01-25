@@ -40,5 +40,6 @@ package Arbre_Binaire_Triplet is
    procedure Inserer_ABR_Triplet_Txt2 is new Inserer_ABR(Superieur_Triplet_Lex, Egale_Triplet_Lex, Inferieur_Triplet_Lex, Traitement_Doublon_Triplet_Txt2);
    procedure Inserer_ARN_Triplet_Txt1 is new Inserer_ARN(Superieur_Triplet_Lex, Egale_Triplet_Lex, Inferieur_Triplet_Lex, Traitement_Doublon_Triplet_Txt1);
    procedure Inserer_ARN_Triplet_Txt2 is new Inserer_ARN(Superieur_Triplet_Lex, Egale_Triplet_Lex, Inferieur_Triplet_Lex, Traitement_Doublon_Triplet_Txt2);
-
+   procedure Inserer_ARN_Triplet_OccS is new Inserer_ARN(Superieur_Triplet_OccS, Egale_Triplet_OccS, Inferieur_Triplet_OccS, Traitement_Doublon_Triplet_Txt1);
+   
 end Arbre_Binaire_Triplet;

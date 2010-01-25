@@ -1,7 +1,7 @@
 -- #################################################################################
 -- #                                                                               #
 -- #   Nom : liste_couple.ads                                                      #
--- #   Auteur : DREYER Quentin                                                     #
+-- #   Auteur : JAMBET Pierre                                                     #
 -- #   Date de création : 13/12/2009                                               #
 -- #   Date de modification : 23/01/2010                                           #   
 -- #                                                                               #

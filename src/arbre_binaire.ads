@@ -1,7 +1,7 @@
 -- #################################################################################
 -- #                                                                               #
 -- #   Nom : arbre_binaire.ads                                                     #
--- #   Auteur : JAMBEt Pierre                                                      #
+-- #   Auteur : JAMBET Pierre                                                      #
 -- #   Date de création : 17/01/2010                                               #
 -- #   Date de modification : 25/01/2010                                           #   
 -- #                                                                               #

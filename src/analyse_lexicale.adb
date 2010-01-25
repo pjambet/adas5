@@ -757,7 +757,6 @@ package body Analyse_Lexicale is
       end if;
    end;
 
-
    procedure Recup_Fichier (A : in out TABR_Triplet) is
       Orig : File_Type;
       C : Character;
