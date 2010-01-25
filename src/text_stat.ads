@@ -15,8 +15,9 @@ package Text_Stat is
    function Num_Mot_Tot(L : TListe_Triplet) return Integer;  
    function Num_Mot_Tot(A : TABR_Couple) return Integer;
    function Num_Mot_Tot(A : TABR_Triplet) return Integer;
-   function Num_Mot_Tot(T : T_Trie) return Integer;
-
+   procedure Num_Mot_Tot_Txt1 (T : in T_Trie; S : in out Integer);
+   procedure Num_Mot_Tot_Txt2 (T : in T_Trie; S : in out Integer);
+   
    -- #################################################################################
 
    -- Calcule le nombre d'occurence moyen a partir de la liste obtenu des mots dans le texte
@@ -25,7 +26,8 @@ package Text_Stat is
    function Num_Occ_Moy(L : TListe_Triplet) return Float;
    function Num_Occ_Moy(A : TABR_Triplet) return Float;
    function Num_Occ_Moy(A : TABR_Couple) return Float;
-   function Num_Occ_Moy(T : T_Trie) return Float;
+   procedure Num_Occ_Moy_Txt1 (T : in T_Trie; S : in out Float);
+   procedure Num_Occ_Moy_Txt2 (T : in T_Trie; S : in out Float); 
 
    -- #################################################################################
 
@@ -35,7 +37,8 @@ package Text_Stat is
    function Long_Moy(L : TListe_Triplet) return Float;
    function Long_Moy(A : TABR_Couple) return Float;
    function Long_Moy(A : TABR_Triplet) return Float;
-   function Long_Moy(T : T_Trie) return Float;
+   procedure Long_Moy_Txt1 (T : in T_Trie; S : in out Float);
+   procedure Long_Moy_Txt2 (T : in T_Trie; S : in out Float);
 
    -- #################################################################################
    
@@ -45,6 +48,7 @@ package Text_Stat is
    function Num_Mot_Sup(A : TABR_Couple; N : Integer) return Integer;
    function Num_Mot_Sup(L : TListe_Triplet; N : Integer) return Integer;
    function Num_Mot_Sup(A : TABR_Triplet; N : Integer) return Integer;
-   function Num_Mot_Sup(T : T_Trie; N : Integer) return Integer;
-   
+   procedure Num_Mot_Sup_Txt1 (T : in T_Trie; N : Integer; S : in out Integer);
+   procedure Num_Mot_Sup_Txt2 (T : in T_Trie; N : Integer; S : in out Integer);        
+
 end Text_Stat;

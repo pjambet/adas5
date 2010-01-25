@@ -400,6 +400,58 @@ package body Analyse_Lexicale is
    end;
 
    -- #################################################################################
+   
+   procedure Ecriture_Dest_Txt1(T : in T_Trie; C : in String; F : in Natural; D : in File_Type) is
+      Chaine : String(1 .. 30);
+      Fin : Natural;
+   begin
+      if not TrieVide(T) then
+         Chaine := C;
+         Fin := F;
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_Prefixes(Get_ST(T, I)) > 0 then
+                  Fin := Fin + 1;
+                  Chaine(Fin) := I;
+               end if;
+               if Get_MotsTxt1(Get_ST(T, I)) > 0 then -- nbOcc = 1 ou +
+                  Put(".");
+                  Put(D, Chaine(Chaine'First .. Fin));
+                  Put_Line(D, Integer'Image(Get_MotsTxt1(Get_ST(T, I))));
+               end if;
+               Ecriture_Dest_Txt1(Get_ST(T, I), Chaine, Fin, D);
+               Fin := Fin - 1;
+            end if;
+         end loop;
+      end if;
+   end;
+
+   procedure Ecriture_Dest_Txt2(T : in T_Trie; C : in String; F : in Natural; D : in File_Type) is
+      Chaine : String(1 .. 30);
+      Fin : Natural;
+   begin
+      if not TrieVide(T) then
+         Chaine := C;
+         Fin := F;
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_Prefixes(Get_ST(T, I)) > 0 then
+                  Fin := Fin + 1;
+                  Chaine(Fin) := I;
+               end if;
+               if Get_MotsTxt1(Get_ST(T, I)) > 0 or else Get_MotsTxt2(Get_ST(T, I)) > 0 then -- nbOccTxt1 = 1+ ou nbOccTxt2 = 1+
+                  Put(".");
+                  Put(D, Chaine(Chaine'First .. Fin));
+                  Put_Line(D, Integer'Image(Get_MotsTxt1(Get_ST(T, I))) & Integer'Image(Get_MotsTxt2(Get_ST(T, I))));
+               end if;
+               Ecriture_Dest_Txt2(Get_ST(T, I), Chaine, Fin, D);
+               Fin := Fin - 1;
+            end if;
+         end loop;
+      end if;
+   end;
+
+   -- #################################################################################
 
    procedure Recup_Fichier (L : in out TListe_Couple) is
       Orig : File_Type;
@@ -654,6 +706,31 @@ package body Analyse_Lexicale is
       null;
    end;
    
+   procedure AffichageN(T : in T_Trie; N : in Integer; C : in String; F : in Natural) is
+      -- affiche les N premiers mots du trie
+      Chaine : String(1 .. 30);
+      Fin : Natural;
+   begin
+      if not TrieVide(T) and then N > 0 then
+         Chaine := C;
+         Fin := F;
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_Prefixes(Get_ST(T, I)) > 0 then
+                  Fin := Fin + 1;
+                  Chaine(Fin) := I;
+               end if;
+               if Get_MotsTxt1(Get_ST(T, I)) > 0 then -- nbOcc = 1 ou +
+                  Put(Chaine(Chaine'First .. Fin));
+                  Put_Line(Integer'Image(Get_MotsTxt1(Get_ST(T, I))));
+               end if;
+               AffichageN(Get_ST(T, I), N-1, Chaine, Fin);
+               Fin := Fin - 1;
+            end if;
+         end loop;
+      end if;
+   end;
+   
    -- #################################################################################
 
 
@@ -691,10 +768,10 @@ package body Analyse_Lexicale is
    
    -- #################################################################################
    
-   procedure Query_Intersection (T : in TListe_Triplet) is
+   procedure Query_Intersection (L : in TListe_Triplet) is
       Temp : TListe_Triplet;
    begin
-      Temp := T;
+      Temp := L;
       while not EstVide(Temp) loop
          if (Get_NbOcc_Txt1(Premier(Temp)) /= 0) and then (Get_NbOcc_Txt2(Premier(Temp)) /= 0) then
             Imprime_Triplet(Premier(Temp));
@@ -708,13 +785,38 @@ package body Analyse_Lexicale is
    begin
       null;
    end;
+
+   procedure Query_Intersection (T : in T_Trie; C : in String; F : in Natural) is
+      -- affiche les mots communs de deux auteurs
+      Chaine : String(1 .. 30);
+      Fin : Natural;
+   begin
+      if not TrieVide(T) then
+         Chaine := C;
+         Fin := F;
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_Prefixes(Get_ST(T, I)) > 0 then
+                  Fin := Fin + 1;
+                  Chaine(Fin) := I;
+               end if;
+               if (Get_MotsTxt1(Get_ST(T, I)) /= 0) and then (Get_MotsTxt2(Get_ST(T, I)) /= 0) then -- nbOcc = 1 ou +
+                  Put(Chaine(Chaine'First .. Fin));
+                  Put_Line(Integer'Image(Get_MotsTxt1(Get_ST(T, I))) & Integer'Image(Get_MotsTxt2(Get_ST(T, I))));
+               end if;
+               Query_Intersection(Get_ST(T, I), Chaine, Fin);
+               Fin := Fin - 1;
+            end if;
+         end loop;
+      end if;
+   end;
    
    -- #################################################################################
    
-   procedure Query_Difference (T : in TListe_Triplet) is
+   procedure Query_Difference (L : in TListe_Triplet) is
       Temp : TListe_Triplet;
    begin
-      Temp := T;
+      Temp := L;
       while not EstVide(Temp) loop
          if (Get_NbOcc_Txt1(Premier(Temp)) /= 0) xor (Get_NbOcc_Txt2(Premier(Temp)) /= 0) then
             Imprime_Triplet(Premier(Temp));
@@ -724,9 +826,34 @@ package body Analyse_Lexicale is
       New_Line;
    end;
    
-   procedure Query_Difference (T : in TABR_Triplet) is
+   procedure Query_Difference (A : in TABR_Triplet) is
    begin
       null;
    end;
-   
+
+   procedure Query_Difference (T : in T_Trie; C : in String; F : in Natural) is
+      -- affiche les mots d'un auteur et pas de l'autre (et vice versa)
+      Chaine : String(1 .. 30);
+      Fin : Natural;
+   begin
+      if not TrieVide(T) then
+         Chaine := C;
+         Fin := F;
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_Prefixes(Get_ST(T, I)) > 0 then
+                  Fin := Fin + 1;
+                  Chaine(Fin) := I;
+               end if;
+               if (Get_MotsTxt1(Get_ST(T, I)) /= 0) xor (Get_MotsTxt2(Get_ST(T, I)) /= 0) then -- nbOcc = 1 ou +
+                  Put(Chaine(Chaine'First .. Fin));
+                  Put_Line(Integer'Image(Get_MotsTxt1(Get_ST(T, I))) & Integer'Image(Get_MotsTxt2(Get_ST(T, I))));
+               end if;
+               Query_Difference(Get_ST(T, I), Chaine, Fin);
+               Fin := Fin - 1;
+            end if;
+         end loop;
+      end if;
+   end;
+
 end Analyse_Lexicale;

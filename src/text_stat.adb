@@ -9,9 +9,9 @@ package body Text_Stat is
    begin
       Ltemp := L;
       N := 0;
-      while not EstVide(ltemp) loop
-         N := N + 1;
-          Ltemp := Suivant(Ltemp);
+      while not EstVide(Ltemp) loop
+         N := N + Get_NbOcc(Valeur(Ltemp));
+         Ltemp := Suivant(Ltemp);
       end loop;
       return N;
    end;
@@ -23,14 +23,13 @@ package body Text_Stat is
       Ltemp := L;
       N := 0;
       while not EstVide(Ltemp) loop
-         N := N + 1;
+         N := N + Get_NbOcc_Txt1(Valeur(Ltemp)) + Get_NbOcc_Txt2(Valeur(Ltemp));
          Ltemp := Suivant(Ltemp);
       end loop;
       return N;
    end;
 
    function Num_Mot_Tot(A : TABR_Couple) return Integer is
-   --Calcule le nombre total de mot du texte
    begin
       if Arbre_Vide(A) then return 0;
       else return 1 + Num_Mot_Tot(Sag(A))+ Num_Mot_Tot(Sad(A));
@@ -44,11 +43,27 @@ package body Text_Stat is
       end if;
    end Num_Mot_Tot;
 
-   function Num_Mot_Tot(T : T_Trie) return Integer is
+   procedure Num_Mot_Tot_Txt1(T : T_Trie; S : in out Integer) is
    begin
-      return Get_MotsTxt1(Get_SousTab(T, 'a'));
+      if TrieVide(T) then
+         S := 0;
+      else
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_MotsTxt1(Get_ST(T, I)) > 0 then
+                  S := S + Get_MotsTxt1(Get_ST(T, I));
+               end if;
+               Num_Mot_Tot_Txt1(Get_ST(T, I), S);
+            end if;
+         end loop;
+      end if;
    end;
-
+   
+   procedure Num_Mot_Tot_Txt2 (T : in T_Trie; S : in out Integer) is
+   begin
+      null;
+   end;
+   
    -- #################################################################################
 
    function Num_Occ_Moy(L : TListe_Couple) return Float is
@@ -97,9 +112,14 @@ package body Text_Stat is
       return Float'Value(Get_Chaine(Get_Mot_T(Lire_Racine(A)))); --TODO
    end Num_Occ_Moy;
 
-   function Num_Occ_Moy(T : T_Trie) return Float is
+   procedure Num_Occ_Moy_Txt1 (T : in T_Trie; S : in out Float) is
    begin
-      return Float(Get_MotsTxt1(Get_SousTab(T, 'a')));
+      null;
+   end;
+   
+   procedure Num_Occ_Moy_Txt2 (T : in T_Trie; S : in out Float) is
+   begin
+      null;
    end;
 
    -- #################################################################################
@@ -144,11 +164,16 @@ package body Text_Stat is
       return Float'Value(Get_Chaine(Get_Mot_T(Lire_Racine(A)))); --TODO
    end Long_Moy;
 
-   function Long_Moy(T : T_Trie) return Float is
+   procedure Long_Moy_Txt1 (T : in T_Trie; S : in out Float) is
    begin
-      return Float(Get_MotsTxt1(Get_SousTab(T, 'a')));
+      null;
    end;
-
+   
+   procedure Long_Moy_Txt2 (T : in T_Trie; S : in out Float) is
+   begin
+      null;
+   end;
+   
    -- #################################################################################
 
    function Num_Mot_Sup(L : TListe_Couple; N : Integer) return Integer is
@@ -201,9 +226,14 @@ package body Text_Stat is
       end if;
    end Num_Mot_Sup;
 
-   function Num_Mot_Sup(T : T_Trie; N : Integer) return Integer is
+   procedure Num_Mot_Sup_Txt1 (T : in T_Trie; N : in Integer; S : in out Integer) is
    begin
-      return Get_MotsTxt1(Get_SousTab(T, Integer'Image(N)(N)));
+      null;
    end;
-
+   
+   procedure Num_Mot_Sup_Txt2 (T : in T_Trie; N : in Integer; S : in out Integer) is
+   begin
+      null;
+   end;
+   
 end Text_Stat;

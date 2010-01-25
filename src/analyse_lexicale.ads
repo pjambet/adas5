@@ -1,5 +1,5 @@
-with Mot, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie;
-use Mot, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie;
+with Mot, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie, Ada.Text_IO;
+use Mot, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie, Ada.Text_IO;
 
 package Analyse_Lexicale is
 
@@ -39,6 +39,13 @@ package Analyse_Lexicale is
    
    -- #################################################################################
    
+   -- Procedure auxiliaire liee a Creer_Fichier
+   
+   procedure Ecriture_Dest_Txt1(T : in T_Trie; C : in String; F : in Natural; D : in File_Type);
+   procedure Ecriture_Dest_Txt2(T : in T_Trie; C : in String; F : in Natural; D : in File_Type);
+   
+   -- #################################################################################
+   
    -- Procedure qui recrée la liste de couple a partir du fichier "liste-mot.txt"
    -- le fichier n'est pas passé en parametre car il sera créé auparavant par la fonction Creer_Fichier
    -- et donc le fichier existera forcement et pourra etre ouvert dans le corps de la fonction
@@ -59,6 +66,7 @@ package Analyse_Lexicale is
    procedure AffichageN (L : in TListe_Triplet; N : in Integer);
    procedure AffichageN (A : in TABR_Couple; N : in Integer);
    procedure AffichageN (A : in TABR_Triplet; N : in Integer);
+   procedure AffichageN (T : in T_Trie; N : in Integer; C : in String; F : in Natural);   
    
    -- #################################################################################
       
@@ -73,14 +81,16 @@ package Analyse_Lexicale is
    
    -- Procedure qui affiche les mots communs de deux auteurs
    
-   procedure Query_Intersection (T : in TListe_Triplet);
+   procedure Query_Intersection (L : in TListe_Triplet);
    procedure Query_Intersection (A : in TABR_Triplet);
-   
+   procedure Query_Intersection (T : in T_Trie; C : in String; F : in Natural);
+      
    -- #################################################################################
    
    -- Procedure qui affiche les mots d'un auteur et pas de l'autre (et vice versa)
    
-   procedure Query_Difference (T : in TListe_Triplet);  
-   procedure Query_Difference (T : in TABR_Triplet);
+   procedure Query_Difference (L : in TListe_Triplet);
+   procedure Query_Difference (A : in TABR_Triplet);
+   procedure Query_Difference (T : in T_Trie; C : in String; F : in Natural);
    
 end Analyse_Lexicale;
