@@ -50,26 +50,30 @@ package body Text_Stat is
 
    procedure Num_Mot_Tot_Txt1(T : T_Trie; S : in out Integer) is
    begin
-      for I in Tindice loop
-         if not STVide(T, I) then
-            if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 then
-               S := S + 1;
+      if not TrieVide(T) then
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 then
+                  S := S + 1;
+               end if;
+               Num_Mot_Tot_Txt1(Get_ST(T, I), S);
             end if;
-            Num_Mot_Tot_Txt1(Get_ST(T, I), S);
-         end if;
-      end loop;
+         end loop;
+      end if;
    end;
-   
+
    procedure Num_Mot_Tot_Txt2 (T : in T_Trie; S : in out Integer) is
    begin
-      for I in Tindice loop
-         if not STVide(T, I) then
-            if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 or else Get_NbOcc_Txt2(Get_ST(T, I)) > 0 then
-               S := S + 1;
+      if not TrieVide(T) then
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 or else Get_NbOcc_Txt2(Get_ST(T, I)) > 0 then
+                  S := S + 1;
+               end if;
+               Num_Mot_Tot_Txt2(Get_ST(T, I), S);
             end if;
-            Num_Mot_Tot_Txt2(Get_ST(T, I), S);
-         end if;
-      end loop;
+         end loop;
+      end if;
    end;
 
    -- #################################################################################
@@ -122,26 +126,30 @@ package body Text_Stat is
 
    procedure Num_Occ_Tot_Txt1 (T : in T_Trie; S : in out Integer) is
    begin
-      for I in Tindice loop
-         if not STVide(T, I) then
-            if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 then
-               S := S + Get_NbOcc_Txt1(Get_ST(T, I));
+      if not TrieVide(T) then
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 then
+                  S := S + Get_NbOcc_Txt1(Get_ST(T, I));
+               end if;
+               Num_Occ_Tot_Txt1(Get_ST(T, I), S);
             end if;
-            Num_Occ_Tot_Txt1(Get_ST(T, I), S);
-         end if;
-      end loop;
+         end loop;
+      end if;
    end;
-   
+
    procedure Num_Occ_Tot_Txt2 (T : in T_Trie; S : in out Integer) is
    begin
-      for I in Tindice loop
-         if not STVide(T, I) then
-            if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 or else Get_NbOcc_Txt2(Get_ST(T, I)) > 0 then
-               S := S + Get_NbOcc_Txt1(Get_ST(T, I)) + Get_NbOcc_Txt2(Get_ST(T, I));
+      if not TrieVide(T) then
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 or else Get_NbOcc_Txt2(Get_ST(T, I)) > 0 then
+                  S := S + Get_NbOcc_Txt1(Get_ST(T, I)) + Get_NbOcc_Txt2(Get_ST(T, I));
+               end if;
+               Num_Occ_Tot_Txt2(Get_ST(T, I), S);
             end if;
-            Num_Occ_Tot_Txt2(Get_ST(T, I), S);
-         end if;
-      end loop;
+         end loop;
+      end if;
    end;
 
    -- #################################################################################
@@ -186,30 +194,34 @@ package body Text_Stat is
       return Float'Value(Get_Chaine(Get_Mot_T(Lire_Racine(A)))); --TODO
    end Long_Moy;
 
-   procedure Long_Tot_Txt1 (T : in T_Trie; S : in out Float) is
+   procedure Long_Tot_Txt1 (T : in T_Trie; S : in out Integer) is
    begin
-      for I in Tindice loop
-         if not STVide(T, I) then
-            if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 then
-               S := S + Get_Fin_Txt1(Get_ST(T, I));
+      if not TrieVide(T) then
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 then
+                  S := S + Get_Fin_Txt1(Get_ST(T, I));
+               end if;
+               Long_Tot_Txt1(Get_ST(T, I), S);
             end if;
-            Long_Tot_Txt1(Get_ST(T, I), S);
-         end if;
-      end loop;
+         end loop;
+      end if;
    end;
-   
-   procedure Long_Tot_Txt2 (T : in T_Trie; S : in out Float) is
+
+   procedure Long_Tot_Txt2 (T : in T_Trie; S : in out Integer) is
    begin
-      for I in Tindice loop
-         if not STVide(T, I) then
-            if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 or else Get_NbOcc_Txt2(Get_ST(T, I)) > 0 then
-               S := S + Get_Fin_Txt1(Get_ST(T, I)) + Get_Fin_Txt2(Get_ST(T, I));
+      if not TrieVide(T) then
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 or else Get_NbOcc_Txt2(Get_ST(T, I)) > 0 then
+                  S := S + Get_Fin_Txt1(Get_ST(T, I)) + Get_Fin_Txt2(Get_ST(T, I));
+               end if;
+               Long_Tot_Txt2(Get_ST(T, I), S);
             end if;
-            Long_Tot_Txt2(Get_ST(T, I), S);
-         end if;
-      end loop;
+         end loop;
+      end if;
    end;
-   
+
    -- #################################################################################
 
    function Num_Mot_Sup(L : TListe_Couple; N : Integer) return Integer is
@@ -264,12 +276,30 @@ package body Text_Stat is
 
    procedure Num_Mot_Sup_Txt1 (T : in T_Trie; N : in Integer; S : in out Integer) is
    begin
-      null;
+      if not TrieVide(T) then
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 and then Get_Fin_Txt1(Get_ST(T, I)) >= N then
+                  S := S + 1;
+               end if;
+               Num_Mot_Sup_Txt1(Get_ST(T, I), N, S);
+            end if;
+         end loop;
+      end if;
    end;
-   
+
    procedure Num_Mot_Sup_Txt2 (T : in T_Trie; N : in Integer; S : in out Integer) is
    begin
-      null;
+      if not TrieVide(T) then
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if (Get_NbOcc_Txt1(Get_ST(T, I)) > 0 and then Get_Fin_Txt1(Get_ST(T, I)) >= N) or else (Get_NbOcc_Txt2(Get_ST(T, I)) > 0 and then Get_Fin_Txt2(Get_ST(T, I)) >= N) then
+                  S := S + 1;
+               end if;
+               Num_Mot_Sup_Txt2(Get_ST(T, I), N, S);
+            end if;
+         end loop;
+      end if;
    end;
-   
+
 end Text_Stat;

@@ -77,37 +77,39 @@ package body Trie is
    begin
       if TrieVide(T) then
          Trie := CreerTrie;
-         return AjouterMot_Txt1(Trie, M, N);
+         return AjouterMot_Txt1(Trie, M, N, F);
       elsif MotVide(M) then
          T.Prefixes := T.Prefixes + 1;
          T.NbOccTxt1 := T.NbOccTxt1 + N;
+         T.FinTxt1 := F;
          return T;
       else
          T.Prefixes := T.Prefixes + 1;
          C := Get_Char(M);
          Mot := Get_CharSuffixe(M);
-         T.ST(C) := AjouterMot_Txt1(T.ST(C), Mot, N);
+         T.ST(C) := AjouterMot_Txt1(T.ST(C), Mot, N, F);
          return T;
       end if;
    end;
 
-   function AjouterMot_Txt2(T : in T_Trie; M : in T_Mot; N : in Integer) return T_Trie is
+   function AjouterMot_Txt2(T : in T_Trie; M : in T_Mot; N : in Integer; F : in Integer) return T_Trie is
       Trie : T_Trie;
       C : Character;
       Mot : T_Mot;
    begin
       if TrieVide(T) then
          Trie := CreerTrie;
-         return AjouterMot_Txt2(Trie, M, N);
+         return AjouterMot_Txt2(Trie, M, N, F);
       elsif MotVide(M) then
          T.Prefixes := T.Prefixes + 1;
          T.NbOccTxt2 := T.NbOccTxt2 + N;
+         T.FinTxt2 := F;
          return T;
       else
          T.Prefixes := T.Prefixes + 1;
          C := Get_Char(M);
          Mot := Get_CharSuffixe(M);
-         T.ST(C) := AjouterMot_Txt2(T.ST(C), Mot, N);
+         T.ST(C) := AjouterMot_Txt2(T.ST(C), Mot, N, F);
          return T;
       end if;
    end;

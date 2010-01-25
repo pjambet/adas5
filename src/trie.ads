@@ -19,8 +19,8 @@ package Trie is
    function Get_Fin_Txt2 (T: in T_Trie) return Integer;
    function Get_Prefixes (T : in T_Trie) return Integer;   
 
-   function AjouterMot_Txt1 (T : in T_Trie; M : in T_Mot; N : in Integer) return T_Trie;
-   function AjouterMot_Txt2 (T : in T_Trie; M : in T_Mot; N : in Integer) return T_Trie;
+   function AjouterMot_Txt1 (T : in T_Trie; M : in T_Mot; N : in Integer; F : in Integer) return T_Trie;
+   function AjouterMot_Txt2 (T : in T_Trie; M : in T_Mot; N : in Integer; F : in Integer) return T_Trie;
 
    procedure AfficheTrie_Txt1(T : in T_Trie; C : in String; F : in Natural);
    procedure AfficheTrie_Txt2(T : in T_Trie; C : in String; F : in Natural);   

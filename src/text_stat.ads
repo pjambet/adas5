@@ -39,8 +39,8 @@ package Text_Stat is
    function Long_Moy (L : TListe_Triplet) return Float;
    function Long_Moy (A : TABR_Couple) return Float;
    function Long_Moy (A : TABR_Triplet) return Float;
-   procedure Long_Tot_Txt1 (T : in T_Trie; S : in out Float);
-   procedure Long_Tot_Txt2 (T : in T_Trie; S : in out Float);
+   procedure Long_Tot_Txt1 (T : in T_Trie; S : in out Integer);
+   procedure Long_Tot_Txt2 (T : in T_Trie; S : in out Integer);
 
    -- #################################################################################
    

@@ -380,7 +380,7 @@ package body Analyse_Lexicale is
                Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
-                  T := AjouterMot_Txt1(T, M, 1); -- Ajoute dans le trie le premier mot significatif
+                  T := AjouterMot_Txt1(T, M, 1, Indice); -- Ajoute dans le trie le premier mot significatif
                end if;
                Indice := 0;
                C := Character'Val(0);
@@ -425,7 +425,7 @@ package body Analyse_Lexicale is
                Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
-                  T := AjouterMot_Txt2(T, M, 1); -- Ajoute dans le trie le premier mot significatif
+                  T := AjouterMot_Txt2(T, M, 1, Indice); -- Ajoute dans le trie le premier mot significatif
                end if;
                Indice := 0;
                C := Character'Val(0);
@@ -689,8 +689,7 @@ package body Analyse_Lexicale is
       Orig : File_Type;
       C : Character;
       Mot : String(1 .. 30);
-      Indice : Integer;
-      NbOcc : Integer;
+      Indice, NbOcc : Integer;
       M : T_Mot;
    begin
       Indice := 0;
@@ -715,7 +714,7 @@ package body Analyse_Lexicale is
                   Indice := 0;
                end if;
             else
-               T := AjouterMot_Txt1(T, M, NbOcc);
+               T := AjouterMot_Txt1(T, M, NbOcc, 0);
                Put(".");
                Skip_Line(Orig);
             end if;
@@ -768,8 +767,8 @@ package body Analyse_Lexicale is
                   Indice := 0;
                end if;
             else
-               T := AjouterMot_Txt1(T, M, NbOcc1);
-               T := AjouterMot_Txt2(T, M, NbOcc2);
+               T := AjouterMot_Txt1(T, M, NbOcc1, Indice);
+               T := AjouterMot_Txt2(T, M, NbOcc2, Indice);
                Put(".");
                Skip_Line(Orig);
             end if;
@@ -786,7 +785,6 @@ package body Analyse_Lexicale is
    -- #################################################################################
 
    procedure AffichageN (L : in TListe_Couple; N : in Integer) is
-      -- affiche les N premiers mots de la liste
       Compteur : Integer;
       Temp : TListe_Couple;
    begin
@@ -802,7 +800,6 @@ package body Analyse_Lexicale is
 
 
    procedure AffichageN (L : in TListe_Triplet; N : in Integer) is
-      -- affiche les N premiers mots de la liste
       Compteur : Integer;
       Temp : TListe_Triplet;
    begin
@@ -826,8 +823,7 @@ package body Analyse_Lexicale is
       null;
    end;
    
-   procedure AffichageN (T : in T_Trie; N : in Integer; C : in String; F : in Natural) is
-      -- affiche les N premiers mots du trie
+   procedure AffichageN_Txt1 (T : in T_Trie; N : in Integer; C : in String; F : in Natural) is
       Chaine : String(1 .. 30);
       Fin : Natural;
    begin
@@ -844,7 +840,31 @@ package body Analyse_Lexicale is
                   Put(Chaine(Chaine'First .. Fin));
                   Put_Line(Integer'Image(Get_NbOcc_Txt1(Get_ST(T, I))));
                end if;
-               AffichageN(Get_ST(T, I), N-1, Chaine, Fin);
+               AffichageN_Txt1(Get_ST(T, I), N-1, Chaine, Fin);
+               Fin := Fin - 1;
+            end if;
+         end loop;
+      end if;
+   end;
+
+   procedure AffichageN_Txt2 (T : in T_Trie; N : in Integer; C : in String; F : in Natural) is
+      Chaine : String(1 .. 30);
+      Fin : Natural;
+   begin
+      if not TrieVide(T) and then N > 0 then
+         Chaine := C;
+         Fin := F;
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_Prefixes(Get_ST(T, I)) > 0 then
+                  Fin := Fin + 1;
+                  Chaine(Fin) := I;
+               end if;
+               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 or else Get_NbOcc_Txt2(Get_ST(T, I)) > 0 then -- nbOcc = 1 ou +
+                  Put(Chaine(Chaine'First .. Fin));
+                  Put_Line(Integer'Image(Get_NbOcc_Txt1(Get_ST(T, I))) & Integer'Image(Get_NbOcc_Txt2(Get_ST(T, I))));
+               end if;
+               AffichageN_Txt2(Get_ST(T, I), N-1, Chaine, Fin);
                Fin := Fin - 1;
             end if;
          end loop;
@@ -852,7 +872,6 @@ package body Analyse_Lexicale is
    end;
    
    -- #################################################################################
-
 
    function Query_NbOcc_Txt1 (L : TListe_Triplet; M : T_Mot) return Integer is
    begin

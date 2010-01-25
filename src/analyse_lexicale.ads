@@ -66,7 +66,8 @@ package Analyse_Lexicale is
    procedure AffichageN (L : in TListe_Triplet; N : in Integer);
    procedure AffichageN (A : in TABR_Couple; N : in Integer);
    procedure AffichageN (A : in TABR_Triplet; N : in Integer);
-   procedure AffichageN (T : in T_Trie; N : in Integer; C : in String; F : in Natural);   
+   procedure AffichageN_Txt1 (T : in T_Trie; N : in Integer; C : in String; F : in Natural);
+   procedure AffichageN_Txt2 (T : in T_Trie; N : in Integer; C : in String; F : in Natural);   
    
    -- #################################################################################
       
