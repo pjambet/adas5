@@ -31,16 +31,23 @@ procedure Main is
 
 begin
 
-   Put_line("********************************************************************");
-   Put_Line("*                                                                  *");
-   Put_Line("*                  ANALYSEUR LEXICALE v2                           *");
-   Put_Line("*                      PROJET ADA S5                               *");
-   Put_Line("*                                                                  *");
-   Put_Line("* Auteurs :                                                        *");
-   Put_Line("*   JAMBET PIERRE                                                  *");
-   Put_Line("*   DREYER QUENTIN                                                 *");
-   Put_Line("*                                                                  *");
-   Put_line("********************************************************************");
+   Put_line("********************************************************************************");
+   Put_line("    _                _                             _              _           _ ");
+   Put_line("   / \   _ __   __ _| |_   _ ___  ___ _   _ _ __  | |    _____  _(_) ___ __ _| |");
+   Put_line("  / _ \ | '_ \ / _` | | | | / __|/ _ \ | | | '__| | |   / _ \ \/ / |/ __/ _` | |");
+   Put_line(" / ___ \| | | | (_| | | |_| \__ \  __/ |_| | |    | |__|  __/>  <| | (_| (_| | |");
+   Put_line("/_/   \_\_| |_|\__,_|_|\__, |___/\___|\__,_|_|    |_____\___/_/\_\_|\___\__,_|_|");
+   Put_line("                       |___/                                                    ");
+   Put_Line("                                                                                ");
+   Put_Line("*                                                                              *");
+   Put_Line("*                  ANALYSEUR LEXICALE v2                                       *");
+   Put_Line("*                      PROJET ADA S5                                           *");
+   Put_Line("*                                                                              *");
+   Put_Line("* Auteurs :                                                                    *");
+   Put_Line("*   JAMBET PIERRE                                                              *");
+   Put_Line("*   DREYER QUENTIN                                                             *");
+   Put_Line("*                                                                              *");
+   Put_line("********************************************************************************");
    New_Line;
 
    Menu := True;
