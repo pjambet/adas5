@@ -209,6 +209,18 @@ package body Text_Stat is
    end;
 
    procedure Long_Tot_Txt2 (T : in T_Trie; S : in out Integer) is
+      null;
+--      for I in Tindice loop
+--         if not STVide(T, I) then
+--            if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 then
+--               S := S + Get_Fin_Txt1(Get_ST(T, I));
+--            end if;
+--            Long_Tot_Txt1(Get_ST(T, I), S);
+--         end if;
+--      end loop;
+   end;
+--   
+   procedure Long_Tot_Txt2 (T : in T_Trie; S : in out Float) is
    begin
       if not TrieVide(T) then
          for I in Tindice loop
@@ -220,6 +232,15 @@ package body Text_Stat is
             end if;
          end loop;
       end if;
+      null;
+--      for I in Tindice loop
+--         if not STVide(T, I) then
+--            if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 or else Get_NbOcc_Txt2(Get_ST(T, I)) > 0 then
+--               S := S + Get_Fin_Txt1(Get_ST(T, I)) + Get_Fin_Txt2(Get_ST(T, I));
+--            end if;
+--            Long_Tot_Txt2(Get_ST(T, I), S);
+--         end if;
+--      end loop;
    end;
 
    -- #################################################################################

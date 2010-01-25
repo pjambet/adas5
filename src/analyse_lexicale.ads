@@ -43,6 +43,8 @@ package Analyse_Lexicale is
    
    procedure Ecriture_Dest_Txt1(T : in T_Trie; C : in String; F : in Natural; D : in File_Type);
    procedure Ecriture_Dest_Txt2(T : in T_Trie; C : in String; F : in Natural; D : in File_Type);
+   procedure Ecriture_Dest_Txt1(Ab : in Tabr_Couple; D : in File_Type);
+   procedure Ecriture_Dest_Txt2(Ab : in Tabr_Triplet; D : in File_Type);
    
    -- #################################################################################
    
