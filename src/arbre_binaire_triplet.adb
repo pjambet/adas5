@@ -16,9 +16,16 @@ package body Arbre_Binaire_Triplet is
    T: T_Triplet;
    begin
       T := Lire_Racine(A);
-      Set_Nbocc_txt2(T, Get_Nbocc_txt1(T)+1);
+      Set_Nbocc_txt2(T, Get_Nbocc_txt2(T)+1);
       Modifie(A, T);
    end Traitement_Doublon_Triplet_Txt2;
+   
+   procedure Traitement_Doublon_Triplet_Som(L : in out TAbr_Triplet) is
+   --Gere les actions a executer en cas de doublon dans l'arbre
+   --Quand on tombe sur un doublon, on increment le NbOcc2 du Triplet
+   begin
+      null;
+   end Traitement_Doublon_Triplet_Som;
 
    procedure Affiche_Triplet(A: in Tabr_Triplet) is
    begin

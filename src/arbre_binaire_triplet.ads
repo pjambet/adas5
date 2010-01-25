@@ -17,6 +17,10 @@ package Arbre_Binaire_Triplet is
    procedure Traitement_Doublon_Triplet_Txt2(A: in out TAbr_Triplet);
    --Gere les actions a executer en cas de doublon dans l'arbre
    --Quand on tombe sur un doublon, on increment le NbOcc1 du Triplet
+   
+   procedure Traitement_Doublon_Triplet_Som(L : in out TAbr_Triplet);
+   --Gere les actions a executer en cas de doublon dans l'arbre
+   --Quand on tombe sur un doublon, on increment le NbOcc2 du Triplet
 
    procedure Affiche_Triplet(A: in TABR_Triplet);
 
@@ -42,6 +46,10 @@ package Arbre_Binaire_Triplet is
                                                    Egale_Triplet_Lex,
                                                    Inferieur_Triplet_Lex,
                                                    Traitement_Doublon_Triplet_Txt2);
-
+      
+   procedure Inserer_ARN_Triplet_OccS is new Inserer_ARN(Superieur_Triplet_OccS,
+                                                   Egale_Triplet_OccS,
+                                                   Inferieur_Triplet_OccS,
+                                                   Traitement_Doublon_Triplet_Txt1);
 
 end Arbre_Binaire_Triplet;

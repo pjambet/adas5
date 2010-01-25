@@ -5,7 +5,6 @@ procedure Main is
 
    Menu, SMenu, NomFic : Boolean;
    Choix, NbMot, Num, NumMotTot, NumOccTot, LongTot, NumMotSupN : Integer;
-   Choix, NbMot, Num : Integer;
    L : TListe_Couple;
    LT : TListe_Triplet;
    AB : TABR_Couple;

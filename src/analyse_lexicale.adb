@@ -291,368 +291,7 @@ package body Analyse_Lexicale is
                Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
-                  Triplet := Creer_Triplet(M, 0, 1);
-                  Inserer_ARN_Triplet_txt1(A, Triplet); -- Ajoute dans la liste le premier mot significatif
-               end if;
-               Indice := 0;
-               C := Character'Val(0);
-            end if;
-         end if;
-      end loop;
-      Close(Orig);
-      New_Line;
-      Put_Line("Fin lecture !");
-      Skip_Line;
-
-   end;
-
-   procedure Query_Struct_Txt2 (A : in out TABR_Triplet; NomFic : in String) is
-      Orig : File_Type; -- Fichier source
-      C : Character;
-      Mot : String(1 .. 30);
-      Indice : Integer;
-      Triplet : T_Triplet;
-      M : T_Mot;
-
-   begin
-      Indice := 0;
-      C := Character'Val(0);
-      Open(Orig, In_File, NomFic);
-      Put("Debut lecture");
-      while not End_Of_File(Orig) loop
-         if End_Of_Line(Orig) then
-            Indice := 0;
-            Skip_Line(Orig);
-         else -- non(End_Of_Line(Orig))
-            Get(Orig, C);
-            if CaractereAutorise(C) then -- On crée le mot
-               Indice := Indice + 1;
-               if Is_Upper(C) then
-                  C := To_Lower(C);
-               end if;
-               Mot(Indice) := C;
-            else -- non(CaractereAutorise(C))
-               Put(".");
-               M := Creer_Mot(Mot(1 .. Indice));
-               if EstMotSignificatif(M) then
-                  Triplet := Creer_Triplet(M, 0, 1);
-                  Inserer_ARN_Triplet_Txt2(A, Triplet); -- Ajoute dans la liste le premier mot significatif
-               end if;
-               Indice := 0;
-               C := Character'Val(0);
-            end if;
-         end if;
-      end loop;
-      Close(Orig);
-      New_Line;
-      Put_Line("Fin lecture !");
-      Skip_Line;
-
-   end;
-
-   procedure Query_Struct_Txt1(T : in out T_Trie; NomFic : in String) is
-      Orig : File_Type; -- Fichier source
-      C : Character;
-      Mot : String(1 .. 30);
-      Indice : Integer;
-      M : T_Mot;
-      Chrono_start : Integer;
-      Chrono_end : Integer;
-   begin
-with Mot, Couple, Triplet, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie, Ada.Text_IO, Ada.Characters.Handling, Ada.Calendar;
-use Mot, Couple, Triplet, Liste_Couple.L, Liste_Triplet.LT, Arbre_Binaire_Couple.AB, Arbre_Binaire_Triplet.ABT, Trie, Ada.Text_IO, Ada.Characters.Handling, Ada.Calendar;
-
-package body Analyse_Lexicale is
-
-   function CaractereAutorise (C : in Character) return Boolean is
-   begin
-      if C = Character'Val(32) then -- ' '
-         return False;
-      elsif C = Character'Val(33) then -- '!'
-         return False;
-      elsif C = Character'Val(34) then -- '"'
-         return False;
-      elsif C = Character'Val(35) then -- '#'
-         return False;
-      elsif C = Character'Val(36) then -- '$'
-         return False;
-      elsif C = Character'Val(37) then -- '%'
-         return False;
-      elsif C = Character'Val(38) then -- '&'
-         return False;
-      elsif C = Character'Val(40) then -- '('
-         return False;
-      elsif C = Character'Val(41) then -- ')'
-         return False;
-      elsif C = Character'Val(42) then -- '*'
-         return False;
-      elsif C = Character'Val(43) then -- '+'
-         return False;
-      elsif C = Character'Val(44) then -- ','
-         return False;
-      elsif C = Character'Val(46) then -- '.'
-         return False;
-      elsif C = Character'Val(47) then -- '/'
-         return False;
-      elsif C = Character'Val(58) then -- ':'
-         return False;
-      elsif C = Character'Val(59) then -- ';'
-         return False;
-      elsif C = Character'Val(60) then -- '<'
-         return False;
-      elsif C = Character'Val(61) then -- '='
-         return False;
-      elsif C = Character'Val(62) then -- '>'
-         return False;
-      elsif C = Character'Val(63) then -- '?'
-         return False;
-      elsif C = Character'Val(64) then -- '@'
-         return False;
-      elsif C = Character'Val(91) then -- '['
-         return False;
-      elsif C = Character'Val(92) then -- '\'
-         return False;
-      elsif C = Character'Val(93) then -- ']'
-         return False;
-      elsif C = Character'Val(94) then -- '^'
-         return False;
-      elsif C = Character'Val(95) then -- '_'
-         return False;
-      elsif C = Character'Val(96) then -- '`'
-         return False;
-      elsif C = Character'Val(10) then -- LF
-         return False;
-      elsif C = Character'Val(13) then -- CR
-         return False;
-      else
-         return True;
-      end if;
-   end;
-
-   function Existe (Name : in String) return Boolean is
-      File : File_Type;
-   begin
-      Open(File, In_File, Name);
-      Close(File);
-      return True;
-   exception
-      when Name_Error =>
-         return False;
-      when others =>
-         raise;
-   end Existe;
-
-   -- #################################################################################
-
-   procedure Query_Struct (L: in out TListe_Couple; NomFic : in String) is
-      Orig : File_Type; -- Fichier source
-      C : Character;
-      Mot : String(1 .. 30);
-      Indice : Integer;
-      Couple : T_Couple;
-      M : T_Mot;
-      Chrono_start : Integer;
-      Chrono_end : Integer;
-   begin
-      Indice := 0;
-      C := Character'Val(0);
-      Chrono_start := Integer(seconds(Clock));
-      Open(Orig, In_File, NomFic);
-      Put("Debut lecture");
-      while not End_Of_File(Orig) loop
-         if End_Of_Line(Orig) then
-            Indice := 0;
-            Skip_Line(Orig);
-         else -- non(End_Of_Line(Orig))
-            Get(Orig, C);
-            if CaractereAutorise(C) then -- On crée le mot
-               Indice := Indice + 1;
-               if Is_Upper(C) then
-                  C := To_Lower(C);
-               end if;
-               Mot(Indice) := C;
-            else -- non(CaractereAutorise(C))
-               Put(".");
-               M := Creer_Mot(Mot(1 .. Indice));
-               if EstMotSignificatif(M) then
-                  Couple := Creer_Couple(M, 1);
-                  InsererTriee_Couple_Lex(L, Couple); -- Ajoute dans la liste le premier mot significatif
-               end if;
-               Indice := 0;
-               C := Character'Val(0);
-            end if;
-         end if;
-      end loop;
-      Close(Orig);
-      Chrono_end := Integer(seconds(Clock));
-      New_Line;
-      Put_Line("Fin lecture !");
-      Put_Line("Temps d'analyse : " & Integer'Image(Chrono_end-Chrono_start));
-      Skip_Line;
-   end;
-
-   procedure Query_Struct_Txt1 (L : in out TListe_Triplet; NomFic : in String) is
-      Orig : File_Type; -- Fichier source
-      C : Character;
-      Mot : String(1 .. 30);
-      Indice : Integer;
-      Triplet : T_Triplet;
-      M : T_Mot;
-   begin
-      Indice := 0;
-      C := Character'Val(0);
-      Open(Orig, In_File, NomFic);
-      Put("Debut lecture");
-      while not End_Of_File(Orig) loop
-         if End_Of_Line(Orig) then
-            Indice := 0;
-            Skip_Line(Orig);
-         else -- non(End_Of_Line(Orig))
-            Get(Orig, C);
-            if CaractereAutorise(C) then -- On crée le mot
-               Indice := Indice + 1;
-               if Is_Upper(C) then
-                  C := To_Lower(C);
-               end if;
-               Mot(Indice) := C;
-            else -- non(CaractereAutorise(C))
-               Put(".");
-               M := Creer_Mot(Mot(1 .. Indice));
-               if EstMotSignificatif(M) then
                   Triplet := Creer_Triplet(M, 1, 0);
-                  InsererTriee_Triplet_Lex_Txt1(L, Triplet); -- Ajoute dans la liste le premier mot significatif
-               end if;
-               Indice := 0;
-               C := Character'Val(0);
-            end if;
-         end if;
-      end loop;
-      Close(Orig);
-      New_Line;
-      Put_Line("Fin lecture !");
-      Skip_Line;
-   end;
-
-   procedure Query_Struct_Txt2 (L : in out TListe_Triplet; NomFic : in String) is
-      Orig : File_Type; -- Fichier source
-      C : Character;
-      Mot : String(1 .. 30);
-      Indice : Integer;
-      Triplet : T_Triplet;
-      M : T_Mot;
-   begin
-      Indice := 0;
-      C := Character'Val(0);
-      Open(Orig, In_File, NomFic);
-      Put("Debut lecture");
-      while not End_Of_File(Orig) loop
-         if End_Of_Line(Orig) then
-            Indice := 0;
-            Skip_Line(Orig);
-         else -- non(End_Of_Line(Orig))
-            Get(Orig, C);
-            if CaractereAutorise(C) then -- On crée le mot
-               Indice := Indice + 1;
-               if Is_Upper(C) then
-                  C := To_Lower(C);
-               end if;
-               Mot(Indice) := C;
-            else -- non(CaractereAutorise(C))
-               Put(".");
-               M := Creer_Mot(Mot(1 .. Indice));
-               if EstMotSignificatif(M) then
-                  Triplet := Creer_Triplet(M, 0, 1);
-                  InsererTriee_Triplet_Lex_Txt2(L, Triplet); -- Ajoute dans la liste le premier mot significatif
-               end if;
-               Indice := 0;
-               C := Character'Val(0);
-            end if;
-         end if;
-      end loop;
-      Close(Orig);
-      New_Line;
-      Put_Line("Fin lecture !");
-      Skip_Line;
-   end;
-
-   procedure Query_Struct (A : in out TABR_Couple; NomFic : in String) is
-      Orig : File_Type; -- Fichier source
-      C : Character;
-      Mot : String(1 .. 30);
-      Indice : Integer;
-      Couple : T_Couple;
-      M : T_Mot;
-      Chrono_start : Integer;
-      Chrono_end : Integer;
-
-   begin
-      Indice := 0;
-      C := Character'Val(0);
-      Chrono_start := Integer(seconds(Clock));
-      Open(Orig, In_File, NomFic);
-      Put("Debut lecture");
-      while not End_Of_File(Orig) loop
-         if End_Of_Line(Orig) then
-            Indice := 0;
-            Skip_Line(Orig);
-         else -- non(End_Of_Line(Orig))
-            Get(Orig, C);
-            if CaractereAutorise(C) then -- On crée le mot
-               Indice := Indice + 1;
-               if Is_Upper(C) then
-                  C := To_Lower(C);
-               end if;
-               Mot(Indice) := C;
-            else -- non(CaractereAutorise(C))
-               Put(".");
-               M := Creer_Mot(Mot(1 .. Indice));
-               if EstMotSignificatif(M) then
-                  Couple := Creer_Couple(M, 1);
-                  Inserer_ARN_Couple(A, Couple); -- Ajoute dans la liste le premier mot significatif
-               end if;
-               Indice := 0;
-               C := Character'Val(0);
-            end if;
-         end if;
-      end loop;
-      Close(Orig);
-      Chrono_end := Integer(seconds(Clock));
-      New_Line;
-      Put_Line("Fin lecture !");
-      Put_Line("Temps d'analyse : " & Integer'Image(Chrono_end-Chrono_start));
-      Skip_Line;
-   end;
-
-   procedure Query_Struct_Txt1 (A : in out TABR_Triplet; NomFic : in String) is
-      Orig : File_Type; -- Fichier source
-      C : Character;
-      Mot : String(1 .. 30);
-      Indice : Integer;
-      Triplet : T_Triplet;
-      M : T_Mot;
-
-   begin
-      Indice := 0;
-      C := Character'Val(0);
-      Open(Orig, In_File, NomFic);
-      Put("Debut lecture");
-      while not End_Of_File(Orig) loop
-         if End_Of_Line(Orig) then
-            Indice := 0;
-            Skip_Line(Orig);
-         else -- non(End_Of_Line(Orig))
-            Get(Orig, C);
-            if CaractereAutorise(C) then -- On crée le mot
-               Indice := Indice + 1;
-               if Is_Upper(C) then
-                  C := To_Lower(C);
-               end if;
-               Mot(Indice) := C;
-            else -- non(CaractereAutorise(C))
-               Put(".");
-               M := Creer_Mot(Mot(1 .. Indice));
-               if EstMotSignificatif(M) then
-                  Triplet := Creer_Triplet(M, 0, 1);
                   Inserer_ARN_Triplet_txt1(A, Triplet); -- Ajoute dans la liste le premier mot significatif
                end if;
                Indice := 0;
@@ -754,41 +393,6 @@ package body Analyse_Lexicale is
       Put_Line("Fin lecture !");
       Put_Line("Temps d'analyse : " & Integer'Image(Chrono_end-Chrono_start));
       Skip_Line;
-      null;
---      Indice := 0;
---      C := Character'Val(0);
---      Chrono_start := Integer(seconds(Clock));
---      Open(Orig, In_File, NomFic);
---      Put("Debut lecture");
---      while not End_Of_File(Orig) loop
---         if End_Of_Line(Orig) then
---            Indice := 0;
---            Skip_Line(Orig);
---         else -- non(End_Of_Line(Orig))
---            Get(Orig, C);
---            if CaractereAutorise(C) then -- On crée le mot
---               Indice := Indice + 1;
---               if Is_Upper(C) then
---                  C := To_Lower(C);
---               end if;
---               Mot(Indice) := C;
---            else -- non(CaractereAutorise(C))
---               Put(".");
---               M := Creer_Mot(Mot(1 .. Indice));
---               if EstMotSignificatif(M) then
---                  T := AjouterMot_Txt1(T, M, 1); -- Ajoute dans le trie le premier mot significatif
---               end if;
---               Indice := 0;
---               C := Character'Val(0);
---            end if;
---         end if;
---      end loop;
---      Close(Orig);
---      Chrono_end := Integer(seconds(Clock));
---      New_Line;
---      Put_Line("Fin lecture !");
---      Put_Line("Temps d'analyse : " & Integer'Image(Chrono_end-Chrono_start));
---      Skip_Line;
    end;
 
    procedure Query_Struct_Txt2(T : in out T_Trie; NomFic : in String) is
@@ -834,41 +438,6 @@ package body Analyse_Lexicale is
       Put_Line("Fin lecture !");
       Put_Line("Temps d'analyse : " & Integer'Image(Chrono_end-Chrono_start));
       Skip_Line;
-      null;
---      Indice := 0;
---      C := Character'Val(0);
---      Chrono_start := Integer(seconds(Clock));
---      Open(Orig, In_File, NomFic);
---      Put("Debut lecture");
---      while not End_Of_File(Orig) loop
---         if End_Of_Line(Orig) then
---            Indice := 0;
---            Skip_Line(Orig);
---         else -- non(End_Of_Line(Orig))
---            Get(Orig, C);
---            if CaractereAutorise(C) then -- On crée le mot
---               Indice := Indice + 1;
---               if Is_Upper(C) then
---                  C := To_Lower(C);
---               end if;
---               Mot(Indice) := C;
---            else -- non(CaractereAutorise(C))
---               Put(".");
---               M := Creer_Mot(Mot(1 .. Indice));
---               if EstMotSignificatif(M) then
---                  T := AjouterMot_Txt2(T, M, 1); -- Ajoute dans le trie le premier mot significatif
---               end if;
---               Indice := 0;
---               C := Character'Val(0);
---            end if;
---         end if;
---      end loop;
---      Close(Orig);
---      Chrono_end := Integer(seconds(Clock));
---      New_Line;
---      Put_Line("Fin lecture !");
---      Put_Line("Temps d'analyse : " & Integer'Image(Chrono_end-Chrono_start));
---      Skip_Line;
    end;
 
    -- #################################################################################
@@ -915,8 +484,8 @@ package body Analyse_Lexicale is
 
    procedure Creer_Fichier (A : in out TABR_Couple) is
       Dest : File_Type;      
-   begin
-      Create(Dest, Name => "liste-mot.txt");
+   begin     
+      Create(Dest, Name => "liste-mot.txt");      
       Put("Debut Creation");
       Ecriture_Dest_Txt1(A,Dest);
       New_Line(Dest);
@@ -929,7 +498,7 @@ package body Analyse_Lexicale is
    procedure Creer_Fichier (A : in out TABR_Triplet) is
       Dest : File_Type;
    begin
-      Create(Dest, Name => "liste-mot.txt");
+      Create(Dest, Name => "liste-mot2.txt");
       Put("Debut Creation");
       Ecriture_Dest_Txt2(A,Dest);
       New_Line(Dest);
@@ -1038,7 +607,7 @@ package body Analyse_Lexicale is
          Ecriture_Dest_Txt2(sad(ab),D);
       end if;
    end;
-
+   
    -- #################################################################################
 
    procedure Recup_Fichier (L : in out TListe_Couple) is
@@ -1146,7 +715,8 @@ package body Analyse_Lexicale is
       Orig : File_Type;
       C : Character;
       Mot : String(1 .. 30);
-      Indice, NbOcc : Integer;
+      Indice : Integer;
+      NbOcc : Integer;
       Couple : T_Couple;
       M : T_Mot;
    begin
@@ -1172,7 +742,6 @@ package body Analyse_Lexicale is
                   Indice := 0;
                end if;
             else
-               T := AjouterMot_Txt1(T, M, NbOcc, 0);
                Couple := Creer_Couple(M, NbOcc);
                Inserer_ARN_Couple(A, Couple);
                Put(".");
@@ -1186,7 +755,8 @@ package body Analyse_Lexicale is
       else
          Put_Line("Le fichier " & Character'Val(34) & "liste-mot.txt" & Character'Val(34) & " n'existe pas !");
       end if;
-   end Recup_Fichier;
+   end;
+
 
    procedure Recup_Fichier (A : in out TABR_Triplet) is
       Orig : File_Type;
@@ -1228,10 +798,8 @@ package body Analyse_Lexicale is
                   Indice := 0;
                end if;
             else
-               T := AjouterMot_Txt1(T, M, NbOcc1, Indice);
-               T := AjouterMot_Txt2(T, M, NbOcc2, Indice);
                Triplet := Creer_Triplet(M, NbOcc1, NbOcc2);
-               Inserer_ARN_Triplet_txt1(A, Triplet);--que ce soit 1 ou 2 normalement c'est pareil, ca ne differe que par le traitement des doublons
+               Inserer_ARN_Triplet_OccS(A, Triplet);
                Put(".");
                Skip_Line(Orig);
             end if;
@@ -1245,49 +813,48 @@ package body Analyse_Lexicale is
       end if;
    end;
 
+
    procedure Recup_Fichier_Txt1(T : in out T_Trie) is
       Orig : File_Type;
       C : Character;
       Mot : String(1 .. 30);
-      Indice : Integer;
-      NbOcc : Integer;
+      Indice, NbOcc : Integer;
       M : T_Mot;
    begin
-      null;
---      Indice := 0;
---      if Existe("liste-mot.txt") then
---         Open(Orig, In_File, "liste-mot.txt");
---         Put("Debut recuperation");
---         while not End_Of_File(Orig) loop
---            if not End_Of_Line(Orig) then
---               Get(Orig, C);
---               if C /= Character'Val(32) then -- C /= ' '
---                  Indice := Indice + 1;
---                  Mot(Indice) := C;
---               else
---                  M := Creer_Mot(Mot(1 .. Indice));
---                  Indice := 0;
---                  while not End_Of_Line(Orig) loop
---                     Get(Orig, C);
---                     Indice := Indice + 1;
---                     Mot(Indice) := C;
---                  end loop;
---                  NbOcc := Integer'Value(Mot(1 .. Indice));
---                  Indice := 0;
---               end if;
---            else
---               T := AjouterMot_Txt1(T, M, NbOcc);
---               Put(".");
---               Skip_Line(Orig);
---            end if;
---         end loop;
---         Close(Orig);
---         New_Line;
---         Put_Line("Fin recuperation !");
---         Skip_Line;
---      else
---         Put_Line("Le fichier " & Character'Val(34) & "liste-mot.txt" & Character'Val(34) & " n'existe pas !");
---      end if;
+      Indice := 0;
+      if Existe("liste-mot.txt") then
+         Open(Orig, In_File, "liste-mot.txt");
+         Put("Debut recuperation");
+         while not End_Of_File(Orig) loop
+            if not End_Of_Line(Orig) then
+               Get(Orig, C);
+               if C /= Character'Val(32) then -- C /= ' '
+                  Indice := Indice + 1;
+                  Mot(Indice) := C;
+               else
+                  M := Creer_Mot(Mot(1 .. Indice));
+                  Indice := 0;
+                  while not End_Of_Line(Orig) loop
+                     Get(Orig, C);
+                     Indice := Indice + 1;
+                     Mot(Indice) := C;
+                  end loop;
+                  NbOcc := Integer'Value(Mot(1 .. Indice));
+                  Indice := 0;
+               end if;
+            else
+               T := AjouterMot_Txt1(T, M, NbOcc, 0);
+               Put(".");
+               Skip_Line(Orig);
+            end if;
+         end loop;
+         Close(Orig);
+         New_Line;
+         Put_Line("Fin recuperation !");
+         Skip_Line;
+      else
+         Put_Line("Le fichier " & Character'Val(34) & "liste-mot.txt" & Character'Val(34) & " n'existe pas !");
+      end if;
    end;
 
    procedure Recup_Fichier_Txt2(T : in out T_Trie) is
@@ -1299,50 +866,49 @@ package body Analyse_Lexicale is
       NbOcc2 : Integer;
       M : T_Mot;
    begin
-      null;
---      Indice := 0;
---      if Existe("liste-mot2.txt") then
---         Open(Orig, In_File, "liste-mot2.txt");
---         Put("Debut recuperation");
---         while not End_Of_File(Orig) loop
---            if not End_Of_Line(Orig) then
---               Get(Orig, C);
---               if C /= Character'Val(32) then -- C /= ' '
---                  Indice := Indice + 1;
---                  Mot(Indice) := C;
---               else
---                  M := Creer_Mot(Mot(1 .. Indice));
---                  Indice := 0;
---                  loop
---                     Get(Orig, C);
---                     Indice := Indice + 1;
---                     Mot(Indice) := C;
---                     exit when C = Character'Val(32); -- C = ' '
---                  end loop;
---                  NbOcc1 := Integer'Value(Mot(1 .. Indice));
---                  Indice := 0;
---                  while not End_Of_Line(Orig) loop
---                     Get(Orig, C);
---                     Indice := Indice + 1;
---                     Mot(Indice) := C;
---                  end loop;
---                  NbOcc2 := Integer'Value(Mot(1 .. Indice));
---                  Indice := 0;
---               end if;
---            else
---               T := AjouterMot_Txt1(T, M, NbOcc1);
---               T := AjouterMot_Txt2(T, M, NbOcc2);
---               Put(".");
---               Skip_Line(Orig);
---            end if;
---         end loop;
---         Close(Orig);
---         New_Line;
---         Put_Line("Fin recuperation !");
---         Skip_Line;
---      else
---         Put_Line("Le fichier " & Character'Val(34) & "liste-mot.txt" & Character'Val(34) & " n'existe pas !");
---      end if;
+      Indice := 0;
+      if Existe("liste-mot2.txt") then
+         Open(Orig, In_File, "liste-mot2.txt");
+         Put("Debut recuperation");
+         while not End_Of_File(Orig) loop
+            if not End_Of_Line(Orig) then
+               Get(Orig, C);
+               if C /= Character'Val(32) then -- C /= ' '
+                  Indice := Indice + 1;
+                  Mot(Indice) := C;
+               else
+                  M := Creer_Mot(Mot(1 .. Indice));
+                  Indice := 0;
+                  loop
+                     Get(Orig, C);
+                     Indice := Indice + 1;
+                     Mot(Indice) := C;
+                     exit when C = Character'Val(32); -- C = ' '
+                  end loop;
+                  NbOcc1 := Integer'Value(Mot(1 .. Indice));
+                  Indice := 0;
+                  while not End_Of_Line(Orig) loop
+                     Get(Orig, C);
+                     Indice := Indice + 1;
+                     Mot(Indice) := C;
+                  end loop;
+                  NbOcc2 := Integer'Value(Mot(1 .. Indice));
+                  Indice := 0;
+               end if;
+            else
+               T := AjouterMot_Txt1(T, M, NbOcc1, Indice);
+               T := AjouterMot_Txt2(T, M, NbOcc2, Indice);
+               Put(".");
+               Skip_Line(Orig);
+            end if;
+         end loop;
+         Close(Orig);
+         New_Line;
+         Put_Line("Fin recuperation !");
+         Skip_Line;
+      else
+         Put_Line("Le fichier " & Character'Val(34) & "liste-mot.txt" & Character'Val(34) & " n'existe pas !");
+      end if;
    end;
 
    -- #################################################################################
