@@ -15,6 +15,10 @@ package Arbre_Binaire is
    Arbrevideexception : exception;
    Elt_Inexistant: exception;
 
+   function Nombre_Elt(A: T_Abr) return Integer;
+   --Renvoie le nombre d'element present dans A
+   --Renvoie 0 si A est null
+
    procedure Modifie(A: in out T_Abr;E: in T_Elem);
    --Modifie A en y remplacant son element par E
 

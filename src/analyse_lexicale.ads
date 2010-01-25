@@ -11,7 +11,7 @@ package Analyse_Lexicale is
 
    -- #################################################################################
  
-   -- Renvoit une liste comprenant tous les couples(mot;occurence) du texte, la
+   -- Renvoit une liste(ou autre structure de données) comprenant tous les couples(mot;occurence) du texte, la
    -- liste est triée par ordre alphabetique
    
    procedure Query_Struct (L : in out TListe_Couple; NomFic : in String);

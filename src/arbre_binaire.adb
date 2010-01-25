@@ -9,6 +9,15 @@ package body Arbre_Binaire is
    --cree une procedure de liberation d'espace pour les objets
    --designes par un arbre
 
+   function Nombre_Elt(A: T_Abr) return Integer is
+   --Renvoie le nombre d'element present dans A
+   --Renvoie 0 si A est null
+   begin
+      if Arbre_Vide(A) then return 0;
+      else return 1 + Nombre_Elt(Sag(A)) + Nombre_Elt(Sad(A));
+      end if;
+   end Nombre_Elt;
+
    function Colortostring (A : T_Abr) return String is
    begin
       if Couleur(A) = False then
@@ -338,15 +347,6 @@ package body Arbre_Binaire is
    begin
       Y := X.Sag;
       X.Sag := Y.Sad;
-      Put("Fils gauche de ");
-      Affiche_Noeud(X);
-      if Arbre_Vide(Sag(X)) then
-         Put(" vide");
-      else
-         Affiche_Noeud(Sag(X));
-      end if;
-      Put_Line("");
-
       if not Arbre_Vide(Y.Sad) then
          Y.Sad.Pere := X;
       end if;
@@ -403,7 +403,6 @@ package body Arbre_Binaire is
    begin
       if X.Sag = Y then
          --return
-         Put_Line("On fait une rotation simple");
          Rotation_Droite_Simple(X);
       else
          Z := Y.Pere;
@@ -460,15 +459,13 @@ package body Arbre_Binaire is
    function Cas_Equilib_Insertion_Arn (A : T_Abr)return Integer is
       --Renvoie un entier qui nous permettra dans quel cas on se trouve apres l'insertion d'un element
       --dans l'ARN
+      --renvoie -1 en cas d'erreur
    begin
       if Est_Racine(A) then
-         Put_Line("A racine");
          return 10;
       elsif Est_Racine(A.Pere) then
-         Put_Line("Pere de A racine");
          return 10;
       elsif A.Pere.Couleur = True then
-         Put_Line("RAF");
          return 0;
       else -- pere de n rouge
          if not Arbre_Vide(Oncle(A)) then
@@ -490,16 +487,16 @@ package body Arbre_Binaire is
                end if;
             end if;
          end if;
+         --C'est censé jamais arriver
+         return (-1);
       end if;
    end Cas_Equilib_Insertion_Arn;
 
    function Racine (A : T_Abr)return T_Abr is
    begin
       if Est_Racine(A) then
-         Put("on est en haut");Affiche_Noeud(A);
          return A;
       else
-         Put("remonte");Affiche_Noeud(A);
          return Racine(A.Pere);
       end if;
    end Racine;
@@ -511,27 +508,15 @@ package body Arbre_Binaire is
       N  : Integer;
       P,Gp,F : T_Abr;
    begin
-      Put("Equilibrage de : ");Affiche_Noeud(X);
       N := Cas_Equilib_Insertion_Arn(X);
-      Put_Line(Integer'Image(N));Skip_Line;
-      
+      --Put("Code inser");Put_Line(Integer'Image(N));Skip_Line;      
       P := Pere(X);
       Gp := Gpere(X);
       
-      if not Arbre_Vide(P) then
-         Put("P:");
-         Affiche_Noeud(P);
-      end if;
-      if not Arbre_Vide(Gp) then
-         Put("GP:");
-         Affiche_Noeud(Gp);
-      end if;
+      --j'initialise le frere du pere(l'oncle) seulement si il existe
       if not Arbre_Vide(P) and then not Arbre_Vide(Frere(P)) then
          F := Frere(P);
-         Put("F:");
-         Affiche_Noeud(F);
       else
-         Put_Line   ("F est null");
          F := null;
       end if;
 

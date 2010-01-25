@@ -21,6 +21,8 @@ package Arbre_Binaire_Triplet is
    procedure Affiche_Triplet(A: in TABR_Triplet);
 
    procedure Affiche_Post is new Postfixe(Traitement => Affiche_Triplet);
+   procedure Affiche_Inf is new Infixe(Traitement => Affiche_Triplet);
+   procedure Affiche_Pre is new Prefixe(Traitement => Affiche_Triplet);
 
    procedure Inserer_ABR_Triplet_Txt1 is new Inserer_ABR(Superieur_Triplet_Lex,
                                                    Egale_Triplet_Lex,

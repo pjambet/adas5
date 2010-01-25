@@ -215,18 +215,139 @@ package body Analyse_Lexicale is
    end;
 
    procedure Query_Struct (A : in out TABR_Couple; NomFic : in String) is
+      Orig : File_Type; -- Fichier source
+      C : Character;
+      Mot : String(1 .. 30);
+      Indice : Integer;
+      Couple : T_Couple;
+      M : T_Mot;
+      Chrono_start : Integer;
+      Chrono_end : Integer;
+
    begin
-      null;
+      Indice := 0;
+      C := Character'Val(0);
+      Chrono_start := Integer(seconds(Clock));
+      Open(Orig, In_File, NomFic);
+      Put("Debut lecture");
+      while not End_Of_File(Orig) loop
+         if End_Of_Line(Orig) then
+            Indice := 0;
+            Skip_Line(Orig);
+         else -- non(End_Of_Line(Orig))
+            Get(Orig, C);
+            if CaractereAutorise(C) then -- On crée le mot
+               Indice := Indice + 1;
+               if Is_Upper(C) then
+                  C := To_Lower(C);
+               end if;
+               Mot(Indice) := C;
+            else -- non(CaractereAutorise(C))
+               Put(".");
+               M := Creer_Mot(Mot(1 .. Indice));
+               if EstMotSignificatif(M) then
+                  Couple := Creer_Couple(M, 1);
+                  Inserer_ARN_Couple(A, Couple); -- Ajoute dans la liste le premier mot significatif
+               end if;
+               Indice := 0;
+               C := Character'Val(0);
+            end if;
+         end if;
+      end loop;
+      Close(Orig);
+      Chrono_end := Integer(seconds(Clock));
+      New_Line;
+      Put_Line("Fin lecture !");
+      Put_Line("Temps d'analyse : " & Integer'Image(Chrono_end-Chrono_start));
+      Skip_Line;
    end;
 
    procedure Query_Struct_Txt1 (A : in out TABR_Triplet; NomFic : in String) is
+      Orig : File_Type; -- Fichier source
+      C : Character;
+      Mot : String(1 .. 30);
+      Indice : Integer;
+      Triplet : T_Triplet;
+      M : T_Mot;
+
    begin
-      null;
+      Indice := 0;
+      C := Character'Val(0);
+      Open(Orig, In_File, NomFic);
+      Put("Debut lecture");
+      while not End_Of_File(Orig) loop
+         if End_Of_Line(Orig) then
+            Indice := 0;
+            Skip_Line(Orig);
+         else -- non(End_Of_Line(Orig))
+            Get(Orig, C);
+            if CaractereAutorise(C) then -- On crée le mot
+               Indice := Indice + 1;
+               if Is_Upper(C) then
+                  C := To_Lower(C);
+               end if;
+               Mot(Indice) := C;
+            else -- non(CaractereAutorise(C))
+               Put(".");
+               M := Creer_Mot(Mot(1 .. Indice));
+               if EstMotSignificatif(M) then
+                  Triplet := Creer_Triplet(M, 0, 1);
+                  Inserer_ARN_Triplet_txt1(A, Triplet); -- Ajoute dans la liste le premier mot significatif
+               end if;
+               Indice := 0;
+               C := Character'Val(0);
+            end if;
+         end if;
+      end loop;
+      Close(Orig);
+      New_Line;
+      Put_Line("Fin lecture !");
+      Skip_Line;
+
    end;
 
    procedure Query_Struct_Txt2 (A : in out TABR_Triplet; NomFic : in String) is
+      Orig : File_Type; -- Fichier source
+      C : Character;
+      Mot : String(1 .. 30);
+      Indice : Integer;
+      Triplet : T_Triplet;
+      M : T_Mot;
+
    begin
-      null;
+      Indice := 0;
+      C := Character'Val(0);
+      Open(Orig, In_File, NomFic);
+      Put("Debut lecture");
+      while not End_Of_File(Orig) loop
+         if End_Of_Line(Orig) then
+            Indice := 0;
+            Skip_Line(Orig);
+         else -- non(End_Of_Line(Orig))
+            Get(Orig, C);
+            if CaractereAutorise(C) then -- On crée le mot
+               Indice := Indice + 1;
+               if Is_Upper(C) then
+                  C := To_Lower(C);
+               end if;
+               Mot(Indice) := C;
+            else -- non(CaractereAutorise(C))
+               Put(".");
+               M := Creer_Mot(Mot(1 .. Indice));
+               if EstMotSignificatif(M) then
+                  Triplet := Creer_Triplet(M, 0, 1);
+                  Inserer_ARN_Triplet_Txt2(A, Triplet); -- Ajoute dans la liste le premier mot significatif
+               end if;
+               Indice := 0;
+               C := Character'Val(0);
+            end if;
+         end if;
+      end loop;
+      Close(Orig);
+      New_Line;
+      Put_Line("Fin lecture !");
+      Skip_Line;
+
    end;
 
    procedure Query_Struct_Txt1(T : in out T_Trie; NomFic : in String) is

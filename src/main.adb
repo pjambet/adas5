@@ -310,93 +310,7 @@ begin
 
                      SMenu := False;
 
-                     when 1 =>
-                        
-                        Ab := Creerarbre;
-                        Put_Line("Insertion de papa");Put_Line("");
-                        Inserer_Arn_Couple(Ab,Creer_Couple(Creer_Mot("papa"),1));
-                        Put_Line("Insertion de arbre");Put_Line("");
-                           Inserer_Arn_Couple(Ab,Creer_Couple(Creer_Mot("arbre"),1));
-                        Put_Line("Insertion de arme");Put_Line("");
-                        Inserer_Arn_Couple(Ab,Creer_Couple(Creer_Mot("arme"),1));                        
-                        Put_Line("Insertion de zoo");Put_Line("");
-                        Inserer_Arn_Couple(Ab,Creer_Couple(Creer_Mot("zoo"),1));
-                        Put_Line("Insertion de zoophile");Put_Line("");
-                        Inserer_Arn_Couple(Ab,Creer_Couple(Creer_Mot("zoophile"),1));
-                        Put_Line("Insertion de arbr");Put_Line("");
-                        Inserer_Arn_Couple(Ab,Creer_Couple(Creer_Mot("arbr"),1));
-                        Put_Line("Insertion de arb");Put_Line("");                                                
-                        Inserer_Arn_Couple(Ab,Creer_Couple(Creer_Mot("arb"),1));
-                        Put_Line("Insertion de ar");Put_Line("");
-                        Inserer_Arn_Couple(Ab,Creer_Couple(Creer_Mot("ar"),1));
-                        Put_Line("Insertion de babar");Put_Line("");
-                        Inserer_Arn_Couple(Ab,Creer_Couple(Creer_Mot("babar"),1));
-                        Put_Line("Insertion de bab");Put_Line("");
-                        Inserer_Arn_Couple(Ab,Creer_Couple(Creer_Mot("bab"),1));
-                        Inserer_Arn_Couple(Ab,Creer_Couple(Creer_Mot("babouin"),1));
-                        Put_Line("Insertion de babar");Put_Line("");
-                                                
-                        --Affiche_Inf(AB);Put_Line("");   
-                        Put_Line("INFIXE : ");
-                        Verification_Arbre_Inf(AB);
-                        Put_Line("PREFIXE : ");
-                        --Verification_Arbre_Pre(AB);
-                        Put_Line("POSTFIXE : ");
-                        --Verification_Arbre_Post(AB);
-                        if Est_Equilibre(Ab) then
-                           Put_Line("YES, arbre equilibre");
-                        else
-                           Put_Line("Et merde ... arbre aps equilibre");
-                        end if;
-                                                   
-
-                        --  NomFic := True;
-   --                       while NomFic loop
-   --                          Put_Line("Veuillez entrer le nom du fichier.");
-   --                          Get_Line(Buffer, Last);
-   --                          New_Line;
-   --                          if Existe(Buffer(1 .. Last)) then
-   --                             NomFic := False;
-   --                             -- Rajout d'une fonction qui insere dans l'arbreQuery_Liste_Couple(L, Buffer(1 .. Last)); --Remplissage de l'arbre avec les mots significatifs du texte
-   --                          elsif Buffer(Buffer'First) = Character'Val(48) then -- '0'   
-   --                             NomFic := False;
-   --                          else
-   --                             Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
-   --                             New_Line;
-   --                          end if;
-   --                       end loop;
-
-                     --if Est_Equilibre(AB) then Put_Line("L'arbre est equilibré");
-                     --else Put_Line("L'arbre n'est pas equilibré");
-                     --end if;
-                     --Put_Line("HAUTEUR");
-                     --Put_Line("hauteur de AB :"&Integer'Image(Hauteur(AB)));
-                     --Put_line("hauteur sag :"&Integer'Image(Hauteur(SAG(AB))));
-                     --Put_line("hauteur sad :"&Integer'Image(Hauteur(SAD(AB))));
-
-                     --if Recherche_ABR_ToF(AB,Creer_Couple(Creer_Mot("soeurette"),1)) then
-                     --  Put_Line("Mot Present");
-                     --else
-                     --   Put_Line("Mot pas present");
-                     --end if;
-
-                     --AB1 := RechercheR(AB);
-                     --if Arbre_Vide(AB1) then
-                     --   Put_Line("AB1 est null");
-                     --else
-                     --   Put("AB1 pointe sur: ");Imprime_Couple(Lire_Racine(AB1));
-                     --end if;
-
-                     --Verification_Arbre_Inf(AB);
-                     --Put_Line("################################");
-
-                     --AB1 := Recherche_Abr(AB, Creer_Couple(Creer_Mot("quete"),1));
-
-                     --AB := Rotation_gauche(AB,AB1);
-
-                     --Verification_Arbre_Inf(AB1);
-                     --Put_Line("################################");
-                     --Verification_Arbre_Inf(AB);
+                     when 1 =>  
 
                        NomFic := True;
                        while NomFic loop
@@ -411,7 +325,14 @@ begin
                           else
                              Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                              New_Line;
-                          end if;
+                           end if;
+                           if Est_Equilibre(Ab) then
+                              Put_Line("L'arbre est equilibre");
+                           else
+                              Put_Line("L'arbre n'est pas equilibre");
+                           end if;
+                           Put_Line("L'arbre a "&Integer'Image(Nombre_Elt(AB))&"mots");
+                                                      
                        end loop;
 
                   when 2 =>
@@ -463,7 +384,7 @@ begin
 
                   when 5 =>
 
-                     Affiche_Couple(AB);
+                     Affiche_Inf(AB);
 
                   when 6 =>
 
@@ -550,7 +471,7 @@ begin
 
                   when 11 =>
 
-                     Affiche_Triplet(ABT); -- Affiche(ABT);
+                     Affiche_Inf(ABT); -- Affiche(ABT);
 
                   when 12 =>
 
