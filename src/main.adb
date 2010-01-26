@@ -52,6 +52,8 @@ begin
    Put_line("******************************************************************");
    New_Line;
 
+   Put_Line("TODO : Query_Diff Arbre, Vider_Arbre, AffichageN Arbre/Trie, Fusion Arbre/Trie + Probleme Suffixe/Trie");
+
    Menu := True;
    Chaine(Chaine'First) := Character'Val(0); -- anti-warning
    while Menu loop
@@ -553,8 +555,8 @@ begin
                      Put_Line("Veuillez entrer un mot.");
                      Get_Line(Buffer, Last);
                      New_Line;
-                     Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(Query_NbOcc_Txt1(LT, Creer_Mot(Buffer(1 .. Last)))));
-                     Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(Query_NbOcc_Txt2(LT, Creer_Mot(Buffer(1 .. Last)))));
+                     Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(Query_NbOcc_Txt1(ABT, Creer_Mot(Buffer(1 .. Last)))));
+                     Put_Line("Le nombre d'occurence de " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(Query_NbOcc_Txt2(ABT, Creer_Mot(Buffer(1 .. Last)))));
 
                      New_Line;
                      Put_Line("Affichage du nombre de mot ayant pour prefixe un mot donne :");
@@ -736,7 +738,7 @@ begin
                      Get_Line(Buffer, Last);
                      New_Line;
                      S := 0;
-                     Query_NbSuff_Txt1(T1, Chaine, 0, Creer_Mot(Buffer), S);
+                     Query_NbSuff_Txt1(T1, Chaine, 0, Creer_Mot(Buffer(1 .. Last)), S);
                      Put_Line("Le nombre de mot ayant pour suffixe " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " est :" & Integer'Image(S));
 
                      New_Line;
