@@ -1097,8 +1097,10 @@ package body Analyse_Lexicale is
    begin
       if Arbre_Vide(A) then
          return 0;
+      elsif EstPrefixeDe(Get_Mot(Lire_Racine(A)), M) then
+         return 1 + Query_NbPref(SAG(A),M) + Query_NbPref(SAD(A),M);
       else
-         return 1; --TODO
+         return Query_NbPref(SAG(A),M) + Query_NbPref(SAD(A),M);
       end if; 
    end;
 
@@ -1142,8 +1144,10 @@ package body Analyse_Lexicale is
    begin
       if Arbre_Vide(A) then
          return 0;
+      elsif EstSuffixeDe(Get_Mot(Lire_Racine(A)),M) then
+         return 1 + Query_NbSuff(sag(A),M) + Query_NbSuff(sad(A),M);
       else
-         return 1; --TODO
+         return Query_NbSuff(sag(A),M) + Query_NbSuff(sad(A),M);
       end if; 
    end;
 
@@ -1187,8 +1191,10 @@ package body Analyse_Lexicale is
    begin
       if Arbre_Vide(A) then
          return 0;
+      elsif EstFacteurDe(Get_Mot(Lire_Racine(A)),M) then
+         return 1 + Query_NbFact(SAG(A),M) + Query_NbFact(SAD(A),M);
       else
-         return 1; --TODO
+         return Query_NbFact(SAG(A),M) + Query_NbFact(SAD(A),M);
       end if; 
    end;
 
