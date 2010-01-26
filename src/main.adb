@@ -13,7 +13,7 @@ use Analyse_Lexicale, Trie, Text_Stat, Mot, Couple, Liste_Couple, Liste_Triplet,
 procedure Main is
 
    Menu, SMenu, NomFic : Boolean;
-   Choix, NbMot, Num, NumMotTot, NumMotSupN : Integer;
+   Choix, NbMot, Num, NumMotTot, NumMotSupN, S : Integer;
    NumOccMoy, LongMoy : Float;
    L : TListe_Couple;
    LT : TListe_Triplet;
@@ -33,12 +33,12 @@ begin
 
    Put_Line("******************************************************************");
    Put_line("******************************************************************");
-   Put_line("**  ____            _      _               _                    **");
-   Put_line("** |  _ \ _ __ ___ (_) ___| |_    __ _  __| | __ _              **");
-   Put_line("** | |_) | '__/ _ \| |/ _ \ __|  / _` |/ _` |/ _` |             **");
-   Put_line("** |  __/| | | (_) | |  __/ |_  | (_| | (_| | (_| |             **");
-   Put_line("** |_|   |_|  \___// |\___|\__|  \__,_|\__,_|\__,_|             **");
-   Put_line("**               |__/                                           **");
+   Put_line("**    ____            _      _               _                  **");
+   Put_line("**   |  _ \ _ __ ___ (_) ___| |_    __ _  __| | __ _            **");
+   Put_line("**   | |_) | '__/ _ \| |/ _ \ __|  / _` |/ _` |/ _` |           **");
+   Put_line("**   |  __/| | | (_) | |  __/ |_  | (_| | (_| | (_| |           **");
+   Put_line("**   |_|   |_|  \___// |\___|\__|  \__,_|\__,_|\__,_|           **");
+   Put_line("**                  |__/                                        **");
    Put_Line("**                                                              **");
    Put_Line("**                                                              **");
    Put_Line("**                    ANALYSEUR LEXICAL v3                      **");
@@ -53,6 +53,7 @@ begin
    New_Line;
 
    Menu := True;
+   Chaine(Chaine'First) := Character'Val(0); -- anti-warning
    while Menu loop
 
       Put_Line("1 -> Entrez 1 pour utiliser la structure de donnee " & Character'Val(34) & "Liste" & Character'Val(34) & ".");
@@ -145,34 +146,6 @@ begin
                      New_Line;
                      Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(Num_Mot_Sup(L, Num)) & ".");
                      New_Line;
-
-                     Skip_Line;                     
-                     Put_Line("Affichage du nombre d'occurence d'un mot :");
-                     Put_Line("Veuillez entrer un mot.");
-                     Get_Line(Buffer, Last);
-                     Put_Line("Le nombre d'occurence de" & Buffer(1 .. Last) & " est :" & Integer'Image(Query_NbOcc(L, Creer_Mot(Buffer(1 .. Last)))) & ".");
-                     New_Line;
-
-                     Skip_Line;
-                     Put_Line("Affichage du nombre de prefixes d'un mot :");
-                     Put_Line("Veuillez entrer un mot.");
-                     Get_Line(Buffer, Last);
-                     Put_Line("Le nombre de mots ayant" & Buffer(1 .. Last) & " pour prefixe est :" & Integer'Image(Query_NbPref(L, Creer_Mot(Buffer(1 .. Last)))) & ".");
-                     New_Line;
-
-                     Skip_Line;
-                     Put_Line("Affichage du nombre de suffixes d'un mot :");
-                     Put_Line("Veuillez entrer un mot.");
-                     Get_Line(Buffer, Last);
-                     Put_Line("Le nombre de mots ayant" & Buffer(1 .. Last) & " pour suffixe est :" & Integer'Image(Query_NbSuff(L, Creer_Mot(Buffer(1 .. Last)))) & ".");
-                     New_Line;
-
-                     Skip_Line;
-                     Put_Line("Affichage du nombre de facteurs d'un mot :");
-                     Put_Line("Veuillez entrer un mot.");
-                     Get_Line(Buffer, Last);
-                     Put_Line("Le nombre de mots ayant" & Buffer(1 .. Last) & " pour facteur est :" & Integer'Image(Query_NbFact(L, Creer_Mot(Buffer(1 .. Last)))) & ".");
-                     New_Line;
                      
                      Skip_Line;
                      Put_Line("Affichage du nombre d'occurence d'un mot :");
@@ -215,7 +188,7 @@ begin
                      New_Line;
                      Set_Mot(C1, Creer_Mot(Buffer(1 .. Last)));
 
-                     Put_Line("Veuillez entrer le deuxieme mot. (le fusione");
+                     Put_Line("Veuillez entrer le deuxieme mot. (le fusione)");
                      Get_Line(Buffer, Last);
                      New_Line;
                      Set_Mot(C2, Creer_Mot(Buffer(1 .. Last)));
@@ -339,7 +312,7 @@ begin
                      New_Line;
                      Set_Mot(C1, Creer_Mot(Buffer(1 .. Last)));
 
-                     Put_Line("Veuillez entrer le deuxieme mot. (le fusione");
+                     Put_Line("Veuillez entrer le deuxieme mot. (le fusione)");
                      Get_Line(Buffer, Last);
                      New_Line;
                      Set_Mot(C2, Creer_Mot(Buffer(1 .. Last)));
@@ -496,7 +469,7 @@ begin
                      New_Line;
                      Set_Mot(C1, Creer_Mot(Buffer(1 .. Last)));
 
-                     Put_Line("Veuillez entrer le deuxieme mot. (le fusione");
+                     Put_Line("Veuillez entrer le deuxieme mot. (le fusione)");
                      Get_Line(Buffer, Last);
                      New_Line;
                      Set_Mot(C2, Creer_Mot(Buffer(1 .. Last)));
@@ -620,7 +593,7 @@ begin
                      New_Line;
                      Set_Mot(C1, Creer_Mot(Buffer(1 .. Last)));
 
-                     Put_Line("Veuillez entrer le deuxieme mot. (le fusione");
+                     Put_Line("Veuillez entrer le deuxieme mot. (le fusione)");
                      Get_Line(Buffer, Last);
                      New_Line;
                      Set_Mot(C2, Creer_Mot(Buffer(1 .. Last)));
@@ -753,21 +726,27 @@ begin
                      Put_Line("Veuillez entrer un mot.");
                      Get_Line(Buffer, Last);
                      New_Line;
-                     Put_Line("Le nombre de mot ayant pour prefixe " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " est :" & Integer'Image(Query_NbPref_Txt1(T1, Creer_Mot(Buffer(1 .. Last)))));
+                     S := 0;
+                     Query_NbPref_Txt1(T1, Chaine, 0, Creer_Mot(Buffer(1 .. Last)), S);
+                     Put_Line("Le nombre de mot ayant pour prefixe " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " est :" & Integer'Image(S));
 
                      New_Line;
                      Put_Line("Affichage du nombre de mot ayant pour suffixe un mot donne :");
                      Put_Line("Veuillez entrer un mot.");
                      Get_Line(Buffer, Last);
                      New_Line;
-                     Put_Line("Le nombre de mot ayant pour suffixe " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " est :" & Integer'Image(Query_NbSuff_Txt1(T1, Creer_Mot(Buffer(1 .. Last)))));
+                     S := 0;
+                     Query_NbSuff_Txt1(T1, Chaine, 0, Creer_Mot(Buffer), S);
+                     Put_Line("Le nombre de mot ayant pour suffixe " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " est :" & Integer'Image(S));
 
                      New_Line;
                      Put_Line("Affichage du nombre de mot ayant pour facteur un mot donne :");
                      Put_Line("Veuillez entrer un mot.");
                      Get_Line(Buffer, Last);
                      New_Line;
-                     Put_Line("Le nombre de mot ayant pour facteur " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " est :" & Integer'Image(Query_NbFact_Txt1(T1, Creer_Mot(Buffer(1 .. Last)))));
+                     S := 0;
+                     Query_NbFact_Txt1(T1, Chaine, 0, Creer_Mot(Buffer(1 .. Last)), S);
+                     Put_Line("Le nombre de mot ayant pour facteur " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " est :" & Integer'Image(S));
                      New_Line;
 
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
@@ -783,7 +762,7 @@ begin
                      New_Line;
                      Set_Mot(C1, Creer_Mot(Buffer(1 .. Last)));
 
-                     Put_Line("Veuillez entrer le deuxieme mot. (le fusione");
+                     Put_Line("Veuillez entrer le deuxieme mot. (le fusione)");
                      Get_Line(Buffer, Last);
                      New_Line;
                      Set_Mot(C2, Creer_Mot(Buffer(1 .. Last)));
@@ -879,30 +858,42 @@ begin
                      Put_Line("Veuillez entrer un mot.");
                      Get_Line(Buffer, Last);
                      New_Line;
-                     Put_Line("Le nombre de mot ayant pour prefixe " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(Query_NbPref_Txt1(T2, Creer_Mot(Buffer(1 .. Last)))));
-                     Put_Line("Le nombre de mot ayant pour prefixe " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(Query_NbPref_Txt2(T2, Creer_Mot(Buffer(1 .. Last)))));
+                     S := 0;
+                     Query_NbPref_Txt1(T2, Chaine, 0, Creer_Mot(Buffer(1 .. Last)), S);
+                     Put_Line("Le nombre de mot ayant pour prefixe " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(S));
+                     S := 0;
+                     Query_NbPref_Txt2(T2, Chaine, 0, Creer_Mot(Buffer(1 .. Last)), S);
+                     Put_Line("Le nombre de mot ayant pour prefixe " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(S));
 
                      New_Line;
                      Put_Line("Affichage du nombre de mot ayant pour suffixe un mot donne :");
                      Put_Line("Veuillez entrer un mot.");
                      Get_Line(Buffer, Last);
                      New_Line;
-                     Put_Line("Le nombre de mot ayant pour suffixe " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(Query_NbSuff_Txt1(T2, Creer_Mot(Buffer(1 .. Last)))));
-                     Put_Line("Le nombre de mot ayant pour suffixe " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(Query_NbSuff_Txt2(T2, Creer_Mot(Buffer(1 .. Last)))));
+                     S := 0;
+                     Query_NbSuff_Txt1(T2, Chaine, 0, Creer_Mot(Buffer(1 .. Last)), S);
+                     Put_Line("Le nombre de mot ayant pour suffixe " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(S));
+                     S := 0;
+                     Query_NbSuff_Txt2(T2, Chaine, 0, Creer_Mot(Buffer(1 .. Last)), S);
+                     Put_Line("Le nombre de mot ayant pour suffixe " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(S));
 
                      New_Line;
                      Put_Line("Affichage du nombre de mot ayant pour facteur un mot donne :");
                      Put_Line("Veuillez entrer un mot.");
                      Get_Line(Buffer, Last);
                      New_Line;
-                     Put_Line("Le nombre de mot ayant pour facteur " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(Query_NbFact_Txt1(T2, Creer_Mot(Buffer(1 .. Last)))));
-                     Put_Line("Le nombre de mot ayant pour facteur " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(Query_NbFact_Txt2(T2, Creer_Mot(Buffer(1 .. Last)))));
+                     S := 0;
+                     Query_NbFact_Txt1(T2, Chaine, 0, Creer_Mot(Buffer(1 .. Last)), S);
+                     Put_Line("Le nombre de mot ayant pour facteur " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du premier texte est :" & Integer'Image(S));
+                     S := 0;
+                     Query_NbFact_Txt2(T2, Chaine, 0, Creer_Mot(Buffer(1 .. Last)), S);
+                     Put_Line("Le nombre de mot ayant pour facteur " & Character'Val(34) & Buffer(1 .. Last) & Character'Val(34) & " du deuxieme texte est :" & Integer'Image(S));
                      New_Line;
 
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
                      Get(NbMot);
-                     AffichageN_Txt2(T2, NbMot);
+                     AffichageN_Txt2(T2, NbMot, Chaine, 0);
                      New_Line;
 
                      Skip_Line;
@@ -912,7 +903,7 @@ begin
                      New_Line;
                      Set_Mot(C1, Creer_Mot(Buffer(1 .. Last)));
 
-                     Put_Line("Veuillez entrer le deuxieme mot. (le fusione");
+                     Put_Line("Veuillez entrer le deuxieme mot. (le fusione)");
                      Get_Line(Buffer, Last);
                      New_Line;
                      Set_Mot(C2, Creer_Mot(Buffer(1 .. Last)));

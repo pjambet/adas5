@@ -11,13 +11,13 @@ package body Liste_Triplet is
    begin
       --Placement de L1
       L1 := L;
-      while not EstVide(L1) and then not Compare_Mots(Get_Mot_T(Valeur(L1)), Get_Mot_T(T1)) loop
+      while not EstVide(L1) and then not Compare_Mots(Get_Mot(Valeur(L1)), Get_Mot(T1)) loop
          L1 := Suivant(L1);
       end loop;
 
       --Placement De L2
       L2 := L;
-      while not EstVide(L2) and then not Compare_Mots(Get_Mot_T(Valeur(L2)), Get_Mot_T(T2)) loop
+      while not EstVide(L2) and then not Compare_Mots(Get_Mot(Valeur(L2)), Get_Mot(T2)) loop
          L2 := Suivant(L2);
       end loop;
 
@@ -27,7 +27,7 @@ package body Liste_Triplet is
       Modifie(L1,T);
       Supprimer(L,Valeur(L2));
       New_Line;
-      Put_Line("Le mot " & Get_Chaine(Get_Mot_T(T2)) & " a ete supprime !");
+      Put_Line("Le mot " & Get_Chaine(Get_Mot(T2)) & " a ete supprime !");
    end;
 
    procedure Traitement_Doublon_Triplet_Txt1(L : in out TListe_Triplet) is

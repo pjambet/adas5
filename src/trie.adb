@@ -7,14 +7,12 @@ package body Trie is
    -- Cree une procedure de liberation d'espace pour les objets designes par le Trie
 
    function CreerTrie return T_Trie is
-      T : T_Trie;
       ST : Tab;
    begin
       for I in Tindice loop
          ST(I) := null;
       end loop;
-      T := new Cellule'(ST, 0, 0, 0, 0, 0);
-      return T;
+      return new Cellule'(ST, 0, 0, 0, 0, 0);
    end;
 
    procedure ViderTrie(T : in out T_Trie) is

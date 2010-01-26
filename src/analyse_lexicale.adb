@@ -466,7 +466,7 @@ package body Analyse_Lexicale is
       Create(Dest, Name => "liste-mot2.txt");
       Put("Debut creation");
       while not EstVide(Temp) loop
-         Put(Dest, Get_Chaine(Get_Mot_T(Premier(Temp)))(1 .. Get_Fin(Get_Mot_T(Premier(Temp)))));
+         Put(Dest, Get_Chaine(Get_Mot(Premier(Temp)))(1 .. Get_Fin(Get_Mot(Premier(Temp)))));
          Put_Line(Dest, Integer'Image(Get_NbOcc_Txt1(Premier(Temp))) & Integer'Image(Get_NbOcc_Txt2(Premier(Temp))));
          Temp := Suivant(Temp);
          Put(".");
@@ -508,6 +508,7 @@ package body Analyse_Lexicale is
       Dest : File_Type;
       Chaine : String(1 .. 30);
    begin
+      Chaine(Chaine'First) := Character'Val(0); --anti-warning
       Put("Debut creation");
       Create(Dest, Name => "liste-mot.txt");
       Ecriture_Dest_Txt1(T, Chaine, 0, Dest);
@@ -522,6 +523,7 @@ package body Analyse_Lexicale is
       Dest : File_Type;
       Chaine : String(1 .. 30);
    begin
+      Chaine(Chaine'First) := Character'Val(0); --anti-warning
       Put("Debut creation");
       Create(Dest, Name => "liste-mot2.txt");
       Ecriture_Dest_Txt2(T, Chaine, 0, Dest);
@@ -600,7 +602,7 @@ package body Analyse_Lexicale is
       if not Arbre_Vide(AB) then
          Ecriture_Dest_Txt2(sag(ab),D);
          Put(".");
-         Put(D, Get_Chaine(Get_Mot_T(Lire_Racine(AB)))(1 .. Get_Fin(Get_Mot_T(Lire_Racine(AB)))));
+         Put(D, Get_Chaine(Get_Mot(Lire_Racine(AB)))(1 .. Get_Fin(Get_Mot(Lire_Racine(AB)))));
          Put_Line(D, Integer'Image(Get_Nbocc_Txt1(Lire_Racine(AB))) & Integer'Image(Get_NbOcc_Txt2(Lire_racine(AB))));
          Ecriture_Dest_Txt2(sad(ab),D);
       end if;
@@ -1013,7 +1015,7 @@ package body Analyse_Lexicale is
    begin
       if EstVide(L) then
          return 0;
-      elsif Compare_Mots(M, Get_Mot_T(Valeur(L))) then
+      elsif Compare_Mots(M, Get_Mot(Valeur(L))) then
          return Get_NbOcc_Txt1(Valeur(L));
       else
          return Query_NbOcc_Txt1(Suivant(L), M);
@@ -1024,7 +1026,7 @@ package body Analyse_Lexicale is
    begin
       if EstVide(L) then
          return 0;
-      elsif Compare_Mots(M, Get_Mot_T(Valeur(L))) then
+      elsif Compare_Mots(M, Get_Mot(Valeur(L))) then
          return Get_NbOcc_Txt2(Valeur(L));
       else
          return Query_NbOcc_Txt2(Suivant(L), M);
@@ -1032,18 +1034,38 @@ package body Analyse_Lexicale is
    end;
 
    function Query_NbOcc (A : in TABR_Couple; M : in T_Mot) return Integer is
+      C : T_Couple;
    begin
-      return 0;
+      if Arbre_Vide(A) then
+         return 0;
+      else
+         Set_Mot(C, M);
+         return Get_NbOcc(Lire_Racine(Recherche_ABR(A, C)));
+      end if;
    end;
 
    function Query_NbOcc_Txt1 (A : in TABR_Triplet; M : in T_Mot) return Integer is
+      C : T_Couple;
    begin
-      return 0;
+      if Arbre_Vide(A) then
+         return 0;
+      else
+         Set_Mot(C, M);
+         --return Get_NbOcc_Txt1(Lire_Racine(Recherche_ABR(A, C)));
+         return 0; --TODO
+      end if;
    end;
    
    function Query_NbOcc_Txt2 (A : in TABR_Triplet; M : in T_Mot) return Integer is
+      C : T_Couple;
    begin
-      return 0;
+      if Arbre_Vide(A) then
+         return 0;
+      else
+         Set_Mot(C, M);
+         --return Get_NbOcc_Txt2(Lire_Racine(Recherche_ABR(A, C)));
+         return 0; --TODO
+      end if;
    end;
 
    function Query_NbOcc_Txt1(T : in T_Trie; M : in T_Mot) return Integer is
@@ -1093,7 +1115,7 @@ package body Analyse_Lexicale is
    begin
       if EstVide(L) then
          return 0;
-      elsif EstPrefixeDe(M, Get_Mot(Valeur(L))) then
+      elsif Get_NbOcc_Txt1(Valeur(L)) > 0 and then EstPrefixeDe(M, Get_Mot(Valeur(L))) then
          return 1 + Query_NbPref_Txt1(Suivant(L), M);
       else
          return Query_NbPref_Txt1(Suivant(L), M);
@@ -1104,7 +1126,7 @@ package body Analyse_Lexicale is
    begin
       if EstVide(L) then
          return 0;
-      elsif EstPrefixeDe(M, Get_Mot(Valeur(L))) then
+      elsif Get_NbOcc_Txt2(Valeur(L)) > 0 and then EstPrefixeDe(M, Get_Mot(Valeur(L))) then
          return 1 + Query_NbPref_Txt2(Suivant(L), M);
       else
          return Query_NbPref_Txt2(Suivant(L), M);
@@ -1126,7 +1148,7 @@ package body Analyse_Lexicale is
    begin
       if Arbre_Vide(A) then
          return 0;
-      elsif EstPrefixeDe(M, Get_Mot(Lire_Racine(A))) then
+      elsif Get_NbOcc_Txt1(Lire_Racine(A)) > 0 and then EstPrefixeDe(M, Get_Mot(Lire_Racine(A))) then
          return 1 + Query_NbPref_Txt1(SAG(A),M) + Query_NbPref_Txt1(SAD(A),M);
       else
          return Query_NbPref_Txt1(SAG(A),M) + Query_NbPref_Txt1(SAD(A),M);
@@ -1137,7 +1159,7 @@ package body Analyse_Lexicale is
    begin
       if Arbre_Vide(A) then
          return 0;
-      elsif EstPrefixeDe(M, Get_Mot(Lire_Racine(A))) then
+      elsif Get_NbOcc_Txt2(Lire_Racine(A)) > 0 and then EstPrefixeDe(M, Get_Mot(Lire_Racine(A))) then
          return 1 + Query_NbPref_Txt2(SAG(A),M) + Query_NbPref_Txt2(SAD(A),M);
       else
          return Query_NbPref_Txt2(SAG(A),M) + Query_NbPref_Txt2(SAD(A),M);
@@ -1157,7 +1179,7 @@ package body Analyse_Lexicale is
                   Fin := Fin + 1;
                   Chaine(Fin) := I;
                end if;
-               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 and then EstPrefixeDe(M, Creer_Mot(C)) then
+               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 and then EstPrefixeDe(M, Creer_Mot(Chaine)) then
                   S := S + 1;
                end if;
                Query_NbPref_Txt1(Get_ST(T, I), Chaine, Fin, M, S);
@@ -1180,7 +1202,7 @@ package body Analyse_Lexicale is
                   Fin := Fin + 1;
                   Chaine(Fin) := I;
                end if;
-               if Get_NbOcc_Txt2(Get_ST(T, I)) > 0 and then EstPrefixeDe(M, Creer_Mot(C)) then
+               if Get_NbOcc_Txt2(Get_ST(T, I)) > 0 and then EstPrefixeDe(M, Creer_Mot(Chaine)) then
                   S := S + 1;
                end if;
                Query_NbPref_Txt2(Get_ST(T, I), Chaine, Fin, M, S);
@@ -1207,7 +1229,7 @@ package body Analyse_Lexicale is
    begin
       if EstVide(L) then
          return 0;
-      elsif EstSuffixeDe(M, Get_Mot(Valeur(L))) then
+      elsif Get_NbOcc_Txt1(Valeur(L)) > 0 and then EstSuffixeDe(M, Get_Mot(Valeur(L))) then
          return 1 + Query_NbSuff_Txt1(Suivant(L), M);
       else
          return Query_NbSuff_Txt1(Suivant(L), M);
@@ -1218,7 +1240,7 @@ package body Analyse_Lexicale is
    begin
       if EstVide(L) then
          return 0;
-      elsif EstSuffixeDe(M, Get_Mot(Valeur(L))) then
+      elsif Get_NbOcc_Txt2(Valeur(L)) > 0 and then EstSuffixeDe(M, Get_Mot(Valeur(L))) then
          return 1 + Query_NbSuff_Txt2(Suivant(L), M);
       else
          return Query_NbSuff_Txt2(Suivant(L), M);
@@ -1240,7 +1262,7 @@ package body Analyse_Lexicale is
    begin
       if Arbre_Vide(A) then
          return 0;
-      elsif EstSuffixeDe(M, Get_Mot(Lire_Racine(A))) then
+      elsif Get_NbOcc_Txt1(Lire_Racine(A)) > 0 and then EstSuffixeDe(M, Get_Mot(Lire_Racine(A))) then
          return 1 + Query_NbSuff_Txt1(sag(A),M) + Query_NbSuff_Txt1(sad(A),M);
       else
          return Query_NbSuff_Txt1(sag(A),M) + Query_NbSuff_Txt1(sad(A),M);
@@ -1251,7 +1273,7 @@ package body Analyse_Lexicale is
    begin
       if Arbre_Vide(A) then
          return 0;
-      elsif EstSuffixeDe(M, Get_Mot(Lire_Racine(A))) then
+      elsif Get_NbOcc_Txt2(Lire_Racine(A)) > 0 and then EstSuffixeDe(M, Get_Mot(Lire_Racine(A))) then
          return 1 + Query_NbSuff_Txt2(sag(A),M) + Query_NbSuff_Txt2(sad(A),M);
       else
          return Query_NbSuff_Txt2(sag(A),M) + Query_NbSuff_Txt2(sad(A),M);
@@ -1271,7 +1293,7 @@ package body Analyse_Lexicale is
                   Fin := Fin + 1;
                   Chaine(Fin) := I;
                end if;
-               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 and then EstSuffixeDe(M, Creer_Mot(C)) then
+               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 and then EstSuffixeDe(M, Creer_Mot(Chaine)) then
                   S := S + 1;
                end if;
                Query_NbSuff_Txt1(Get_ST(T, I), Chaine, Fin, M, S);
@@ -1294,7 +1316,7 @@ package body Analyse_Lexicale is
                   Fin := Fin + 1;
                   Chaine(Fin) := I;
                end if;
-               if Get_NbOcc_Txt2(Get_ST(T, I)) > 0 and then EstSuffixeDe(M, Creer_Mot(C)) then
+               if Get_NbOcc_Txt2(Get_ST(T, I)) > 0 and then EstSuffixeDe(M, Creer_Mot(Chaine)) then
                   S := S + 1;
                end if;
                Query_NbSuff_Txt2(Get_ST(T, I), Chaine, Fin, M, S);
@@ -1321,7 +1343,7 @@ package body Analyse_Lexicale is
    begin
       if EstVide(L) then
          return 0;
-      elsif EstFacteurDe(M, Get_Mot(Valeur(L))) then
+      elsif Get_NbOcc_Txt1(Valeur(L)) > 0 and then EstFacteurDe(M, Get_Mot(Valeur(L))) then
          return 1 + Query_NbFact_Txt1(Suivant(L), M);
       else
          return Query_NbFact_Txt1(Suivant(L), M);
@@ -1332,7 +1354,7 @@ package body Analyse_Lexicale is
    begin
       if EstVide(L) then
          return 0;
-      elsif EstFacteurDe(M, Get_Mot(Valeur(L))) then
+      elsif Get_NbOcc_Txt2(Valeur(L)) > 0 and then EstFacteurDe(M, Get_Mot(Valeur(L))) then
          return 1 + Query_NbFact_Txt2(Suivant(L), M);
       else
          return Query_NbFact_Txt2(Suivant(L), M);
@@ -1354,7 +1376,7 @@ package body Analyse_Lexicale is
    begin
       if Arbre_Vide(A) then
          return 0;
-      elsif EstFacteurDe(M, Get_Mot(Lire_Racine(A))) then
+      elsif Get_NbOcc_Txt1(Lire_Racine(A)) > 0 and then EstFacteurDe(M, Get_Mot(Lire_Racine(A))) then
          return 1 + Query_NbFact_Txt1(SAG(A),M) + Query_NbFact_Txt1(SAD(A),M);
       else
          return Query_NbFact_Txt1(SAG(A),M) + Query_NbFact_Txt1(SAD(A),M);
@@ -1365,7 +1387,7 @@ package body Analyse_Lexicale is
    begin
       if Arbre_Vide(A) then
          return 0;
-      elsif EstFacteurDe(M, Get_Mot(Lire_Racine(A))) then
+      elsif Get_NbOcc_Txt2(Lire_Racine(A)) > 0 and then EstFacteurDe(M, Get_Mot(Lire_Racine(A))) then
          return 1 + Query_NbFact_Txt2(SAG(A),M) + Query_NbFact_Txt2(SAD(A),M);
       else
          return Query_NbFact_Txt2(SAG(A),M) + Query_NbFact_Txt2(SAD(A),M);
@@ -1385,7 +1407,7 @@ package body Analyse_Lexicale is
                   Fin := Fin + 1;
                   Chaine(Fin) := I;
                end if;
-               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 and then EstFacteurDe(M, Creer_Mot(C)) then
+               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 and then EstFacteurDe(M, Creer_Mot(Chaine)) then
                   S := S + 1;
                end if;
                Query_NbFact_Txt1(Get_ST(T, I), Chaine, Fin, M, S);
@@ -1408,7 +1430,7 @@ package body Analyse_Lexicale is
                   Fin := Fin + 1;
                   Chaine(Fin) := I;
                end if;
-               if Get_NbOcc_Txt2(Get_ST(T, I)) > 0 and then EstFacteurDe(M, Creer_Mot(C)) then
+               if Get_NbOcc_Txt2(Get_ST(T, I)) > 0 and then EstFacteurDe(M, Creer_Mot(Chaine)) then
                   S := S + 1;
                end if;
                Query_NbFact_Txt2(Get_ST(T, I), Chaine, Fin, M, S);

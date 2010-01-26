@@ -182,12 +182,20 @@ package body Text_Stat is
 
    function Long_Tot (A : TABR_Couple) return Integer is
    begin
-      return 0;
+      if Arbre_Vide(A) then
+         return 0;
+      else
+         return Get_Fin(Get_Mot(Lire_Racine(A))) + Long_Tot(SAG(A)) + Long_Tot(SAD(A));
+      end if;
    end;
 
    function Long_Tot (A : TABR_Triplet) return Integer is
    begin
-      return 0;
+      if Arbre_Vide(A) then
+         return 0;
+      else
+         return Get_Fin(Get_Mot(Lire_Racine(A))) + Long_Tot(SAG(A)) + Long_Tot(SAD(A));
+      end if;
    end;
 
    procedure Long_Tot_Txt1 (T : in T_Trie; S : in out Integer) is
@@ -242,7 +250,7 @@ package body Text_Stat is
       Total := 0;
       Ltemp := L;
       while not EstVide(Ltemp) loop
-         N := N + Get_Fin(Get_Mot_T(Valeur(Ltemp)));
+         N := N + Get_Fin(Get_Mot(Valeur(Ltemp)));
          Total := Total + 1;
          Ltemp := Suivant(Ltemp);
       end loop;
@@ -299,7 +307,7 @@ package body Text_Stat is
       X := 0;
       Ltemp := L;
       while not EstVide(Ltemp) loop
-         if Get_Fin(Get_Mot_T(Valeur(Ltemp))) >= N then
+         if Get_Fin(Get_Mot(Valeur(Ltemp))) >= N then
             X := X + 1;
          end if;
          Ltemp := Suivant(Ltemp);
@@ -320,7 +328,7 @@ package body Text_Stat is
    function Num_Mot_Sup(A : TABR_Triplet; N : Integer) return Integer is
    begin
       if Arbre_Vide(A) then return 0;
-      elsif Get_Fin(Get_Mot_T(Lire_Racine(A))) >= N then
+      elsif Get_Fin(Get_Mot(Lire_Racine(A))) >= N then
          return 1 + Num_Mot_Sup(Sag(A),N) + Num_Mot_Sup(Sad(A),N);
       else
          return Num_Mot_Sup(Sag(A),N) + Num_Mot_Sup(Sad(A),N);

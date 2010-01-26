@@ -17,6 +17,7 @@ generic
    --with function "<"(T1, T2 : T_Elem) return Boolean is <>;
 
 package Arbre_Binaire is
+
    --Representation generique d'un arbre binaire de recherche auto équilibré (rouge et noir)
    --C'est donc un ABR(Binaire de Recherche)RN(Rouge et Noir)
 
@@ -153,6 +154,7 @@ package Arbre_Binaire is
    -- #################################################################################
 
 private
+
    type Noeud;
    type T_Abr is access Noeud;
    type Noeud is record

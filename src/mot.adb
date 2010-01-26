@@ -17,7 +17,6 @@ package body Mot is
 
    function Creer_Mot(S : String) return T_Mot is
       I : Integer;
-      --M : T_Mot;
       Sret : String(1 .. 30);
       Fin : Integer;
    begin
@@ -31,8 +30,6 @@ package body Mot is
       for I in (Fin+1) .. 30 loop
          Sret(I) := ' ';
       end loop;
-      --M := T_Mot'(Sret, Fin);
-      --return M;
       return T_Mot'(Sret, Fin);
    end Creer_Mot;
 

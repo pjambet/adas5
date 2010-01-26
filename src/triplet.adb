@@ -13,15 +13,15 @@ package body Triplet is
       --Definition de la fonction d'affichage d'un Triplet
       --Necessaire pour l'instanciation de la liste generique
    begin
-      Put_Line("- " & Get_Chaine(Get_Mot_T(C))(1 .. Get_Fin(Get_Mot_T(C))) & Integer'Image(Get_NbOcc_Txt1(C)) & Integer'Image(Get_NbOcc_Txt2(C)));
+      Put_Line("- " & Get_Chaine(Get_Mot(C))(1 .. Get_Fin(Get_Mot(C))) & Integer'Image(Get_NbOcc_Txt1(C)) & Integer'Image(Get_NbOcc_Txt2(C)));
    end Imprime_Triplet;
 
-   procedure Set_Mot_T(T : in out T_Triplet; M : in T_Mot) is
+   procedure Set_Mot(T : in out T_Triplet; M : in T_Mot) is
       --Modifie le mot de T en M
       --Get_Mot(Set_Mot(T,M))=M
    begin
       T.Mot := M;
-   end Set_Mot_T;
+   end Set_Mot;
 
    procedure Set_NbOcc_Txt1(T : in out T_Triplet; E : in Integer) is
       --Modifie la nbocc de T en E
@@ -37,11 +37,11 @@ package body Triplet is
       T.NbOccTxt2 := E;
    end Set_NbOcc_Txt2;
 
-   function Get_Mot_T(T : T_Triplet) return T_Mot is
+   function Get_Mot(T : T_Triplet) return T_Mot is
       --Renvoie le mot du couple T
    begin
       return T.Mot;
-   end Get_Mot_T;
+   end Get_Mot;
 
    function Get_NbOcc_Txt1(T : T_Triplet) return Integer is
       --Renvoie le nombre d'occurence du mot du Couple C
@@ -59,21 +59,21 @@ package body Triplet is
      --redefinition de la fonction "<" pour le type Triplet
      --ici on tri les Triplets par ordre lexicographique
    begin
-      return Inferieur_Mot(Get_Mot_T(Triplet1), Get_Mot_T(Triplet2));
+      return Inferieur_Mot(Get_Mot(Triplet1), Get_Mot(Triplet2));
    end;
 
    function Superieur_Triplet_Lex(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean is
      --redefinition de la fonction ">" pour le type Triplet
      --ici on trie les Triplets par ordre lexicographique
    begin
-      return Superieur_Mot(Get_Mot_T(Triplet1), Get_Mot_T(Triplet2));
+      return Superieur_Mot(Get_Mot(Triplet1), Get_Mot(Triplet2));
    end;
 
    function Egale_Triplet_Lex(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean is
      --redefinition de la fonction ">" pour le type Triplet
      --ici on trie les Triplets par ordre lexicographique
    begin
-      return Egale_Mot(Get_Mot_T(Triplet1), Get_Mot_T(Triplet2));
+      return Egale_Mot(Get_Mot(Triplet1), Get_Mot(Triplet2));
    end;
 
    function Inferieur_Triplet_Occ1(Triplet1 : T_Triplet; Triplet2 : T_Triplet) return Boolean is
