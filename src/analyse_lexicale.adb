@@ -1040,31 +1040,41 @@ package body Analyse_Lexicale is
          return 0;
       else
          Set_Mot(C, M);
-         return Get_NbOcc(Lire_Racine(Recherche_ABR(A, C)));
+         if Arbre_Vide(Recherche_ABR(A,C)) then
+            return 0;
+         else
+            return Get_NbOcc (Lire_Racine(Recherche_ABR(A, C)));
+         end if;
       end if;
    end;
 
    function Query_NbOcc_Txt1 (A : in TABR_Triplet; M : in T_Mot) return Integer is
-      C : T_Couple;
+      C : T_Triplet;
    begin
       if Arbre_Vide(A) then
          return 0;
       else
          Set_Mot(C, M);
-         --return Get_NbOcc_Txt1(Lire_Racine(Recherche_ABR(A, C)));
-         return 0; --TODO
+         if Arbre_Vide(Recherche_ABR(A,C)) then
+            return 0;
+         else
+            return Get_NbOcc_Txt1(Lire_Racine(Recherche_ABR(A, C)));
+         end if;
       end if;
    end;
    
    function Query_NbOcc_Txt2 (A : in TABR_Triplet; M : in T_Mot) return Integer is
-      C : T_Couple;
+      C : T_Triplet;
    begin
       if Arbre_Vide(A) then
          return 0;
       else
          Set_Mot(C, M);
-         --return Get_NbOcc_Txt2(Lire_Racine(Recherche_ABR(A, C)));
-         return 0; --TODO
+         if Arbre_Vide(Recherche_ABR(A,C)) then
+            return 0;
+         else
+            return Get_NbOcc_Txt1(Lire_Racine(Recherche_ABR(A, C)));
+         end if;
       end if;
    end;
 
