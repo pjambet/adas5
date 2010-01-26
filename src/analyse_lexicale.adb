@@ -1082,7 +1082,7 @@ package body Analyse_Lexicale is
    begin
       if EstVide(L) then
          return 0;
-      elsif EstPrefixeDe(Get_Mot(Valeur(L)), M) then
+      elsif EstPrefixeDe(M, Get_Mot(Valeur(L))) then
          return 1 + Query_NbPref(Suivant(L), M);
       else
          return Query_NbPref(Suivant(L), M);
@@ -1093,7 +1093,7 @@ package body Analyse_Lexicale is
    begin
       if Arbre_Vide(A) then
          return 0;
-      elsif EstPrefixeDe(Get_Mot(Lire_Racine(A)), M) then
+      elsif EstPrefixeDe(M, Get_Mot(Lire_Racine(A))) then
          return 1 + Query_NbPref(SAG(A),M) + Query_NbPref(SAD(A),M);
       else
          return Query_NbPref(SAG(A),M) + Query_NbPref(SAD(A),M);
@@ -1129,7 +1129,7 @@ package body Analyse_Lexicale is
    begin
       if EstVide(L) then
          return 0;
-      elsif EstSuffixeDe(Get_Mot(Valeur(L)), M) then
+      elsif EstSuffixeDe(M, Get_Mot(Valeur(L))) then
          return 1 + Query_NbSuff(Suivant(L), M);
       else
          return Query_NbSuff(Suivant(L), M);
@@ -1140,7 +1140,7 @@ package body Analyse_Lexicale is
    begin
       if Arbre_Vide(A) then
          return 0;
-      elsif EstSuffixeDe(Get_Mot(Lire_Racine(A)),M) then
+      elsif EstSuffixeDe(M, Get_Mot(Lire_Racine(A))) then
          return 1 + Query_NbSuff(sag(A),M) + Query_NbSuff(sad(A),M);
       else
          return Query_NbSuff(sag(A),M) + Query_NbSuff(sad(A),M);
@@ -1176,8 +1176,8 @@ package body Analyse_Lexicale is
    begin
       if EstVide(L) then
          return 0;
-      elsif EstFacteurDe(Get_Mot(Valeur(L)), M) then
-         return 1 + Query_NbPref(Suivant(L), M);
+      elsif EstFacteurDe(M, Get_Mot(Valeur(L))) then
+         return 1 + Query_NbFact(Suivant(L), M);
       else
          return Query_NbFact(Suivant(L), M);
       end if;
@@ -1187,7 +1187,7 @@ package body Analyse_Lexicale is
    begin
       if Arbre_Vide(A) then
          return 0;
-      elsif EstFacteurDe(Get_Mot(Lire_Racine(A)),M) then
+      elsif EstFacteurDe(M, Get_Mot(Lire_Racine(A))) then
          return 1 + Query_NbFact(SAG(A),M) + Query_NbFact(SAD(A),M);
       else
          return Query_NbFact(SAG(A),M) + Query_NbFact(SAD(A),M);
