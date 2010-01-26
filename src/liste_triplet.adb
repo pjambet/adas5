@@ -26,8 +26,7 @@ package body Liste_Triplet is
       Set_NbOcc_Txt2(T, Get_NbOcc_Txt2(T) + Get_NbOcc_Txt2(Valeur(L2)));
       Modifie(L1,T);
       Supprimer(L,Valeur(L2));
-      New_Line;
-      Put_Line("Le mot " & Get_Chaine(Get_Mot(T2)) & " a ete supprime !");
+      Put_Line("Le mot " & Get_Chaine(Get_Mot(T2))(1 .. Get_Fin(Get_Mot(T2))) & " a ete supprime !");
    end;
 
    procedure Traitement_Doublon_Triplet_Txt1(L : in out TListe_Triplet) is

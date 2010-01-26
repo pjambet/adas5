@@ -1,5 +1,5 @@
-with Mot, Ada.Text_IO, Ada.Unchecked_Deallocation;
-use Mot, Ada.Text_IO;
+with Mot, Analyse_Lexicale, Ada.Text_IO, Ada.Unchecked_Deallocation;
+use Mot, Analyse_Lexicale, Ada.Text_IO;
 
 package body Trie is
 
@@ -28,7 +28,7 @@ package body Trie is
       end if;
    end;
    
-   function TrieVide(T : in T_Trie) return Boolean is
+   function TrieVide (T : in T_Trie) return Boolean is
    begin
       return T = null;
    end;
@@ -38,17 +38,51 @@ package body Trie is
       return Get_ST(T, I) = null;
    end;
 
-   function Get_ST(T : in T_Trie; I : in Tindice) return T_Trie is
+   function Appartient_Txt1 (T : in T_Trie; M : in T_Mot) return Boolean is
+      C : Character;
+	  Mot : T_Mot;
+   begin
+      if TrieVide(T) then
+	     return false;
+      else
+         if MotVide(M) then
+		    return T.NbOccTxt1 > 0;
+	     else
+            C := Get_Char(M);
+            Mot := Get_CharSuffixe(M);
+            return Appartient_Txt1(T.ST(C), Mot);
+	     end if;
+      end if; 
+   end;
+   
+   function Appartient_Txt2 (T : in T_Trie; M : in T_Mot) return Boolean is
+      C : Character;
+	  Mot : T_Mot;   
+   begin
+      if TrieVide(T) then
+	     return false;
+	  else
+         if MotVide(M) then
+		    return T.NbOccTxt2 > 0;
+	     else
+            C := Get_Char(M);
+            Mot := Get_CharSuffixe(M);
+            return Appartient_Txt2(T.ST(C), Mot);
+	     end if;
+      end if; 
+   end;   
+   
+   function Get_ST (T : in T_Trie; I : in Tindice) return T_Trie is
    begin
       return T.ST(I);
    end;   
    
-   function Get_NbOcc_Txt1(T : in T_Trie) return Integer is
+   function Get_NbOcc_Txt1 (T : in T_Trie) return Integer is
    begin
       return T.NbOccTxt1;
    end;
 
-   function Get_nbOcc_Txt2(T : in T_Trie) return Integer is
+   function Get_nbOcc_Txt2 (T : in T_Trie) return Integer is
    begin
       return T.NbOccTxt2;
    end;
@@ -111,6 +145,45 @@ package body Trie is
          return T;
       end if;
    end;
+   
+   procedure SupprimerMot_Txt1 (T : in out T_Trie; M : in T_Mot) is
+      C : Character;
+	  Mot : T_Mot;
+   begin
+      if not TrieVide(T) then
+         if MotVide(M) then
+            T.Prefixes := T.Prefixes - 1;
+            T.NBOccTxt1 := 0;
+			T.FinTxt1 := 0;
+	     else
+            T.Prefixes := T.Prefixes - 1;
+            C := Get_Char(M);
+            Mot := Get_CharSuffixe(M);
+            SupprimerMot_Txt1(T.ST(C), Mot);
+            T.ST(C) := null;
+         end if;
+      end if;
+   end;
+   
+   procedure SupprimerMot_Txt2 (T : in out T_Trie; M : in T_Mot) is
+      C : Character;
+	  Mot : T_Mot;
+   begin
+      if not TrieVide(T) then
+         if MotVide(M) then
+            T.Prefixes := T.Prefixes - 1;
+            T.NBOccTxt2 := 0;
+			T.FinTxt2 := 0;
+	     else
+            T.Prefixes := T.Prefixes - 1;
+            C := Get_Char(M);
+            Mot := Get_CharSuffixe(M);
+            SupprimerMot_Txt2(T.ST(C), Mot);
+            T.ST(C) := null;
+         end if;
+      end if;
+   end;
+   
    procedure AfficheTrie_Txt1(T : in T_Trie; C : in String; F : in Natural) is
       Chaine : String(1 .. 30);
       Fin : Natural;
@@ -159,4 +232,24 @@ package body Trie is
       end if;
    end;
 
+   procedure Fusion_Txt1 (T : in out T_Trie; M1 : in T_Mot; M2 : in T_Mot) is
+   begin
+      if not TrieVide(T) and then Appartient_Txt1(T, M1) and then Appartient_Txt1(T, M2) then
+	     SupprimerMot_Txt1(T, M2);
+		 T := AjouterMot_Txt1(T, M1, Query_NbOcc_Txt1(T, M2), 0);
+		 Put_Line("Le mot " & Get_Chaine(M2)(1 .. Get_Fin(M2)) & " a ete supprime !");
+		 New_Line;
+      end if;
+   end;
+
+   procedure Fusion_Txt2 (T : in out T_Trie; M1 : in T_Mot; M2 : in T_Mot) is
+   begin
+      if not TrieVide(T) and then Appartient_Txt2(T, M1) and then Appartient_Txt2(T, M2) then
+	     SupprimerMot_Txt2(T, M2);
+		 T := AjouterMot_Txt2(T, M1, Query_NbOcc_Txt2(T, M2), 0);
+		 Put_Line("Le mot " & Get_Chaine(M2)(1 .. Get_Fin(M2)) & " a ete supprime !");
+		 New_Line;
+      end if;		 
+   end;
+   
 end Trie;

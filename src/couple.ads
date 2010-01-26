@@ -18,10 +18,10 @@ package Couple is
    procedure Imprime_Couple(C : in T_Couple);
    --Definition de la fonction d'affichage d'un couple necessaire pour l'instanciation de la liste generique
 
-   function ToString(C: T_Couple) return String;
+   function ToString(C : in T_Couple) return String;
    --
 
-   function Creer_Couple(M : T_Mot; N : Integer) return T_Couple;
+   function Creer_Couple(M : in T_Mot; N : in Integer) return T_Couple;
    -- Crée un couple
 
    procedure Set_Mot(C : in out T_Couple; M : in T_Mot);

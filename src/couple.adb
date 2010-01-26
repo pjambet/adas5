@@ -9,12 +9,12 @@ package body Couple is
       Put_Line("- " & Get_Chaine(Get_Mot(C))(1 .. Get_Fin(Get_Mot(C))) & Integer'Image(Get_NbOcc(C)));
    end Imprime_Couple;
 
-   function ToString(C: T_Couple) return String is
+   function ToString(C : in T_Couple) return String is
    begin
       return ("- " & Get_Chaine(Get_Mot(C))(1 .. Get_Fin(Get_Mot(C))) & Integer'Image(Get_NbOcc(C)));
    end ToString;
 
-   function Creer_Couple(M : T_Mot; N : Integer) return T_Couple is
+   function Creer_Couple(M : in T_Mot; N : in Integer) return T_Couple is
       -- Crée un couple
    begin
       return T_Couple'(M, N);

@@ -672,8 +672,9 @@ package body Arbre_Binaire is
 
    procedure Copietriee(A: in out T_Abr; B : out T_Abr) is
    begin
-      if not Arbre_Vide(A) then
-         Inserer_ARN(
+      null;
+	  -- if not Arbre_Vide(A) then
+         -- Inserer_ARN(
    end Copietriee;
    
    procedure Vider_Arbre (A : in out T_Abr) is

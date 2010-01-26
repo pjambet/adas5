@@ -7,8 +7,8 @@
 -- #                                                                               #
 -- #################################################################################
 
-with Analyse_Lexicale, Trie, Text_Stat, Mot, Couple, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
-use Analyse_Lexicale, Trie, Text_Stat, Mot, Couple, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
+with Analyse_Lexicale, Trie, Text_Stat, Mot, Couple, Triplet, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
+use Analyse_Lexicale, Trie, Text_Stat, Mot, Couple, Triplet, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Ada.Text_Io, Ada.Integer_Text_IO, Ada.Float_Text_IO;
 
 procedure Main is
 
@@ -22,7 +22,9 @@ procedure Main is
    T1, T2 : T_Trie;
    Buffer, Chaine : String(1 .. 30);
    Last : Natural;
-   C1, C2 : T_Couple;
+   Couple1, Couple2 : T_Couple;
+   Triplet1, Triplet2 : T_Triplet;
+   Mot1, Mot2 : T_Mot;
 
    use Liste_Couple.L;
    use Liste_Triplet.Lt;
@@ -53,7 +55,7 @@ begin
    Put_line("******************************************************************");
    New_Line;
 
-   Put_Line("TODO : Query_Diff Arbre, Vider_Arbre, AffichageN Arbre/Trie, Fusion Arbre/Trie");
+   Put_Line("TODO : Vider_Arbre + AffichageN Arbre/Trie + Fusion Arbre + Supprimer Trie");
 
    Menu := True;
    Chaine := "                              "; -- anti-warning
@@ -189,15 +191,15 @@ begin
                      Put_Line("Veuillez entrer le premier mot. (le conserve) ");
                      Get_Line(Buffer, Last);
                      New_Line;
-                     Set_Mot(C1, Creer_Mot(Buffer(1 .. Last)));
+                     Set_Mot(Couple1, Creer_Mot(Buffer(1 .. Last)));
 
                      Put_Line("Veuillez entrer le deuxieme mot. (le fusione)");
                      Get_Line(Buffer, Last);
                      New_Line;
-                     Set_Mot(C2, Creer_Mot(Buffer(1 .. Last)));
+                     Set_Mot(Couple2, Creer_Mot(Buffer(1 .. Last)));
 
                      begin
-                        Fusion_Couple(L, C1, C2);
+                        Fusion_Couple(L, Couple1, Couple2);
                      exception
                         when Constraint_Error =>
                            Put_Line("Erreur de contrainte");
@@ -313,14 +315,23 @@ begin
                      Put_Line("Veuillez entrer le premier mot. (le conserve) ");
                      Get_Line(Buffer, Last);
                      New_Line;
-                     Set_Mot(C1, Creer_Mot(Buffer(1 .. Last)));
+                     Set_Mot(Triplet1, Creer_Mot(Buffer(1 .. Last)));
 
                      Put_Line("Veuillez entrer le deuxieme mot. (le fusione)");
                      Get_Line(Buffer, Last);
                      New_Line;
-                     Set_Mot(C2, Creer_Mot(Buffer(1 .. Last)));
+                     Set_Mot(Triplet2, Creer_Mot(Buffer(1 .. Last)));
 
-                     Skip_Line;
+                     begin
+                        Fusion_Triplet(LT, Triplet1, Triplet2);
+                     exception
+                        when Constraint_Error =>
+                           Put_Line("Erreur de contrainte");
+                        when Liste_Triplet.LT.Listevideexception =>
+                           Put_Line("Probleme : Elements non trouves dans la liste");
+                     end;
+					 
+					 New_Line;
                      Put_Line("Les mots employes par les deux auteurs sont :");
                      Query_Intersection(LT);
 
@@ -470,12 +481,12 @@ begin
                      Put_Line("Veuillez entrer le premier mot. (le conserve) ");
                      Get_Line(Buffer, Last);
                      New_Line;
-                     Set_Mot(C1, Creer_Mot(Buffer(1 .. Last)));
+                     Set_Mot(Couple1, Creer_Mot(Buffer(1 .. Last)));
 
                      Put_Line("Veuillez entrer le deuxieme mot. (le fusione)");
                      Get_Line(Buffer, Last);
                      New_Line;
-                     Set_Mot(C2, Creer_Mot(Buffer(1 .. Last)));
+                     Set_Mot(Couple2, Creer_Mot(Buffer(1 .. Last)));
 
                      --begin
                      --Fusion_Couple(AB, C1, C2);
@@ -594,14 +605,14 @@ begin
                      Put_Line("Veuillez entrer le premier mot. (le conserve) ");
                      Get_Line(Buffer, Last);
                      New_Line;
-                     Set_Mot(C1, Creer_Mot(Buffer(1 .. Last)));
+                     Set_Mot(Triplet1, Creer_Mot(Buffer(1 .. Last)));
 
                      Put_Line("Veuillez entrer le deuxieme mot. (le fusione)");
                      Get_Line(Buffer, Last);
                      New_Line;
-                     Set_Mot(C2, Creer_Mot(Buffer(1 .. Last)));
+                     Set_Mot(Triplet2, Creer_Mot(Buffer(1 .. Last)));
 
-                     Skip_Line;
+                     New_Line;
                      Put_Line("Les mots employes par les deux auteurs sont :");
                      Query_Intersection(ABT);
 
@@ -755,6 +766,7 @@ begin
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
                      Get(NbMot);
+					 New_Line;
                      AffichageN_Txt1(T1, NbMot, Chaine, 0);
                      New_Line;
 
@@ -762,20 +774,20 @@ begin
                      Put_Line("Fusion d'un mot dans un autre :");
                      Put_Line("Veuillez entrer le premier mot. (le conserve) ");
                      Get_Line(Buffer, Last);
+					 Mot1 := Creer_Mot(Buffer(1 .. Last));
                      New_Line;
-                     Set_Mot(C1, Creer_Mot(Buffer(1 .. Last)));
 
                      Put_Line("Veuillez entrer le deuxieme mot. (le fusione)");
                      Get_Line(Buffer, Last);
+					 Mot2 := Creer_Mot(Buffer(1 .. Last));
                      New_Line;
-                     Set_Mot(C2, Creer_Mot(Buffer(1 .. Last)));
 
-                     --begin
-                     --Fusion_Couple(T1, C1, C2);
-                     --   exception
-                     --   when Constraint_Error => Put_Line("Erreur de contrainte");
-                     --   when Liste_Couple.L.Listevideexception => Put_Line("Probleme : Element non trouves dans la liste");
-                     --end;
+					 Fusion_Txt1(T1, Mot1, Mot2);
+                     -- begin
+                       -- exception
+                       -- when Constraint_Error => Put_Line("Erreur de contrainte");
+                       -- when Liste_Couple.L.Listevideexception => Put_Line("Probleme : Element non trouves dans le trie");
+                     -- end;
                         
                   when 3 =>
 
@@ -896,6 +908,7 @@ begin
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
                      Get(NbMot);
+					 New_Line;
                      AffichageN_Txt2(T2, NbMot, Chaine, 0);
                      New_Line;
 
@@ -903,15 +916,22 @@ begin
                      Put_Line("Fusion d'un mot dans un autre :");
                      Put_Line("Veuillez entrer le premier mot. (le conserve) ");
                      Get_Line(Buffer, Last);
+					 Mot1 := Creer_Mot(Buffer(1 .. Last));
                      New_Line;
-                     Set_Mot(C1, Creer_Mot(Buffer(1 .. Last)));
 
                      Put_Line("Veuillez entrer le deuxieme mot. (le fusione)");
                      Get_Line(Buffer, Last);
+					 Mot2 := Creer_Mot(Buffer(1 .. Last));
                      New_Line;
-                     Set_Mot(C2, Creer_Mot(Buffer(1 .. Last)));
 
-                     Skip_Line;
+					 Fusion_Txt2(T2, Mot1, Mot2);
+                     -- begin
+                       -- exception
+                       -- when Constraint_Error => Put_Line("Erreur de contrainte");
+                       -- when Liste_Couple.L.Listevideexception => Put_Line("Probleme : Element non trouves dans le trie");
+                     -- end;
+					 
+                     New_Line;
                      Put_Line("Les mots employes par les deux auteurs sont :");
                      Query_Intersection(T2, Chaine, 0);
 
