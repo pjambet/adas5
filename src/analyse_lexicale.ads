@@ -98,24 +98,39 @@ package Analyse_Lexicale is
    -- Renvoit le nombre de mot ayant M pour préfixe
 
    function Query_NbPref (L : in TListe_Couple; M : in T_Mot) return Integer;
+   function Query_NbPref_Txt1 (L : in TListe_Triplet; M : in T_Mot) return Integer;
+   function Query_NbPref_Txt2 (L : in TListe_Triplet; M : in T_Mot) return Integer;
    function Query_NbPref (A : in TABR_Couple; M : in T_Mot) return Integer;
-   procedure Query_NbPref (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer);
+   function Query_NbPref_Txt1 (A : in TABR_Triplet; M : in T_Mot) return Integer;
+   function Query_NbPref_Txt2 (A : in TABR_Triplet; M : in T_Mot) return Integer;
+   procedure Query_NbPref_Txt1 (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer);
+   procedure Query_NbPref_Txt2 (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer);
    
    -- #################################################################################
 
    -- Renvoit le nombre de mot ayant M pour suffixe
 
    function Query_NbSuff (L : in TListe_Couple; M : in T_Mot) return Integer;
+   function Query_NbSuff_Txt1 (L : in TListe_Triplet; M : in T_Mot) return Integer;
+   function Query_NbSuff_Txt2 (L : in TListe_Triplet; M : in T_Mot) return Integer;
    function Query_NbSuff (A : in TABR_Couple; M : in T_Mot) return Integer;
-   procedure Query_NbSuff (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer);
+   function Query_NbSuff_Txt1 (A : in TABR_Triplet; M : in T_Mot) return Integer;
+   function Query_NbSuff_Txt2 (A : in TABR_Triplet; M : in T_Mot) return Integer;
+   procedure Query_NbSuff_Txt1 (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer);
+   procedure Query_NbSuff_Txt2 (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer);
 
    -- #################################################################################
 
    -- Renvoit le nombre de mot ayant M pour facteur
 
    function Query_NbFact (L : in TListe_Couple; M : in T_Mot) return Integer;
+   function Query_NbFact_Txt1 (L : in TListe_Triplet; M : in T_Mot) return Integer;
+   function Query_NbFact_Txt2 (L : in TListe_Triplet; M : in T_Mot) return Integer;
    function Query_NbFact (A : in TABR_Couple; M : in T_Mot) return Integer;
-   procedure Query_NbFact (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer);
+   function Query_NbFact_Txt1 (A : in TABR_Triplet; M : in T_Mot) return Integer;
+   function Query_NbFact_Txt2 (A : in TABR_Triplet; M : in T_Mot) return Integer;
+   procedure Query_NbFact_Txt1 (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer);
+   procedure Query_NbFact_Txt2 (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer);
 
    -- #################################################################################
 
