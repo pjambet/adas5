@@ -164,18 +164,24 @@ package body Mot is
       --Renvoie true si T1 est suffixe de T2, false sinon
       --exemple : T1 : "ment" T2 = "lentement"
       --La fonction renvoie vrai
-      I : Integer;
+      I, J : Integer;
       Continue : Boolean;
    begin
       I := Get_Fin(M2) - Get_Fin(M1) + 1; -- on rajoute le +1 pour etre sur la case correspondant au debut du suffixe
+      J := 1;
       Continue := True;
-      While I <= Get_Fin(M2) and then Continue loop
-         if Get_Chaine(M1)(I) /= Get_Chaine(M2)(I) then
-            Continue := False;
-         end if;
-         I := I + 1;
-      end loop;
-      return Continue;
+      if I <= 0 then
+         return false;
+      else
+         while I <= Get_Fin(M2) and then Continue loop
+            if Get_Chaine(M1)(J) /= Get_Chaine(M2)(I) then
+               Continue := False;
+            end if;
+            I := I + 1;
+            J := J + 1;
+         end loop;
+         return Continue;
+      end if;
    end Estsuffixede;
 
    function EstPrefixeDe(M1 : T_Mot; M2 : T_Mot) return Boolean is
@@ -217,7 +223,7 @@ package body Mot is
             J := J+1;
             K := K+1;
          end loop;
-         --Si Continue n'a pas été mis a faux, alors on est sorti de
+         --Si Continue n'a pas ete mis a faux, alors on est sorti de
          --la boucle uniquement a cause de la premier condition(fin du
          --tableau) donc T1 est facteur de T2
          if Continue = True then
