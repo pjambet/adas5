@@ -1089,6 +1089,28 @@ package body Analyse_Lexicale is
       end if;
    end;
 
+   function Query_NbPref_Txt1 (L : in TListe_Triplet; M : in T_Mot) return Integer is
+   begin
+      if EstVide(L) then
+         return 0;
+      elsif EstPrefixeDe(M, Get_Mot(Valeur(L))) then
+         return 1 + Query_NbPref_Txt1(Suivant(L), M);
+      else
+         return Query_NbPref_Txt1(Suivant(L), M);
+      end if;
+   end;
+
+   function Query_NbPref_Txt2 (L : in TListe_Triplet; M : in T_Mot) return Integer is
+   begin
+      if EstVide(L) then
+         return 0;
+      elsif EstPrefixeDe(M, Get_Mot(Valeur(L))) then
+         return 1 + Query_NbPref_Txt2(Suivant(L), M);
+      else
+         return Query_NbPref_Txt2(Suivant(L), M);
+      end if;
+   end;
+
    function Query_NbPref (A : in TABR_Couple; M : in T_Mot) return Integer is
    begin
       if Arbre_Vide(A) then
@@ -1100,7 +1122,29 @@ package body Analyse_Lexicale is
       end if; 
    end;
 
-   procedure Query_NbPref (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer) is
+   function Query_NbPref_Txt1 (A : in TABR_Triplet; M : in T_Mot) return Integer is
+   begin
+      if Arbre_Vide(A) then
+         return 0;
+      elsif EstPrefixeDe(M, Get_Mot(Lire_Racine(A))) then
+         return 1 + Query_NbPref_Txt1(SAG(A),M) + Query_NbPref_Txt1(SAD(A),M);
+      else
+         return Query_NbPref_Txt1(SAG(A),M) + Query_NbPref_Txt1(SAD(A),M);
+      end if; 
+   end;
+
+   function Query_NbPref_Txt2 (A : in TABR_Triplet; M : in T_Mot) return Integer is
+   begin
+      if Arbre_Vide(A) then
+         return 0;
+      elsif EstPrefixeDe(M, Get_Mot(Lire_Racine(A))) then
+         return 1 + Query_NbPref_Txt2(SAG(A),M) + Query_NbPref_Txt2(SAD(A),M);
+      else
+         return Query_NbPref_Txt2(SAG(A),M) + Query_NbPref_Txt2(SAD(A),M);
+      end if; 
+   end;
+
+   procedure Query_NbPref_Txt1 (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer) is
       Chaine : String(1 .. 30);
       Fin : Natural;
    begin
@@ -1116,7 +1160,30 @@ package body Analyse_Lexicale is
                if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 and then EstPrefixeDe(M, Creer_Mot(C)) then
                   S := S + 1;
                end if;
-               Query_NbPref(Get_ST(T, I), Chaine, Fin, M, S);
+               Query_NbPref_Txt1(Get_ST(T, I), Chaine, Fin, M, S);
+               Fin := Fin - 1;
+            end if;
+         end loop;
+      end if;
+   end;
+
+   procedure Query_NbPref_Txt2 (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer) is
+      Chaine : String(1 .. 30);
+      Fin : Natural;
+   begin
+      if not TrieVide(T) then
+         Chaine := C;
+         Fin := F;
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_Prefixes(Get_ST(T, I)) > 0 then
+                  Fin := Fin + 1;
+                  Chaine(Fin) := I;
+               end if;
+               if Get_NbOcc_Txt2(Get_ST(T, I)) > 0 and then EstPrefixeDe(M, Creer_Mot(C)) then
+                  S := S + 1;
+               end if;
+               Query_NbPref_Txt2(Get_ST(T, I), Chaine, Fin, M, S);
                Fin := Fin - 1;
             end if;
          end loop;
@@ -1136,6 +1203,28 @@ package body Analyse_Lexicale is
       end if;
    end;
 
+   function Query_NbSuff_Txt1 (L : in TListe_Triplet; M : in T_Mot) return Integer is
+   begin
+      if EstVide(L) then
+         return 0;
+      elsif EstSuffixeDe(M, Get_Mot(Valeur(L))) then
+         return 1 + Query_NbSuff_Txt1(Suivant(L), M);
+      else
+         return Query_NbSuff_Txt1(Suivant(L), M);
+      end if;
+   end;
+
+   function Query_NbSuff_Txt2 (L : in TListe_Triplet; M : in T_Mot) return Integer is
+   begin
+      if EstVide(L) then
+         return 0;
+      elsif EstSuffixeDe(M, Get_Mot(Valeur(L))) then
+         return 1 + Query_NbSuff_Txt2(Suivant(L), M);
+      else
+         return Query_NbSuff_Txt2(Suivant(L), M);
+      end if;
+   end;
+
    function Query_NbSuff (A : in TABR_Couple; M : in T_Mot) return Integer is
    begin
       if Arbre_Vide(A) then
@@ -1147,7 +1236,29 @@ package body Analyse_Lexicale is
       end if; 
    end;
 
-   procedure Query_NbSuff (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer) is
+   function Query_NbSuff_Txt1 (A : in TABR_Triplet; M : in T_Mot) return Integer is
+   begin
+      if Arbre_Vide(A) then
+         return 0;
+      elsif EstSuffixeDe(M, Get_Mot(Lire_Racine(A))) then
+         return 1 + Query_NbSuff_Txt1(sag(A),M) + Query_NbSuff_Txt1(sad(A),M);
+      else
+         return Query_NbSuff_Txt1(sag(A),M) + Query_NbSuff_Txt1(sad(A),M);
+      end if; 
+   end;
+
+   function Query_NbSuff_Txt2 (A : in TABR_Triplet; M : in T_Mot) return Integer is
+   begin
+      if Arbre_Vide(A) then
+         return 0;
+      elsif EstSuffixeDe(M, Get_Mot(Lire_Racine(A))) then
+         return 1 + Query_NbSuff_Txt2(sag(A),M) + Query_NbSuff_Txt2(sad(A),M);
+      else
+         return Query_NbSuff_Txt2(sag(A),M) + Query_NbSuff_Txt2(sad(A),M);
+      end if; 
+   end;
+
+   procedure Query_NbSuff_Txt1 (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer) is
       Chaine : String(1 .. 30);
       Fin : Natural;
    begin
@@ -1163,7 +1274,30 @@ package body Analyse_Lexicale is
                if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 and then EstSuffixeDe(M, Creer_Mot(C)) then
                   S := S + 1;
                end if;
-               Query_NbSuff(Get_ST(T, I), Chaine, Fin, M, S);
+               Query_NbSuff_Txt1(Get_ST(T, I), Chaine, Fin, M, S);
+               Fin := Fin - 1;
+            end if;
+         end loop;
+      end if;
+   end;
+
+   procedure Query_NbSuff_Txt2 (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer) is
+      Chaine : String(1 .. 30);
+      Fin : Natural;
+   begin
+      if not TrieVide(T) then
+         Chaine := C;
+         Fin := F;
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_Prefixes(Get_ST(T, I)) > 0 then
+                  Fin := Fin + 1;
+                  Chaine(Fin) := I;
+               end if;
+               if Get_NbOcc_Txt2(Get_ST(T, I)) > 0 and then EstSuffixeDe(M, Creer_Mot(C)) then
+                  S := S + 1;
+               end if;
+               Query_NbSuff_Txt2(Get_ST(T, I), Chaine, Fin, M, S);
                Fin := Fin - 1;
             end if;
          end loop;
@@ -1183,6 +1317,28 @@ package body Analyse_Lexicale is
       end if;
    end;
 
+   function Query_NbFact_Txt1 (L : in TListe_Triplet; M : in T_Mot) return Integer is
+   begin
+      if EstVide(L) then
+         return 0;
+      elsif EstFacteurDe(M, Get_Mot(Valeur(L))) then
+         return 1 + Query_NbFact_Txt1(Suivant(L), M);
+      else
+         return Query_NbFact_Txt1(Suivant(L), M);
+      end if;
+   end;
+
+   function Query_NbFact_Txt2 (L : in TListe_Triplet; M : in T_Mot) return Integer is
+   begin
+      if EstVide(L) then
+         return 0;
+      elsif EstFacteurDe(M, Get_Mot(Valeur(L))) then
+         return 1 + Query_NbFact_Txt2(Suivant(L), M);
+      else
+         return Query_NbFact_Txt2(Suivant(L), M);
+      end if;
+   end;
+
    function Query_NbFact (A : in TABR_Couple; M : in T_Mot) return Integer is
    begin
       if Arbre_Vide(A) then
@@ -1194,7 +1350,29 @@ package body Analyse_Lexicale is
       end if; 
    end;
 
-   procedure Query_NbFact (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer) is
+   function Query_NbFact_Txt1 (A : in TABR_Triplet; M : in T_Mot) return Integer is
+   begin
+      if Arbre_Vide(A) then
+         return 0;
+      elsif EstFacteurDe(M, Get_Mot(Lire_Racine(A))) then
+         return 1 + Query_NbFact_Txt1(SAG(A),M) + Query_NbFact_Txt1(SAD(A),M);
+      else
+         return Query_NbFact_Txt1(SAG(A),M) + Query_NbFact_Txt1(SAD(A),M);
+      end if; 
+   end;
+
+   function Query_NbFact_Txt2 (A : in TABR_Triplet; M : in T_Mot) return Integer is
+   begin
+      if Arbre_Vide(A) then
+         return 0;
+      elsif EstFacteurDe(M, Get_Mot(Lire_Racine(A))) then
+         return 1 + Query_NbFact_Txt2(SAG(A),M) + Query_NbFact_Txt2(SAD(A),M);
+      else
+         return Query_NbFact_Txt2(SAG(A),M) + Query_NbFact_Txt2(SAD(A),M);
+      end if; 
+   end;
+
+   procedure Query_NbFact_Txt1 (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer) is
       Chaine : String(1 .. 30);
       Fin : Natural;
    begin
@@ -1210,7 +1388,30 @@ package body Analyse_Lexicale is
                if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 and then EstFacteurDe(M, Creer_Mot(C)) then
                   S := S + 1;
                end if;
-               Query_NbFact(Get_ST(T, I), Chaine, Fin, M, S);
+               Query_NbFact_Txt1(Get_ST(T, I), Chaine, Fin, M, S);
+               Fin := Fin - 1;
+            end if;
+         end loop;
+      end if;
+   end;
+
+   procedure Query_NbFact_Txt2 (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer) is
+      Chaine : String(1 .. 30);
+      Fin : Natural;
+   begin
+      if not TrieVide(T) then
+         Chaine := C;
+         Fin := F;
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_Prefixes(Get_ST(T, I)) > 0 then
+                  Fin := Fin + 1;
+                  Chaine(Fin) := I;
+               end if;
+               if Get_NbOcc_Txt2(Get_ST(T, I)) > 0 and then EstFacteurDe(M, Creer_Mot(C)) then
+                  S := S + 1;
+               end if;
+               Query_NbFact_Txt2(Get_ST(T, I), Chaine, Fin, M, S);
                Fin := Fin - 1;
             end if;
          end loop;
