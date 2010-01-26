@@ -323,8 +323,7 @@ package body Arbre_Binaire is
          raise Arbrevideexception;
       else
          Diff_Haut := Hauteur(Sag(A))-Hauteur(Sad(A));
-         return ( Diff_Haut = 1 or else Diff_Haut = -1 or else Diff_Haut =
-            0);
+         return ( Diff_Haut = 1 or else Diff_Haut = -1 or else Diff_Haut = 0);
       end if;
    end Est_Equilibre;
 
@@ -632,7 +631,7 @@ package body Arbre_Binaire is
          else
             T.Pere.Sad := null;--T est fils droit
          end if;
-         Equilibrage_Arn(A);
+         --Equilibrage_Arn(A);
       elsif T.Sag = null then
          if Est_Racine(T) then
             T.Sad.Pere := null;
@@ -644,7 +643,7 @@ package body Arbre_Binaire is
             T.Pere.Sad := T.Sad;
             T.Sad.Pere := T.Pere;
          end if;
-         Equilibrage_Arn(A);--a verifier
+         --Equilibrage_Arn(A);--a verifier
          Liberer(T);--pas sur, mais ce devrait etre juste
       elsif T.Sad = null then
          --symetrique
@@ -658,14 +657,16 @@ package body Arbre_Binaire is
             T.Pere.Sad := T.Sag;
             T.Sag.Pere := T.Pere;
          end if;
-         Equilibrage_Arn(A);--a verifier
+         --Equilibrage_Arn(A);--a verifier
          Liberer(T);
       else
          R := Rechercher(T);
+         --Comentaire de JCoudsi       
+         --R.sad := T.sad;
          T.Racine := R.Racine;
          --R.sad = null
          Supprimer_Abr(R,R.Racine);
-         Equilibrage_Arn(A);--a verifier
+         --Equilibrage_Arn(A);--a verifier
       end if;
    end Supprimer_Abr;
 

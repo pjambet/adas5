@@ -41,7 +41,7 @@ begin
    Put_line("**               |__/                                           **");
    Put_Line("**                                                              **");
    Put_Line("**                                                              **");
-   Put_Line("**                   ANALYSEUR LEXICALE v2                      **");
+   Put_Line("**                    ANALYSEUR LEXICAL v3                      **");
    Put_Line("**                       PROJET ADA S5                          **");
    Put_Line("**                                                              **");
    Put_Line("** Auteurs :                                                    **");
@@ -146,6 +146,34 @@ begin
                      Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(Num_Mot_Sup(L, Num)) & ".");
                      New_Line;
 
+                     Skip_Line;                     
+                     Put_Line("Affichage du nombre d'occurence d'un mot :");
+                     Put_Line("Veuillez entrer un mot.");
+                     Get_Line(Buffer, Last);
+                     Put_Line("Le nombre d'occurence de" & Buffer(1 .. Last) & " est :" & Integer'Image(Query_NbOcc(L, Creer_Mot(Buffer(1 .. Last)))) & ".");
+                     New_Line;
+
+                     Skip_Line;
+                     Put_Line("Affichage du nombre de prefixes d'un mot :");
+                     Put_Line("Veuillez entrer un mot.");
+                     Get_Line(Buffer, Last);
+                     Put_Line("Le nombre de mots ayant" & Buffer(1 .. Last) & " pour prefixe est :" & Integer'Image(Query_NbPref(L, Creer_Mot(Buffer(1 .. Last)))) & ".");
+                     New_Line;
+
+                     Skip_Line;
+                     Put_Line("Affichage du nombre de suffixes d'un mot :");
+                     Put_Line("Veuillez entrer un mot.");
+                     Get_Line(Buffer, Last);
+                     Put_Line("Le nombre de mots ayant" & Buffer(1 .. Last) & " pour suffixe est :" & Integer'Image(Query_NbSuff(L, Creer_Mot(Buffer(1 .. Last)))) & ".");
+                     New_Line;
+
+                     Skip_Line;
+                     Put_Line("Affichage du nombre de facteurs d'un mot :");
+                     Put_Line("Veuillez entrer un mot.");
+                     Get_Line(Buffer, Last);
+                     Put_Line("Le nombre de mots ayant" & Buffer(1 .. Last) & " pour facteur est :" & Integer'Image(Query_NbFact(L, Creer_Mot(Buffer(1 .. Last)))) & ".");
+                     New_Line;
+                     
                      Skip_Line;
                      Put_Line("Affichage du nombre d'occurence d'un mot :");
                      Put_Line("Veuillez entrer un mot.");
@@ -409,13 +437,7 @@ begin
                            Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;
                         end if;
-                           
-                        if Est_Equilibre(Ab) then
-                           Put_Line("L'arbre est equilibre");
-                        else
-                           Put_Line("L'arbre n'est pas equilibre");
-                        end if;
-                                                           
+                                                                                    
                     end loop;
 
                   when 2 =>

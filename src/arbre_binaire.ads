@@ -126,13 +126,6 @@ package Arbre_Binaire is
    --Renvoie l'arbre ayant v pour racine
    --Leve une ArbreVideException si il n'y a aucun element dans A
 
-   function Rechercher(A: T_Abr) return T_Abr;
-   procedure Rotation_Gauche_Simple(X: in out T_Abr);-- return T_ABR;
-   procedure Rotation_Droite_Simple(X: in out T_Abr);-- return T_ABR;
-   procedure Rotation_Droite(X,Y: in out T_Abr);-- return T_ABR;
-   procedure Rotation_Gauche(X,Y: in out T_Abr);-- return T_ABR;
-
-
    generic
       with function ">"(T1, T2 : T_Elem) return Boolean is <>;
       with function "="(T1, T2 : T_Elem) return Boolean is <>;
