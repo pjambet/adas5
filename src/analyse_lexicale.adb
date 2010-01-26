@@ -1234,7 +1234,13 @@ package body Analyse_Lexicale is
 
    procedure Query_Intersection (A : in TABR_Triplet) is
    begin
-      null;
+      if not Arbre_Vide(A) then
+         Query_Intersection(SAG(A));
+         if (Get_NbOcc_Txt1(Lire_Racine(A)) /= 0) and then (Get_NbOcc_Txt2(Lire_Racine(A)) /= 0) then
+               Imprime_Triplet(Lire_Racine(A));
+         end if;      
+         Query_Intersection(SAD(A));
+      end if;
    end;
 
    procedure Query_Intersection (T : in T_Trie; C : in String; F : in Natural) is
@@ -1279,7 +1285,13 @@ package body Analyse_Lexicale is
    
    procedure Query_Difference (A : in TABR_Triplet) is
    begin
-      null;
+      if not Arbre_Vide(A) then
+         Query_Intersection(SAG(A));
+         if (Get_NbOcc_Txt1(Lire_Racine(A)) /= 0) xor (Get_NbOcc_Txt2(Lire_Racine(A)) /= 0) then
+               Imprime_Triplet(Lire_Racine(A));
+         end if;      
+         Query_Intersection(SAD(A));
+      end if;
    end;
 
    procedure Query_Difference (T : in T_Trie; C : in String; F : in Natural) is
