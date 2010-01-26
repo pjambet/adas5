@@ -814,7 +814,6 @@ package body Analyse_Lexicale is
       end if;
    end;
 
-
    procedure Recup_Fichier_Txt1(T : in out T_Trie) is
       Orig : File_Type;
       C : Character;
@@ -1003,7 +1002,18 @@ package body Analyse_Lexicale is
    
    -- #################################################################################
 
-   function Query_NbOcc_Txt1 (L : TListe_Triplet; M : T_Mot) return Integer is
+   function Query_NbOcc (L : in TListe_Couple; M : in T_Mot) return Integer is
+   begin
+      if EstVide(L) then
+         return 0;
+      elsif Compare_Mots(M, Get_Mot(Valeur(L))) then
+         return Get_NbOcc(Valeur(L));
+      else
+         return Query_NbOcc(Suivant(L), M);
+      end if;
+   end;
+
+   function Query_NbOcc_Txt1 (L : in TListe_Triplet; M : in T_Mot) return Integer is
    begin
       if EstVide(L) then
          return 0;
@@ -1014,7 +1024,7 @@ package body Analyse_Lexicale is
       end if;
    end;
 
-   function Query_NbOcc_Txt2 (L : TListe_Triplet; M : T_Mot) return Integer is
+   function Query_NbOcc_Txt2 (L : in TListe_Triplet; M : in T_Mot) return Integer is
    begin
       if EstVide(L) then
          return 0;
@@ -1025,17 +1035,22 @@ package body Analyse_Lexicale is
       end if;
    end;
 
-   function Query_NbOcc_Txt1 (A : TABR_Triplet; M : T_Mot) return Integer is
-   begin
-      return 0;
-   end;
-   
-   function Query_NbOcc_Txt2 (A : TABR_Triplet; M : T_Mot) return Integer is
+   function Query_NbOcc (A : in TABR_Couple; M : in T_Mot) return Integer is
    begin
       return 0;
    end;
 
-   function Query_Nbocc_Txt1(T : in T_Trie; M : in T_Mot) return Integer is
+   function Query_NbOcc_Txt1 (A : in TABR_Triplet; M : in T_Mot) return Integer is
+   begin
+      return 0;
+   end;
+   
+   function Query_NbOcc_Txt2 (A : in TABR_Triplet; M : in T_Mot) return Integer is
+   begin
+      return 0;
+   end;
+
+   function Query_NbOcc_Txt1(T : in T_Trie; M : in T_Mot) return Integer is
       C : Character;
       Mot : T_Mot;
    begin
@@ -1062,6 +1077,141 @@ package body Analyse_Lexicale is
          C := Get_Char(M);
          Mot := Get_CharSuffixe(M);
          return Query_Nbocc_Txt2(Get_ST(T, C), Mot);
+      end if;
+   end;
+
+   -- #################################################################################
+
+   function Query_NbPref (L : in TListe_Couple; M : in T_Mot) return Integer is
+   begin
+      if EstVide(L) then
+         return 0;
+      elsif EstPrefixeDe(Get_Mot(Valeur(L)), M) then
+         return 1 + Query_NbPref(Suivant(L), M);
+      else
+         return Query_NbPref(Suivant(L), M);
+      end if;
+   end;
+
+   function Query_NbPref (A : in TABR_Couple; M : in T_Mot) return Integer is
+   begin
+      if Arbre_Vide(A) then
+         return 0;
+      else
+         return 1; --TODO
+      end if; 
+   end;
+
+   procedure Query_NbPref (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer) is
+      Chaine : String(1 .. 30);
+      Fin : Natural;
+   begin
+      if not TrieVide(T) then
+         Chaine := C;
+         Fin := F;
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_Prefixes(Get_ST(T, I)) > 0 then
+                  Fin := Fin + 1;
+                  Chaine(Fin) := I;
+               end if;
+               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 and then EstPrefixeDe(M, Creer_Mot(C)) then
+                  S := S + 1;
+               end if;
+               Query_NbPref(Get_ST(T, I), Chaine, Fin, M, S);
+               Fin := Fin - 1;
+            end if;
+         end loop;
+      end if;
+   end;
+
+   -- #################################################################################
+
+   function Query_NbSuff (L : in TListe_Couple; M : in T_Mot) return Integer is
+   begin
+      if EstVide(L) then
+         return 0;
+      elsif EstSuffixeDe(Get_Mot(Valeur(L)), M) then
+         return 1 + Query_NbSuff(Suivant(L), M);
+      else
+         return Query_NbSuff(Suivant(L), M);
+      end if;
+   end;
+
+   function Query_NbSuff (A : in TABR_Couple; M : in T_Mot) return Integer is
+   begin
+      if Arbre_Vide(A) then
+         return 0;
+      else
+         return 1; --TODO
+      end if; 
+   end;
+
+   procedure Query_NbSuff (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer) is
+      Chaine : String(1 .. 30);
+      Fin : Natural;
+   begin
+      if not TrieVide(T) then
+         Chaine := C;
+         Fin := F;
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_Prefixes(Get_ST(T, I)) > 0 then
+                  Fin := Fin + 1;
+                  Chaine(Fin) := I;
+               end if;
+               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 and then EstSuffixeDe(M, Creer_Mot(C)) then
+                  S := S + 1;
+               end if;
+               Query_NbSuff(Get_ST(T, I), Chaine, Fin, M, S);
+               Fin := Fin - 1;
+            end if;
+         end loop;
+      end if;
+   end;
+
+   -- #################################################################################
+
+   function Query_NbFact (L : in TListe_Couple; M : in T_Mot) return Integer is
+   begin
+      if EstVide(L) then
+         return 0;
+      elsif EstFacteurDe(Get_Mot(Valeur(L)), M) then
+         return 1 + Query_NbPref(Suivant(L), M);
+      else
+         return Query_NbFact(Suivant(L), M);
+      end if;
+   end;
+
+   function Query_NbFact (A : in TABR_Couple; M : in T_Mot) return Integer is
+   begin
+      if Arbre_Vide(A) then
+         return 0;
+      else
+         return 1; --TODO
+      end if; 
+   end;
+
+   procedure Query_NbFact (T : in T_Trie; C : in String; F : in Natural; M : in T_Mot; S : in out Integer) is
+      Chaine : String(1 .. 30);
+      Fin : Natural;
+   begin
+      if not TrieVide(T) then
+         Chaine := C;
+         Fin := F;
+         for I in Tindice loop
+            if not STVide(T, I) then
+               if Get_Prefixes(Get_ST(T, I)) > 0 then
+                  Fin := Fin + 1;
+                  Chaine(Fin) := I;
+               end if;
+               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 and then EstFacteurDe(M, Creer_Mot(C)) then
+                  S := S + 1;
+               end if;
+               Query_NbFact(Get_ST(T, I), Chaine, Fin, M, S);
+               Fin := Fin - 1;
+            end if;
+         end loop;
       end if;
    end;
 
