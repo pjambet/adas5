@@ -385,7 +385,7 @@ package body Arbre_Binaire is
 
    end Rotation_Gauche_Simple;
 
-   procedure Rotation_Droite (X,Y : in out T_Abr) is--return T_Abr is
+   procedure Rotation_Droite (X : in out T_Abr; Y : in T_Abr) is--return T_Abr is
       --Effectue une rotation avec x comme racine et Y comme pivot
       --prerequis : y appartient au sag de x
       Z : T_Abr;
@@ -410,7 +410,7 @@ package body Arbre_Binaire is
 
    end Rotation_Droite;
 
-   procedure Rotation_Gauche (X,Y : in out T_Abr) is-- return T_Abr is
+   procedure Rotation_Gauche (X : in out T_Abr; Y : in T_Abr) is-- return T_Abr is
       --Effectue une rotation avec x comme racine et Y comme pivot
       --prerequis : y appartient au sad de x
       Z : T_Abr;

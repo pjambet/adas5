@@ -33,6 +33,7 @@ begin
 
    Put_Line("******************************************************************");
    Put_line("******************************************************************");
+   Put_Line("**                                                              **");
    Put_line("**    ____            _      _               _                  **");
    Put_line("**   |  _ \ _ __ ___ (_) ___| |_    __ _  __| | __ _            **");
    Put_line("**   | |_) | '__/ _ \| |/ _ \ __|  / _` |/ _` |/ _` |           **");
@@ -52,10 +53,10 @@ begin
    Put_line("******************************************************************");
    New_Line;
 
-   Put_Line("TODO : Query_Diff Arbre, Vider_Arbre, AffichageN Arbre/Trie, Fusion Arbre/Trie + Probleme Suffixe/Trie");
+   Put_Line("TODO : Query_Diff Arbre, Vider_Arbre, AffichageN Arbre/Trie, Fusion Arbre/Trie");
 
    Menu := True;
-   Chaine(Chaine'First) := Character'Val(0); -- anti-warning
+   Chaine := "                              "; -- anti-warning
    while Menu loop
 
       Put_Line("1 -> Entrez 1 pour utiliser la structure de donnee " & Character'Val(34) & "Liste" & Character'Val(34) & ".");
@@ -698,7 +699,7 @@ begin
 
                   when 2 =>
 
-		     NumMotTot := 0;
+		             NumMotTot := 0;
                      Num_Mot_Tot_Txt1(T1, NumMotTot);
                      Put_Line("Nombre de mot total :" & Integer'Image(NumMotTot) & ".");
                      NumOccMoy := Num_Occ_Moy_Txt1(T1, NumMotTot);

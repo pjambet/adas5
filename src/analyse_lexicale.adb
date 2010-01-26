@@ -508,7 +508,7 @@ package body Analyse_Lexicale is
       Dest : File_Type;
       Chaine : String(1 .. 30);
    begin
-      Chaine(Chaine'First) := Character'Val(0); --anti-warning
+      Chaine := "                              "; --anti-warning
       Put("Debut creation");
       Create(Dest, Name => "liste-mot.txt");
       Ecriture_Dest_Txt1(T, Chaine, 0, Dest);
@@ -523,7 +523,7 @@ package body Analyse_Lexicale is
       Dest : File_Type;
       Chaine : String(1 .. 30);
    begin
-      Chaine(Chaine'First) := Character'Val(0); --anti-warning
+      Chaine := "                              "; --anti-warning
       Put("Debut creation");
       Create(Dest, Name => "liste-mot2.txt");
       Ecriture_Dest_Txt2(T, Chaine, 0, Dest);
@@ -1073,7 +1073,7 @@ package body Analyse_Lexicale is
          if Arbre_Vide(Recherche_ABR(A,C)) then
             return 0;
          else
-            return Get_NbOcc_Txt1(Lire_Racine(Recherche_ABR(A, C)));
+            return Get_NbOcc_Txt2(Lire_Racine(Recherche_ABR(A, C)));
          end if;
       end if;
    end;
@@ -1462,7 +1462,6 @@ package body Analyse_Lexicale is
          end if;
          Temp := Suivant(Temp);
       end loop;
-      New_Line;
    end;
 
    procedure Query_Intersection (A : in TABR_Triplet) is
