@@ -1518,11 +1518,13 @@ package body Analyse_Lexicale is
    procedure Query_Difference (A : in TABR_Triplet) is
    begin
       if not Arbre_Vide(A) then
-         Query_Intersection(SAG(A));
+         Query_Difference(Sag(A));
+         --Put("Affichage du mot");
+         --Imprime_Triplet(Lire_Racine(A));
          if (Get_NbOcc_Txt1(Lire_Racine(A)) /= 0) xor (Get_NbOcc_Txt2(Lire_Racine(A)) /= 0) then
                Imprime_Triplet(Lire_Racine(A));
          end if;      
-         Query_Intersection(SAD(A));
+         Query_Difference(SAD(A));
       end if;
    end;
 

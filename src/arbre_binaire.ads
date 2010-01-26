@@ -144,6 +144,13 @@ package Arbre_Binaire is
    --Insere l'element V dans l'arbre en respectant l'équilibrage(gesion des couleurs rouges et noires)
    --et en respectant les contraintes des N
 
+   generic
+      with function ">"(T1, T2 : T_Elem) return Boolean is <>;
+      with function "="(T1, T2 : T_Elem) return Boolean is <>;
+      with function "<"(T1, T2 : T_Elem) return Boolean is <>;
+   procedure Copietriee(A: in out T_Abr; B : out T_Abr);
+   --Crée dans B le meme arbre que dans A mais selon l'ordre definie par les generic
+
    procedure Supprimer_Abr(A: in out T_Abr;V: in T_Elem);
    --Supprime l'element V de A
 

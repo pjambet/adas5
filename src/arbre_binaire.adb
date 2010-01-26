@@ -670,49 +670,39 @@ package body Arbre_Binaire is
       end if;
    end Supprimer_Abr;
 
+   procedure Copietriee(A: in out T_Abr; B : out T_Abr) is
+   begin
+      if not Arbre_Vide(A) then
+         Inserer_ARN(
+   end Copietriee;
+   
    procedure Vider_Arbre (A : in out T_Abr) is
       --Supprime tous les elements de A
       --ArbreVide(Vider_Arbre(A)) = true
       Tmp,Ag,Ad  : T_Abr;
    begin
-      Put("Suppr:");Affiche_Noeud(A);
+      if not Arbre_Vide(A) then
+         Put("Suppr:");Affiche_Noeud(A);
+      end if;
+      
       if Arbre_Vide(A) then
          null;
-      else
-         if Est_Feuille(A) then
-            Liberer(A);
-         end if;         
-         if not Arbre_Vide(Sag(A)) then
-            if Est_Feuille(Sag(A)) then
-               Tmp := A.Sag;
-               Affiche_Noeud(tmp);
-               Liberer(Tmp);
-               if Arbre_Vide(Tmp) then
-                  Put_Line("suppr OK");
-               else
-                  Affiche_Noeud(Tmp);
-               end if;
-            else
-               Ag := Sag(A);
-               Vider_Arbre(Ag);--on vide a gauche
-            end if;
-         end if;         
-         if not Arbre_Vide(Sad(A)) then
-            if Est_Feuille(Sad(A)) then
-               Tmp := A.Sad;
-               Affiche_Noeud(tmp);               
-               Liberer(Tmp);
-               if Arbre_Vide(Tmp) then
-                  Put_Line("suppr OK");
-               else
-                  Affiche_Noeud(Tmp);
-               end if;
-            else
-               Ad := Sad(A);
-               Vider_Arbre(Ad);--et on vide a droite
-            end if;
+      elsif not Est_Feuille(A) then
+         ag := a.sag;
+         Vider_Arbre(ag);
+         ad := a.sad;
+         Vider_Arbre(Ad);
+      elsif Est_Feuille(A) then
+         --Tmp := Pere(A);
+         Liberer(A);
+         if Arbre_Vide(A) then
+            Put_Line("Suppr OK");
+         else
+            Put_Line("Erreur de suppresion");
          end if;
+         --A := tmp;
       end if;
+      
    end Vider_Arbre;
 
 end Arbre_Binaire;
