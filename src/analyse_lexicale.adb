@@ -223,7 +223,6 @@ package body Analyse_Lexicale is
       M : T_Mot;
       Chrono_start : Integer;
       Chrono_end : Integer;
-
    begin
       Indice := 0;
       C := Character'Val(0);
@@ -269,7 +268,6 @@ package body Analyse_Lexicale is
       Indice : Integer;
       Triplet : T_Triplet;
       M : T_Mot;
-
    begin
       Indice := 0;
       C := Character'Val(0);
@@ -313,7 +311,6 @@ package body Analyse_Lexicale is
       Indice : Integer;
       Triplet : T_Triplet;
       M : T_Mot;
-
    begin
       Indice := 0;
       C := Character'Val(0);
@@ -347,7 +344,6 @@ package body Analyse_Lexicale is
       New_Line;
       Put_Line("Fin lecture !");
       Skip_Line;
-
    end;
 
    procedure Query_Struct_Txt1(T : in out T_Trie; NomFic : in String) is
