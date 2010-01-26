@@ -3,7 +3,7 @@ use Mot, Couple, Triplet, Liste_Couple.L, Liste_Triplet.LT, Arbre_Binaire_Couple
 
 package body Text_Stat is
 
-   function Div_Float(N : in Integer; M : in Integer) return Float is
+   function Div_Float (N : in Integer; M : in Integer) return Float is
    begin
       return Float(N) / Float(M);
    end;
@@ -78,36 +78,6 @@ package body Text_Stat is
 
    -- #################################################################################
 
-   function Num_Occ_Moy(L : TListe_Couple) return Float is
-      N, Total : Integer;
-      Ltemp : TListe_Couple;
-   begin
-      N := 0;
-      Total := 0;
-      Ltemp := L;
-      while not EstVide(Ltemp) loop
-         N := N + Get_Nbocc(Valeur(Ltemp));
-         Total := Total + 1;
-         Ltemp := Suivant(Ltemp);
-      end loop;
-      return Float(N) / Float(Total);
-   end;
-
-   function Num_Occ_Moy(L : TListe_Triplet) return Float is
-      N, Total : Integer;
-      Ltemp : TListe_Triplet;
-   begin
-      N := 0;
-      Total := 0;
-      Ltemp := L;
-      while not EstVide(Ltemp) loop
-         N := N + Get_NbOcc_Txt1(Valeur(Ltemp)) + Get_NbOcc_Txt2(Valeur(LTemp));
-         Total := Total + 1;
-         Ltemp := Suivant(Ltemp);
-      end loop;
-      return Float(N) / Float(Total);
-   end;
-
    function Num_Occ_Tot(A : TABR_Couple) return Integer is
    begin
       if Arbre_Vide(A) then return 0;
@@ -116,9 +86,12 @@ package body Text_Stat is
       end if;
    end;
 
-   function Num_Occ_Tot (A : TABR_Triplet) return Integer is
+   function Num_Occ_Tot(A : TABR_Triplet) return Integer is
    begin
-      return 0;
+      if Arbre_Vide(A) then return 0;
+      else
+         return Get_NbOcc_Txt1(Lire_Racine(A)) + Get_NbOcc_Txt2(Lire_Racine(A)) + Num_Occ_Tot(SAG(A)) + Num_Occ_Tot(SAD(A));
+      end if;
    end;
 
    procedure Num_Occ_Tot_Txt1 (T : in T_Trie; S : in out Integer) is
@@ -149,9 +122,7 @@ package body Text_Stat is
       end if;
    end;
 
-   -- #################################################################################
-
-   function Long_Moy(L : TListe_Couple) return Float is
+   function Num_Occ_Moy(L : TListe_Couple) return Float is
       N, Total : Integer;
       Ltemp : TListe_Couple;
    begin
@@ -159,14 +130,14 @@ package body Text_Stat is
       Total := 0;
       Ltemp := L;
       while not EstVide(Ltemp) loop
-         N := N + Get_Fin(Get_Mot(Valeur(Ltemp)));
+         N := N + Get_Nbocc(Valeur(Ltemp));
          Total := Total + 1;
          Ltemp := Suivant(Ltemp);
       end loop;
       return Float(N) / Float(Total);
    end;
 
-   function Long_Moy(L : TListe_Triplet) return Float is
+   function Num_Occ_Moy(L : TListe_Triplet) return Float is
       N, Total : Integer;
       Ltemp : TListe_Triplet;
    begin
@@ -174,12 +145,40 @@ package body Text_Stat is
       Total := 0;
       Ltemp := L;
       while not EstVide(Ltemp) loop
-         N := N + Get_Fin(Get_Mot_T(Valeur(Ltemp)));
+         N := N + Get_NbOcc_Txt1(Valeur(Ltemp)) + Get_NbOcc_Txt2(Valeur(LTemp));
          Total := Total + 1;
          Ltemp := Suivant(Ltemp);
       end loop;
       return Float(N) / Float(Total);
    end;
+
+   function Num_Occ_Moy (A : TABR_Couple; N : Integer) return Float is
+   begin
+      return Div_Float(Num_Occ_Tot(A), N);
+   end;
+
+   function Num_Occ_Moy (A : TABR_Triplet; N : Integer) return Float is
+   begin
+      return Div_Float(Num_Occ_Tot(A), N);
+   end;
+
+   function Num_Occ_Moy_Txt1 (T: T_Trie; N : Integer) return Float is
+      S : Integer;
+   begin
+      S := 0;
+      Num_Occ_Tot_Txt1(T, S);
+      return Div_Float(S, N);
+   end;
+
+   function Num_Occ_Moy_Txt2(T : T_Trie; N : Integer) return Float is
+      S : Integer;
+   begin
+      S := 0;
+      Num_Occ_Tot_Txt2(T, S);
+      return Div_Float(S, N);
+   end;
+
+   -- #################################################################################
 
    function Long_Tot (A : TABR_Couple) return Integer is
    begin
@@ -218,6 +217,62 @@ package body Text_Stat is
          end loop;
       end if;
       null;
+   end;
+
+   function Long_Moy(L : TListe_Couple) return Float is
+      N, Total : Integer;
+      Ltemp : TListe_Couple;
+   begin
+      N := 0;
+      Total := 0;
+      Ltemp := L;
+      while not EstVide(Ltemp) loop
+         N := N + Get_Fin(Get_Mot(Valeur(Ltemp)));
+         Total := Total + 1;
+         Ltemp := Suivant(Ltemp);
+      end loop;
+      return Float(N) / Float(Total);
+   end;
+
+   function Long_Moy(L : TListe_Triplet) return Float is
+      N, Total : Integer;
+      Ltemp : TListe_Triplet;
+   begin
+      N := 0;
+      Total := 0;
+      Ltemp := L;
+      while not EstVide(Ltemp) loop
+         N := N + Get_Fin(Get_Mot_T(Valeur(Ltemp)));
+         Total := Total + 1;
+         Ltemp := Suivant(Ltemp);
+      end loop;
+      return Float(N) / Float(Total);
+   end;
+
+   function Long_Moy (A : TABR_Couple; N : Integer) return Float is
+   begin
+      return Div_Float(Long_Tot(A), N);
+   end;
+
+   function Long_Moy (A : TABR_Triplet; N : Integer) return Float is
+   begin
+      return Div_Float(Long_Tot(A), N);
+   end;
+
+   function Long_Moy_Txt1 (T : T_Trie; N : Integer) return Float is
+      S : Integer;
+   begin
+      S := 0;
+      Long_Tot_Txt1(T, S);
+      return Div_Float(S, N);
+   end;
+
+   function Long_Moy_Txt2 (T : T_Trie; N : Integer) return Float is
+      S : Integer;
+   begin
+      S := 0;
+      Long_Tot_Txt2(T, S);
+      return Div_Float(S, N);
    end;
 
    -- #################################################################################

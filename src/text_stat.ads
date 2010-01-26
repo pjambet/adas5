@@ -16,6 +16,7 @@ package Text_Stat is
    -- nombre total de mots, nombre de mots de longueur supérieur ou égale a un entier positif donné,
    -- longueur moyenne d'un mot, et surement d'autres plus tard
 
+   --Effecture la division reelle de N par M
    function Div_Float(N : in Integer; M : in Integer) return Float;
 
    -- #################################################################################
@@ -32,13 +33,14 @@ package Text_Stat is
    -- #################################################################################
 
    -- Calcule le nombre d'occurence moyen a partir de la liste obtenu des mots dans le texte
-   
+   -- Le parametre N correspond au nombre de mot total de la structure
+
    function Num_Occ_Moy (L : TListe_Couple) return Float;
    function Num_Occ_Moy (L : TListe_Triplet) return Float;
-   function Num_Occ_Tot (A : TABR_Couple) return Integer;   
-   function Num_Occ_Tot (A : TABR_Triplet) return Integer;
-   procedure Num_Occ_Tot_Txt1 (T : in T_Trie; S : in out Integer);
-   procedure Num_Occ_Tot_Txt2 (T : in T_Trie; S : in out Integer);
+   function Num_Occ_Moy (A : TABR_Couple; N : Integer) return Float;   
+   function Num_Occ_Moy (A : TABR_Triplet; N : Integer) return Float;
+   function Num_Occ_Moy_Txt1 (T : T_Trie; N : Integer) return Float;
+   function Num_Occ_Moy_Txt2 (T : T_Trie; N : Integer) return Float;
 
    -- #################################################################################
    
@@ -46,10 +48,10 @@ package Text_Stat is
    
    function Long_Moy (L : TListe_Couple) return Float;
    function Long_Moy (L : TListe_Triplet) return Float;
-   function Long_Tot (A : TABR_Couple) return Integer;
-   function Long_Tot (A : TABR_Triplet) return Integer;
-   procedure Long_Tot_Txt1 (T : in T_Trie; S : in out Integer);
-   procedure Long_Tot_Txt2 (T : in T_Trie; S : in out Integer);
+   function Long_Moy (A : TABR_Couple; N : Integer) return Float;
+   function Long_Moy (A : TABR_Triplet; N : Integer) return Float;
+   function Long_Moy_Txt1 (T : T_Trie; N : Integer) return Float;
+   function Long_Moy_Txt2 (T : T_Trie; N : Integer) return Float;
 
    -- #################################################################################
    

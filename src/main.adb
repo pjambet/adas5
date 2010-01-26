@@ -13,7 +13,8 @@ use Analyse_Lexicale, Trie, Text_Stat, Mot, Couple, Liste_Couple, Liste_Triplet,
 procedure Main is
 
    Menu, SMenu, NomFic : Boolean;
-   Choix, NbMot, Num, NumMotTot, NumOccTot, LongTot, NumMotSupN : Integer;
+   Choix, NbMot, Num, NumMotTot, NumMotSupN : Integer;
+   NumOccMoy, LongMoy : Float;
    L : TListe_Couple;
    LT : TListe_Triplet;
    AB : TABR_Couple;
@@ -356,9 +357,10 @@ begin
 
                   when 2 =>
 
-                     Put_Line("Nombre de mot total :" & Integer'Image(Num_Mot_Tot(AB)) & ".");
-                     Put("Nombre d'occurence moyen :"); Put(Div_Float(Num_Occ_Tot(AB), Num_Mot_Tot(AB)), 2, 1, 0); Put_Line(".");
-                     Put("Longueur moyenne des mots :"); Put(Div_Float(Long_Tot(AB), Num_Mot_Tot(AB)), 2, 1, 0); Put_Line(".");
+		     NumMotTot := Num_Mot_Tot(AB);
+                     Put_Line("Nombre de mot total :" & Integer'Image(NumMotTot) & ".");
+                     Put("Nombre d'occurence moyen :"); Put(Num_Occ_Moy(AB, NumMotTot), 2, 1, 0); Put_Line(".");
+                     Put("Longueur moyenne des mots :"); Put(Long_Moy(AB, NumMotTot), 2, 1, 0); Put_Line(".");
                      New_Line;                     
                      
                      Put_Line("Affichage des mots superieur a un entier N :");
@@ -447,9 +449,10 @@ begin
 
                   when 8 =>
 
-                     Put_Line("Nombre de mot total :" & Integer'Image(Num_Mot_Tot(ABT)) & ".");
-                     Put("Nombre d'occurence moyen :"); Put(Div_Float(Num_Occ_Tot(ABT), Num_Mot_Tot(ABT)), 2, 1, 0); Put_Line(".");
-                     Put("Longueur moyenne des mots :"); Put(Div_Float(Long_Tot(ABT), Num_Mot_Tot(ABT)), 2, 1, 0); Put_Line(".");
+		     NumMotTot := Num_Mot_Tot(ABT);
+                     Put_Line("Nombre de mot total :" & Integer'Image(NumMotTot) & ".");
+                     Put("Nombre d'occurence moyen :"); Put(Num_Occ_Moy(ABT, NumMotTot), 2, 1, 0); Put_Line(".");
+                     Put("Longueur moyenne des mots :"); Put(Long_Moy(ABT, NumMotTot), 2, 1, 0); Put_Line(".");
                      New_Line;                     
                      
                      Put_Line("Affichage des mots superieur a un entier N :");
@@ -576,13 +579,11 @@ begin
                      Num_Mot_Tot_Txt1(T1, NumMotTot);
                      Put_Line("Nombre de mot total :" & Integer'Image(NumMotTot) & ".");
                      
-                     NumOccTot := 0;
-                     Num_Occ_Tot_Txt1(T1, NumOccTot);   
-                     Put("Nombre d'occurence moyen :"); Put(Div_Float(NumOccTot, NumMotTot), 2, 1, 0); Put_Line(".");
+                     NumOccMoy := Num_Occ_Moy_Txt1(T1, NumMotTot);   
+                     Put("Nombre d'occurence moyen :"); Put(NumOccMoy, 2, 1, 0); Put_Line(".");
                      
-                     LongTot := 0;
-                     Long_Tot_Txt1(T1, LongTot);   
-                     Put("Longueur moyenne des mots :"); Put(Div_Float(LongTot, NumMotTot), 2, 1, 0); Put_Line(".");
+                     LongMoy := Long_Moy_Txt1(T1, NumMotTot);   
+                     Put("Longueur moyenne des mots :"); Put(LongMoy, 2, 1, 0); Put_Line(".");
                      New_Line;                     
                      
                      NumMotSupN := 0;
@@ -673,13 +674,11 @@ begin
                      Num_Mot_Tot_Txt2(T2, NumMotTot);
                      Put_Line("Nombre de mot total :" & Integer'Image(NumMotTot) & ".");
                         
-                     NumOccTot := 0;                     
-                     Num_Occ_Tot_Txt2(T2, NumOccTot);
-                     Put("Nombre d'occurence moyen :"); Put(Div_Float(NumOccTot, NumMotTot), 2, 1, 0); Put_Line(".");
+                     NumOccMoy := Num_Occ_Moy_Txt2(T2, NumMotTot);
+                     Put("Nombre d'occurence moyen :"); Put(NumOccMoy, 2, 1, 0); Put_Line(".");
                      
-                     LongTot := 0;
-                     Long_Tot_Txt2(T2, LongTot);
-                     Put("Longueur moyenne des mots :"); Put(Div_Float(LongTot, NumMotTot), 2, 1, 0); Put_Line(".");
+                     LongMoy := Long_Moy_Txt2(T2, NumMotTot);
+                     Put("Longueur moyenne des mots :"); Put(LongMoy, 2, 1, 0); Put_Line(".");
                      New_Line;                     
                      
                      NumMotSupN := 0;

@@ -360,12 +360,7 @@ package body Arbre_Binaire is
       end if;
       Y.Sad := X;
       X.Pere := Y;
-      --alors on va essyer ca :
---      Put("x avant:");Affiche_Noeud(x);
---      x:=y;
---      Put("x apres:");Affiche_Noeud(x);
-      --return Y;
-      --X := Racine(x);
+
    end Rotation_Droite_Simple;
 
    procedure Rotation_Gauche_Simple (X : in out T_Abr) is--return T_Abr is
@@ -388,12 +383,7 @@ package body Arbre_Binaire is
       end if;
       Y.Sag := X;
       X.Pere := Y;
-      
---      Put("x avant:");Affiche_Noeud(x);
---      x:=y;
---      Put("x apres:");Affiche_Noeud(x);
 
-      --return Y;
    end Rotation_Gauche_Simple;
 
    procedure Rotation_Droite (X,Y : in out T_Abr) is--return T_Abr is
@@ -418,10 +408,6 @@ package body Arbre_Binaire is
             Rotation_Droite(X,Z);
          end if;
       end if;
-      
---      Put("x avant:");Affiche_Noeud(x);
---      x:=y;
---      Put("x apres:");Affiche_Noeud(x);
 
    end Rotation_Droite;
 
@@ -449,10 +435,6 @@ package body Arbre_Binaire is
             Rotation_Gauche(X,Z);
          end if;
       end if;
-      
-      --Put("x avant:");Affiche_Noeud(x);
-      --x:=y;
-      --Put("x apres:");Affiche_Noeud(x);
 
    end Rotation_Gauche;
 

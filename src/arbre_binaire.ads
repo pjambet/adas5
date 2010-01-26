@@ -23,10 +23,8 @@ package Arbre_Binaire is
    type T_Abr is private;
    Arbrevideexception : exception;
    Elt_Inexistant: exception;
-
-   function Nombre_Elt(A: T_Abr) return Integer;
-   --Renvoie le nombre d'element present dans A
-   --Renvoie 0 si A est null
+   
+   -- #################################################################################
 
    procedure Modifie(A: in out T_Abr;E: in T_Elem);
    --Modifie A en y remplacant son element par E
@@ -60,11 +58,17 @@ package Arbre_Binaire is
    -- True : NOIR
    -- False : ROUGE
 
+   -- #################################################################################
+
    function Colortostring(A: T_Abr) return String;
    --Renvoie un string correspondant a la couleur du noeud selon le code definit ci dessus
 
    procedure Affiche_Noeud(A: in T_Abr);
    --Affiche le noeud A
+
+   function Nombre_Elt(A: T_Abr) return Integer;
+   --Renvoie le nombre d'element present dans A
+   --Renvoie 0 si A est null
 
    function Creerarbre return T_Abr;
    --Crée un arbre vide
@@ -91,6 +95,8 @@ package Arbre_Binaire is
 
    function Racine(A: T_Abr) return T_Abr;
    --Fais remonter A a la racine de l'arbre
+   
+   -- #################################################################################
 
    generic
       with procedure Traitement(A: in T_Abr);
@@ -109,6 +115,8 @@ package Arbre_Binaire is
    procedure Infixe(A: in T_Abr);
    --Parcours l'arbre A de maniere infixe et applique la procedure traitement
    --Cette procedure est generique et sera définie a l'instanciation
+
+   -- #################################################################################
 
    function Recherche_Abr_Tof(A: T_Abr;V: T_Elem) return Boolean;
    --Renvoie vrai si V appartient a A
@@ -149,7 +157,9 @@ package Arbre_Binaire is
    --Supprime tous les elements de A
    --ArbreVide(Vider_Arbre(A)) = true
 
-   private
+   -- #################################################################################
+
+private
    type Noeud;
    type T_Abr is access Noeud;
    type Noeud is record
