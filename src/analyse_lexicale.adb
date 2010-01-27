@@ -5,67 +5,6 @@ package body Analyse_Lexicale is
 
    function CaractereAutorise (C : in Character) return Boolean is
    begin
-      -- if C = Character'Val(32) then -- ' '
-         -- return False;
-      -- elsif C = Character'Val(33) then -- '!'
-         -- return False;
-      -- elsif C = Character'Val(34) then -- '"'
-         -- return False;
-      -- elsif C = Character'Val(35) then -- '#'
-         -- return False;
-      -- elsif C = Character'Val(36) then -- '$'
-         -- return False;
-      -- elsif C = Character'Val(37) then -- '%'
-         -- return False;
-      -- elsif C = Character'Val(38) then -- '&'
-         -- return False;
-      -- elsif C = Character'Val(40) then -- '('
-         -- return False;
-      -- elsif C = Character'Val(41) then -- ')'
-         -- return False;
-      -- elsif C = Character'Val(42) then -- '*'
-         -- return False;
-      -- elsif C = Character'Val(43) then -- '+'
-         -- return False;
-      -- elsif C = Character'Val(44) then -- ','
-         -- return False;
-      -- elsif C = Character'Val(46) then -- '.'
-         -- return False;
-      -- elsif C = Character'Val(47) then -- '/'
-         -- return False;
-      -- elsif C = Character'Val(58) then -- ':'
-         -- return False;
-      -- elsif C = Character'Val(59) then -- ';'
-         -- return False;
-      -- elsif C = Character'Val(60) then -- '<'
-         -- return False;
-      -- elsif C = Character'Val(61) then -- '='
-         -- return False;
-      -- elsif C = Character'Val(62) then -- '>'
-         -- return False;
-      -- elsif C = Character'Val(63) then -- '?'
-         -- return False;
-      -- elsif C = Character'Val(64) then -- '@'
-         -- return False;
-      -- elsif C = Character'Val(91) then -- '['
-         -- return False;
-      -- elsif C = Character'Val(92) then -- '\'
-         -- return False;
-      -- elsif C = Character'Val(93) then -- ']'
-         -- return False;
-      -- elsif C = Character'Val(94) then -- '^'
-         -- return False;
-      -- elsif C = Character'Val(95) then -- '_'
-         -- return False;
-      -- elsif C = Character'Val(96) then -- '`'
-         -- return False;
-      -- elsif C = Character'Val(10) then -- LF
-         -- return False;
-      -- elsif C = Character'Val(13) then -- CR
-         -- return False;
-      -- else
-         -- return True;
-      -- end if;
       return (C >= Character'Val(97) and then C <= Character'Val(122)) or else C = Character'Val(45) or else C = Character'Val(39); -- >= a or <= z or - or '	  
    end;
 
@@ -944,7 +883,7 @@ package body Analyse_Lexicale is
    procedure AffichageN (A : in TABR_Couple; N : in Integer) is
       B : TABR_Couple;
    begin
-      Copie_Triee_Couple_Occ(A,B);
+      Copie_Triee_Couple_Occ(A, B);
       if not Arbre_Vide(B) and then N >= 0 then
          if not Arbre_Vide(Sad(A)) then
             AffichageN(Sad(A),N);
