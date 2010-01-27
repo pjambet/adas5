@@ -160,7 +160,9 @@ package body Trie is
             C := Get_Char(M);
             Mot := Get_CharSuffixe(M);
             SupprimerMot_Txt1(T.ST(C), Mot);
-            T.ST(C) := null;
+            if T.ST(C).Prefixes = 0 then
+			   T.ST(C) := null;
+			end if;
          end if;
       end if;
    end;
@@ -179,7 +181,9 @@ package body Trie is
             C := Get_Char(M);
             Mot := Get_CharSuffixe(M);
             SupprimerMot_Txt2(T.ST(C), Mot);
-            T.ST(C) := null;
+            if T.ST(C).Prefixes = 0 then
+			   T.ST(C) := null;
+			end if;
          end if;
       end if;
    end;
@@ -235,8 +239,8 @@ package body Trie is
    procedure Fusion_Txt1 (T : in out T_Trie; M1 : in T_Mot; M2 : in T_Mot) is
    begin
       if not TrieVide(T) and then Appartient_Txt1(T, M1) and then Appartient_Txt1(T, M2) then
-	     SupprimerMot_Txt1(T, M2);
 		 T := AjouterMot_Txt1(T, M1, Query_NbOcc_Txt1(T, M2), 0);
+		 SupprimerMot_Txt1(T, M2);
 		 Put_Line("Le mot " & Get_Chaine(M2)(1 .. Get_Fin(M2)) & " a ete supprime !");
 		 New_Line;
       end if;
@@ -244,11 +248,17 @@ package body Trie is
 
    procedure Fusion_Txt2 (T : in out T_Trie; M1 : in T_Mot; M2 : in T_Mot) is
    begin
-      if not TrieVide(T) and then Appartient_Txt2(T, M1) and then Appartient_Txt2(T, M2) then
-	     SupprimerMot_Txt2(T, M2);
+      if not TrieVide(T) and then (Appartient_Txt1(T, M1) or else Appartient_Txt2(T, M1)) and then (Appartient_Txt1(T, M2) or else Appartient_Txt2(T, M2)) then
+		 T := AjouterMot_Txt1(T, M1, Query_NbOcc_Txt1(T, M2), 0);
 		 T := AjouterMot_Txt2(T, M1, Query_NbOcc_Txt2(T, M2), 0);
+	     if Appartient_Txt1(T, M2) then
+		    SupprimerMot_Txt1(T, M2);
+         end if;
+		 if Appartient_Txt2(T, M2) then
+		    SupprimerMot_Txt2(T, M2);
+		 end if;		 
 		 Put_Line("Le mot " & Get_Chaine(M2)(1 .. Get_Fin(M2)) & " a ete supprime !");
-		 New_Line;
+	     New_Line;
       end if;		 
    end;
    

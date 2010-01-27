@@ -950,6 +950,27 @@ package body Analyse_Lexicale is
       null;
    end;
    
+   procedure CopieTriee (T : T_Trie; L : in out TListe_Couple; C : in String; F : in Natural) is
+      Chaine : String(1 .. 30);
+	  Fin : Natural;
+   begin
+      if not TrieVide(T) then
+	     for I in Tindice loop
+		    if not STVide(T, I) then
+			   if Get_Prefixes(Get_ST(T, I)) > 0 then
+			      Fin := Fin + 1;
+				  Chaine(Fin) := I;
+			   end if;
+			   if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 then
+			      InsererTriee_Couple_Occ(L, Creer_Couple(Chaine, Fin));
+			   end if;
+			   CopieTriee(T, L, Chaine, Fin);
+			   Fin := Fin - 1;
+			end if;
+	     end loop;
+	  end if;
+   end;
+   
    procedure AffichageN_Txt1 (T : in T_Trie; N : in Integer; C : in String; F : in Natural) is
       Chaine : String(1 .. 30);
       Fin : Natural;
