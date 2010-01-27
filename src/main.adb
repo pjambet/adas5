@@ -494,6 +494,7 @@ begin
                         when Constraint_Error => Put_Line("Erreur de contrainte");
                         when Arbre_Binaire_Couple.AB.ArbreVideException => Put_Line("Probleme : Element non trouves dans l'arbre");
                      end;
+					 New_Line;
 
                   when 3 =>
 
@@ -548,7 +549,7 @@ begin
 
                   when 8 =>
 
-		     NumMotTot := Num_Mot_Tot(ABT);
+                     NumMotTot := Num_Mot_Tot(ABT);
                      Put_Line("Nombre de mot total :" & Integer'Image(NumMotTot) & ".");
                      Put("Nombre d'occurence moyen :"); Put(Num_Occ_Moy(ABT, NumMotTot), 2, 1, 0); Put_Line(".");
                      Put("Longueur moyenne des mots :"); Put(Long_Moy(ABT, NumMotTot), 2, 1, 0); Put_Line(".");
@@ -627,6 +628,7 @@ begin
                      Skip_Line;
                      Put_Line("Les mots employes par un auteur et pas par l'autre sont :");
                      Query_Difference(ABT);
+					 New_Line;
 
                   when 9 =>
 
@@ -917,7 +919,6 @@ begin
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
                      Get(NbMot);
-					 New_Line;
 					 TrieToListe_Txt2(T2, LT, Chaine, 0);
 					 AffichageN(LT, NbMot);                     
 
@@ -940,7 +941,6 @@ begin
                        -- when Liste_Couple.L.Listevideexception => Put_Line("Probleme : Element non trouves dans le trie");
                      -- end;
 					 
-                     New_Line;
                      Put_Line("Les mots employes par les deux auteurs sont :");
                      Query_Intersection(T2, Chaine, 0);
 

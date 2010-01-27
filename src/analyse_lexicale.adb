@@ -105,11 +105,11 @@ package body Analyse_Lexicale is
             Skip_Line(Orig);
          else -- non(End_Of_Line(Orig))
             Get(Orig, C);
+            if Is_Upper(C) then
+               C := To_Lower(C);
+            end if;			
             if CaractereAutorise(C) then -- On crée le mot
                Indice := Indice + 1;
-               if Is_Upper(C) then
-                  C := To_Lower(C);
-               end if;
                Mot(Indice) := C;
             else -- non(CaractereAutorise(C))
                Put(".");
@@ -149,11 +149,11 @@ package body Analyse_Lexicale is
             Skip_Line(Orig);
          else -- non(End_Of_Line(Orig))
             Get(Orig, C);
+            if Is_Upper(C) then
+               C := To_Lower(C);
+            end if;			
             if CaractereAutorise(C) then -- On crée le mot
                Indice := Indice + 1;
-               if Is_Upper(C) then
-                  C := To_Lower(C);
-               end if;
                Mot(Indice) := C;
             else -- non(CaractereAutorise(C))
                Put(".");
@@ -191,11 +191,11 @@ package body Analyse_Lexicale is
             Skip_Line(Orig);
          else -- non(End_Of_Line(Orig))
             Get(Orig, C);
-            if CaractereAutorise(C) then -- On crée le mot
+            if Is_Upper(C) then
+               C := To_Lower(C);
+            end if;			
+            if CaractereAutorise(C) then -- On crée le mot			
                Indice := Indice + 1;
-               if Is_Upper(C) then
-                  C := To_Lower(C);
-               end if;
                Mot(Indice) := C;
             else -- non(CaractereAutorise(C))
                Put(".");
@@ -236,11 +236,11 @@ package body Analyse_Lexicale is
             Skip_Line(Orig);
          else -- non(End_Of_Line(Orig))
             Get(Orig, C);
+            if Is_Upper(C) then
+               C := To_Lower(C);
+            end if;			
             if CaractereAutorise(C) then -- On crée le mot
                Indice := Indice + 1;
-               if Is_Upper(C) then
-                  C := To_Lower(C);
-               end if;
                Mot(Indice) := C;
             else -- non(CaractereAutorise(C))
                Put(".");
@@ -280,11 +280,11 @@ package body Analyse_Lexicale is
             Skip_Line(Orig);
          else -- non(End_Of_Line(Orig))
             Get(Orig, C);
+            if Is_Upper(C) then
+               C := To_Lower(C);
+            end if;			
             if CaractereAutorise(C) then -- On crée le mot
                Indice := Indice + 1;
-               if Is_Upper(C) then
-                  C := To_Lower(C);
-               end if;
                Mot(Indice) := C;
             else -- non(CaractereAutorise(C))
                Put(".");
@@ -323,11 +323,11 @@ package body Analyse_Lexicale is
             Skip_Line(Orig);
          else -- non(End_Of_Line(Orig))
             Get(Orig, C);
+            if Is_Upper(C) then
+               C := To_Lower(C);
+            end if;			
             if CaractereAutorise(C) then -- On crée le mot
                Indice := Indice + 1;
-               if Is_Upper(C) then
-                  C := To_Lower(C);
-               end if;
                Mot(Indice) := C;
             else -- non(CaractereAutorise(C))
                Put(".");
@@ -367,11 +367,11 @@ package body Analyse_Lexicale is
             Skip_Line(Orig);
          else -- non(End_Of_Line(Orig))
             Get(Orig, C);
+            if Is_Upper(C) then
+               C := To_Lower(C);
+            end if;			
             if CaractereAutorise(C) then -- On crée le mot
                Indice := Indice + 1;
-               if Is_Upper(C) then
-                  C := To_Lower(C);
-               end if;
                Mot(Indice) := C;
             else -- non(CaractereAutorise(C))
                Put(".");
@@ -412,11 +412,11 @@ package body Analyse_Lexicale is
             Skip_Line(Orig);
          else -- non(End_Of_Line(Orig))
             Get(Orig, C);
+            if Is_Upper(C) then
+               C := To_Lower(C);
+            end if;			
             if CaractereAutorise(C) then -- On crée le mot
                Indice := Indice + 1;
-               if Is_Upper(C) then
-                  C := To_Lower(C);
-               end if;
                Mot(Indice) := C;
             else -- non(CaractereAutorise(C))
                Put(".");
