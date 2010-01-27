@@ -7,6 +7,8 @@
 -- #                                                                               #
 -- #################################################################################
 
+-- TODO : Exception + Commentaires
+
 with Analyse_Lexicale, Trie, Text_Stat, Mot, Couple, Triplet, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Ada.Text_IO, Ada.Integer_Text_IO, Ada.Float_Text_IO;
 use Analyse_Lexicale, Trie, Text_Stat, Mot, Couple, Triplet, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Ada.Text_IO, Ada.Integer_Text_IO, Ada.Float_Text_IO;
 
@@ -54,8 +56,6 @@ begin
    Put_Line("******************************************************************");
    Put_line("******************************************************************");
    New_Line;
-
-   Put_Line("TODO : Vider_Arbre + AffichageN Arbre/Trie + Fusion Arbre + Supprimer Trie");
 
    Menu := True;
    Chaine := "                              "; -- anti-warning
@@ -767,8 +767,7 @@ begin
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
                      Get(NbMot);
 					 New_Line;
-                     --AffichageN_Txt1(T1, NbMot, Chaine, 0);
-					 CopieTriee(T, L, Chaine, O);
+					 TrieToListe_Txt1(T1, L, Chaine, 0);
 					 AffichageN(L, NbMot);
                      New_Line;
 
@@ -911,8 +910,8 @@ begin
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
                      Get(NbMot);
 					 New_Line;
-                     AffichageN_Txt2(T2, NbMot, Chaine, 0);
-                     New_Line;
+					 TrieToListe_Txt2(T2, LT, Chaine, 0);
+					 AffichageN(LT, NbMot);                     
 
                      Skip_Line;
                      Put_Line("Fusion d'un mot dans un autre :");

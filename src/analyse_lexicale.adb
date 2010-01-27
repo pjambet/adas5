@@ -5,67 +5,72 @@ package body Analyse_Lexicale is
 
    function CaractereAutorise (C : in Character) return Boolean is
    begin
-      if C = Character'Val(32) then -- ' '
-         return False;
-      elsif C = Character'Val(33) then -- '!'
-         return False;
-      elsif C = Character'Val(34) then -- '"'
-         return False;
-      elsif C = Character'Val(35) then -- '#'
-         return False;
-      elsif C = Character'Val(36) then -- '$'
-         return False;
-      elsif C = Character'Val(37) then -- '%'
-         return False;
-      elsif C = Character'Val(38) then -- '&'
-         return False;
-      elsif C = Character'Val(40) then -- '('
-         return False;
-      elsif C = Character'Val(41) then -- ')'
-         return False;
-      elsif C = Character'Val(42) then -- '*'
-         return False;
-      elsif C = Character'Val(43) then -- '+'
-         return False;
-      elsif C = Character'Val(44) then -- ','
-         return False;
-      elsif C = Character'Val(46) then -- '.'
-         return False;
-      elsif C = Character'Val(47) then -- '/'
-         return False;
-      elsif C = Character'Val(58) then -- ':'
-         return False;
-      elsif C = Character'Val(59) then -- ';'
-         return False;
-      elsif C = Character'Val(60) then -- '<'
-         return False;
-      elsif C = Character'Val(61) then -- '='
-         return False;
-      elsif C = Character'Val(62) then -- '>'
-         return False;
-      elsif C = Character'Val(63) then -- '?'
-         return False;
-      elsif C = Character'Val(64) then -- '@'
-         return False;
-      elsif C = Character'Val(91) then -- '['
-         return False;
-      elsif C = Character'Val(92) then -- '\'
-         return False;
-      elsif C = Character'Val(93) then -- ']'
-         return False;
-      elsif C = Character'Val(94) then -- '^'
-         return False;
-      elsif C = Character'Val(95) then -- '_'
-         return False;
-      elsif C = Character'Val(96) then -- '`'
-         return False;
-      elsif C = Character'Val(10) then -- LF
-         return False;
-      elsif C = Character'Val(13) then -- CR
-         return False;
-      else
-         return True;
-      end if;
+      if C <= 'a' or else C >= 'z' or else C = '-' or else C = Character'Val(39) then -- '''
+	     return True;
+	  else
+	     return False;
+	  end if;
+      -- if C = Character'Val(32) then -- ' '
+         -- return False;
+      -- elsif C = Character'Val(33) then -- '!'
+         -- return False;
+      -- elsif C = Character'Val(34) then -- '"'
+         -- return False;
+      -- elsif C = Character'Val(35) then -- '#'
+         -- return False;
+      -- elsif C = Character'Val(36) then -- '$'
+         -- return False;
+      -- elsif C = Character'Val(37) then -- '%'
+         -- return False;
+      -- elsif C = Character'Val(38) then -- '&'
+         -- return False;
+      -- elsif C = Character'Val(40) then -- '('
+         -- return False;
+      -- elsif C = Character'Val(41) then -- ')'
+         -- return False;
+      -- elsif C = Character'Val(42) then -- '*'
+         -- return False;
+      -- elsif C = Character'Val(43) then -- '+'
+         -- return False;
+      -- elsif C = Character'Val(44) then -- ','
+         -- return False;
+      -- elsif C = Character'Val(46) then -- '.'
+         -- return False;
+      -- elsif C = Character'Val(47) then -- '/'
+         -- return False;
+      -- elsif C = Character'Val(58) then -- ':'
+         -- return False;
+      -- elsif C = Character'Val(59) then -- ';'
+         -- return False;
+      -- elsif C = Character'Val(60) then -- '<'
+         -- return False;
+      -- elsif C = Character'Val(61) then -- '='
+         -- return False;
+      -- elsif C = Character'Val(62) then -- '>'
+         -- return False;
+      -- elsif C = Character'Val(63) then -- '?'
+         -- return False;
+      -- elsif C = Character'Val(64) then -- '@'
+         -- return False;
+      -- elsif C = Character'Val(91) then -- '['
+         -- return False;
+      -- elsif C = Character'Val(92) then -- '\'
+         -- return False;
+      -- elsif C = Character'Val(93) then -- ']'
+         -- return False;
+      -- elsif C = Character'Val(94) then -- '^'
+         -- return False;
+      -- elsif C = Character'Val(95) then -- '_'
+         -- return False;
+      -- elsif C = Character'Val(96) then -- '`'
+         -- return False;
+      -- elsif C = Character'Val(10) then -- LF
+         -- return False;
+      -- elsif C = Character'Val(13) then -- CR
+         -- return False;
+      -- else
+         -- return True;
+      -- end if;
    end;
 
    function Existe (Name : in String) return Boolean is
@@ -950,11 +955,13 @@ package body Analyse_Lexicale is
       null;
    end;
    
-   procedure CopieTriee (T : T_Trie; L : in out TListe_Couple; C : in String; F : in Natural) is
+   procedure TrieToListe_Txt1 (T : T_Trie; L : in out TListe_Couple; C : in String; F : in Natural) is
       Chaine : String(1 .. 30);
 	  Fin : Natural;
    begin
       if not TrieVide(T) then
+         Chaine := C;
+         Fin := F;	  
 	     for I in Tindice loop
 		    if not STVide(T, I) then
 			   if Get_Prefixes(Get_ST(T, I)) > 0 then
@@ -962,61 +969,36 @@ package body Analyse_Lexicale is
 				  Chaine(Fin) := I;
 			   end if;
 			   if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 then
-			      InsererTriee_Couple_Occ(L, Creer_Couple(Chaine, Fin));
+			      InsererTriee_Couple_Occ(L, Creer_Couple(Creer_Mot(Chaine), Get_NbOcc_Txt1(Get_ST(T, I))));
 			   end if;
-			   CopieTriee(T, L, Chaine, Fin);
+			   TrieToListe_Txt1(Get_ST(T, I), L, Chaine, Fin);
 			   Fin := Fin - 1;
 			end if;
 	     end loop;
 	  end if;
    end;
-   
-   procedure AffichageN_Txt1 (T : in T_Trie; N : in Integer; C : in String; F : in Natural) is
-      Chaine : String(1 .. 30);
-      Fin : Natural;
-   begin
-      if not TrieVide(T) then
-         Chaine := C;
-         Fin := F;
-         for I in Tindice loop
-            if not STVide(T, I) and then N >= 0 then
-               if Get_Prefixes(Get_ST(T, I)) > 0 then
-                  Fin := Fin + 1;
-                  Chaine(Fin) := I;
-               end if;
-               if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 and then N >= 0 then -- nbOcc = 1 ou +
-                  Put(Chaine(Chaine'First .. Fin));
-                  Put_Line(Integer'Image(Get_NbOcc_Txt1(Get_ST(T, I))));
-               end if;
-               AffichageN_Txt1(Get_ST(T, I), N-1, Chaine, Fin);
-               Fin := Fin - 1;
-            end if;
-         end loop;
-      end if;
-   end;
 
-   procedure AffichageN_Txt2 (T : in T_Trie; N : in Integer; C : in String; F : in Natural) is
+   procedure TrieToListe_Txt2 (T : T_Trie; L : in out TListe_Triplet; C : in String; F : in Natural) is
       Chaine : String(1 .. 30);
-      Fin : Natural;
+	  Fin : Natural;
    begin
       if not TrieVide(T) then
          Chaine := C;
-         Fin := F;
-         for I in Tindice loop
-            if not STVide(T, I) and then N >= 0 then
-               if Get_Prefixes(Get_ST(T, I)) > 0 then
-                  Fin := Fin + 1;
-                  Chaine(Fin) := I;
-               end if;
-               if (Get_NbOcc_Txt1(Get_ST(T, I)) > 0 or else Get_NbOcc_Txt2(Get_ST(T, I)) > 0) and then N >= 0 then -- nbOcc = 1 ou +
-                  Put(Chaine(Chaine'First .. Fin));
-                  Put_Line(Integer'Image(Get_NbOcc_Txt1(Get_ST(T, I))) & Integer'Image(Get_NbOcc_Txt2(Get_ST(T, I))));
-               end if;
-               AffichageN_Txt2(Get_ST(T, I), N-1, Chaine, Fin);
-               Fin := Fin - 1;
-            end if;
-         end loop;
-      end if;
+         Fin := F;	  
+	     for I in Tindice loop
+		    if not STVide(T, I) then
+			   if Get_Prefixes(Get_ST(T, I)) > 0 then
+			      Fin := Fin + 1;
+				  Chaine(Fin) := I;
+			   end if;
+			   if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 or Get_NbOcc_Txt2(Get_ST(T, I)) > 0 then
+			      InsererTriee_Triplet_OccS(L, Creer_Triplet(Creer_Mot(Chaine), Get_NbOcc_Txt1(Get_ST(T, I)), Get_NbOcc_Txt2(Get_ST(T, I))));
+			   end if;
+			   TrieToListe_Txt2(Get_ST(T, I), L, Chaine, Fin);
+			   Fin := Fin - 1;
+			end if;
+	     end loop;
+	  end if;
    end;
    
    -- #################################################################################
