@@ -186,7 +186,7 @@ package body Arbre_Binaire is
          Ad : T_Abr;
    begin
       if Arbre_Vide(A) then
-         raise Arbrevideexception;
+         null;--J'ai choisi de rien faire plutot--raise Arbrevideexception;
       else
          Traitement(A);
          if not Arbre_Vide(Sag(A)) then
@@ -207,7 +207,7 @@ package body Arbre_Binaire is
          Ad : T_Abr;
    begin
       if Arbre_Vide(A) then
-         raise Arbrevideexception;
+         null;--J'ai choisi de rien faire plutot--raise Arbrevideexception;
       else
          if not Arbre_Vide(Sag(A)) then
             Ag := Sag(A);
@@ -228,7 +228,7 @@ package body Arbre_Binaire is
          Ad : T_Abr;
    begin
       if Arbre_Vide(A) then
-         raise Arbrevideexception;
+         null;--J'ai choisi de rien faire plutot--raise Arbrevideexception;
       else
          if not Arbre_Vide(Sag(A)) then
             Ag := Sag(A);
@@ -670,40 +670,34 @@ package body Arbre_Binaire is
       end if;
    end Supprimer_Abr;
 
-   procedure Copietriee(A: in out T_Abr; B : out T_Abr) is
+   procedure Copietriee(A: in T_Abr; B : out T_Abr) is  
    begin
-      null;
-	  -- if not Arbre_Vide(A) then
-         -- Inserer_ARN(
+      if not Arbre_Vide(A) then
+         Copietriee(Sag(A),B);
+         Copietriee(Sad(A),B);
+         Inserer(B,Lire_Racine(A));
+      end if;      
    end Copietriee;
    
    procedure Vider_Arbre (A : in out T_Abr) is
       --Supprime tous les elements de A
       --ArbreVide(Vider_Arbre(A)) = true
-      Tmp,Ag,Ad  : T_Abr;
+      Ag,Ad  : T_Abr;
    begin
-      if not Arbre_Vide(A) then
-         Put("Suppr:");Affiche_Noeud(A);
-      end if;
-      
-      if Arbre_Vide(A) then
-         null;
-      elsif not Est_Feuille(A) then
-         ag := a.sag;
-         Vider_Arbre(ag);
-         ad := a.sad;
+      if not Arbre_Vide(A) then 
+         Ag := A.Sag;
+         Vider_Arbre(Ag);
+         Ad := A.Sad;
          Vider_Arbre(Ad);
-      elsif Est_Feuille(A) then
-         --Tmp := Pere(A);
          Liberer(A);
-         if Arbre_Vide(A) then
-            Put_Line("Suppr OK");
-         else
-            Put_Line("Erreur de suppresion");
-         end if;
-         --A := tmp;
-      end if;
-      
+      end if;            
    end Vider_Arbre;
+   
+   procedure Fusion(A : in out T_Abr; E1,E2 : in T_Elem) is
+   --Si E1 et E2 n'appartiennent pas a l'arbre A alors ne fait rien
+   --Sinon Modifie l'element E1 en y rajoutant les "attributs" de E2
+   begin
+      Modif_Fusion(A,E1,E2);
+   end Fusion;
 
-end Arbre_Binaire;
+end Arbre_Binaire; 

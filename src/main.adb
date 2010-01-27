@@ -488,12 +488,12 @@ begin
                      New_Line;
                      Set_Mot(Couple2, Creer_Mot(Buffer(1 .. Last)));
 
-                     --begin
-                     --Fusion_Couple(AB, C1, C2);
-                     --   exception
-                     --   when Constraint_Error => Put_Line("Erreur de contrainte");
-                     --   when Liste_Couple.L.Listevideexception => Put_Line("Probleme : Element non trouves dans la liste");
-                     --end;
+                     begin
+                     Fusion_Couple(AB, Couple1, Couple2);
+                        exception
+                        when Constraint_Error => Put_Line("Erreur de contrainte");
+                        when Arbre_Binaire_Couple.AB.ArbreVideException => Put_Line("Probleme : Element non trouves dans l'arbre");
+                     end;
 
                   when 3 =>
 
@@ -505,8 +505,8 @@ begin
 
                   when 5 =>
 
-                     Affiche_Inf(AB);
-                     New_Line;   
+                     Affiche_Inf(Ab);
+                     New_Line;
 
                   when 6 =>
                      
@@ -611,6 +611,15 @@ begin
                      Get_Line(Buffer, Last);
                      New_Line;
                      Set_Mot(Triplet2, Creer_Mot(Buffer(1 .. Last)));
+
+                     begin
+                        Fusion_Triplet(ABT, Triplet1, Triplet2);
+                     exception
+                        when Constraint_Error =>
+                           Put_Line("Erreur de contrainte");
+                        when Arbre_Binaire_Triplet.ABT.ArbreVideException =>
+                           Put_Line("Probleme : Elements non trouves dans la liste");
+                     end;
 
                      New_Line;
                      Put_Line("Les mots employes par les deux auteurs sont :");

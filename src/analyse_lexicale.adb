@@ -946,8 +946,22 @@ package body Analyse_Lexicale is
    end;
 
    procedure AffichageN (A : in TABR_Couple; N : in Integer) is
+      B : TABR_Couple;
    begin
-      null;
+      Copie_Triee_Couple_Occ(A,B);
+      if not Arbre_Vide(B) and then N >= 0 then
+         if not Arbre_Vide(Sad(A)) then
+            AffichageN(Sad(A),N);
+         end if;
+         if not Arbre_Vide(Sag(A)) then
+            AffichageN(Sag(A),N-1);
+         else
+            AffichageN(Pere(A),N-1);
+         end if;
+         if not Arbre_Vide(Sag(A)) then
+            AffichageN(Sag(A),N);
+         end if;
+      end if;         
    end;
       
    procedure AffichageN (A : in TABR_Triplet; N : in Integer) is
@@ -970,6 +984,7 @@ package body Analyse_Lexicale is
 			   end if;
 			   if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 then
 			      InsererTriee_Couple_Occ(L, Creer_Couple(Creer_Mot(Chaine), Get_NbOcc_Txt1(Get_ST(T, I))));
+
 			   end if;
 			   TrieToListe_Txt1(Get_ST(T, I), L, Chaine, Fin);
 			   Fin := Fin - 1;

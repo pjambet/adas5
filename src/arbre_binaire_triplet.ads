@@ -26,10 +26,16 @@ package Arbre_Binaire_Triplet is
    --Gere les actions a executer en cas de doublon dans l'arbre
    --Quand on tombe sur un doublon, on increment le NbOcc1 du Triplet
    
-   procedure Traitement_Doublon_Triplet_Som(L : in out TAbr_Triplet);
+   procedure Traitement_Doublon_Triplet_Som(A : in out TAbr_Triplet);
    --Gere les actions a executer en cas de doublon dans l'arbre
    --Quand on tombe sur un doublon, on increment le NbOcc2 du Triplet
 
+   procedure Modif_Fusion_Triplet(A : in out TABR_Triplet; E1,E2 : in T_Triplet);
+   --
+   
+   procedure Fusion_Triplet is new Fusion(Modif_Fusion => Modif_Fusion_Triplet);
+   --
+   
    procedure Affiche_Triplet(A: in TABR_Triplet);
 
    procedure Affiche_Post is new Postfixe(Traitement => Affiche_Triplet);

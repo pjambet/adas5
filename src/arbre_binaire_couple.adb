@@ -1,6 +1,5 @@
-with Ada.Text_IO;
-use Ada.Text_IO;
-
+with Mot, Ada.Text_Io;
+use Mot, Ada.Text_Io;
 package body Arbre_Binaire_Couple is
 
    procedure Traitement_Doublon_Couple(A: in out Tabr_Couple) is
@@ -43,5 +42,19 @@ package body Arbre_Binaire_Couple is
       end if;
    end Verification_Arbre;
 
-
+   procedure Modif_Fusion_Couple(A : in out TAbr_Couple; E1,E2 : T_Couple) is
+      C : T_Couple;
+      Ptr_sur_E1,Ptr_sur_E2 : TABR_Couple;
+   begin
+      Ptr_Sur_E1 := Recherche_Abr(A,E1);
+      Ptr_Sur_E2 := Recherche_Abr(A,E2);
+      if not Arbre_Vide(Ptr_Sur_E1) and then not Arbre_Vide(Ptr_Sur_E2) then
+         C := Lire_Racine(Ptr_Sur_E1);
+         Set_Nbocc(C, Get_Nbocc(C) + Get_Nbocc(Lire_Racine(Ptr_sur_E2)));
+         Modifie(Ptr_Sur_E1,C);
+         Supprimer_Abr(A, Lire_Racine(Ptr_Sur_E2));
+         Put_Line("Le mot " & Get_Chaine(Get_Mot(E2))(1 .. Get_Fin(Get_Mot(E2))) & " a ete supprime !");
+      end if;
+   end Modif_Fusion_Couple;
+   
 end Arbre_Binaire_Couple;

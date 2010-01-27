@@ -145,10 +145,8 @@ package Arbre_Binaire is
    --et en respectant les contraintes des N
 
    generic
-      with function ">"(T1, T2 : T_Elem) return Boolean is <>;
-      with function "="(T1, T2 : T_Elem) return Boolean is <>;
-      with function "<"(T1, T2 : T_Elem) return Boolean is <>;
-   procedure Copietriee(A: in out T_Abr; B : out T_Abr);
+      with procedure Inserer(A:in out T_Abr;V: in T_Elem);
+   procedure Copietriee(A: in T_Abr; B : out T_Abr);
    --Crée dans B le meme arbre que dans A mais selon l'ordre definie par les generic
 
    procedure Supprimer_Abr(A: in out T_Abr;V: in T_Elem);
@@ -157,6 +155,12 @@ package Arbre_Binaire is
    procedure Vider_Arbre(A: in out T_Abr);
    --Supprime tous les elements de A
    --ArbreVide(Vider_Arbre(A)) = true
+   
+   generic
+      with procedure Modif_Fusion(A : in out T_ABR; E1,E2 : in T_Elem);
+   procedure Fusion(A : in out T_Abr; E1,E2 : in T_Elem);
+   --Si E1 et E2 n'appartiennent pas a l'arbre A alors ne fait rien
+   --Sinon Modifie l'element E1 en y rajoutant les "attributs" de E2
 
    -- #################################################################################
 
