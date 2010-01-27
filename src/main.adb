@@ -424,12 +424,12 @@ begin
                            Put_Line("Nom de fichier invalide ! Entrez 0 pour quitter.");
                            New_Line;
                         end if;
-                                                                                    
+
                     end loop;
 
                   when 2 =>
 
-		     NumMotTot := Num_Mot_Tot(AB);
+                     NumMotTot := Num_Mot_Tot(AB);
                      Put_Line("Nombre de mot total :" & Integer'Image(NumMotTot) & ".");
                      Put("Nombre d'occurence moyen :"); Put(Num_Occ_Moy(AB, NumMotTot), 2, 1, 0); Put_Line(".");
                      Put("Longueur moyenne des mots :"); Put(Long_Moy(AB, NumMotTot), 2, 1, 0); Put_Line(".");
@@ -510,7 +510,6 @@ begin
 
                   when 6 =>
                      
-                     Verification_Arbre_Inf(ab);
                      Vider_Arbre(AB);
 
                   when 7 =>
