@@ -4,7 +4,7 @@ use Mot;
 package Trie is
 
    type T_Trie is private;  
-   subtype Tindice is character range 'a' .. 'z';
+   subtype Tindice is character range Character'Val(39) .. Character'Val(122);
 
    function CreerTrie return T_Trie;
    procedure ViderTrie (T : in out T_Trie);

@@ -5,11 +5,6 @@ package body Analyse_Lexicale is
 
    function CaractereAutorise (C : in Character) return Boolean is
    begin
-      if C <= 'a' or else C >= 'z' or else C = '-' or else C = Character'Val(39) then -- '''
-	     return True;
-	  else
-	     return False;
-	  end if;
       -- if C = Character'Val(32) then -- ' '
          -- return False;
       -- elsif C = Character'Val(33) then -- '!'
@@ -71,6 +66,7 @@ package body Analyse_Lexicale is
       -- else
          -- return True;
       -- end if;
+      return (C >= Character'Val(97) and then C <= Character'Val(122)) or else C = Character'Val(45) or else C = Character'Val(39); -- >= a or <= z or - or '	  
    end;
 
    function Existe (Name : in String) return Boolean is
