@@ -880,24 +880,30 @@ package body Analyse_Lexicale is
       New_Line;
    end;
 
-   procedure AffichageN (A : in TABR_Couple; N : in Integer) is
-      B : TABR_Couple;
+   procedure AffichageN_Rec (A : in Tabr_Couple; N : in Integer) is
+      --precondition : A est trié par ordre d'occurence.
    begin
-      Copie_Triee_Couple_Occ(A, B);
-      if not Arbre_Vide(B) and then N >= 0 then
-         if not Arbre_Vide(Sad(A)) then
-            AffichageN(Sad(A),N);
-         end if;
-         if not Arbre_Vide(Sag(A)) then
-            AffichageN(Sag(A),N-1);
-         else
-            AffichageN(Pere(A),N-1);
-         end if;
-         if not Arbre_Vide(Sag(A)) then
-            AffichageN(Sag(A),N);
-         end if;
+      --Verification_Arbre_Inf(B);
+      if N > 0 and then not Arbre_Vide(A) then
+         --Affiche_Noeud(A);
+         Put("N:"&Integer'Image(N));
+         AffichageN_Rec(Sag(A),N-1);
+         Affiche_Noeud(A);
+         AffichageN_Rec(A,N-1);                  
+         AffichageN_Rec(Sad(A),N-1);
       end if;         
    end;
+   
+   procedure AffichageN (A : in Tabr_Couple; N : in Integer) is
+      B : TAbr_Couple;
+   begin
+      B := Creer_Arbre;
+      Copie_Triee_Couple_Occ(A,B);      
+      --Verification_Arbre_Inf(B);
+      --Put("Apres insertion triee");
+      --Affiche_Inf(B);
+      AffichageN_Rec(B,N);      
+   end AffichageN;
       
    procedure AffichageN (A : in TABR_Triplet; N : in Integer) is
    begin

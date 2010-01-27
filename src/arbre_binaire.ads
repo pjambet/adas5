@@ -71,7 +71,7 @@ package Arbre_Binaire is
    --Renvoie le nombre d'element present dans A
    --Renvoie 0 si A est null
 
-   function Creerarbre return T_Abr;
+   function Creer_Arbre return T_Abr;
    --Crée un arbre vide
 
    function Arbre_Vide(A: T_Abr) return Boolean;

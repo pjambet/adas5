@@ -161,11 +161,11 @@ package body Arbre_Binaire is
       end if;
    end Frere;
 
-   function Creerarbre return T_Abr is
+   function Creer_Arbre return T_Abr is
       --Crée un arbre vide
    begin
       return null;
-   end Creerarbre;
+   end Creer_arbre;
 
    function Arbre_Vide (A : T_Abr)return Boolean is
       --Teste la vacuité de l'arbre A
@@ -585,10 +585,6 @@ package body Arbre_Binaire is
          A := new Noeud'(V,null,null,null,False);
          --le noeud inséré est colorié en rouge
          Equilibrage_Arn(A);
-      elsif Lire_Racine(A) = V then
-         --dans ce cas rien a faire, le mot est deja la
-         --eventuellement un traitement des doublons
-         Traitement_Doublon(A);
       elsif V < Lire_Racine(A) then
          if Sag(A) = null then
             Ag := A.Sag;
@@ -598,8 +594,7 @@ package body Arbre_Binaire is
          else
             ag := a.sag;
             Inserer_Arn(ag,V);
-         end if;   
-            
+         end if;               
       elsif V > Lire_Racine(A) then
          if A.Sad = null then
             ad := a.sad;
@@ -609,10 +604,12 @@ package body Arbre_Binaire is
          else
             ad := A.sad;
             Inserer_Arn(ad,V);
-         end if;
+         end if;      
+      elsif Lire_Racine(A) = V then
+         --dans ce cas rien a faire, le mot est deja la
+         Traitement_Doublon(A);
       end if;
-
-      a := racine(a);
+      A := racine(A);
    end Inserer_Arn;
 
    procedure Supprimer_Abr (A : in out T_Abr;V : in T_Elem) is
@@ -673,6 +670,7 @@ package body Arbre_Binaire is
    procedure Copietriee(A: in T_Abr; B : out T_Abr) is  
    begin
       if not Arbre_Vide(A) then
+         Imprime(Lire_Racine(A));
          Copietriee(Sag(A),B);
          Copietriee(Sad(A),B);
          Inserer(B,Lire_Racine(A));

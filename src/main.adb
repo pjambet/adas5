@@ -488,13 +488,13 @@ begin
                      New_Line;
                      Set_Mot(Couple2, Creer_Mot(Buffer(1 .. Last)));
 
-                     begin
+                     begin   
                      Fusion_Couple(AB, Couple1, Couple2);
                         exception
                         when Constraint_Error => Put_Line("Erreur de contrainte");
                         when Arbre_Binaire_Couple.AB.ArbreVideException => Put_Line("Probleme : Element non trouves dans l'arbre");
                      end;
-					 New_Line;
+			New_Line;
 
                   when 3 =>
 
