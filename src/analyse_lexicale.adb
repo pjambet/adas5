@@ -986,10 +986,10 @@ package body Analyse_Lexicale is
       Chaine : String(1 .. 30);
    begin
       L := CreerListe;
+      Chaine := "                              ";
       TrieToListe_Txt1(T, L, Chaine, 0);
       Temp := L;
       Compteur := 0;
-      Chaine := "                              ";
       while not EstVide(Temp) and then Compteur < N loop
          Imprime_Couple(Premier(Temp));
          Compteur := Compteur + 1;
@@ -1004,11 +1004,11 @@ package body Analyse_Lexicale is
       Compteur : Integer;
       Chaine : String(1 .. 30);
    begin
-      L := CreerListe;
+      L := CreerListe;      
+      Chaine := "                              ";
       TrieToListe_Txt2(T, L, Chaine, 0);
       Temp := L;
       Compteur := 0;
-      Chaine := "                              ";
       while not EstVide(Temp) and then Compteur < N loop
          Imprime_Triplet(Premier(Temp));
          Compteur := Compteur + 1;
