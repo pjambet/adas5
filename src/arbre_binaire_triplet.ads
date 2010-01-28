@@ -18,30 +18,39 @@ package Arbre_Binaire_Triplet is
    use ABT;
    subtype TABR_Triplet is ABT.T_ABR;
 
+   -- #################################################################################
+   
+   -- Instanciation des fonctions génériques
+
    procedure Traitement_Doublon_Triplet_Txt1(A: in out Tabr_Triplet);
-   --Gere les actions a executer en cas de doublon dans l'arbre
-   --Quand on tombe sur un doublon, on increment le NbOcc1 du Triplet
+   -- Gere les actions a executer en cas de doublon dans l'arbre
+   -- Quand on tombe sur un doublon, on increment le NbOcc1 du Triplet
 
    procedure Traitement_Doublon_Triplet_Txt2(A: in out TAbr_Triplet);
-   --Gere les actions a executer en cas de doublon dans l'arbre
-   --Quand on tombe sur un doublon, on increment le NbOcc1 du Triplet
+   -- Gere les actions a executer en cas de doublon dans l'arbre
+   -- Quand on tombe sur un doublon, on increment le NbOcc1 du Triplet
    
    procedure Traitement_Doublon_Triplet_Som(A : in out TAbr_Triplet);
-   --Gere les actions a executer en cas de doublon dans l'arbre
-   --Quand on tombe sur un doublon, on increment le NbOcc2 du Triplet
-
+   -- Gere les actions a executer en cas de doublon dans l'arbre
+   -- Quand on tombe sur un doublon, on increment le NbOcc2 du Triplet
+   
    procedure Modif_Fusion_Triplet(A : in out TABR_Triplet; E1,E2 : in T_Triplet);
-   --
    
    procedure Fusion_Triplet is new Fusion(Modif_Fusion => Modif_Fusion_Triplet);
-   --
+   
+   -- #################################################################################
+   
+   -- Instanciation des procedures relatives à l'affichage d'un élément
    
    procedure Affiche_Triplet(A: in TABR_Triplet);
-
    procedure Affiche_Post is new Postfixe(Traitement => Affiche_Triplet);
    procedure Affiche_Inf is new Infixe(Traitement => Affiche_Triplet);
    procedure Affiche_Pre is new Prefixe(Traitement => Affiche_Triplet);
 
+   -- #################################################################################
+   
+   -- Instanciation des procedures relatives à l'insertion d'un élément
+   
    procedure Inserer_ABR_Triplet_Txt1 is new Inserer_ABR(Superieur_Triplet_Lex, Egale_Triplet_Lex, Inferieur_Triplet_Lex, Traitement_Doublon_Triplet_Txt1);
    procedure Inserer_ABR_Triplet_Txt2 is new Inserer_ABR(Superieur_Triplet_Lex, Egale_Triplet_Lex, Inferieur_Triplet_Lex, Traitement_Doublon_Triplet_Txt2);
    procedure Inserer_ARN_Triplet_Txt1 is new Inserer_ARN(Superieur_Triplet_Lex, Egale_Triplet_Lex, Inferieur_Triplet_Lex, Traitement_Doublon_Triplet_Txt1);
