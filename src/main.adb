@@ -29,6 +29,8 @@ procedure Main is
    Mot1, Mot2 : T_Mot;
    
    procedure Get_Int (N : out Integer) is
+      --Fonction de saisie d'un entier, "sécurisée"
+      --En cas d'exception il faut resaisir l'entier
       A : Integer;
    begin
       begin
@@ -65,7 +67,7 @@ begin
    Put_Line("**                       PROJET ADA S5                          **");
    Put_Line("**                                                              **");
    Put_Line("** Auteurs :                                                    **");
-   Put_Line("**   JAMBET PIERRE                                              **");
+   Put_Line("**   JAMBET PIERRE                                      2009/10 **");
    Put_Line("**   DREYER QUENTIN                                             **");
    Put_Line("**                                                              **");
    Put_Line("******************************************************************");
