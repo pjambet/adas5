@@ -880,35 +880,23 @@ package body Analyse_Lexicale is
       New_Line;
    end;
 
-   procedure AffichageN_Rec (A : in Tabr_Couple; N : in Integer) is
-      --precondition : A est trié par ordre d'occurence.
+   procedure ABRToListe(A : in TABR_Couple; L : in out TListe_Couple) is
    begin
-      --Verification_Arbre_Inf(B);
-      if N > 0 and then not Arbre_Vide(A) then
-         --Affiche_Noeud(A);
-         Put("N:"&Integer'Image(N));
-         AffichageN_Rec(Sag(A),N-1);
-         Affiche_Noeud(A);
-         AffichageN_Rec(A,N-1);                  
-         AffichageN_Rec(Sad(A),N-1);
-      end if;         
-   end;
-   
-   procedure AffichageN (A : in Tabr_Couple; N : in Integer) is
-      B : TAbr_Couple;
-   begin
-      B := Creer_Arbre;
-      Copie_Triee_Couple_Occ(A,B);      
-      --Verification_Arbre_Inf(B);
-      --Put("Apres insertion triee");
-      --Affiche_Inf(B);
-      AffichageN_Rec(B,N);      
-   end AffichageN;
+      if not Arbre_Vide(A) then
+         InsererTriee_Couple_Occ(L, Lire_Racine(A));
+         ABRToListe(SAG(A),L);    
+         ABRToListe(SAD(A),L);    
+      end if;
+   end ABRToListe;
       
-   procedure AffichageN (A : in TABR_Triplet; N : in Integer) is
+   procedure ABRToListe(A : in TABR_Triplet; L : in out TListe_Triplet) is
    begin
-      null;
-   end;
+      if not Arbre_Vide(A) then
+         InsererTriee_Triplet_OccS(L, Lire_Racine(A));
+         ABRToListe(SAG(A),L);
+         ABRToListe(SAD(A),L);    
+         end if;
+   end ABRToListe;
    
    procedure TrieToListe_Txt1 (T : T_Trie; L : in out TListe_Couple; C : in String; F : in Natural) is
       Chaine : String(1 .. 30);
@@ -956,7 +944,79 @@ package body Analyse_Lexicale is
 	     end loop;
 	  end if;
    end;
+
+   procedure AffichageN (A : in Tabr_Couple; N : in Integer) is
+      L : TListe_Couple;
+      Temp : TListe_Couple;
+      Compteur : Integer;
+   begin
+      L := CreerListe;
+      ABRToListe(A,L);      
+      Temp := L;
+      Compteur := 0;
+      while not EstVide(Temp) and then Compteur < N loop
+         Imprime_Couple(Premier(Temp));
+         Compteur := Compteur + 1;
+         Temp := Suivant(Temp);
+      end loop;
+      New_Line;               
+   end AffichageN;
+      
+   procedure AffichageN (A : in TABR_Triplet; N : in Integer) is
+      L : TListe_Triplet;
+      Temp : TListe_Triplet;
+      Compteur : Integer;
+   begin
+      L := CreerListe;
+      ABRToListe(A,L);      
+      Temp := L;
+      Compteur := 0;
+      while not EstVide(Temp) and then Compteur < N loop
+         Imprime_Triplet(Premier(Temp));
+         Compteur := Compteur + 1;
+         Temp := Suivant(Temp);
+      end loop;
+      New_Line;               
+   end AffichageN;
+
+   procedure AffichageN_Txt1 (T : in T_Trie; N : in Integer) is
+      L : TListe_Couple;
+      Temp : TListe_Couple;
+      Compteur : Integer;
+      Chaine : String(1 .. 30);
+   begin
+      L := CreerListe;
+      TrieToListe_Txt1(T, L, Chaine, 0);
+      Temp := L;
+      Compteur := 0;
+      Chaine := "                              ";
+      while not EstVide(Temp) and then Compteur < N loop
+         Imprime_Couple(Premier(Temp));
+         Compteur := Compteur + 1;
+         Temp := Suivant(Temp);
+      end loop;
+      New_Line;               
+   end AffichageN_Txt1;
    
+   procedure AffichageN_Txt2 (T : in T_Trie; N : in Integer) is
+      L : TListe_Triplet;
+      Temp : TListe_Triplet;
+      Compteur : Integer;
+      Chaine : String(1 .. 30);
+   begin
+      L := CreerListe;
+      TrieToListe_Txt2(T, L, Chaine, 0);
+      Temp := L;
+      Compteur := 0;
+      Chaine := "                              ";
+      while not EstVide(Temp) and then Compteur < N loop
+         Imprime_Triplet(Premier(Temp));
+         Compteur := Compteur + 1;
+         Temp := Suivant(Temp);
+      end loop;
+      New_Line;               
+   end AffichageN_Txt2;
+
    -- #################################################################################
 
    function Query_NbOcc (L : in TListe_Couple; M : in T_Mot) return Integer is

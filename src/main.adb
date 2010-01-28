@@ -720,7 +720,7 @@ begin
 
                   when 2 =>
 
-		             NumMotTot := 0;
+                     NumMotTot := 0;
                      Num_Mot_Tot_Txt1(T1, NumMotTot);
                      Put_Line("Nombre de mot total :" & Integer'Image(NumMotTot) & ".");
                      NumOccMoy := Num_Occ_Moy_Txt1(T1, NumMotTot);
@@ -776,24 +776,23 @@ begin
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
                      Get(NbMot);
-					 New_Line;
-					 TrieToListe_Txt1(T1, L, Chaine, 0);
-					 AffichageN(L, NbMot);
+			   New_Line;
+			   AffichageN_Txt1(T1, NbMot);
                      New_Line;
 
                      Skip_Line;
                      Put_Line("Fusion d'un mot dans un autre :");
                      Put_Line("Veuillez entrer le premier mot. (le conserve) ");
                      Get_Line(Buffer, Last);
-					 Mot1 := Creer_Mot(Buffer(1 .. Last));
+			   Mot1 := Creer_Mot(Buffer(1 .. Last));
                      New_Line;
 
                      Put_Line("Veuillez entrer le deuxieme mot. (le fusione)");
                      Get_Line(Buffer, Last);
-					 Mot2 := Creer_Mot(Buffer(1 .. Last));
+			   Mot2 := Creer_Mot(Buffer(1 .. Last));
                      New_Line;
 
-					 Fusion_Txt1(T1, Mot1, Mot2);
+			   Fusion_Txt1(T1, Mot1, Mot2);
                      -- begin
                        -- exception
                        -- when Constraint_Error => Put_Line("Erreur de contrainte");
@@ -918,23 +917,22 @@ begin
 
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
-                     Get(NbMot);
-					 TrieToListe_Txt2(T2, LT, Chaine, 0);
-					 AffichageN(LT, NbMot);                     
+                     Get(NbMot);			   
+                     AffichageN_Txt2(T2, NbMot);                     
 
                      Skip_Line;
                      Put_Line("Fusion d'un mot dans un autre :");
                      Put_Line("Veuillez entrer le premier mot. (le conserve) ");
                      Get_Line(Buffer, Last);
-					 Mot1 := Creer_Mot(Buffer(1 .. Last));
+			   Mot1 := Creer_Mot(Buffer(1 .. Last));
                      New_Line;
 
                      Put_Line("Veuillez entrer le deuxieme mot. (le fusione)");
                      Get_Line(Buffer, Last);
-					 Mot2 := Creer_Mot(Buffer(1 .. Last));
+			   Mot2 := Creer_Mot(Buffer(1 .. Last));
                      New_Line;
 
-					 Fusion_Txt2(T2, Mot1, Mot2);
+                     Fusion_Txt2(T2, Mot1, Mot2);
                      -- begin
                        -- exception
                        -- when Constraint_Error => Put_Line("Erreur de contrainte");
