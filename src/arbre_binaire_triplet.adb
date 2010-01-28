@@ -27,7 +27,7 @@ package body Arbre_Binaire_Triplet is
    --Quand on tombe sur un doublon, on increment le NbOcc2 du Triplet
    begin
       --TODO, enfin si ya qqchose a faire, la fonction est peut etre inutile ...
-      --juste pour eviter le warning,
+      A := Creer_Arbre;--juste pour eviter le warning,
       null;
    end Traitement_Doublon_Triplet_Som;
 

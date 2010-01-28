@@ -27,6 +27,21 @@ procedure Main is
    Couple1, Couple2 : T_Couple;
    Triplet1, Triplet2 : T_Triplet;
    Mot1, Mot2 : T_Mot;
+   
+   procedure Get_Int (N : out Integer) is
+      A : Integer;
+   begin
+      begin
+         Get(A);
+      exception
+         when Data_Error => Put("Erreur de saisie, saisies un ENTIER !");            
+            New_Line;
+            Skip_Line;            
+            Get_Int(A);
+            N := A;
+      end;
+      N := A;
+   end Get_Int;
 
    use Liste_Couple.L;
    use Liste_Triplet.Lt;
@@ -38,12 +53,12 @@ begin
    Put_Line("******************************************************************");
    Put_line("******************************************************************");
    Put_Line("**                                                              **");
-   Put_line("**    ____            _      _               _                  **");
-   Put_line("**   |  _ \ _ __ ___ (_) ___| |_    __ _  __| | __ _            **");
-   Put_line("**   | |_) | '__/ _ \| |/ _ \ __|  / _` |/ _` |/ _` |           **");
-   Put_line("**   |  __/| | | (_) | |  __/ |_  | (_| | (_| | (_| |           **");
-   Put_line("**   |_|   |_|  \___// |\___|\__|  \__,_|\__,_|\__,_|           **");
-   Put_line("**                  |__/                                        **");
+   Put_line("**        ____            _      _               _              **");
+   Put_line("**       |  _ \ _ __ ___ (_) ___| |_    __ _  __| | __ _        **");
+   Put_line("**       | |_) | '__/ _ \| |/ _ \ __|  / _` |/ _` |/ _` |       **");
+   Put_line("**       |  __/| | | (_) | |  __/ |_  | (_| | (_| | (_| |       **");
+   Put_line("**       |_|   |_|  \___// |\___|\__|  \__,_|\__,_|\__,_|       **");
+   Put_line("**                      |__/                                    **");
    Put_Line("**                                                              **");
    Put_Line("**                                                              **");
    Put_Line("**                    ANALYSEUR LEXICAL v3                      **");
@@ -59,6 +74,7 @@ begin
 
    Menu := True;
    Chaine := "                              "; -- anti-warning
+   Choix := 0;
    while Menu loop
 
       Put_Line("1 -> Entrez 1 pour utiliser la structure de donnee " & Character'Val(34) & "Liste" & Character'Val(34) & ".");
@@ -66,7 +82,7 @@ begin
       Put_Line("3 -> Entrez 3 pour utiliser la structure de donnee " & Character'Val(34) & "Trie" & Character'Val(34) & ".");
       Put_Line("0 -> Entrez 0 pour quitter.");
       New_Line;
-      Get(Choix);
+      Get_Int(Choix);
       Skip_Line;
       New_Line;
 
@@ -110,7 +126,7 @@ begin
                New_Line;
                Put_Line("0 -> Entrez 0 pour retourner au menu principal.");
                New_Line;
-               Get(Choix);
+               Get_Int(Choix);
                Skip_Line;
                New_Line;
 
@@ -144,10 +160,9 @@ begin
                      Put("Nombre d'occurence moyen :"); Put(Num_Occ_Moy(L), 2, 1, 0); Put_Line(".");
                      Put("Longueur moyenne des mots :"); Put(Long_Moy(L), 2, 1, 0); Put_Line(".");
                      New_Line;                     
-                     
                      Put_Line("Affichage des mots superieur a un entier N :");
                      Put_Line("Veuillez entrer un entier N.");
-                     Get(Num);
+                     Get_Int(Num);
                      New_Line;
                      Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(Num_Mot_Sup(L, Num)) & ".");
                      New_Line;
@@ -183,9 +198,9 @@ begin
 
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
-                     Get(NbMot);
+                     Get_Int(NbMot);
                      AffichageN(L, NbMot);
-
+                     
                      Skip_Line;
                      Put_Line("Fusion d'un mot dans un autre :");
                      Put_Line("Veuillez entrer le premier mot. (le conserve) ");
@@ -267,15 +282,11 @@ begin
                      
                      Put_Line("Affichage des mots superieur a un entier N :");
                      Put_Line("Veuillez entrer un entier N.");
-                     begin
-                        Get(Num);
-                     exception
-                        when others => Put_Line("Abruti");
-                     end;
+                     Get_Int(Num);
                      New_Line;
                      Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(Num_Mot_Sup(LT, Num)) & ".");
                      New_Line;
-
+                     
                      Skip_Line;
                      Put_Line("Affichage du nombre d'occurence d'un mot :");
                      Put_Line("Veuillez entrer un mot.");
@@ -311,9 +322,9 @@ begin
 
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
-                     Get(NbMot);
+                     Get_Int(NbMot);
                      AffichageN(LT, NbMot);
-
+                     
                      Skip_Line;
                      Put_Line("Fusion d'un mot dans un autre :");
                      Put_Line("Veuillez entrer le premier mot. (le conserve) ");
@@ -402,7 +413,7 @@ begin
                New_Line;
                Put_Line("0 -> Entrez 0 pour retourner au menu principal.");
                New_Line;
-               Get(Choix);
+               Get_Int(Choix);
                Skip_Line;
                New_Line;
 
@@ -441,11 +452,11 @@ begin
                      
                      Put_Line("Affichage des mots superieur a un entier N :");
                      Put_Line("Veuillez entrer un entier N.");
-                     Get(Num);
+                     Get_Int(Num);
                      New_Line;
                      Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(Num_Mot_Sup(AB, Num)) & ".");
                      New_Line;
-
+                     
                      Skip_Line;
                      Put_Line("Affichage du nombre d'occurence d'un mot :");
                      Put_Line("Veuillez entrer un mot.");
@@ -477,9 +488,9 @@ begin
 
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
-                     Get(NbMot);
+                     Get_Int(NbMot);
                      AffichageN(AB, NbMot);
-
+                     
                      Skip_Line;
                      Put_Line("Fusion d'un mot dans un autre :");
                      Put_Line("Veuillez entrer le premier mot. (le conserve) ");
@@ -561,10 +572,10 @@ begin
                      
                      Put_Line("Affichage des mots superieur a un entier N :");
                      Put_Line("Veuillez entrer un entier N.");
-                     Get(Num);
+                     Get_Int(Num);
                      New_Line;
                      Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(Num_Mot_Sup(ABT, Num)) & ".");
-                     New_Line;
+                     New_Line;     
 
                      Skip_Line;
                      Put_Line("Affichage du nombre d'occurence d'un mot :");
@@ -601,9 +612,9 @@ begin
 
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
-                     Get(NbMot);
+                     Get_Int(NbMot);                        
                      AffichageN(ABT, NbMot);
-
+                       
                      Skip_Line;
                      Put_Line("Fusion d'un mot dans un autre :");
                      Put_Line("Veuillez entrer le premier mot. (le conserve) ");
@@ -632,7 +643,7 @@ begin
                      Skip_Line;
                      Put_Line("Les mots employes par un auteur et pas par l'autre sont :");
                      Query_Difference(ABT);
-					 New_Line;
+                     New_Line;
 
                   when 9 =>
 
@@ -694,7 +705,7 @@ begin
                New_Line;
                Put_Line("0 -> Entrez 0 pour retourner au menu principal.");
                New_Line;
-               Get(Choix);
+               Get_Int(Choix);
                Skip_Line;
                New_Line;
 
@@ -736,12 +747,12 @@ begin
                      NumMotSupN := 0;
                      Put_Line("Affichage des mots superieur a un entier N :");
                      Put_Line("Veuillez entrer un entier N.");
-                     Get(Num);
+                     Get_Int(Num);
                      New_Line;
                      Num_Mot_Sup_Txt1(T1, Num, NumMotSupN);
                      Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(NumMotSupN) & ".");
                      New_Line;
-
+                                            
                      Skip_Line;
                      Put_Line("Affichage du nombre d'occurence d'un mot :");
                      Put_Line("Veuillez entrer un mot.");
@@ -779,11 +790,11 @@ begin
 
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
-                     Get(NbMot);
-			   New_Line;
-			   AffichageN_Txt1(T1, NbMot);
+                     Get_Int(NbMot);
                      New_Line;
-
+			 AffichageN_Txt1(T1, NbMot);
+                     New_Line;                     
+                     
                      Skip_Line;
                      Put_Line("Fusion d'un mot dans un autre :");
                      Put_Line("Veuillez entrer le premier mot. (le conserve) ");
@@ -868,12 +879,12 @@ begin
                      NumMotSupN := 0;
                      Put_Line("Affichage des mots superieur a un entier N :");
                      Put_Line("Veuillez entrer un entier N.");
-                     Get(Num);
+                     Get_Int(Num);
                      New_Line;
                      Num_Mot_Sup_Txt2(T2, Num, NumMotSupN);
                      Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(NumMotSupN) & ".");
-                     New_Line;
-
+                     New_Line;   
+                     
                      Skip_Line;
                      Put_Line("Affichage du nombre d'occurence d'un mot :");
                      Put_Line("Veuillez entrer un mot.");
@@ -921,9 +932,9 @@ begin
 
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
-                     Get(NbMot);			   
-                     AffichageN_Txt2(T2, NbMot);                     
-
+                     Get_Int(NbMot);			   
+                     AffichageN_Txt2(T2, NbMot);
+                     
                      Skip_Line;
                      Put_Line("Fusion d'un mot dans un autre :");
                      Put_Line("Veuillez entrer le premier mot. (le conserve) ");
@@ -937,11 +948,6 @@ begin
                      New_Line;
 
                      Fusion_Txt2(T2, Mot1, Mot2);
-                     -- begin
-                       -- exception
-                       -- when Constraint_Error => Put_Line("Erreur de contrainte");
-                       -- when Liste_Couple.L.Listevideexception => Put_Line("Probleme : Element non trouves dans le trie");
-                     -- end;
 					 
                      Put_Line("Les mots employes par les deux auteurs sont :");
                      Query_Intersection(T2, Chaine, 0);
@@ -984,6 +990,15 @@ begin
 
       end case;
 
-   end loop;
+      end loop;
+      
+      exception
+         when Data_Error => Put("Erreur Globale !");
+            New_Line;
+            Skip_Line;
+            Main;
+         when others => Put_Line("Une erreur irrecuperable est survenue");
+               
+
 
 end;

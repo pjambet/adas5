@@ -20,6 +20,9 @@ generic
 
 package Arbre_Binaire is
 
+   --Representation generique d'un arbre binaire de recherche auto équilibré (rouge et noir)
+   --C'est donc un ABR(Binaire de Recherche)RN(Rouge et Noir)
+
    type T_ABR is private;
    Arbrevideexception : exception;
    Elt_Inexistant: exception;
@@ -28,11 +31,11 @@ package Arbre_Binaire is
 
    procedure Modifie(A: in out T_ABR;E: in T_Elem);
    --Modifie A en y remplacant son element par E
-
+   
    function Lire_Racine(A: T_ABR) return T_Elem;
    --Renvoie l'element contenu dans A
    --Declenche un ArbreVideException si A est null
-
+   
    function Sag(A: T_ABR) return T_ABR;
    --Renvoie le sous arbre gauche de A si il existe
    --Declenche une ArbreVideException si A est null ou si son sag est null
@@ -97,6 +100,9 @@ package Arbre_Binaire is
    --Fais remonter A a la racine de l'arbre
    
    -- #################################################################################
+   
+   --Procedure permettant d'avoir acces a un parcours de type Infixe, Prefixe ou Suffixe
+   --de l'arbre   
 
    generic
       with procedure Traitement(A: in T_ABR);

@@ -7,10 +7,13 @@
 -- #                                                                               #
 -- #################################################################################
 
-with Mot, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie, Ada.Text_IO;
-use Mot, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie, Ada.Text_IO;
+with Mot, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie;
+use Mot, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie;
 
 package Analyse_Lexicale is
+   --Package contenant l'ensemble des fonctions de type "requetes" (suffixe,prefixe, nombre d'occurence etc ...)
+   --La majorité des fonctions sont surchargés afin d'etre utilisable avec les listes, les arbres et les tries
+   --Chacune des structures peut etre utilisée avec les Couples (Mot + NbOcc) ou avec des triplets (Mot + NbOcc du texte 1 + NbOcc du texte 2)
 
    function CaractereAutorise (C : in Character) return Boolean;
    -- Renvoit vrai si le caractere est autorise en tant que caractere d'un mot, faux sinon
@@ -45,15 +48,6 @@ package Analyse_Lexicale is
    procedure Creer_Fichier (A : in out TABR_Triplet);
    procedure Creer_Fichier_Txt1 (T : in T_Trie);
    procedure Creer_Fichier_Txt2 (T : in T_Trie);
-   
-   -- #################################################################################
-   
-   -- Procedure auxiliaire liée à Creer_Fichier()
-   
-   procedure Ecriture_Dest_Txt1(T : in T_Trie; C : in String; F : in Natural; D : in File_Type);
-   procedure Ecriture_Dest_Txt2(T : in T_Trie; C : in String; F : in Natural; D : in File_Type);
-   procedure Ecriture_Dest_Txt1(Ab : in Tabr_Couple; D : in File_Type);
-   procedure Ecriture_Dest_Txt2(Ab : in Tabr_Triplet; D : in File_Type);
    
    -- #################################################################################
    

@@ -434,64 +434,6 @@ package body Analyse_Lexicale is
       Skip_Line;
    end;
 
-   procedure Creer_Fichier (A : in out TABR_Couple) is
-      Dest : File_Type;      
-   begin     
-      Create(Dest, Name => "liste-mot.txt");      
-      Put("Debut creation");
-      Ecriture_Dest_Txt1(A, Dest);
-      New_Line(Dest);
-      New_Line;
-      Put_Line("Fin creation !");
-      Close(Dest);
-      Skip_Line;
-   end;
-
-   procedure Creer_Fichier (A : in out TABR_Triplet) is
-      Dest : File_Type;
-   begin
-      Create(Dest, Name => "liste-mot2.txt");
-      Put("Debut creation");
-      Ecriture_Dest_Txt2(A, Dest);
-      New_Line(Dest);
-      New_Line;
-      Put_Line("Fin creation !");
-      Close(Dest);
-      Skip_Line;
-   end;
-
-   procedure Creer_Fichier_Txt1(T : in T_Trie) is
-      Dest : File_Type;
-      Chaine : String(1 .. 30);
-   begin
-      Chaine := "                              "; --anti-warning
-      Put("Debut creation");
-      Create(Dest, Name => "liste-mot.txt");
-      Ecriture_Dest_Txt1(T, Chaine, 0, Dest);
-      New_Line(Dest);
-      New_Line;
-      Put_Line("Fin creation !");
-      Close(Dest);
-      Skip_Line;
-   end;
-
-   procedure Creer_Fichier_Txt2(T : in T_Trie) is
-      Dest : File_Type;
-      Chaine : String(1 .. 30);
-   begin
-      Chaine := "                              "; --anti-warning
-      Put("Debut creation");
-      Create(Dest, Name => "liste-mot2.txt");
-      Ecriture_Dest_Txt2(T, Chaine, 0, Dest);
-      New_Line(Dest);
-      New_Line;
-      Put_Line("Fin creation !");
-      Close(Dest);
-      Skip_Line;
-   end;
-
-   -- #################################################################################
-   
    procedure Ecriture_Dest_Txt1(T : in T_Trie; C : in String; F : in Natural; D : in File_Type) is
       Chaine : String(1 .. 30);
       Fin : Natural;
@@ -562,6 +504,62 @@ package body Analyse_Lexicale is
          Put_Line(D, Integer'Image(Get_Nbocc_Txt1(Lire_Racine(AB))) & Integer'Image(Get_NbOcc_Txt2(Lire_racine(AB))));
          Ecriture_Dest_Txt2(sad(ab),D);
       end if;
+   end;
+   
+   procedure Creer_Fichier (A : in out TABR_Couple) is
+      Dest : File_Type;      
+   begin     
+      Create(Dest, Name => "liste-mot.txt");      
+      Put("Debut creation");
+      Ecriture_Dest_Txt1(A, Dest);
+      New_Line(Dest);
+      New_Line;
+      Put_Line("Fin creation !");
+      Close(Dest);
+      Skip_Line;
+   end;
+
+   procedure Creer_Fichier (A : in out TABR_Triplet) is
+      Dest : File_Type;
+   begin
+      Create(Dest, Name => "liste-mot2.txt");
+      Put("Debut creation");
+      Ecriture_Dest_Txt2(A, Dest);
+      New_Line(Dest);
+      New_Line;
+      Put_Line("Fin creation !");
+      Close(Dest);
+      Skip_Line;
+   end;
+
+   procedure Creer_Fichier_Txt1(T : in T_Trie) is
+      Dest : File_Type;
+      Chaine : String(1 .. 30);
+   begin
+      Chaine := "                              "; --anti-warning
+      Put("Debut creation");
+      Create(Dest, Name => "liste-mot.txt");
+      Ecriture_Dest_Txt1(T, Chaine, 0, Dest);
+      New_Line(Dest);
+      New_Line;
+      Put_Line("Fin creation !");
+      Close(Dest);
+      Skip_Line;
+   end;
+
+   procedure Creer_Fichier_Txt2(T : in T_Trie) is
+      Dest : File_Type;
+      Chaine : String(1 .. 30);
+   begin
+      Chaine := "                              "; --anti-warning
+      Put("Debut creation");
+      Create(Dest, Name => "liste-mot2.txt");
+      Ecriture_Dest_Txt2(T, Chaine, 0, Dest);
+      New_Line(Dest);
+      New_Line;
+      Put_Line("Fin creation !");
+      Close(Dest);
+      Skip_Line;
    end;
    
    -- #################################################################################

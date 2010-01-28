@@ -51,6 +51,7 @@ package body Liste_Triplet is
    --Gere les actions a executer en cas de doublon dans la liste
    --Quand on tombe sur un doublon, on increment le NbOcc2 du Triplet
    begin
+      L := CreerListe;--anti warning
       null; --TODO
    end Traitement_Doublon_Triplet_Som;
 

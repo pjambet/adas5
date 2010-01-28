@@ -327,8 +327,8 @@ package body Arbre_Binaire is
       end if;
    end Est_Equilibre;
 
-   function Rechercher (A : T_Abr)return T_Abr is
-      --fonction aussi appelé recherchepluspetit ou un autre nom comme ca
+   function RechercheR (A : T_Abr)return T_Abr is
+      --fonction aussi appelée recherchepluspetit ou un autre nom comme ca
       --la fonction va soit chercher le plus grand a gauche soit le plus petit a droite
       --Ici le choix est de chercher le plus grand element du sag de A
       Temp : T_Abr;
@@ -359,7 +359,6 @@ package body Arbre_Binaire is
       end if;
       Y.Sad := X;
       X.Pere := Y;
-
    end Rotation_Droite_Simple;
 
    procedure Rotation_Gauche_Simple (X : in out T_Abr) is--return T_Abr is
@@ -391,23 +390,17 @@ package body Arbre_Binaire is
       Z : T_Abr;
    begin
       if X.Sag = Y then
-         --return
          Rotation_Droite_Simple(X);
       else
          Z := Y.Pere;
          if Filsgauche(Y) then
-            --Z :=
             Rotation_Droite_Simple(Z);
-            --return
             Rotation_Droite(X,Z);
          else--y est fils droit
-            --return
-            --w :=
             Rotation_Gauche_Simple(Z);
             Rotation_Droite(X,Z);
          end if;
       end if;
-
    end Rotation_Droite;
 
    procedure Rotation_Gauche (X : in out T_Abr; Y : in T_Abr) is-- return T_Abr is
@@ -418,18 +411,13 @@ package body Arbre_Binaire is
       --Modification effectuée, tous les gauches changés en droit et inversement, comme pour au dessus
       --a tester, j'suis pas certain que tout soit juste
       if X.Sad = Y then
-         --return
          Rotation_Gauche_Simple(X);
       else
          Z := Y.Pere;
          if Filsgauche(Y) then
-            --Z :=
             Rotation_Droite_Simple(Z);
-            --return
             Rotation_Gauche(X,Z);
          else--y est fils droit
-            --return
-            --w :=
             Rotation_Gauche_Simple(Z);
             Rotation_Gauche(X,Z);
          end if;
@@ -490,7 +478,6 @@ package body Arbre_Binaire is
       P,Gp,F : T_Abr;
    begin
       N := Cas_Equilib_Insertion_Arn(X);
-      --Put("Code inser");Put_Line(Integer'Image(N));Skip_Line;      
       P := Pere(X);
       Gp := Gpere(X);
       
@@ -520,26 +507,20 @@ package body Arbre_Binaire is
             Equilibrage_Arn(Gp);
          end if;
       elsif N=31 then--x fils gauche, p fils gauche
-         --P :=
          Rotation_Droite(Gp,P);
          P.Couleur := True;
          Gp.Couleur := False;
       elsif N=32 then--p fils gauche, x fils droit
-         --X :=
          Rotation_Gauche(P,X);
-         --X :=
          Rotation_Droite(Gp,X);
          X.Couleur := True;
          Gp.Couleur := False;
-      elsif N=42 then--p fils droit, x fils droit
-         --X :=
+      elsif N=42 then--p fils droit, x fils gauche
          Rotation_Droite(P,X);
-         --X :=
          Rotation_Gauche(Gp,X);
          X.Couleur := True;
          Gp.Couleur := False;
-      elsif N=41 then--p fils droit, x fils gauche
-         --P :=
+      elsif N=41 then--p fils droit, x fils droit
          Rotation_Gauche(Gp,P);
          P.Couleur := True;
          Gp.Couleur := False;
@@ -556,7 +537,6 @@ package body Arbre_Binaire is
          --dans ce cas rien a faire, le mot est deja la
          --eventuellement un traitement des doublons
          Traitement_Doublon(A);
-         --return A; c'est une procedure pas de return
       elsif V < Lire_Racine(A) then
          if Sag(A) = null then
             A.Sag := new Noeud'(V,null,null,A,False);
@@ -564,7 +544,6 @@ package body Arbre_Binaire is
             Inserer_Abr(A.Sag,V);
             A.Sag.Pere := A;
          end if;
-         --return A;--c'est une procedure, pas de return
       elsif V > Lire_Racine(A) then
          if A.Sad = null then
             A.Sad := new Noeud'(V,null,null,A,False);
@@ -572,7 +551,6 @@ package body Arbre_Binaire is
             Inserer_Abr(A.Sad,V);
             A.Sad.Pere := A;
          end if;
-         --return A;--c'est une procedure, pas de return
       end if;
    end Inserer_Abr;
 
@@ -628,11 +606,9 @@ package body Arbre_Binaire is
          else
             T.Pere.Sad := null;--T est fils droit
          end if;
-         --Equilibrage_Arn(A);
       elsif T.Sag = null then
          if Est_Racine(T) then
             T.Sad.Pere := null;
-            --return T.Sad; maintenant que c'est une proc, obsolete
          elsif Filsgauche(T) then
             T.Pere.Sag := T.Sad;
             T.Sad.Pere := T.Pere;
@@ -640,13 +616,11 @@ package body Arbre_Binaire is
             T.Pere.Sad := T.Sad;
             T.Sad.Pere := T.Pere;
          end if;
-         --Equilibrage_Arn(A);--a verifier
          Liberer(T);--pas sur, mais ce devrait etre juste
       elsif T.Sad = null then
          --symetrique
          if Est_Racine(T) then
             T.Sag.Pere := null;
-            --return T.Sag; maintenant que c'est une proc, obsolete
          elsif Filsgauche(T) then
             T.Pere.Sag := T.Sag;
             T.Sag.Pere := T.Pere;
@@ -654,10 +628,9 @@ package body Arbre_Binaire is
             T.Pere.Sad := T.Sag;
             T.Sag.Pere := T.Pere;
          end if;
-         --Equilibrage_Arn(A);--a verifier
          Liberer(T);
       else
-         R := Rechercher(T);
+         R := RechercheR(T);
          --Comentaire de JCoudsi       
          --R.sad := T.sad;
          T.Racine := R.Racine;
