@@ -48,7 +48,7 @@ package Analyse_Lexicale is
    
    -- #################################################################################
    
-   -- Procedure auxiliaire liee a Creer_Fichier
+   -- Procedure auxiliaire liée à Creer_Fichier()
    
    procedure Ecriture_Dest_Txt1(T : in T_Trie; C : in String; F : in Natural; D : in File_Type);
    procedure Ecriture_Dest_Txt2(T : in T_Trie; C : in String; F : in Natural; D : in File_Type);
@@ -58,9 +58,9 @@ package Analyse_Lexicale is
    -- #################################################################################
    
    -- Procedure qui recrée la liste de couple a partir du fichier "liste-mot.txt"
-   -- le fichier n'est pas passé en parametre car il sera créé auparavant par la fonction Creer_Fichier
+   -- le fichier n'est pas passé en parametre car il sera créé auparavant par la fonction Creer_Fichier()
    -- et donc le fichier existera forcement et pourra etre ouvert dans le corps de la fonction
-   -- Declenche une exception si le fichier n'existe pas
+   -- Déclenche une exception si le fichier n'existe pas
    
    procedure Recup_Fichier (L : in out TListe_Couple);
    procedure Recup_Fichier (L : in out TListe_Triplet);

@@ -14,12 +14,22 @@ package body Trie is
       end loop;
       return new Cellule'(ST, 0, 0, 0, 0, 0);
    end;
+ 
+   function TrieVide (T : in T_Trie) return Boolean is
+   begin
+      return T = null;
+   end;
+   
+   function STVide (T : in T_Trie; I : Tindice) return Boolean is
+   begin
+      return Get_ST(T, I) = null;
+   end;
 
    procedure ViderTrie(T : in out T_Trie) is
    begin
       if not TrieVide(T) then
          for I in Tindice loop
-            if T.ST(I) /= null then
+            if Get_ST(T, I) /= null then
                ViderTrie(T.ST(I));
                Liberer(T.ST(I));
             end if;
@@ -27,50 +37,8 @@ package body Trie is
          T := null;
       end if;
    end;
-   
-   function TrieVide (T : in T_Trie) return Boolean is
-   begin
-      return T = null;
-   end;
-
-   function STVide (T : in T_Trie; I : Tindice) return Boolean is
-   begin
-      return Get_ST(T, I) = null;
-   end;
-
-   function Appartient_Txt1 (T : in T_Trie; M : in T_Mot) return Boolean is
-      C : Character;
-	  Mot : T_Mot;
-   begin
-      if TrieVide(T) then
-	     return false;
-      else
-         if MotVide(M) then
-		    return T.NbOccTxt1 > 0;
-	     else
-            C := Get_Char(M);
-            Mot := Get_CharSuffixe(M);
-            return Appartient_Txt1(T.ST(C), Mot);
-	     end if;
-      end if; 
-   end;
-   
-   function Appartient_Txt2 (T : in T_Trie; M : in T_Mot) return Boolean is
-      C : Character;
-	  Mot : T_Mot;   
-   begin
-      if TrieVide(T) then
-	     return false;
-	  else
-         if MotVide(M) then
-		    return T.NbOccTxt2 > 0;
-	     else
-            C := Get_Char(M);
-            Mot := Get_CharSuffixe(M);
-            return Appartient_Txt2(T.ST(C), Mot);
-	     end if;
-      end if; 
-   end;   
+     
+   -- #################################################################################
    
    function Get_ST (T : in T_Trie; I : in Tindice) return T_Trie is
    begin
@@ -101,6 +69,76 @@ package body Trie is
    begin
       return T.Prefixes;
    end;
+
+   -- #################################################################################
+   
+   procedure Set_ST (T : in out T_Trie; I : in Tindice; N : in T_Trie) is
+   begin
+      T.ST(I) := N;
+   end;
+   
+   procedure Set_NbOcc_Txt1 (T : in out T_Trie; N : Integer) is
+   begin
+      T.NbOccTxt1 := N;
+   end;
+	  
+   procedure Set_NbOcc_Txt2 (T : in out T_Trie; N : Integer) is
+   begin
+      T.NbOccTxt2 := N;
+   end;
+   
+   procedure Set_Fin_Txt1 (T : in out T_Trie; N : Integer) is
+   begin
+      T.FinTxt1 := N;
+   end;
+   
+   procedure Set_Fin_Txt2 (T : in out T_Trie; N : Integer) is
+   begin
+      T.FinTxt2 := N;
+   end;
+   
+   procedure Set_Prefixes (T : in out T_Trie; N : Integer) is
+   begin
+      T.Prefixes := N;
+   end;
+   
+   -- #################################################################################
+   
+   function Appartient_Txt1 (T : in T_Trie; M : in T_Mot) return Boolean is
+      C : Character;
+	  Mot : T_Mot;
+   begin
+      if TrieVide(T) then
+	     return False;
+      else
+         if MotVide(M) then
+		    return Get_NbOcc_Txt1(T) > 0;
+	     else
+            C := Get_Char(M);
+            Mot := Get_CharSuffixe(M);
+            return Appartient_Txt1(Get_ST(T, C), Mot);
+	     end if;
+      end if; 
+   end;
+   
+   function Appartient_Txt2 (T : in T_Trie; M : in T_Mot) return Boolean is
+      C : Character;
+	  Mot : T_Mot;   
+   begin
+      if TrieVide(T) then
+	     return false;
+	  else
+         if MotVide(M) then
+		    return Get_NbOcc_Txt2(T) > 0;
+	     else
+            C := Get_Char(M);
+            Mot := Get_CharSuffixe(M);
+            return Appartient_Txt2(Get_ST(T, C), Mot);
+	     end if;
+      end if; 
+   end;   
+
+   -- #################################################################################
    
    function AjouterMot_Txt1(T : in T_Trie; M : in T_Mot; N : in Integer; F : in Integer) return T_Trie is
       Trie : T_Trie;
@@ -110,16 +148,16 @@ package body Trie is
       if TrieVide(T) then
          Trie := CreerTrie;
          return AjouterMot_Txt1(Trie, M, N, F);
-      elsif MotVide(M) then
-         T.Prefixes := T.Prefixes + 1;
-         T.NbOccTxt1 := T.NbOccTxt1 + N;
-         T.FinTxt1 := F;
-         return T;
       else
-         T.Prefixes := T.Prefixes + 1;
-         C := Get_Char(M);
-         Mot := Get_CharSuffixe(M);
-         T.ST(C) := AjouterMot_Txt1(T.ST(C), Mot, N, F);
+	     T.Prefixes := Get_Prefixes(T) + 1;
+	     if MotVide(M) then
+            T.NbOccTxt1 := Get_NbOcc_Txt1(T) + N;
+            T.FinTxt1 := F;
+         else
+            C := Get_Char(M);
+            Mot := Get_CharSuffixe(M);
+            T.ST(C) := AjouterMot_Txt1(Get_ST(T, C), Mot, N, F);
+	     end if;
          return T;
       end if;
    end;
@@ -132,35 +170,36 @@ package body Trie is
       if TrieVide(T) then
          Trie := CreerTrie;
          return AjouterMot_Txt2(Trie, M, N, F);
-      elsif MotVide(M) then
-         T.Prefixes := T.Prefixes + 1;
-         T.NbOccTxt2 := T.NbOccTxt2 + N;
-         T.FinTxt2 := F;
-         return T;
       else
-         T.Prefixes := T.Prefixes + 1;
-         C := Get_Char(M);
-         Mot := Get_CharSuffixe(M);
-         T.ST(C) := AjouterMot_Txt2(T.ST(C), Mot, N, F);
+	     T.Prefixes := T.Prefixes + 1;
+	     if MotVide(M) then
+            T.NbOccTxt2 := Get_NbOcc_Txt2(T) + N;
+            T.FinTxt2 := F;
+         else
+            C := Get_Char(M);
+            Mot := Get_CharSuffixe(M);
+            T.ST(C) := AjouterMot_Txt2(T.ST(C), Mot, N, F);
+		 end if;
          return T;
       end if;
    end;
+   
+   -- #################################################################################
    
    procedure SupprimerMot_Txt1 (T : in out T_Trie; M : in T_Mot) is
       C : Character;
 	  Mot : T_Mot;
    begin
       if not TrieVide(T) then
+	     T.Prefixes := Get_Prefixes(T) - 1;
          if MotVide(M) then
-            T.Prefixes := T.Prefixes - 1;
-            T.NBOccTxt1 := 0;
+            T.NbOccTxt1 := 0;
 			T.FinTxt1 := 0;
 	     else
-            T.Prefixes := T.Prefixes - 1;
             C := Get_Char(M);
             Mot := Get_CharSuffixe(M);
             SupprimerMot_Txt1(T.ST(C), Mot);
-            if T.ST(C).Prefixes = 0 then
+            if Get_Prefixes(Get_ST(T, C)) = 0 then
 			   T.ST(C) := null;
 			end if;
          end if;
@@ -187,6 +226,8 @@ package body Trie is
          end if;
       end if;
    end;
+   
+   -- #################################################################################
    
    procedure AfficheTrie_Txt1(T : in T_Trie; C : in String; F : in Natural) is
       Chaine : String(1 .. 30);
@@ -236,6 +277,8 @@ package body Trie is
       end if;
    end;
 
+   -- #################################################################################
+   
    procedure Fusion_Txt1 (T : in out T_Trie; M1 : in T_Mot; M2 : in T_Mot) is
    begin
       if not TrieVide(T) and then Appartient_Txt1(T, M1) and then Appartient_Txt1(T, M2) then

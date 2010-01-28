@@ -18,24 +18,41 @@ package Mot is
 
    type T_Mot is private;
 
-   function Superieur_Mot(M1, M2 : T_Mot) return Boolean;
-   function Inferieur_Mot(M1, M2 : T_Mot) return Boolean;
-   function Egale_Mot(M1, M2 : T_Mot) return Boolean;
-
    function Creer_Mot(S : String) return T_Mot;
    function MotVide(M : T_Mot) return Boolean;
 
-   function Get_Char(M : T_Mot) return Character;
-      -- Renvoie le premier element de M  
-   function Get_CharSuffixe(M : T_Mot) return T_Mot;
-      -- Renvoie le T_Mot privé du premier element
-      
-   procedure Set_Chaine(M : in out T_Mot; S : in String);
+   -- #################################################################################
+   
+   -- Accesseurs en lecture aux éléments du T_Mot
+   
    function Get_Chaine(M : T_Mot) return String;
-
    function Get_Fin(M : T_Mot) return Integer;
+   
+   -- #################################################################################
+   
+   -- Accesseurs en écriture aux éléments du T_Mot
+   
+   procedure Set_Chaine(M : in out T_Mot; S : in String);
    procedure Set_Fin(M : in out T_Mot; I : in Integer);
-
+   
+   -- #################################################################################
+   
+   function Get_Char(M : T_Mot) return Character;
+   -- Renvoie le premier element de M  
+   
+   function Get_CharSuffixe(M : T_Mot) return T_Mot;
+   -- Renvoie le T_Mot privé du premier element
+	  
+   -- #################################################################################
+   
+   --- Redéfinition des fonctions "<", ">" et "=" pour un T_Mot
+   
+   function Superieur_Mot(M1, M2 : T_Mot) return Boolean;
+   function Inferieur_Mot(M1, M2 : T_Mot) return Boolean;
+   function Egale_Mot(M1, M2 : T_Mot) return Boolean;
+   
+   -- #################################################################################
+   
    function Compare_Mots(M1, M2 : T_Mot) return Boolean;
    function Compare_Chaine_Mot(S : String; M : T_Mot) return Boolean;
    --Compare une chaine avec le mot contenu dans T_Couple

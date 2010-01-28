@@ -7,17 +7,17 @@
 -- #                                                                               #
 -- #################################################################################
 
+-- Ce paquetage permet d'effectuer des opérations "statistiques" sur le texte analysé
+-- nombre total de mots, nombre de mots de longueur supérieur ou égale a un entier positif donné,
+-- longueur moyenne d'un mot, et surement d'autres plus tard
+
 with Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie;
 use Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie;
 
 package Text_Stat is
-
-   -- Ce paquetage permet d'effectuer des opérations "statistiques" sur le texte analysé
-   -- nombre total de mots, nombre de mots de longueur supérieur ou égale a un entier positif donné,
-   -- longueur moyenne d'un mot, et surement d'autres plus tard
-
-   --Effecture la division reelle de N par M
+   
    function Div_Float(N : in Integer; M : in Integer) return Float;
+   --Effecture la division reelle de N par M
 
    -- #################################################################################
    
