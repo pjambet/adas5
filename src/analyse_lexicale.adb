@@ -48,8 +48,10 @@ package body Analyse_Lexicale is
                C := To_Lower(C);
             end if;			
             if CaractereAutorise(C) then -- On crée le mot
-               Indice := Indice + 1;
-               Mot(Indice) := C;
+			   if Indice < Mot'Last then
+			      Indice := Indice + 1;
+                  Mot(Indice) := C;
+			   end if;
             else -- non(CaractereAutorise(C))
                Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
@@ -92,8 +94,10 @@ package body Analyse_Lexicale is
                C := To_Lower(C);
             end if;			
             if CaractereAutorise(C) then -- On crée le mot
-               Indice := Indice + 1;
-               Mot(Indice) := C;
+               if Indice < Mot'Last then
+			      Indice := Indice + 1;
+                  Mot(Indice) := C;
+			   end if;
             else -- non(CaractereAutorise(C))
                Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
@@ -134,8 +138,10 @@ package body Analyse_Lexicale is
                C := To_Lower(C);
             end if;			
             if CaractereAutorise(C) then -- On crée le mot			
-               Indice := Indice + 1;
-               Mot(Indice) := C;
+               if Indice < Mot'Last then
+			      Indice := Indice + 1;
+                  Mot(Indice) := C;
+			   end if;
             else -- non(CaractereAutorise(C))
                Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
@@ -179,8 +185,10 @@ package body Analyse_Lexicale is
                C := To_Lower(C);
             end if;			
             if CaractereAutorise(C) then -- On crée le mot
-               Indice := Indice + 1;
-               Mot(Indice) := C;
+               if Indice < Mot'Last then
+			      Indice := Indice + 1;
+                  Mot(Indice) := C;
+			   end if;
             else -- non(CaractereAutorise(C))
                Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
@@ -223,8 +231,10 @@ package body Analyse_Lexicale is
                C := To_Lower(C);
             end if;			
             if CaractereAutorise(C) then -- On crée le mot
-               Indice := Indice + 1;
-               Mot(Indice) := C;
+               if Indice <= Mot'Last then
+			      Indice := Indice + 1;
+                  Mot(Indice) := C;
+			   end if;
             else -- non(CaractereAutorise(C))
                Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
@@ -266,8 +276,10 @@ package body Analyse_Lexicale is
                C := To_Lower(C);
             end if;			
             if CaractereAutorise(C) then -- On crée le mot
-               Indice := Indice + 1;
-               Mot(Indice) := C;
+               if Indice < Mot'Last then
+			      Indice := Indice + 1;
+                  Mot(Indice) := C;
+			   end if;
             else -- non(CaractereAutorise(C))
                Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
@@ -310,8 +322,10 @@ package body Analyse_Lexicale is
                C := To_Lower(C);
             end if;			
             if CaractereAutorise(C) then -- On crée le mot
-               Indice := Indice + 1;
-               Mot(Indice) := C;
+               if Indice < Mot'Last then
+			      Indice := Indice + 1;
+                  Mot(Indice) := C;
+			   end if;
             else -- non(CaractereAutorise(C))
                Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
@@ -355,8 +369,10 @@ package body Analyse_Lexicale is
                C := To_Lower(C);
             end if;			
             if CaractereAutorise(C) then -- On crée le mot
-               Indice := Indice + 1;
-               Mot(Indice) := C;
+               if Indice < Mot'Last then
+			      Indice := Indice + 1;
+                  Mot(Indice) := C;
+			   end if;
             else -- non(CaractereAutorise(C))
                Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
