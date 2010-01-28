@@ -13,6 +13,10 @@ with Analyse_Lexicale, Trie, Text_Stat, Mot, Couple, Triplet, Liste_Couple, List
 use Analyse_Lexicale, Trie, Text_Stat, Mot, Couple, Triplet, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Ada.Text_IO, Ada.Integer_Text_IO, Ada.Float_Text_IO;
 
 procedure Main is
+   --Procedure principale.
+   --Toutes les fonctionnalités du projet son appelées par cette procedure
+   --Les erreurs de saisie sont récupérées et l'utilisateur a le choix de la structure de données
+   --souhaite utiliser.
 
    Menu, SMenu, NomFic : Boolean;
    Choix, NbMot, Num, NumMotTot, NumMotSupN, S : Integer;
@@ -801,7 +805,7 @@ begin
                      Put_Line("Fusion d'un mot dans un autre :");
                      Put_Line("Veuillez entrer le premier mot. (le conserve) ");
                      Get_Line(Buffer, Last);
-			   Mot1 := Creer_Mot(Buffer(1 .. Last));
+			Mot1 := Creer_Mot(Buffer(1 .. Last));
                      New_Line;
 
                      Put_Line("Veuillez entrer le deuxieme mot. (le fusione)");
@@ -809,12 +813,8 @@ begin
 			   Mot2 := Creer_Mot(Buffer(1 .. Last));
                      New_Line;
 
-			   Fusion_Txt1(T1, Mot1, Mot2);
-                     -- begin
-                       -- exception
-                       -- when Constraint_Error => Put_Line("Erreur de contrainte");
-                       -- when Liste_Couple.L.Listevideexception => Put_Line("Probleme : Element non trouves dans le trie");
-                     -- end;
+			Fusion_Txt1(T1, Mot1, Mot2);
+                     
                         
                   when 3 =>
 
