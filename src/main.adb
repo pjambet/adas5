@@ -267,7 +267,11 @@ begin
                      
                      Put_Line("Affichage des mots superieur a un entier N :");
                      Put_Line("Veuillez entrer un entier N.");
-                     Get(Num);
+                     begin
+                        Get(Num);
+                     exception
+                        when others => Put_Line("Abruti");
+                     end;
                      New_Line;
                      Put_Line("Nombre de mot superieur a" & Integer'Image(Num) & " :" & Integer'Image(Num_Mot_Sup(LT, Num)) & ".");
                      New_Line;
