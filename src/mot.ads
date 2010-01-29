@@ -12,10 +12,6 @@ use Ada.Text_IO;
 
 package Mot is
 
-   package Es_Entier is new Ada.Text_Io.Integer_Io(Integer);
-
-   use Es_Entier;
-
    type T_Mot is private;
 
    function Creer_Mot(S : String) return T_Mot;

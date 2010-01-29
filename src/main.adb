@@ -7,16 +7,15 @@
 -- #                                                                               #
 -- #################################################################################
 
--- TODO : Exception + Commentaires
+-- Procedure principale.
+-- Toutes les fonctionnalités du projet son appelées par cette procedure
+-- Les erreurs de saisie sont récupérées et l'utilisateur a le choix de la structure de données
+-- souhaite utiliser.
 
 with Analyse_Lexicale, Trie, Text_Stat, Mot, Couple, Triplet, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Ada.Text_IO, Ada.Integer_Text_IO, Ada.Float_Text_IO;
 use Analyse_Lexicale, Trie, Text_Stat, Mot, Couple, Triplet, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Ada.Text_IO, Ada.Integer_Text_IO, Ada.Float_Text_IO;
 
 procedure Main is
-   --Procedure principale.
-   --Toutes les fonctionnalités du projet son appelées par cette procedure
-   --Les erreurs de saisie sont récupérées et l'utilisateur a le choix de la structure de données
-   --souhaite utiliser.
 
    Menu, SMenu, NomFic : Boolean;
    Choix, NbMot, Num, NumMotTot, NumMotSupN, S : Integer;
@@ -40,9 +39,9 @@ procedure Main is
       begin
          Get(A);
       exception
-         when Data_Error => Put("Erreur de saisie, saisies un ENTIER !");            
+         when Data_Error => Put("Erreur de saisie, veuillez entrer un ENTIER !");            
             New_Line;
-            Skip_Line;            
+            Skip_Line;    
             Get_Int(A);
             N := A;
       end;
@@ -495,6 +494,7 @@ begin
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
                      Get_Int(NbMot);
+					 New_Line;
                      AffichageN(AB, NbMot);
                      
                      Skip_Line;
@@ -515,7 +515,7 @@ begin
                         when Constraint_Error => Put_Line("Erreur de contrainte");
                         when Arbre_Binaire_Couple.AB.ArbreVideException => Put_Line("Probleme : Element non trouves dans l'arbre");
                      end;
-			New_Line;
+                     New_Line;
 
                   when 3 =>
 
@@ -527,7 +527,7 @@ begin
 
                   when 5 =>
 
-                     Affiche_Inf(Ab);
+					 Affiche_Inf(Ab);
                      New_Line;
 
                   when 6 =>
@@ -618,7 +618,8 @@ begin
 
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
-                     Get_Int(NbMot);                        
+                     Get_Int(NbMot);
+                     New_Line;                     
                      AffichageN(ABT, NbMot);
                        
                      Skip_Line;
@@ -934,19 +935,20 @@ begin
 
                      Put_Line("Affichage des N premiers mots en fonction de leur nombre d'occurence :");
                      Put_Line("Veuillez entrer le nombre N de mots a afficher.");
-                     Get_Int(NbMot);			   
+                     Get_Int(NbMot);
+					 New_Line;
                      AffichageN_Txt2(T2, NbMot);
                      
                      Skip_Line;
                      Put_Line("Fusion d'un mot dans un autre :");
                      Put_Line("Veuillez entrer le premier mot. (le conserve) ");
                      Get_Line(Buffer, Last);
-			   Mot1 := Creer_Mot(Buffer(1 .. Last));
+                     Mot1 := Creer_Mot(Buffer(1 .. Last));
                      New_Line;
 
                      Put_Line("Veuillez entrer le deuxieme mot. (le fusione)");
                      Get_Line(Buffer, Last);
-			   Mot2 := Creer_Mot(Buffer(1 .. Last));
+                     Mot2 := Creer_Mot(Buffer(1 .. Last));
                      New_Line;
 
                      Fusion_Txt2(T2, Mot1, Mot2);
@@ -999,8 +1001,6 @@ begin
             New_Line;
             Skip_Line;
             Main;
-         when others => Put_Line("Une erreur irrecuperable est survenue");
-               
-
+         when others => Put_Line("Une erreur irrecuperable est survenue !");
 
 end;
