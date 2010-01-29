@@ -997,10 +997,9 @@ begin
       end loop;
       
       exception
-         when Data_Error => Put("Erreur Globale !");
+         when Others => Put("Une erreur irrecuperable est survenue !");
             New_Line;
             Skip_Line;
             Main;
-         when others => Put_Line("Une erreur irrecuperable est survenue !");
 
 end;
