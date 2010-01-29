@@ -53,7 +53,7 @@ package body Analyse_Lexicale is
                   Mot(Indice) := C;
 			   end if;
             else -- non(CaractereAutorise(C))
-               Put(".");
+               ----Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
                   Couple := Creer_Couple(M, 1);
@@ -99,7 +99,7 @@ package body Analyse_Lexicale is
                   Mot(Indice) := C;
 			   end if;
             else -- non(CaractereAutorise(C))
-               Put(".");
+               --Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
                   Triplet := Creer_Triplet(M, 1, 0);
@@ -143,7 +143,7 @@ package body Analyse_Lexicale is
                   Mot(Indice) := C;
 			   end if;
             else -- non(CaractereAutorise(C))
-               Put(".");
+               --Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
                   Triplet := Creer_Triplet(M, 0, 1);
@@ -190,7 +190,7 @@ package body Analyse_Lexicale is
                   Mot(Indice) := C;
 			   end if;
             else -- non(CaractereAutorise(C))
-               Put(".");
+               --Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
                   Couple := Creer_Couple(M, 1);
@@ -236,7 +236,7 @@ package body Analyse_Lexicale is
                   Mot(Indice) := C;
 			   end if;
             else -- non(CaractereAutorise(C))
-               Put(".");
+               --Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
                   Triplet := Creer_Triplet(M, 1, 0);
@@ -281,7 +281,7 @@ package body Analyse_Lexicale is
                   Mot(Indice) := C;
 			   end if;
             else -- non(CaractereAutorise(C))
-               Put(".");
+               --Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
                   Triplet := Creer_Triplet(M, 0, 1);
@@ -327,7 +327,7 @@ package body Analyse_Lexicale is
                   Mot(Indice) := C;
 			   end if;
             else -- non(CaractereAutorise(C))
-               Put(".");
+               --Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
                   T := AjouterMot_Txt1(T, M, 1, Indice); -- Ajoute dans le trie le premier mot significatif
@@ -374,7 +374,7 @@ package body Analyse_Lexicale is
                   Mot(Indice) := C;
 			   end if;
             else -- non(CaractereAutorise(C))
-               Put(".");
+               --Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
                   T := AjouterMot_Txt2(T, M, 1, Indice); -- Ajoute dans le trie le premier mot significatif
@@ -405,7 +405,7 @@ package body Analyse_Lexicale is
          Put(Dest, Get_Chaine(Get_Mot(Premier(Temp)))(1 .. Get_Fin(Get_Mot(Premier(Temp)))));
          Put_Line(Dest, Integer'Image(Get_NbOcc(Premier(Temp))));
          Temp := Suivant(Temp);
-         Put(".");
+         --Put(".");
       end loop;
       New_Line(Dest);
       Close(Dest);
@@ -425,7 +425,7 @@ package body Analyse_Lexicale is
          Put(Dest, Get_Chaine(Get_Mot(Premier(Temp)))(1 .. Get_Fin(Get_Mot(Premier(Temp)))));
          Put_Line(Dest, Integer'Image(Get_NbOcc_Txt1(Premier(Temp))) & Integer'Image(Get_NbOcc_Txt2(Premier(Temp))));
          Temp := Suivant(Temp);
-         Put(".");
+         --Put(".");
       end loop;
       New_Line(Dest); -- antibug
       Close(Dest);
@@ -448,7 +448,7 @@ package body Analyse_Lexicale is
                   Chaine(Fin) := I;
                end if;
                if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 then -- nbOcc = 1 ou +
-                  Put(".");
+                  --Put(".");
                   Put(D, Chaine(Chaine'First .. Fin));
                   Put_Line(D, Integer'Image(Get_NbOcc_Txt1(Get_ST(T, I))));
                end if;
@@ -473,7 +473,7 @@ package body Analyse_Lexicale is
                   Chaine(Fin) := I;
                end if;
                if Get_NbOcc_Txt1(Get_ST(T, I)) > 0 or else Get_NbOcc_Txt2(Get_ST(T, I)) > 0 then -- nbOccTxt1 = 1+ ou nbOccTxt2 = 1+
-                  Put(".");
+                  --Put(".");
                   Put(D, Chaine(Chaine'First .. Fin));
                   Put_Line(D, Integer'Image(Get_NbOcc_Txt1(Get_ST(T, I))) & Integer'Image(Get_NbOcc_Txt2(Get_ST(T, I))));
                end if;
@@ -488,7 +488,7 @@ package body Analyse_Lexicale is
    begin
       if not Arbre_Vide(AB) then
          Ecriture_Dest_Txt1(sag(ab),D);
-         Put(".");
+         --Put(".");
          Put(D, Get_Chaine(Get_Mot(Lire_Racine(AB)))(1 .. Get_Fin(Get_Mot(Lire_Racine(AB)))));
          Put_Line(D, Integer'Image(Get_Nbocc(Lire_Racine(AB))));
          Ecriture_Dest_Txt1(sad(ab),D);
@@ -499,7 +499,7 @@ package body Analyse_Lexicale is
    begin
       if not Arbre_Vide(AB) then
          Ecriture_Dest_Txt2(sag(ab),D);
-         Put(".");
+         --Put(".");
          Put(D, Get_Chaine(Get_Mot(Lire_Racine(AB)))(1 .. Get_Fin(Get_Mot(Lire_Racine(AB)))));
          Put_Line(D, Integer'Image(Get_Nbocc_Txt1(Lire_Racine(AB))) & Integer'Image(Get_NbOcc_Txt2(Lire_racine(AB))));
          Ecriture_Dest_Txt2(sad(ab),D);
@@ -597,7 +597,7 @@ package body Analyse_Lexicale is
             else
                Couple := Creer_Couple(M, NbOcc);
                InsererTriee_Couple_Lex(L, Couple);
-               Put(".");
+               --Put(".");
                Skip_Line(Orig);
             end if;
          end loop;
@@ -652,7 +652,7 @@ package body Analyse_Lexicale is
             else
                Triplet := Creer_Triplet(M, NbOcc1, NbOcc2);
                InsererTriee_Triplet_OccS(L, Triplet);
-               Put(".");
+               --Put(".");
                Skip_Line(Orig);
             end if;
          end loop;
@@ -698,7 +698,7 @@ package body Analyse_Lexicale is
             else
                Couple := Creer_Couple(M, NbOcc);
                Inserer_ARN_Couple(A, Couple);
-               Put(".");
+               --Put(".");
                Skip_Line(Orig);
             end if;
          end loop;
@@ -753,7 +753,7 @@ package body Analyse_Lexicale is
             else
                Triplet := Creer_Triplet(M, NbOcc1, NbOcc2);
                Inserer_ARN_Triplet_OccS(A, Triplet);
-               Put(".");
+               --Put(".");
                Skip_Line(Orig);
             end if;
          end loop;
@@ -796,7 +796,7 @@ package body Analyse_Lexicale is
                end if;
             else
                T := AjouterMot_Txt1(T, M, NbOcc, 0);
-               Put(".");
+               --Put(".");
                Skip_Line(Orig);
             end if;
          end loop;
@@ -850,7 +850,7 @@ package body Analyse_Lexicale is
             else
                T := AjouterMot_Txt1(T, M, NbOcc1, Indice);
                T := AjouterMot_Txt2(T, M, NbOcc2, Indice);
-               Put(".");
+               --Put(".");
                Skip_Line(Orig);
             end if;
          end loop;
