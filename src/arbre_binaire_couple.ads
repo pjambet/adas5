@@ -2,10 +2,12 @@
 -- #                                                                               #
 -- #   Nom : arbre_binaire_couple.ads                                              #
 -- #   Auteur : JAMBET Pierre                                                      #
--- #   Date de création : 21/01/2010                                               #
+-- #   Date de creation : 21/01/2010                                               #
 -- #   Date de modification : 28/01/2010                                           #   
 -- #                                                                               #
 -- #################################################################################
+
+--Ce paquetage est une instanciation du paquetage arbre_binaire avec le type couple
 
 with Arbre_Binaire, Couple;
 use Couple;

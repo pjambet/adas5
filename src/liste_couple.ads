@@ -7,6 +7,8 @@
 -- #                                                                               #
 -- #################################################################################
 
+--Ce paquetage est une instancation de listegen sur le type couple
+
 with Listegen, Couple;
 use Couple;
 

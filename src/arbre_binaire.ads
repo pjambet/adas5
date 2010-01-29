@@ -2,13 +2,16 @@
 -- #                                                                               #
 -- #   Nom : arbre_binaire.ads                                                     #
 -- #   Auteur : JAMBET Pierre                                                      #
--- #   Date de création : 17/01/2010                                               #
+-- #   Date de creation : 17/01/2010                                               #
 -- #   Date de modification : 28/01/2010                                           #   
 -- #                                                                               #
 -- #################################################################################
 
--- Le type T_ABR est un type access sur une Cellule
--- Le type Cellule est un agrégat d'une valeur T_Elem, de la couleujr du noeud, et des éléments père/fils gauche/fils droit (Arbre Binaire de Recherche Rouge et Noir)
+--Ce paquetage est une implementation du type Arbre Rouge & Noir (ARN)
+--Nous avons choisi de faire un ARN au lieu d'un ABR car de cette maniere a chaque insertion dans l'arbre, ce dernier
+--est equilibre, ainsi les performances sur le parcours de ce dernier sont optimisées
+--Le type T_ABR est un type access sur une Cellule
+--Le type Cellule est un agrégat d'une valeur T_Elem, de la couleur du noeud, et des éléments père/fils gauche/fils droit (Arbre Binaire de Recherche Rouge et Noir)
 
 generic
 

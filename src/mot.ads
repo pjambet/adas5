@@ -7,11 +7,16 @@
 -- #                                                                               #
 -- #################################################################################
 
+--Nous avons choisi de definir le type mot par une chaine de 30 caracteres
+--En effet dans la langue francaise le plus long mot étant de 26 lettre, nous avons
+--choisi une taille maximale legerement superieure pour eviter tout probleme.
+--Les éventuels mots de plus de 30 lettres ne seront donc pas enregistrés dans leur totalité
+
 with Ada.Text_IO;
 use Ada.Text_IO;
 
 package Mot is
-
+  
    type T_Mot is private;
 
    function Creer_Mot(S : String) return T_Mot;

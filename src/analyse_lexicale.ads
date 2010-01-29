@@ -2,19 +2,20 @@
 -- #                                                                               #
 -- #   Nom : anaylyse_lexicale.ads                                                 #
 -- #   Auteur : DREYER Quentin                                                     #
--- #   Date de création : 06/12/2009                                               #
+-- #   Date de creation : 06/12/2009                                               #
 -- #   Date de modification : 28/01/2010                                           #   
 -- #                                                                               #
 -- #################################################################################
+
+--Package contenant l'ensemble des fonctions de type "requetes" (suffixe,prefixe, nombre d'occurence etc ...)
+--La majorité des fonctions sont surchargés afin d'etre utilisable avec les listes, les arbres et les tries
+--Chacune des structures peut etre utilisée avec les Couples (Mot + NbOcc) ou avec des triplets (Mot + NbOcc du texte 1 + NbOcc du texte 2)
 
 with Mot, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie;
 use Mot, Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie;
 
 package Analyse_Lexicale is
-   --Package contenant l'ensemble des fonctions de type "requetes" (suffixe,prefixe, nombre d'occurence etc ...)
-   --La majorité des fonctions sont surchargés afin d'etre utilisable avec les listes, les arbres et les tries
-   --Chacune des structures peut etre utilisée avec les Couples (Mot + NbOcc) ou avec des triplets (Mot + NbOcc du texte 1 + NbOcc du texte 2)
-
+   
    function CaractereAutorise (C : in Character) return Boolean;
    -- Renvoit vrai si le caractere est autorise en tant que caractere d'un mot, faux sinon
    

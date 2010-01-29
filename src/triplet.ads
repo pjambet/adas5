@@ -7,8 +7,11 @@
 -- #                                                                               #
 -- #################################################################################
 
--- Le type T_Triplet est un agr√©gat d'un T_Mot, d'un entier repr√©sentant le nombre d'occurence du mot dans le texte 1
--- et d'un autre entier repr√©sentant le nombre d'occurence du mot dans le texte 2
+--Le type T_Triplet est un agregat d'un T_Mot, d'un entier representant le nombre d'occurence du mot dans le texte 1
+--et d'un autre entier representant le nombre d'occurence du mot dans le texte 2
+--Nous avons choisi d'utiliser cette structure pour rÈpondre aux besoins de la R2 car nous voulions
+--une structure proche de notre structure originale(couple). Nous avons donc uniquement rajoutÈ une variable dans le
+--record. 
 
 with Mot;
 use Mot;

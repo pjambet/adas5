@@ -2,10 +2,12 @@
 -- #                                                                               #
 -- #   Nom : arbre_binaire_triplet.ads                                             #
 -- #   Auteur : JAMBET Pierre                                                      #
--- #   Date de création : 19/01/2010                                               #
+-- #   Date de creation : 19/01/2010                                               #
 -- #   Date de modification : 28/01/2010                                           #   
 -- #                                                                               #
 -- #################################################################################
+
+--Ce paquetage est une instanciation du paquetage arbre_binaire avec le type triplet
 
 with Arbre_Binaire, Triplet;
 use Triplet;

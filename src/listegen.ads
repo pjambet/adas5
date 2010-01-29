@@ -7,8 +7,9 @@
 -- #                                                                               #
 -- #################################################################################
 
--- Le type T_Liste est un type access sur une Cellule
--- Le type Cellule est un agrégat d'une valeur T_Elem, ainsi que les éléments suivants et précédents. (Liste doublement chaînée)
+--Ce package est celui que nous avions créé en TP concernant les listes chainées, il est generique.
+--Le type T_Liste est un type access sur une Cellule
+--Le type Cellule est un agrégat d'une valeur T_Elem, ainsi que les éléments suivants et précédents. (Liste doublement chaînée)
 
 generic
 

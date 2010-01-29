@@ -7,6 +7,8 @@
 -- #                                                                               #
 -- #################################################################################
 
+--Ce paquetage est une instancation de listegen sur le type triplet
+
 with Listegen, Triplet;
 use Triplet;
 
@@ -43,35 +45,35 @@ package Liste_Triplet is
 
    -- #################################################################################
    
-   -- Instanciation des fonctions relatives √† l'insertion par ordre lexicographique du texte 1
+   -- Instanciation des fonctions relatives √  l'insertion par ordre lexicographique du texte 1
  
    procedure InsererTriee_Triplet_Lex_Txt1 is new LT.InsererTriee(Superieur_Triplet_Lex, Inferieur_Triplet_Lex, Traitement_Doublon_Triplet_Txt1);
    function CopieTriee_Triplet_Lex_Txt1 is new LT.CopieTriee(InsererTriee_Triplet_Lex_Txt1);
 
    -- #################################################################################
    
-   -- Instanciation des fonctions relatives √† l'insertion par ordre lexicographique du texte 2
+   -- Instanciation des fonctions relatives √  l'insertion par ordre lexicographique du texte 2
    
    procedure InsererTriee_Triplet_Lex_Txt2 is new LT.InsererTriee(Superieur_Triplet_Lex, Inferieur_Triplet_Lex, Traitement_Doublon_Triplet_Txt2);
    function CopieTriee_Triplet_Lex_Txt2 is new LT.CopieTriee(InsererTriee_Triplet_Lex_Txt2);
 
    -- #################################################################################
    
-   -- Instanciation des fonctions relatives √† l'insertion par nombre d'occurence d√©croissante du texte 1
+   -- Instanciation des fonctions relatives √  l'insertion par nombre d'occurence d√©croissante du texte 1
 
    procedure InsererTriee_Triplet_Occ1 is new LT.InsererTriee(Superieur_Triplet_Occ1, Inferieur_Triplet_Occ1, Traitement_Doublon_Triplet_Txt1);   
    function CopieTriee_Triplet_Occ1 is new LT.CopieTriee(InsererTriee_Triplet_Occ1);
 
    -- #################################################################################
    
-   -- Instanciation des fonctions relatives √† l'insertion par nombre d'occurence d√©croissante du texte 2
+   -- Instanciation des fonctions relatives √  l'insertion par nombre d'occurence d√©croissante du texte 2
    
    procedure InsererTriee_Triplet_Occ2 is new LT.InsererTriee(Superieur_Triplet_Occ2, Inferieur_Triplet_Occ2, Traitement_Doublon_Triplet_Txt2);   
    function CopieTriee_Triplet_Occ2 is new LT.CopieTriee(InsererTriee_Triplet_Occ2);
 
    -- #################################################################################
    
-   -- Instanciation des fonctions relatives √† l'insertion par somme du nombre d'occurence
+   -- Instanciation des fonctions relatives √  l'insertion par somme du nombre d'occurence
    
    procedure InsererTriee_Triplet_OccS is new LT.InsererTriee(Superieur_Triplet_OccS, Inferieur_Triplet_OccS, Traitement_Doublon_Triplet_Som);   
    function CopieTriee_Triplet_OccS is new LT.CopieTriee(InsererTriee_Triplet_OccS);

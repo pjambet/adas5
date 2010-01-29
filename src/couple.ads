@@ -7,7 +7,9 @@
 -- #                                                                               #
 -- #################################################################################
 
--- Le type Couple est un agrégat d'un T_Mot et du nombre d'occurence de ce mot
+--Le type Couple est un agrégat d'un T_Mot et du nombre d'occurence de ce mot
+--C'est le type que nous avons créé pour la R1 afin d'enregistrer dans la liste le mot
+--ainsi que son nombre d'occurence.
 
 with Mot;
 use Mot;

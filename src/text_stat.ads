@@ -3,13 +3,15 @@
 -- #   Nom : text_stat.ads                                                         #
 -- #   Auteur : DREYER Quentin                                                     #
 -- #   Date de création : 06/12/2009                                               #
--- #   Date de modification : 28/01/2010                                           #   
+-- #   Date de modification : 25/01/2010                                           #   
 -- #                                                                               #
 -- #################################################################################
 
--- Ce paquetage permet d'effectuer des opérations "statistiques" sur le texte analysé
--- nombre total de mots, nombre de mots de longueur supérieur ou égale a un entier positif donné,
--- longueur moyenne d'un mot, et surement d'autres plus tard
+--Ce paquetage permet d'effectuer des opérations "statistiques" sur le texte analysé
+--nombre total de mots, nombre de mots de longueur supérieur ou égale a un entier positif donné,
+--longueur moyenne d'un mot
+--La majorité des fonctions ont été surchargés afin d'etre utilisable sur nos trois
+--structures de données
 
 with Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie;
 use Liste_Couple, Liste_Triplet, Arbre_Binaire_Couple, Arbre_Binaire_Triplet, Trie;
