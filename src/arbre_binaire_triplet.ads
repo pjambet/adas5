@@ -3,7 +3,7 @@
 -- #   Nom : arbre_binaire_triplet.ads                                             #
 -- #   Auteur : JAMBET Pierre                                                      #
 -- #   Date de création : 19/01/2010                                               #
--- #   Date de modification : 25/01/2010                                           #   
+-- #   Date de modification : 28/01/2010                                           #   
 -- #                                                                               #
 -- #################################################################################
 

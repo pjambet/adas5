@@ -3,7 +3,7 @@
 -- #   Nom : arbre_binaire_couple.ads                                              #
 -- #   Auteur : JAMBET Pierre                                                      #
 -- #   Date de création : 21/01/2010                                               #
--- #   Date de modification : 23/01/2010                                           #   
+-- #   Date de modification : 28/01/2010                                           #   
 -- #                                                                               #
 -- #################################################################################
 

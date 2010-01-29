@@ -3,7 +3,7 @@
 -- #   Nom : couple.ads                                                            #
 -- #   Auteur : JAMBET Pierre                                                      #
 -- #   Date de création : 06/12/2009                                               #
--- #   Date de modification : 23/01/2010                                           #   
+-- #   Date de modification : 28/01/2010                                           #   
 -- #                                                                               #
 -- #################################################################################
 

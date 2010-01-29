@@ -3,7 +3,7 @@
 -- #   Nom : mot.ads                                                               #
 -- #   Auteur : JAMBET Pierre                                                      #
 -- #   Date de création : 17/12/2009                                               #
--- #   Date de modification : 17/01/2010                                           #   
+-- #   Date de modification : 18/01/2010                                           #   
 -- #                                                                               #
 -- #################################################################################
 
