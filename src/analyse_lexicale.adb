@@ -47,8 +47,8 @@ package body Analyse_Lexicale is
             if Is_Upper(C) then
                C := To_Lower(C);
             end if;			
-            if CaractereAutorise(C) then -- On crée le mot
-			   if Indice < Mot'Last then
+            if CaractereAutorise(C) and then Indice < Mot'Last then -- On crée le mot
+			   if (((C = Character'Val(45) or else C = Character'Val(39)) and then Indice > 0) or else (C /= Character'Val(45) and thencalc C /= Character'Val(39))) then
 			      Indice := Indice + 1;
                   Mot(Indice) := C;
 			   end if;
