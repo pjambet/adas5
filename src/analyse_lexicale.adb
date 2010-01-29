@@ -236,7 +236,6 @@ package body Analyse_Lexicale is
                   Mot(Indice) := C;
 			   end if;
             else -- non(CaractereAutorise(C))
-			   Put_Line(Get_Chaine(M));
                --Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
