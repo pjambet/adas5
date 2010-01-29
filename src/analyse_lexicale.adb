@@ -231,11 +231,12 @@ package body Analyse_Lexicale is
                C := To_Lower(C);
             end if;			
             if CaractereAutorise(C) then -- On crée le mot
-               if Indice <= Mot'Last then
+               if Indice < Mot'Last then
 			      Indice := Indice + 1;
                   Mot(Indice) := C;
 			   end if;
             else -- non(CaractereAutorise(C))
+			   Put_Line(Get_Chaine(M));
                --Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
