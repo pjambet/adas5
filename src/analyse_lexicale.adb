@@ -47,13 +47,10 @@ package body Analyse_Lexicale is
             if Is_Upper(C) then
                C := To_Lower(C);
             end if;			
-            if CaractereAutorise(C) and then Indice < Mot'Last then -- On crée le mot
-			   if (((C = Character'Val(45) or else C = Character'Val(39)) and then Indice > 0) or else (C /= Character'Val(45) and thencalc C /= Character'Val(39))) then
+            if CaractereAutorise(C) and then Indice < Mot'Last and then (((C = Character'Val(45) or else C = Character'Val(39)) and then Indice > 0) or else (C /= Character'Val(45) and then C /= Character'Val(39))) then -- On crée le mot
 			      Indice := Indice + 1;
                   Mot(Indice) := C;
-			   end if;
             else -- non(CaractereAutorise(C))
-               ----Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
                   Couple := Creer_Couple(M, 1);
@@ -96,13 +93,10 @@ package body Analyse_Lexicale is
             if Is_Upper(C) then
                C := To_Lower(C);
             end if;			
-            if CaractereAutorise(C) then -- On crée le mot
-               if Indice < Mot'Last then
+            if CaractereAutorise(C) and then Indice < Mot'Last and then (((C = Character'Val(45) or else C = Character'Val(39)) and then Indice > 0) or else (C /= Character'Val(45) and then C /= Character'Val(39))) then -- On crée le mot
 			      Indice := Indice + 1;
                   Mot(Indice) := C;
-			   end if;
             else -- non(CaractereAutorise(C))
-               --Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
                   Triplet := Creer_Triplet(M, 1, 0);
@@ -145,13 +139,10 @@ package body Analyse_Lexicale is
             if Is_Upper(C) then
                C := To_Lower(C);
             end if;			
-            if CaractereAutorise(C) then -- On crée le mot			
-               if Indice < Mot'Last then
+            if CaractereAutorise(C) and then Indice < Mot'Last and then (((C = Character'Val(45) or else C = Character'Val(39)) and then Indice > 0) or else (C /= Character'Val(45) and then C /= Character'Val(39))) then -- On crée le mot
 			      Indice := Indice + 1;
                   Mot(Indice) := C;
-			   end if;
             else -- non(CaractereAutorise(C))
-               --Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
                   Triplet := Creer_Triplet(M, 0, 1);
@@ -194,13 +185,10 @@ package body Analyse_Lexicale is
             if Is_Upper(C) then
                C := To_Lower(C);
             end if;			
-            if CaractereAutorise(C) then -- On crée le mot
-               if Indice < Mot'Last then
+            if CaractereAutorise(C) and then Indice < Mot'Last and then (((C = Character'Val(45) or else C = Character'Val(39)) and then Indice > 0) or else (C /= Character'Val(45) and then C /= Character'Val(39))) then -- On crée le mot
 			      Indice := Indice + 1;
                   Mot(Indice) := C;
-			   end if;
             else -- non(CaractereAutorise(C))
-               --Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
                   Couple := Creer_Couple(M, 1);
@@ -243,13 +231,10 @@ package body Analyse_Lexicale is
             if Is_Upper(C) then
                C := To_Lower(C);
             end if;			
-            if CaractereAutorise(C) then -- On crée le mot
-               if Indice < Mot'Last then
+            if CaractereAutorise(C) and then Indice < Mot'Last and then (((C = Character'Val(45) or else C = Character'Val(39)) and then Indice > 0) or else (C /= Character'Val(45) and then C /= Character'Val(39))) then -- On crée le mot
 			      Indice := Indice + 1;
                   Mot(Indice) := C;
-			   end if;
             else -- non(CaractereAutorise(C))
-               --Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
                   Triplet := Creer_Triplet(M, 1, 0);
@@ -293,13 +278,10 @@ package body Analyse_Lexicale is
             if Is_Upper(C) then
                C := To_Lower(C);
             end if;			
-            if CaractereAutorise(C) then -- On crée le mot
-               if Indice < Mot'Last then
+            if CaractereAutorise(C) and then Indice < Mot'Last and then (((C = Character'Val(45) or else C = Character'Val(39)) and then Indice > 0) or else (C /= Character'Val(45) and then C /= Character'Val(39))) then -- On crée le mot
 			      Indice := Indice + 1;
                   Mot(Indice) := C;
-			   end if;
             else -- non(CaractereAutorise(C))
-               --Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
                   Triplet := Creer_Triplet(M, 0, 1);
@@ -341,13 +323,10 @@ package body Analyse_Lexicale is
             if Is_Upper(C) then
                C := To_Lower(C);
             end if;			
-            if CaractereAutorise(C) then -- On crée le mot
-               if Indice < Mot'Last then
+            if CaractereAutorise(C) and then Indice < Mot'Last and then (((C = Character'Val(45) or else C = Character'Val(39)) and then Indice > 0) or else (C /= Character'Val(45) and then C /= Character'Val(39))) then -- On crée le mot
 			      Indice := Indice + 1;
                   Mot(Indice) := C;
-			   end if;
             else -- non(CaractereAutorise(C))
-               --Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
                   T := AjouterMot_Txt1(T, M, 1, Indice); -- Ajoute dans le trie le premier mot significatif
@@ -388,13 +367,10 @@ package body Analyse_Lexicale is
             if Is_Upper(C) then
                C := To_Lower(C);
             end if;			
-            if CaractereAutorise(C) then -- On crée le mot
-               if Indice < Mot'Last then
+            if CaractereAutorise(C) and then Indice < Mot'Last and then (((C = Character'Val(45) or else C = Character'Val(39)) and then Indice > 0) or else (C /= Character'Val(45) and then C /= Character'Val(39))) then -- On crée le mot
 			      Indice := Indice + 1;
                   Mot(Indice) := C;
-			   end if;
             else -- non(CaractereAutorise(C))
-               --Put(".");
                M := Creer_Mot(Mot(1 .. Indice));
                if EstMotSignificatif(M) then
                   T := AjouterMot_Txt2(T, M, 1, Indice); -- Ajoute dans le trie le premier mot significatif
